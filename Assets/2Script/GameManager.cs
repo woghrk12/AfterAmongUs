@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 	public Region playerRegion;
 	public PointManager pointManager;
 
+	[SerializeField] private GameObject enemy;
+
 	private void Awake()
 	{
 		var objs = FindObjectsOfType<GameManager>();
@@ -46,6 +48,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+		StartCoroutine(SpawnEnemy());
     }
+
+	IEnumerator SpawnEnemy()
+	{
+		yield return new WaitForSeconds(3f);
+
+		enemy.SetActive(true);
+	}
 }

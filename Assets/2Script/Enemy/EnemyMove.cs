@@ -17,7 +17,8 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private Transform target;
     
     private Point startPoint, targetPoint, curPoint;
-    private List<Point> openList, closedList, finalList;
+    private List<Point> openList, closedList;
+    [SerializeField] private List<Point> finalList;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class EnemyMove : MonoBehaviour
     private void FixedUpdate()
     {
         //Chase(target);    
+        
     }
 
     public void SetTarget(Transform _target)
@@ -50,7 +52,7 @@ public class EnemyMove : MonoBehaviour
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
-    private void FindPath(Region _target)
+    public void FindPath(Region _target)
     {
         startPoint = pointManager.GetPoint(region.dstPoint);
         targetPoint = pointManager.GetPoint(_target.dstPoint);
@@ -87,16 +89,22 @@ public class EnemyMove : MonoBehaviour
 
             // add adjacent points 
             List<Point> adjList = curPoint.adj_Point;
+            List<float> adjWeight = curPoint.adj_Weight;
             for (int i = 0; i < adjList.Count; i++)
-                OpenListAdd(adjList[i]);
+                OpenListAdd(adjList[i], adjWeight[i]);
         }
     }
 
-    private void OpenListAdd(Point _point)
+    private void OpenListAdd(Point _point, float _weight)
     {
-        if (!closedList.Contains(_point))
-        { 
+        if (closedList.Contains(_point)) return;
+
+        if (openList.Contains(_point) && curPoint.G + _weight > _point.G) return;
+
+        _point.SetParent(curPoint);
+        _point.SetG(_weight);
+        _point.SetH(_point.transform.position, targetPoint.transform.position);
         
-        }
+        openList.Add(_point);
     }
 }

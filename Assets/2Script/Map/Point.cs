@@ -11,7 +11,7 @@ public class Point : MonoBehaviour
 
     public int numPoint;
 
-    public float G = 0, H;
+    public float G, H;
     public float F { get { return G + H; } }
 
     private void Awake()
@@ -37,7 +37,7 @@ public class Point : MonoBehaviour
         }
     }
 
-    public void SetG(int _weight)
+    public void SetG(float _weight)
     {
         G = parentPoint.G + _weight;
     }
@@ -45,5 +45,10 @@ public class Point : MonoBehaviour
     public void SetH(Vector2 curPoint, Vector2 targetPoint)
     {
         H = DistXY(curPoint, targetPoint);
+    }
+
+    public void SetParent(Point _parent)
+    {
+        parentPoint = _parent;
     }
 }
