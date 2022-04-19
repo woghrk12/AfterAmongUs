@@ -25,24 +25,43 @@ public class EnemyMove : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
+        moveSpeed = 1f;
+
         pointManager = GameManager.Instance.pointManager;
         player = FindObjectOfType<PlayerBehavior>().transform;
+        FindPath(GameManager.Instance.playerRegion);
+        SetTarget(GameManager.Instance.playerRegion);
+    }
+
+    private void Update()
+    {
+        SetTarget(GameManager.Instance.playerRegion);
     }
 
     private void FixedUpdate()
     {
-        //Chase(target);    
-        
+        Chase(target);
     }
 
-    public void SetTarget(Transform _target)
+    private void SetTarget(Region _target)
     {
-        target = _target;
+        if (_target == region)
+        {
+            target = player;
+        }
+        else
+        {
+            Debug.Log(Vector3.SqrMagnitude(transform.position - finalList[0].transform.position));
+            if (Vector3.SqrMagnitude(transform.position - finalList[0].transform.position) < 0.1f)
+                finalList.RemoveAt(0);
+
+            target = finalList[0].transform;
+        }
     }
 
     private void Chase(Transform _target)
     {
-        Vector3 moveDir = Vector3.ClampMagnitude((_target.position - transform.position), 1f);
+        Vector3 moveDir = (_target.position - transform.position).normalized;
         
         bool curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
@@ -54,7 +73,7 @@ public class EnemyMove : MonoBehaviour
 
     public void FindPath(Region _target)
     {
-        startPoint = pointManager.GetPoint(region.dstPoint);
+        startPoint = region.FindStartPoint(transform.position);
         targetPoint = pointManager.GetPoint(_target.dstPoint);
 
         openList = new List<Point>() { startPoint };
