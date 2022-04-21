@@ -16,7 +16,6 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Region")
         {
             enemy.region = collision.GetComponent<Region>();
-            enemy.FindPath(GameManager.Instance.playerRegion);
         }
     }
 }

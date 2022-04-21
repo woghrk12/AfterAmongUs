@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerOnHit : MonoBehaviour
 {
+    [SerializeField] private PlayerBehavior player;
+
+    private void Start()
+    {
+        player = GetComponentInParent<PlayerBehavior>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Region")
         {
-            GameManager.Instance.playerRegion = collision.GetComponent<Region>();
+            player.playerRegion = collision.GetComponent<Region>();
         }
     }
 }

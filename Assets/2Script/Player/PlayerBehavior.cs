@@ -10,6 +10,8 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
+    public Region playerRegion;
+
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();

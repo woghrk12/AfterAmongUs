@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public Region playerRegion;
 	public PointManager pointManager;
 
 	[SerializeField] private List<Region> enemySpawnRegions;

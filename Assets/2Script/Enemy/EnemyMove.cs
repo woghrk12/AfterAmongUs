@@ -11,14 +11,15 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
-    [SerializeField] private Transform player;
+    [SerializeField] private PlayerBehavior player;
 
     public Region region;
     [SerializeField] private Transform target;
     
     private Point startPoint, targetPoint, curPoint;
-    private List<Point> openList, closedList;
-    [SerializeField] private List<Point> finalList;
+    private List<Point> openList, closedList, finalList;
+
+    private bool isChasing;
 
     private void Start()
     {
@@ -28,31 +29,41 @@ public class EnemyMove : MonoBehaviour
         moveSpeed = 1f;
 
         pointManager = GameManager.Instance.pointManager;
-        player = FindObjectOfType<PlayerBehavior>().transform;
-        FindPath(GameManager.Instance.playerRegion);
-        SetTarget(GameManager.Instance.playerRegion);
+        player = FindObjectOfType<PlayerBehavior>();
+
+        isChasing = false;
+
+        SetTarget(player.playerRegion);
     }
 
     private void Update()
     {
-        SetTarget(GameManager.Instance.playerRegion);
+        //SetTarget(player.playerRegion);
     }
 
     private void FixedUpdate()
     {
-        Chase(target);
+        //Chase(target);
     }
 
     private void SetTarget(Region _target)
     {
-        if (_target == region)
+        float distPlayer = (transform.position - player.transform.position).sqrMagnitude;
+
+        if (distPlayer < 10f)
         {
-            target = player;
+            isChasing = true;
+            target = player.transform;
         }
         else
         {
-            Debug.Log(Vector3.SqrMagnitude(transform.position - finalList[0].transform.position));
-            if (Vector3.SqrMagnitude(transform.position - finalList[0].transform.position) < 0.1f)
+            if (isChasing)
+            {
+                FindPath(player.playerRegion);
+                isChasing = false;
+            }
+
+            if ((transform.position - finalList[0].transform.position).sqrMagnitude < 0.01f)
                 finalList.RemoveAt(0);
 
             target = finalList[0].transform;
