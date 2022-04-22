@@ -5,16 +5,21 @@ using UnityEngine;
 public class Region : MonoBehaviour
 {
     public int dstPoint;
-    public List<int> points;
-    public PointManager pointManager;
+    public List<Point> points;
+    [SerializeField] private PointManager pointManager;
+
+    private void Awake()
+    {
+        pointManager = GetComponentInParent<PointManager>();
+    }
 
     public Point FindStartPoint(Vector2 _position)
     {
-        var minPoint = pointManager.GetPoint(points[0]);
+        var minPoint = points[0];
         var minDist = DistXY(minPoint.transform.position, _position);
         for (int i = 1; i < points.Count; i++)
         {
-            var temp = pointManager.GetPoint(points[i]);
+            var temp = points[i];
             var tempDist = DistXY(temp.transform.position, _position);
             if (minDist > tempDist)
             {

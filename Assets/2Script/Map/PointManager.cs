@@ -10,6 +10,7 @@ public class PointManager : MonoBehaviour
     {
         int[][] arr =
         {
+            new int[] { },
             new int[] { 41 },               // 1 
             new int[] { 2, 3, 20 },         // 2
             new int[] { 1, 4, 5 },          // 3
