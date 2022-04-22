@@ -10,12 +10,12 @@ public class Region : MonoBehaviour
 
     public Point FindStartPoint(Vector2 _position)
     {
-        Point minPoint = pointManager.GetPoint(points[0]);
-        float minDist = DistXY(minPoint.transform.position, _position);
+        var minPoint = pointManager.GetPoint(points[0]);
+        var minDist = DistXY(minPoint.transform.position, _position);
         for (int i = 1; i < points.Count; i++)
         {
-            Point temp = pointManager.GetPoint(points[i]);
-            float tempDist = DistXY(temp.transform.position, _position);
+            var temp = pointManager.GetPoint(points[i]);
+            var tempDist = DistXY(temp.transform.position, _position);
             if (minDist > tempDist)
             {
                 minPoint = temp;

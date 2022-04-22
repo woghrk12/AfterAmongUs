@@ -5,76 +5,73 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     private Animator anim;
-    private SpriteRenderer sprite;
 
-    [SerializeField] private  PointManager pointManager;
+    public SpriteRenderer sprite;
+
+    [SerializeField] private PointManager pointManager;
 
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private PlayerBehavior player;
 
     public Region region;
-    [SerializeField] private Transform target;
-    
+
     private Point startPoint, targetPoint, curPoint;
-    private List<Point> openList, closedList, finalList;
+    private List<Point> openList, closedList;//, finalList;
+    [SerializeField] List<Point> finalList;
 
-    private bool isChasing;
+    public bool isChasing;
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
+        var inst = Instantiate(sprite.material);
+        sprite.material = inst;
+
+        isChasing = false;
+    }
+
+    private void Start()
+    {
+        sprite.material.SetColor("_PlayerColor", Color.red);
+
         moveSpeed = 1f;
 
         pointManager = GameManager.Instance.pointManager;
-        player = FindObjectOfType<PlayerBehavior>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 
-        isChasing = false;
-
-        SetTarget(player.playerRegion);
-    }
-
-    private void Update()
-    {
-        //SetTarget(player.playerRegion);
+        gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
     {
-        //Chase(target);
+        Chase();
     }
 
-    private void SetTarget(Region _target)
+    private void Chase()
     {
-        float distPlayer = (transform.position - player.transform.position).sqrMagnitude;
-
-        if (distPlayer < 10f)
+        if (isChasing)
         {
-            isChasing = true;
-            target = player.transform;
+            Move(player.transform);
         }
         else
         {
-            if (isChasing)
-            {
-                FindPath(player.playerRegion);
-                isChasing = false;
-            }
+            if (finalList.Count == 0) return;
+            
+            Move(finalList[0].transform);
 
-            if ((transform.position - finalList[0].transform.position).sqrMagnitude < 0.01f)
+            if ((transform.position - finalList[0].transform.position).sqrMagnitude <= 0.01f)
                 finalList.RemoveAt(0);
-
-            target = finalList[0].transform;
         }
     }
 
-    private void Chase(Transform _target)
+    private void Move(Transform _target)
     {
-        Vector3 moveDir = (_target.position - transform.position).normalized;
+        var moveDir = (_target.position - transform.position).normalized;
         
-        bool curFlipX = sprite.flipX;
+        var curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
         anim.SetBool("isWalk", true);
@@ -82,7 +79,9 @@ public class EnemyMove : MonoBehaviour
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
-    public void FindPath(Region _target)
+    public void FindRegion() => FindPath(player.playerRegion);
+
+    private void FindPath(Region _target)
     {
         startPoint = region.FindStartPoint(transform.position);
         targetPoint = pointManager.GetPoint(_target.dstPoint);
@@ -105,7 +104,7 @@ public class EnemyMove : MonoBehaviour
             // reach the final destination
             if (curPoint == targetPoint)
             {
-                Point targetCurPoint = targetPoint;
+                var targetCurPoint = targetPoint;
 
                 while (targetCurPoint != startPoint)
                 {
@@ -118,8 +117,8 @@ public class EnemyMove : MonoBehaviour
             }
 
             // add adjacent points 
-            List<Point> adjList = curPoint.adj_Point;
-            List<float> adjWeight = curPoint.adj_Weight;
+            var adjList = curPoint.adj_Point;
+            var adjWeight = curPoint.adj_Weight;
             for (int i = 0; i < adjList.Count; i++)
                 OpenListAdd(adjList[i], adjWeight[i]);
         }

@@ -6,7 +6,7 @@ public class EnemyOnHit : MonoBehaviour
 {
     [SerializeField] private EnemyMove enemy;
 
-    private void Start()
+    private void Awake()
     {
         enemy = GetComponentInParent<EnemyMove>();
     }
@@ -16,6 +16,22 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Region")
         {
             enemy.region = collision.GetComponent<Region>();
+            enemy.FindRegion();
+        }
+
+        if (collision.tag == "Camera Collider")
+        {
+            enemy.sprite.enabled = true;
+            enemy.isChasing = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Camera Collider")
+        {
+            enemy.sprite.enabled = false;
+            enemy.isChasing = false;
         }
     }
 }

@@ -12,11 +12,19 @@ public class PlayerBehavior : MonoBehaviour
 
     public Region playerRegion;
 
-    private void Start()
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
+        var inst = Instantiate(sprite.material);
+        sprite.material = inst;
+    }
+
+    private void Start()
+    {
+        sprite.material.SetColor("_PlayerColor", Color.green);
     }
 
     private void FixedUpdate()
@@ -26,11 +34,11 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Move()
     {
-        Vector3 moveDir = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f), 1f);
+        var moveDir = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f), 1f);
 
         anim.SetBool("isWalk", moveDir != Vector3.zero ? true : false);
 
-        bool curFlipX = sprite.flipX;
+        var curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
         transform.position += moveDir * Time.deltaTime * moveSpeed;

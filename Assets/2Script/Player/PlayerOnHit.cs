@@ -6,7 +6,7 @@ public class PlayerOnHit : MonoBehaviour
 {
     [SerializeField] private PlayerBehavior player;
 
-    private void Start()
+    private void Awake()
     {
         player = GetComponentInParent<PlayerBehavior>();
     }

@@ -19,6 +19,7 @@ public class Point : MonoBehaviour
         adj_Point = new List<Point>();
         adj_Weight = new List<float>();
     }
+
     private float DistXY(Vector2 src, Vector2 dst)
     {
         return (src - dst).sqrMagnitude;
