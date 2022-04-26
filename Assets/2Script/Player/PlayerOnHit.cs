@@ -18,4 +18,12 @@ public class PlayerOnHit : MonoBehaviour
             player.playerRegion = collision.GetComponent<Region>();
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Region")
+        {
+            player.playerRegion = null;
+        }
+    }
 }

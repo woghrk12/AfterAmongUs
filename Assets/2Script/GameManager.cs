@@ -58,9 +58,7 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < enemy.Count; i++)
 		{
 			var spawnRegion = enemySpawnRegions[Random.Range(0, enemySpawnRegions.Count)];
-			enemy[i].GetComponent<EnemyMove>().region = spawnRegion;
-			enemy[i].transform.position = pointManager.GetPoint(spawnRegion.dstPoint).transform.position;
-			enemy[i].SetActive(true);
+			enemy[i].GetComponent<EnemyMove>().SetEnemy(spawnRegion);
 		}
 	}
 }

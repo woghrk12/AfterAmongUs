@@ -1747,10 +1747,10 @@ GameObject:
   m_Component:
   - component: {fileID: 264577141}
   - component: {fileID: 264577140}
-  - component: {fileID: 264577136}
   - component: {fileID: 264577139}
   - component: {fileID: 264577142}
   - component: {fileID: 264577137}
+  - component: {fileID: 264577136}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1768,7 +1768,7 @@ Animator:
   m_GameObject: {fileID: 264577135}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0f9afab7f25f1bd4da6a6078fd246ade, type: 2}
+  m_Controller: {fileID: 9100000, guid: d1014c8433c9c1449978baa2fa8c85f7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1821,7 +1821,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264577135}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -6979,7 +6979,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointManager: {fileID: 1976897564}
-  enemySpawnRegions: []
+  enemySpawnRegions:
+  - {fileID: 934595655}
+  - {fileID: 376866913}
+  - {fileID: 443780318}
+  - {fileID: 688334147}
+  - {fileID: 1574318204}
+  - {fileID: 918164523}
+  - {fileID: 1562552504}
+  - {fileID: 1979094055}
+  - {fileID: 1244993715}
+  - {fileID: 2137889254}
+  - {fileID: 221630694}
+  - {fileID: 6615558}
+  - {fileID: 1815639413}
+  - {fileID: 208528014}
   enemy:
   - {fileID: 264577135}
 --- !u!1 &1413296171
@@ -9404,7 +9418,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9830298ad932ab848a3d7a8820013f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLists: []
+  pointLists:
+  - {fileID: 743554642}
+  - {fileID: 1963702701}
+  - {fileID: 70147174}
+  - {fileID: 1881577065}
+  - {fileID: 1610604769}
+  - {fileID: 488136205}
+  - {fileID: 1488419382}
+  - {fileID: 1704598919}
+  - {fileID: 35205475}
+  - {fileID: 147340248}
+  - {fileID: 1836427495}
+  - {fileID: 1572597767}
+  - {fileID: 348816959}
+  - {fileID: 2100790750}
+  - {fileID: 2121894339}
+  - {fileID: 547866756}
+  - {fileID: 1501991778}
+  - {fileID: 1306772805}
+  - {fileID: 1134481307}
+  - {fileID: 1471072705}
+  - {fileID: 2087400509}
+  - {fileID: 1363781518}
+  - {fileID: 166888758}
+  - {fileID: 530278638}
+  - {fileID: 1682737615}
+  - {fileID: 2014917872}
+  - {fileID: 1807486904}
+  - {fileID: 1918293994}
+  - {fileID: 586645571}
+  - {fileID: 2039859069}
+  - {fileID: 527471922}
+  - {fileID: 1803816152}
+  - {fileID: 1814795669}
+  - {fileID: 1590395351}
+  - {fileID: 232512519}
+  - {fileID: 78836584}
+  - {fileID: 1497600538}
+  - {fileID: 979437277}
+  - {fileID: 486048108}
+  - {fileID: 1914583112}
+  - {fileID: 1160122415}
+  - {fileID: 802107631}
+  - {fileID: 1834716715}
+  - {fileID: 1243594506}
+  - {fileID: 1281597521}
+  - {fileID: 2135572316}
+  - {fileID: 1138382685}
+  - {fileID: 213196357}
+  - {fileID: 1448426698}
+  - {fileID: 506746170}
+  - {fileID: 2084719490}
+  - {fileID: 1077605051}
+  - {fileID: 1196008134}
+  - {fileID: 1191908428}
+  - {fileID: 1565847237}
+  - {fileID: 1857229157}
+  - {fileID: 1249247847}
+  - {fileID: 450919714}
+  - {fileID: 1413296173}
+  - {fileID: 841579369}
+  - {fileID: 893374586}
+  - {fileID: 1095805117}
 --- !u!1 &1979094053
 GameObject:
   m_ObjectHideFlags: 0

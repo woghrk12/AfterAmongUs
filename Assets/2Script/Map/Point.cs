@@ -9,7 +9,7 @@ public class Point : MonoBehaviour
     public List<Point> adj_Point;
     public List<float> adj_Weight;
 
-    public int numPoint;
+    //public int numPoint;
 
     public float G, H;
     public float F { get { return G + H; } }
@@ -25,10 +25,9 @@ public class Point : MonoBehaviour
         return (src - dst).sqrMagnitude;
     }
 
-    public void SetPoint(int num, List<Point> _adj_Point)
+    public void SetPoint(List<Point> _adj_Point)
     {
         G = 0; H = 0;
-        numPoint = num;
         adj_Point = _adj_Point;
 
         for (int i = 0; i < adj_Point.Count; i++)

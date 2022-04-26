@@ -20,7 +20,8 @@ public class EnemyMove : MonoBehaviour
     private List<Point> openList, closedList;//, finalList;
     [SerializeField] List<Point> finalList;
 
-    public bool isChasing;
+    private bool isChasing;
+    public bool isChasePlayer;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class EnemyMove : MonoBehaviour
         sprite.material = inst;
 
         isChasing = false;
+        isChasePlayer = false;
     }
 
     private void Start()
@@ -42,6 +44,7 @@ public class EnemyMove : MonoBehaviour
         pointManager = GameManager.Instance.pointManager;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 
+        sprite.enabled = false;
         gameObject.SetActive(false);
     }
 
@@ -50,9 +53,19 @@ public class EnemyMove : MonoBehaviour
         Chase();
     }
 
+    public void SetEnemy(Region _region)
+    {
+        region = _region;
+        transform.position = pointManager.GetPoint(_region.dstPoint).transform.position;
+        gameObject.SetActive(true);
+        isChasing = true;
+    }
+
     private void Chase()
     {
-        if (isChasing)
+        if (!isChasing) return;
+
+        if (isChasePlayer || player.playerRegion == null)
         {
             Move(player.transform);
         }
@@ -74,8 +87,8 @@ public class EnemyMove : MonoBehaviour
         var curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
-        anim.SetBool("isWalk", true);
-        
+        anim.SetBool("isChasing", true);
+
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 

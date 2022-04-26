@@ -22,7 +22,7 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Camera Collider")
         {
             enemy.sprite.enabled = true;
-            enemy.isChasing = true;
+            enemy.isChasePlayer = true;
         }
     }
 
@@ -31,7 +31,8 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Camera Collider")
         {
             enemy.sprite.enabled = false;
-            enemy.isChasing = false;
+            enemy.isChasePlayer = false;
+            enemy.FindRegion();
         }
     }
 }
