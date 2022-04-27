@@ -17,11 +17,10 @@ public class EnemyMove : MonoBehaviour
     public Region region;
 
     private Point startPoint, targetPoint, curPoint;
-    private List<Point> openList, closedList;//, finalList;
-    [SerializeField] List<Point> finalList;
+    private List<Point> openList, closedList, finalList;
 
     private bool isChasing;
-    public bool isChasePlayer;
+    private bool canAttack;
 
     private void Awake()
     {
@@ -31,41 +30,50 @@ public class EnemyMove : MonoBehaviour
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+
+        moveSpeed = 1f;
+
+        canAttack = true;
         isChasing = false;
-        isChasePlayer = false;
     }
 
     private void Start()
     {
-        sprite.material.SetColor("_PlayerColor", Color.red);
-
-        moveSpeed = 1f;
-
         pointManager = GameManager.Instance.pointManager;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+
+        sprite.material.SetColor("_PlayerColor", Color.red);
 
         sprite.enabled = false;
         gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
+
+        if (canAttack)
+            StartCoroutine(AttackCo());    
+    }
+
     private void FixedUpdate()
     {
-        Chase();
+        if(isChasing)
+            Chase();
     }
 
     public void SetEnemy(Region _region)
     {
+        gameObject.SetActive(true);
         region = _region;
         transform.position = pointManager.GetPoint(_region.dstPoint).transform.position;
-        gameObject.SetActive(true);
+        FindPath(player.playerRegion);
         isChasing = true;
     }
 
     private void Chase()
     {
-        if (!isChasing) return;
-
-        if (isChasePlayer || player.playerRegion == null)
+        if (region == player.playerRegion)
         {
             Move(player.transform);
         }
@@ -87,12 +95,10 @@ public class EnemyMove : MonoBehaviour
         var curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
-        anim.SetBool("isChasing", true);
+        anim.SetBool("isChasing", isChasing);
 
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
-
-    public void FindRegion() => FindPath(player.playerRegion);
 
     private void FindPath(Region _target)
     {
@@ -148,5 +154,24 @@ public class EnemyMove : MonoBehaviour
         _point.SetH(_point.transform.position, targetPoint.transform.position);
         
         openList.Add(_point);
+    }
+
+    private void Attack()
+    {
+        
+    }
+
+    private IEnumerator AttackCo()
+    {
+        canAttack = false;
+        isChasing = false;
+
+        anim.SetBool("isChasing", isChasing);
+        anim.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(2f);
+
+        canAttack = true;
+        isChasing = true;
     }
 }

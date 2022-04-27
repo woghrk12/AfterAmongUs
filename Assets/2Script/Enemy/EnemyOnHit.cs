@@ -16,13 +16,11 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Region")
         {
             enemy.region = collision.GetComponent<Region>();
-            enemy.FindRegion();
         }
 
         if (collision.tag == "Camera Collider")
         {
             enemy.sprite.enabled = true;
-            enemy.isChasePlayer = true;
         }
     }
 
@@ -31,8 +29,6 @@ public class EnemyOnHit : MonoBehaviour
         if (collision.tag == "Camera Collider")
         {
             enemy.sprite.enabled = false;
-            enemy.isChasePlayer = false;
-            enemy.FindRegion();
         }
     }
 }

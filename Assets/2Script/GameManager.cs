@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private List<Region> enemySpawnRegions;
 	[SerializeField] private List<GameObject> enemy;
+	[SerializeField] private PlayerBehavior player;
 
 	private void Awake()
 	{
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
+
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 	}
 
     private void Start()
@@ -57,7 +60,9 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < enemy.Count; i++)
 		{
-			var spawnRegion = enemySpawnRegions[Random.Range(0, enemySpawnRegions.Count)];
+			var tempList = enemySpawnRegions;
+			tempList.Remove(player.playerRegion);						
+			var spawnRegion = tempList[Random.Range(0, tempList.Count)];
 			enemy[i].GetComponent<EnemyMove>().SetEnemy(spawnRegion);
 		}
 	}

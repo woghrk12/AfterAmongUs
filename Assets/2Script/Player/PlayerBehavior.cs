@@ -8,7 +8,11 @@ public class PlayerBehavior : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+    [SerializeField] private int health;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private int ammo9mm;
+    [SerializeField] private int ammo7mm;
+    [SerializeField] private int ammo5mm;
 
     public Region playerRegion;
 
@@ -24,7 +28,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Start()
     {
-        sprite.material.SetColor("_PlayerColor", Color.green);
+        sprite.material.SetColor("_PlayerColor", Color.magenta);
     }
 
     private void FixedUpdate()
@@ -42,5 +46,10 @@ public class PlayerBehavior : MonoBehaviour
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
         transform.position += moveDir * Time.deltaTime * moveSpeed;
+    }
+
+    public void ChangeColor(Color _color)
+    {
+        sprite.color= _color;
     }
 }

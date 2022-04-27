@@ -429,7 +429,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &60280056
@@ -560,7 +559,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &78836582
@@ -609,7 +607,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &81880504
@@ -1137,7 +1134,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &156228950
@@ -1218,7 +1214,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &171908556
@@ -1488,7 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aace31a18172a3a4fa31f92c6ae9815d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dstPoint: 45
+  dstPoint: 48
   points:
   - {fileID: 213196357}
   - {fileID: 1448426698}
@@ -1571,7 +1566,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &221630691
@@ -1702,7 +1696,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &247530814
@@ -1735,7 +1728,7 @@ Transform:
   - {fileID: 193787713}
   - {fileID: 1976897563}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264577135
 GameObject:
@@ -1879,7 +1872,7 @@ Transform:
   - {fileID: 785815615}
   - {fileID: 555058971}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &264577142
 MonoBehaviour:
@@ -1898,8 +1891,6 @@ MonoBehaviour:
   moveSpeed: 0
   player: {fileID: 0}
   region: {fileID: 0}
-  finalList: []
-  isChasing: 0
 --- !u!1 &348816957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,7 +1937,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &366165415
@@ -2243,7 +2233,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &484332076
@@ -2463,7 +2452,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &488136203
@@ -2512,7 +2500,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &501671906
@@ -2539,12 +2526,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501671906}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1313461542}
-  m_RootOrder: 2
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &501671908
 BoxCollider2D:
@@ -2570,7 +2557,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 12}
+  m_Size: {x: 7, y: 4}
   m_EdgeRadius: 0
 --- !u!1 &506569563
 GameObject:
@@ -2700,7 +2687,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &519420028
@@ -2715,6 +2701,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2747,7 +2734,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -2789,7 +2776,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2813,12 +2800,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 5, y: 5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1313461542}
+  m_LocalPosition: {x: 1.415, y: 2.627, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 501671907}
+  m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f611e018a80e904986f2d52ab35be2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 16
+  height: 9
+  limitMinX: -7
+  limitMaxX: 9
+  limitMinY: -5
+  limitMaxY: 6
 --- !u!1 &527471920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,7 +2871,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &530278636
@@ -2914,7 +2919,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &547866754
@@ -2963,7 +2967,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &555058970
@@ -3059,7 +3062,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &658370114
@@ -3588,7 +3590,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &756224157
@@ -3768,7 +3769,7 @@ GameObject:
   - component: {fileID: 785815617}
   m_Layer: 0
   m_Name: Box Collider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3872,7 +3873,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &841579367
@@ -3921,7 +3921,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &853302834
@@ -4002,7 +4001,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &918164521
@@ -4543,7 +4541,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1010009906
@@ -4955,7 +4952,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1081246413
@@ -5168,7 +5164,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1108454041
@@ -5415,7 +5410,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1138382683
@@ -5464,7 +5458,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1147418591
@@ -5595,7 +5588,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1187952371
@@ -5808,7 +5800,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1194348539
@@ -5939,7 +5930,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1214723168
@@ -6157,7 +6147,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1244993712
@@ -6288,7 +6277,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1278787854
@@ -6419,7 +6407,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1302961389
@@ -6550,7 +6537,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1313461540
@@ -6637,10 +6623,8 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 1927194783}
-  - {fileID: 519420032}
-  - {fileID: 501671907}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1313461543
 BoxCollider2D:
@@ -6680,7 +6664,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995fb3a4f50b07441b601e588110b71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   moveSpeed: 2
+  ammo9mm: 0
+  ammo7mm: 0
+  ammo5mm: 0
   playerRegion: {fileID: 0}
 --- !u!50 &1313461545
 Rigidbody2D:
@@ -6850,7 +6838,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1410542762
@@ -6996,6 +6983,7 @@ MonoBehaviour:
   - {fileID: 208528014}
   enemy:
   - {fileID: 264577135}
+  player: {fileID: 0}
 --- !u!1 &1413296171
 GameObject:
   m_ObjectHideFlags: 0
@@ -7042,7 +7030,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1435732215
@@ -7173,7 +7160,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1471072703
@@ -7222,7 +7208,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1474509828
@@ -7415,7 +7400,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1497600536
@@ -7464,7 +7448,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1501991776
@@ -7513,7 +7496,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1506798211
@@ -7729,7 +7711,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1572597765
@@ -7778,7 +7759,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1574318202
@@ -7910,7 +7890,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1610604767
@@ -7959,7 +7938,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1682737613
@@ -8008,7 +7986,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1691104629
@@ -8139,7 +8116,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1708088004
@@ -8378,7 +8354,7 @@ Transform:
   - {fileID: 175577865}
   - {fileID: 1801243284}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797397071
 GameObject:
@@ -8506,7 +8482,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1804478034
@@ -8637,7 +8612,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1814795667
@@ -8686,7 +8660,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1815639410
@@ -8767,7 +8740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aace31a18172a3a4fa31f92c6ae9815d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dstPoint: 58
+  dstPoint: 45
   points:
   - {fileID: 1281597521}
   - {fileID: 2135572316}
@@ -8853,7 +8826,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1836427493
@@ -8902,7 +8874,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1857229155
@@ -8951,7 +8922,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1881353109
@@ -9032,7 +9002,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1914583110
@@ -9081,7 +9050,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1918293992
@@ -9130,7 +9098,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1921814817
@@ -9216,7 +9183,7 @@ GameObject:
   - component: {fileID: 1927194783}
   - component: {fileID: 1927194784}
   - component: {fileID: 1927194785}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Box Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9322,7 +9289,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &1974561873
@@ -9640,7 +9606,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2039859067
@@ -9689,7 +9654,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2056307502
@@ -9851,7 +9815,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2087400507
@@ -9900,7 +9863,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2100183122
@@ -10059,7 +10021,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2121894337
@@ -10108,7 +10069,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2127636598
@@ -10188,7 +10148,6 @@ MonoBehaviour:
   parentPoint: {fileID: 0}
   adj_Point: []
   adj_Weight: []
-  numPoint: 0
   G: 0
   H: 0
 --- !u!1 &2137889251
