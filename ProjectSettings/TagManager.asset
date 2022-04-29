@@ -7,6 +7,7 @@ TagManager:
   - Region
   - Camera Collider
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 3928632867
+    locked: 0
+  - name: Object
+    uniqueID: 4046865809
     locked: 0
   - name: Player
     uniqueID: 3603312587

@@ -15,10 +15,10 @@ public class PlayerBehavior : MonoBehaviour
 
     private float hAxis;
     private float vAxis;
+    private bool fDown;
     private bool sDown1;
     private bool sDown2;
 
-    [SerializeField] private float size;
     [SerializeField] private int health;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int ammo9mm;
@@ -47,6 +47,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         GetInput();
         Look();
+        Fire();
         Swap();
     }
 
@@ -59,6 +60,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
+        fDown = Input.GetButtonDown("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
     }
@@ -83,6 +85,13 @@ public class PlayerBehavior : MonoBehaviour
     public void ChangeColor(Color _color)
     {
         sprite.color= _color;
+    }
+    private void Fire()
+    {
+        if (equipWeapon == null) return;
+
+        if (fDown)
+            equipWeapon.GetComponent<PlayerWeapon>().Shot();
     }
 
     private void Swap()
