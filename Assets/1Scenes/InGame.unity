@@ -3361,7 +3361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &683368774
 Transform:
   m_ObjectHideFlags: 0
@@ -6856,6 +6856,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995fb3a4f50b07441b601e588110b71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 683368773}
+  - {fileID: 214747360}
   size: 0
   health: 0
   moveSpeed: 2

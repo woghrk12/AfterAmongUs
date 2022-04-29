@@ -10,10 +10,13 @@ public class PlayerBehavior : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField] private List<GameObject> weapons;
+    private GameObject equipWeapon;
+    private int equipWeaponIndex = -1;
 
     private float hAxis;
     private float vAxis;
-    
+    private bool sDown1;
+    private bool sDown2;
 
     [SerializeField] private float size;
     [SerializeField] private int health;
@@ -42,8 +45,9 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Update()
     {
-
+        GetInput();
         Look();
+        Swap();
     }
 
     private void FixedUpdate()
@@ -55,7 +59,8 @@ public class PlayerBehavior : MonoBehaviour
     {
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
-
+        sDown1 = Input.GetButtonDown("Swap1");
+        sDown2 = Input.GetButtonDown("Swap2");
     }
 
     private void Move()
@@ -81,7 +86,22 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void Swap()
-    { 
-    
+    {
+        if (sDown1 && equipWeaponIndex == 0) return;
+        if (sDown2 && equipWeaponIndex == 1) return;
+        
+        int weaponIndex = -1;
+        if (sDown1) weaponIndex = 0;
+        if (sDown2) weaponIndex = 1;
+
+        if (sDown1 || sDown2)
+        {
+            if (equipWeapon != null)
+                equipWeapon.SetActive(false);
+
+            equipWeaponIndex = weaponIndex;
+            equipWeapon = weapons[weaponIndex];
+            equipWeapon.SetActive(true);
+        }
     }
 }
