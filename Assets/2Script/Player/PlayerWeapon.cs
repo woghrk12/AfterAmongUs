@@ -35,7 +35,7 @@ public class PlayerWeapon : MonoBehaviour
                 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
-        if (angle < -80f || angle > 80f)
+        if (angle < -80f || angle > 80f)    
         {
             angle = Mathf.Clamp(angle, -80f, 80f);
         }
@@ -47,7 +47,8 @@ public class PlayerWeapon : MonoBehaviour
     public void Shot()
     {
         bullet.transform.position = firePosition.position;
-        bullet.GetComponent<Rigidbody2D>().AddForce(direction.normalized * 10f, ForceMode2D.Impulse);
+        bullet.GetComponent<PlayerBullet>().direction = direction.normalized;
+        bullet.SetActive(true);
     }
 }
 
