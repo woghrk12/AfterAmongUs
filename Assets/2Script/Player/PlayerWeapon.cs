@@ -29,7 +29,8 @@ public class PlayerWeapon : MonoBehaviour
         var oPosition = transform.position;
 
         var isLeft = mPosition.x < oPosition.x;
-        sprite.flipX = isLeft;
+        
+        transform.localScale = new Vector3(isLeft ? -1f : 1f, 1.5f, 1f);
 
         var direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
                 
@@ -46,8 +47,9 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Shot()
     {
-        Instantiate(bullet, firePosition.position, rotation);
-        bullet.SetActive(true);
+        var bulletRotation = rotation;
+        
+        Instantiate(bullet, firePosition.position, bulletRotation);
     }
 }
 
