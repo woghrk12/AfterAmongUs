@@ -5,17 +5,17 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public int damage;
-    public Vector3 direction;
     [SerializeField] private float speed;
 
     private void Update()
     {
-        transform.position += direction * speed * Time.deltaTime;
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        //transform.position += direction * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Wall")
+        if (collision.gameObject.tag == "Wall")
             gameObject.SetActive(false);
     }
 }

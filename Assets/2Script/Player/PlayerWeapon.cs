@@ -7,7 +7,7 @@ public class PlayerWeapon : MonoBehaviour
     private SpriteRenderer sprite;
     private Camera mainCamera;
 
-    private Vector3 direction;
+    private Quaternion rotation;
 
     [SerializeField] private Transform firePosition;
     [SerializeField] private GameObject bullet;
@@ -31,7 +31,7 @@ public class PlayerWeapon : MonoBehaviour
         var isLeft = mPosition.x < oPosition.x;
         sprite.flipX = isLeft;
 
-        direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
+        var direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
                 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
@@ -40,14 +40,13 @@ public class PlayerWeapon : MonoBehaviour
             angle = Mathf.Clamp(angle, -80f, 80f);
         }
 
-        var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rotation;
     }
 
     public void Shot()
     {
-        bullet.transform.position = firePosition.position;
-        bullet.GetComponent<PlayerBullet>().direction = direction.normalized;
+        Instantiate(bullet, firePosition.position, rotation);
         bullet.SetActive(true);
     }
 }
