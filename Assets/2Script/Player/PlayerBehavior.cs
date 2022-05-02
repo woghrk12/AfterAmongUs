@@ -9,8 +9,8 @@ public class PlayerBehavior : MonoBehaviour
     private SpriteRenderer sprite;
     private Camera mainCamera;
 
-    [SerializeField] private List<GameObject> weapons;
-    private GameObject equipWeapon;
+    [SerializeField] private List<PlayerWeapon> weapons;
+    private PlayerWeapon equipWeapon;
     private int equipWeaponIndex = -1;
 
     private float hAxis;
@@ -18,6 +18,9 @@ public class PlayerBehavior : MonoBehaviour
     private bool fDown;
     private bool sDown1;
     private bool sDown2;
+
+    private float fireDelay;
+    private bool isFireReady;
 
     [SerializeField] private int health;
     [SerializeField] private float moveSpeed;
@@ -36,6 +39,9 @@ public class PlayerBehavior : MonoBehaviour
 
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
+
+        fireDelay = 0;
+        isFireReady = true;
     }
 
     private void Start()
@@ -90,8 +96,15 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (equipWeapon == null) return;
 
-        if (fDown)
+        fireDelay += Time.deltaTime;
+        isFireReady = equipWeapon.rate < fireDelay;
+
+        if (fDown && isFireReady)
+        {
             equipWeapon.GetComponent<PlayerWeapon>().Shot();
+            fireDelay = 0;
+        }
+        
     }
 
     private void Swap()
@@ -106,11 +119,11 @@ public class PlayerBehavior : MonoBehaviour
         if (sDown1 || sDown2)
         {
             if (equipWeapon != null)
-                equipWeapon.SetActive(false);
+                equipWeapon.gameObject.SetActive(false);
 
             equipWeaponIndex = weaponIndex;
             equipWeapon = weapons[weaponIndex];
-            equipWeapon.SetActive(true);
+            equipWeapon.gameObject.SetActive(true);
         }
     }
 }

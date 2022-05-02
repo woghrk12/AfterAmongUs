@@ -12,6 +12,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform firePosition;
     [SerializeField] private GameObject bullet;
 
+    public float rate;
+
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
