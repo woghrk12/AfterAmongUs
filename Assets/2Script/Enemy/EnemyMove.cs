@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    public SpriteRenderer sprite;
     private Animator anim;
 
-    public SpriteRenderer sprite;
-
     [SerializeField] private PointManager pointManager;
-
-    [SerializeField] private float moveSpeed;
 
     [SerializeField] private PlayerBehavior player;
 
@@ -21,6 +18,10 @@ public class EnemyMove : MonoBehaviour
 
     private bool isChasing;
     private bool canAttack;
+
+    [SerializeField] private float moveSpeed;
+
+    [SerializeField] private int health;
 
     private void Awake()
     {
@@ -156,11 +157,6 @@ public class EnemyMove : MonoBehaviour
         openList.Add(_point);
     }
 
-    private void Attack()
-    {
-        
-    }
-
     private IEnumerator AttackCo()
     {
         canAttack = false;
@@ -173,5 +169,23 @@ public class EnemyMove : MonoBehaviour
 
         canAttack = true;
         isChasing = true;
+    }
+
+    public void OnDamage(int _damage)
+    {
+        health -= _damage;
+        StartCoroutine(OnDamageCo());
+    }
+
+    private IEnumerator OnDamageCo()
+    {
+        sprite.color = Color.red;
+
+        yield return new WaitForSeconds(0.05f);
+
+        if (health > 0)
+        {
+            sprite.color = Color.white;
+        }
     }
 }

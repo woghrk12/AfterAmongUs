@@ -22,6 +22,14 @@ public class EnemyOnHit : MonoBehaviour
         {
             enemy.sprite.enabled = true;
         }
+
+        if (collision.tag == "Bullet")
+        {
+            var damage = collision.GetComponent<PlayerBullet>().damage;
+            enemy.OnDamage(damage);
+            
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

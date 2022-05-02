@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public int damage;
+
     [SerializeField] private float speed;
     [SerializeField] private Vector3 direction;
 

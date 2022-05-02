@@ -22,8 +22,9 @@ public class PlayerBehavior : MonoBehaviour
     private float fireDelay;
     private bool isFireReady;
 
-    [SerializeField] private int health;
     [SerializeField] private float moveSpeed;
+
+    [SerializeField] private int health;
     [SerializeField] private int ammo9mm;
     [SerializeField] private int ammo7mm;
     [SerializeField] private int ammo5mm;
@@ -104,7 +105,6 @@ public class PlayerBehavior : MonoBehaviour
             equipWeapon.GetComponent<PlayerWeapon>().Shot();
             fireDelay = 0;
         }
-        
     }
 
     private void Swap()
