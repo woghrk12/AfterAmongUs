@@ -6,7 +6,7 @@ public class PlayerBullet : MonoBehaviour
 {
     public int damage;
     [SerializeField] private float speed;
-    [SerializeField] private Vector2 direction;
+    [SerializeField] private Vector3 direction;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void Update()
     {
-        //transform.Translate(direction * speed * Time.deltaTime);
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

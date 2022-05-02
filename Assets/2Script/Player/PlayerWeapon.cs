@@ -20,10 +20,10 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
-        Look();
+        Targeting();
     }
 
-    private void Look()
+    private void Targeting()
     {
         var mPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var oPosition = transform.position;
@@ -47,9 +47,7 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Shot()
     {
-        var bulletRotation = rotation;
-        
-        Instantiate(bullet, firePosition.position, bulletRotation);
+        Instantiate(bullet, firePosition.position, firePosition.rotation);
     }
 }
 
