@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     public SpriteRenderer sprite;
     private Animator anim;
@@ -24,7 +24,7 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private int health;
 
-    
+
 
     private void Awake()
     {
@@ -58,12 +58,12 @@ public class EnemyMove : MonoBehaviour
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
         if (canAttack)
-            StartCoroutine(AttackCo());    
+            StartCoroutine(AttackCo());
     }
 
     private void FixedUpdate()
     {
-        if(isChasing)
+        if (isChasing)
             Chase();
     }
 
@@ -85,7 +85,7 @@ public class EnemyMove : MonoBehaviour
         else
         {
             if (finalList.Count == 0) return;
-            
+
             Move(finalList[0].transform);
 
             if ((transform.position - finalList[0].transform.position).sqrMagnitude <= 0.01f)
@@ -96,7 +96,7 @@ public class EnemyMove : MonoBehaviour
     private void Move(Transform _target)
     {
         var moveDir = (_target.position - transform.position).normalized;
-        
+
         var curFlipX = sprite.flipX;
         sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
 
@@ -157,7 +157,7 @@ public class EnemyMove : MonoBehaviour
         _point.SetParent(curPoint);
         _point.SetG(_weight);
         _point.SetH(_point.transform.position, targetPoint.transform.position);
-        
+
         openList.Add(_point);
     }
 
@@ -238,4 +238,3 @@ public class EnemyMove : MonoBehaviour
         }
     }
 }
-

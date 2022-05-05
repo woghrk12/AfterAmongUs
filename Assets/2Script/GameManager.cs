@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 			var tempList = enemySpawnRegions;
 			tempList.Remove(player.playerRegion);						
 			var spawnRegion = tempList[Random.Range(0, tempList.Count)];
-			enemy[i].GetComponent<EnemyMove>().SetEnemy(spawnRegion);
+			enemy[i].GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
 		}
 	}
 }
