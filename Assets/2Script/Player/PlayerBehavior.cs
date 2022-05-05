@@ -93,6 +93,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         sprite.color= _color;
     }
+
     private void Fire()
     {
         if (equipWeapon == null) return;
@@ -126,4 +127,49 @@ public class PlayerBehavior : MonoBehaviour
             equipWeapon.gameObject.SetActive(true);
         }
     }
+
+    private IEnumerator OnDamageCo()
+    {
+        gameObject.layer = 3;
+        int countTime = 0;
+
+        while (countTime < 10)
+        {
+            if (countTime % 2 == 0)
+                ChangeColor(new Color(1f, 1f, 1f, 0.3f));
+            else
+                ChangeColor(new Color(1f, 1f, 1f, 0.6f));
+
+            yield return new WaitForSeconds(0.2f);
+
+            countTime++;
+        }
+
+        ChangeColor(new Color(1f, 1f, 1f, 1f));
+
+        gameObject.layer = 7;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Region")
+        {
+            playerRegion = collision.GetComponent<Region>();
+        }
+
+        if (collision.tag == "Enemy")
+        {
+            StartCoroutine(OnDamageCo());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Region")
+        {
+            playerRegion = null;
+        }
+    }
+
+   
 }
