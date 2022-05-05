@@ -24,7 +24,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private int health;
 
-
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform firePosition;
+    [SerializeField] private float fireDelay;
 
     private void Awake()
     {
@@ -57,8 +59,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
-        //if (canAttack)
-          //  StartCoroutine(AttackCo());
+        if (canAttack)
+            StartCoroutine(AttackCo());
     }
 
     private void FixedUpdate()
@@ -160,6 +162,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         openList.Add(_point);
     }
+    private void Targeting()
+    {
+        var playerPosition = player.transform.position;
+        var direction = playerPosition - firePosition.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        firePosition.rotation = rotation;
+    }
 
     private IEnumerator AttackCo()
     {
@@ -169,7 +182,12 @@ public class EnemyBehaviour : MonoBehaviour
         anim.SetBool("isChasing", isChasing);
         anim.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
+
+        Targeting();
+        Instantiate(bullet, firePosition.position, firePosition.rotation);
+
+        yield return new WaitForSeconds(fireDelay);
 
         canAttack = true;
         isChasing = true;
@@ -206,6 +224,7 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = false;
         isChasing = false;
         gameObject.layer = 9;
+        StopCoroutine(AttackCo());
         anim.SetTrigger("Die");
     }
 
@@ -225,6 +244,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             var damage = collision.GetComponent<Bullet>().damage;
             OnDamage(damage);
+            Destroy(collision.gameObject);
         }
     }
 

@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator SpawnEnemy()
 	{
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(1f);
 
 		for (int i = 0; i < enemy.Count; i++)
 		{
