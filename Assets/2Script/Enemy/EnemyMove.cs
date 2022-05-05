@@ -6,6 +6,7 @@ public class EnemyMove : MonoBehaviour
 {
     public SpriteRenderer sprite;
     private Animator anim;
+    private BoxCollider2D boxCollider;
 
     [SerializeField] private PointManager pointManager;
 
@@ -23,12 +24,13 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private int health;
 
-    [SerializeField] private GameObject hitBox;
+    
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
 
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
@@ -203,8 +205,37 @@ public class EnemyMove : MonoBehaviour
     {
         canAttack = false;
         isChasing = false;
-        hitBox.layer = 9;
+        gameObject.layer = 9;
         anim.SetTrigger("Die");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Region")
+        {
+            region = collision.GetComponent<Region>();
+        }
+
+        if (collision.tag == "Camera Collider")
+        {
+            sprite.enabled = true;
+        }
+
+        if (collision.tag == "Bullet")
+        {
+            var damage = collision.GetComponent<PlayerBullet>().damage;
+            OnDamage(damage);
+
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Camera Collider")
+        {
+            sprite.enabled = false;
+        }
     }
 }
 
