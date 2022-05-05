@@ -128,8 +128,9 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    private IEnumerator OnDamageCo()
+    private IEnumerator OnDamageCo(int _damage)
     {
+        health -= _damage;
         gameObject.layer = 3;
         int countTime = 0;
 
@@ -157,9 +158,10 @@ public class PlayerBehavior : MonoBehaviour
             playerRegion = collision.GetComponent<Region>();
         }
 
-        if (collision.tag == "Enemy")
+        if (collision.tag == "EnemyBullet")
         {
-            StartCoroutine(OnDamageCo());
+            var damage = collision.GetComponent<Bullet>().damage;
+            StartCoroutine(OnDamageCo(damage));
         }
     }
 
