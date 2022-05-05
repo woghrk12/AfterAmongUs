@@ -57,8 +57,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
-        if (canAttack)
-            StartCoroutine(AttackCo());
+        //if (canAttack)
+          //  StartCoroutine(AttackCo());
     }
 
     private void FixedUpdate()
@@ -81,6 +81,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (region == player.playerRegion)
         {
             Move(player.transform);
+            Debug.Log("Chase Player");
         }
         else
         {
@@ -90,6 +91,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             if ((transform.position - finalList[0].transform.position).sqrMagnitude <= 0.01f)
                 finalList.RemoveAt(0);
+            Debug.Log("Chase Point");
         }
     }
 
