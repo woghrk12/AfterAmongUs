@@ -23,6 +23,8 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private int health;
 
+    [SerializeField] private GameObject hitBox;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -179,13 +181,30 @@ public class EnemyMove : MonoBehaviour
 
     private IEnumerator OnDamageCo()
     {
-        sprite.color = Color.red;
-
-        yield return new WaitForSeconds(0.05f);
-
         if (health > 0)
         {
+            sprite.color = Color.red;
+
+            yield return new WaitForSeconds(0.05f);
+
             sprite.color = Color.white;
         }
+        else
+        {
+            Die();
+
+            yield return new WaitForSeconds(3f);
+
+            Destroy(gameObject);
+        }
+    }
+
+    private void Die()
+    {
+        canAttack = false;
+        isChasing = false;
+        hitBox.layer = 9;
+        anim.SetTrigger("Die");
     }
 }
+

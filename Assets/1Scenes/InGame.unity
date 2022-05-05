@@ -1891,7 +1891,8 @@ MonoBehaviour:
   player: {fileID: 0}
   region: {fileID: 0}
   moveSpeed: 0
-  health: 100
+  health: 1
+  hitBox: {fileID: 785815614}
 --- !u!1 &348816957
 GameObject:
   m_ObjectHideFlags: 0
