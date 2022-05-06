@@ -23,11 +23,15 @@ public class PlayerBehavior : MonoBehaviour
     private bool isFireReady;
 
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Vector3 moveDir;
 
-    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int curHealth;
     [SerializeField] private int ammo9mm;
     [SerializeField] private int ammo7mm;
     [SerializeField] private int ammo5mm;
+
+    private bool isDie;
 
     public Region playerRegion;
 
@@ -35,7 +39,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         mainCamera = Camera.main;
 
         var inst = Instantiate(sprite.material);
@@ -43,6 +47,8 @@ public class PlayerBehavior : MonoBehaviour
 
         fireDelay = 0;
         isFireReady = true;
+
+        isDie = false;
     }
 
     private void Start()
@@ -52,6 +58,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Update()
     {
+        if (isDie) return;
+
         GetInput();
         Look();
         Fire();
@@ -60,6 +68,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDie) return;
+
         Move();
     }
 
@@ -74,7 +84,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Move()
     {
-        var moveDir = Vector3.ClampMagnitude(new Vector3(hAxis, vAxis, 0f), 1f);
+        moveDir = Vector3.ClampMagnitude(new Vector3(hAxis, vAxis, 0f), 1f);
 
         anim.SetBool("isWalk", moveDir != Vector3.zero ? true : false);
 
@@ -130,25 +140,49 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator OnDamageCo(int _damage)
     {
-        health -= _damage;
-        gameObject.layer = 3;
-        int countTime = 0;
+        curHealth -= _damage;
 
-        while (countTime < 10)
+        if (curHealth > 0)
         {
-            if (countTime % 2 == 0)
-                ChangeColor(new Color(1f, 1f, 1f, 0.3f));
-            else
-                ChangeColor(new Color(1f, 1f, 1f, 0.6f));
+            gameObject.layer = 3;
+            int countTime = 0;
 
-            yield return new WaitForSeconds(0.2f);
+            while (countTime < 10)
+            {
+                if (countTime % 2 == 0)
+                    ChangeColor(new Color(1f, 1f, 1f, 0.3f));
+                else
+                    ChangeColor(new Color(1f, 1f, 1f, 0.6f));
 
-            countTime++;
+                yield return new WaitForSeconds(0.2f);
+
+                countTime++;
+            }
+
+            ChangeColor(new Color(1f, 1f, 1f, 1f));
+
+            gameObject.layer = 7;
+        }
+        else
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        if (equipWeapon != null)
+        {
+            equipWeapon.gameObject.SetActive(false);
         }
 
-        ChangeColor(new Color(1f, 1f, 1f, 1f));
+        moveSpeed = 0;
+        gameObject.layer = 8;
+        isDie = true;
 
-        gameObject.layer = 7;
+        sprite.flipX = false;
+
+        anim.SetTrigger("Die");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -173,6 +207,4 @@ public class PlayerBehavior : MonoBehaviour
             playerRegion = null;
         }
     }
-
-   
 }
