@@ -6,9 +6,8 @@ public class CameraMove : MonoBehaviour
 {
     [SerializeField] private int width, height;
     [SerializeField] private float limitMinX, limitMaxX, limitMinY, limitMaxY;
-
-    private GameObject player;
-    private Transform tr;
+    
+    private Transform player;
 
     private void Awake()
     {
@@ -31,18 +30,18 @@ public class CameraMove : MonoBehaviour
 
         camera.rect = rect;
 
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    private void Start()
-    {
-        tr = player.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void LateUpdate()
     {
-        float x = Mathf.Clamp(tr.position.x, limitMinX, limitMaxX);
-        float y = Mathf.Clamp(tr.position.y, limitMinY, limitMaxY);
+        Follow(player);
+    }
+
+    private void Follow(Transform target)
+    {
+        float x = Mathf.Clamp(target.position.x, limitMinX, limitMaxX);
+        float y = Mathf.Clamp(target.position.y, limitMinY, limitMaxY);
         transform.position = new Vector3(x, y, -10);
     }
 }

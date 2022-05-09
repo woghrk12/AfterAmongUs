@@ -3364,6 +3364,7 @@ MonoBehaviour:
   firePosition: {fileID: 904240749}
   bullet: {fileID: 405182826477394885, guid: 2ca494da35d742d4495267f7b428abed, type: 3}
   rate: 0.1
+  recoil: 5
 --- !u!1 &688334145
 GameObject:
   m_ObjectHideFlags: 0
