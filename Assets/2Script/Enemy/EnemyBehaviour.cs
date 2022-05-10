@@ -23,6 +23,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private HealthBar healthBar;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePosition;
@@ -50,6 +52,9 @@ public class EnemyBehaviour : MonoBehaviour
         pointManager = GameManager.Instance.pointManager;
 
         sprite.material.SetColor("_PlayerColor", Color.red);
+
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
         sprite.enabled = false;
         gameObject.SetActive(false);
@@ -196,6 +201,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void OnDamage(int _damage)
     {
         health -= _damage;
+        healthBar.SetHealth(health);
         StartCoroutine(OnDamageCo());
     }
 
