@@ -19,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool sDown1;
     private bool sDown2;
 
+    [SerializeField] private Transform playerAim;
     private float fireDelay;
     private bool isFireReady;
 
@@ -61,7 +62,7 @@ public class PlayerBehavior : MonoBehaviour
         if (isDie) return;
 
         GetInput();
-        Look();
+        Targeting();
         Fire();
         Swap();
     }
@@ -91,12 +92,23 @@ public class PlayerBehavior : MonoBehaviour
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
-    private void Look()
+    private void Targeting()
     {
         var mPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var oPosition = transform.position;
 
-        sprite.flipX = mPosition.x < oPosition.x;
+        var isLeft = mPosition.x < oPosition.x;
+
+        sprite.flipX = isLeft;
+        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+        var direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        if (angle < -80f || angle > 80f)
+            angle = Mathf.Clamp(angle, -80f, 80f);
+
+        playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     public void ChangeColor(Color _color)

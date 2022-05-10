@@ -3644,6 +3644,7 @@ GameObject:
   - component: {fileID: 683368774}
   - component: {fileID: 683368775}
   - component: {fileID: 683368776}
+  - component: {fileID: 683368777}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -3658,13 +3659,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683368773}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.084, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13, y: -0.06, z: 0}
+  m_LocalScale: {x: 1, y: 1.4999999, z: 1}
   m_Children:
   - {fileID: 904240749}
-  m_Father: {fileID: 1313461542}
-  m_RootOrder: 2
+  m_Father: {fileID: 1999700281}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &683368775
 SpriteRenderer:
@@ -3733,6 +3734,25 @@ MonoBehaviour:
   bullet: {fileID: 405182826477394885, guid: 2ca494da35d742d4495267f7b428abed, type: 3}
   rate: 0.1
   recoil: 0.1
+--- !u!95 &683368777
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683368773}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bbba2e6cdfddd549ad2eea69465b48e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &688334145
 GameObject:
   m_ObjectHideFlags: 0
@@ -7120,7 +7140,7 @@ Transform:
   m_Children:
   - {fileID: 1927194783}
   - {fileID: 1495863487}
-  - {fileID: 683368774}
+  - {fileID: 1999700281}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7164,10 +7184,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 683368776}
+  playerAim: {fileID: 1999700281}
   moveSpeed: 2
   moveDir: {x: 0, y: 0, z: 0}
   maxHealth: 100
-  curHealth: 1
+  curHealth: 10000
   ammo9mm: 0
   ammo7mm: 0
   ammo5mm: 0
@@ -10212,6 +10233,37 @@ PolygonCollider2D:
       - {x: 9.444605, y: -0.26512253}
       - {x: 9.451542, y: 2.1369333}
       - {x: 10.430602, y: 2.1432652}
+--- !u!1 &1999700280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999700281}
+  m_Layer: 7
+  m_Name: Aim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1999700281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999700280}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 683368774}
+  m_Father: {fileID: 1313461542}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2006891899
 GameObject:
   m_ObjectHideFlags: 0
