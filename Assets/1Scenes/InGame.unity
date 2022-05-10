@@ -1993,7 +1993,7 @@ MonoBehaviour:
   moveSpeed: 0
   health: 0
   maxHealth: 100
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 264378781}
   bullet: {fileID: 4834681455916346292, guid: 117cf444d3da06c44bcea2e31f725a3b, type: 3}
   firePosition: {fileID: 778313603}
   fireDelay: 2
@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 519420032}
+  m_Follow: {fileID: 1313461542}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 2
@@ -2445,7 +2445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432213233}
   m_LocalRotation: {x: -2.3509887e-38, y: 1e-45, z: 0, w: 1}
-  m_LocalPosition: {x: 1.415, y: 2.6269999, z: -7090}
+  m_LocalPosition: {x: 1.415, y: 2.627, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 321377076}
@@ -3149,7 +3149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -2.3509887e-38, y: 1e-45, z: 0, w: 1}
-  m_LocalPosition: {x: 1.415, y: 2.6269999, z: -7090}
+  m_LocalPosition: {x: 1.415, y: 2.627, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 501671907}
