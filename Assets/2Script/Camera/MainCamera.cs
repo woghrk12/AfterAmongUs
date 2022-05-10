@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
-public class CameraMove : MonoBehaviour
+public class MainCamera : MonoBehaviour
 {
     [SerializeField] private int width, height;
     [SerializeField] private float limitMinX, limitMaxX, limitMinY, limitMaxY;
-    
+
     private Transform player;
+
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
+    private float shakeTimer;
 
     private void Awake()
     {
         Camera camera = GetComponent<Camera>();
+
         Rect rect = camera.rect;
         float scaleHeight = ((float)Screen.width / Screen.height) / ((float)width / height);
         float scaleWidth = 1f / scaleHeight;
@@ -31,6 +37,13 @@ public class CameraMove : MonoBehaviour
         camera.rect = rect;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        virtualCameraNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    }
+
+    private void Update()
+    {
+        CameraShake();
     }
 
     private void LateUpdate()
@@ -43,5 +56,24 @@ public class CameraMove : MonoBehaviour
         float x = Mathf.Clamp(target.position.x, limitMinX, limitMaxX);
         float y = Mathf.Clamp(target.position.y, limitMinY, limitMaxY);
         transform.position = new Vector3(x, y, -10);
+    }
+
+    public void SetCameraShake(float _intensity, float _time)
+    {
+        virtualCameraNoise.m_AmplitudeGain = _intensity;
+        shakeTimer = _time;
+    }
+
+    private void CameraShake()
+    {
+        if (shakeTimer > 0f)
+        {
+            shakeTimer -= Time.deltaTime;
+
+            if (shakeTimer <= 0f)
+            {
+                virtualCameraNoise.m_AmplitudeGain = 0f;
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private GameObject bullet;
 
     public float rate;
+    public float recoil;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class PlayerWeapon : MonoBehaviour
     public void Shot()
     {
         Instantiate(bullet, firePosition.position, firePosition.rotation);
+        mainCamera.GetComponent<MainCamera>().SetCameraShake(recoil, 0.1f);
     }
 }
 
