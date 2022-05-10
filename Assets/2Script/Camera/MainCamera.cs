@@ -12,7 +12,9 @@ public class MainCamera : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
-    private float shakeTimer;
+    private float startIntensity = 0f;
+    private float shakeTimer = 0f;
+    private float totalShakeTime = 0f;
 
     private void Awake()
     {
@@ -60,8 +62,9 @@ public class MainCamera : MonoBehaviour
 
     public void SetCameraShake(float _intensity, float _time)
     {
-        virtualCameraNoise.m_AmplitudeGain = _intensity;
+        startIntensity = _intensity;
         shakeTimer = _time;
+        totalShakeTime = _time;
     }
 
     private void CameraShake()
@@ -70,10 +73,7 @@ public class MainCamera : MonoBehaviour
         {
             shakeTimer -= Time.deltaTime;
 
-            if (shakeTimer <= 0f)
-            {
-                virtualCameraNoise.m_AmplitudeGain = 0f;
-            }
+            virtualCameraNoise.m_AmplitudeGain = Mathf.Lerp(0f, startIntensity, shakeTimer / totalShakeTime);
         }
     }
 }
