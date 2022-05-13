@@ -38,7 +38,7 @@ public class PlayerWeapon : MonoBehaviour
     private IEnumerator ShotFlash()
     {
         muzzleFlash.SetActive(true);
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
         muzzleFlash.SetActive(false);
     }
 }
