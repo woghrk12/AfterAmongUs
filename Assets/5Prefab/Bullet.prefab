@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  speed: 5
+  speed: 10
   direction: {x: 0, y: 0, z: 0}
 --- !u!1 &2457336404848556455
 GameObject:

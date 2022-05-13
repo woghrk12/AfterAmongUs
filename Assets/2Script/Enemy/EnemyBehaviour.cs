@@ -6,7 +6,10 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public SpriteRenderer sprite;
     private Animator anim;
-    private BoxCollider2D boxCollider;
+
+    private Coroutine runningCo = null;
+
+    [SerializeField] private GameObject capsuleCollider;
 
     [SerializeField] private PointManager pointManager;
 
@@ -34,7 +37,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
 
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
@@ -62,10 +64,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log(isChasing);
+            Debug.Log(canAttack);
+        }
+
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
         if (canAttack)
-            StartCoroutine(AttackCo());
+        {
+            runningCo = StartCoroutine(AttackCo());
+        }
+            
     }
 
     private void FixedUpdate()
@@ -167,6 +178,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         openList.Add(_point);
     }
+
     private void Targeting()
     {
         var playerPosition = player.transform.position;
@@ -201,28 +213,28 @@ public class EnemyBehaviour : MonoBehaviour
     public void OnDamage(int _damage)
     {
         health -= _damage;
-        healthBar.SetHealth(health);
-        StartCoroutine(OnDamageCo());
-    }
+        
+        if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
 
-    private IEnumerator OnDamageCo()
-    {
+        healthBar.SetHealth(health);
+
         if (health > 0)
         {
-            sprite.color = Color.red;
-
-            yield return new WaitForSeconds(0.05f);
-
-            sprite.color = Color.white;
+            StartCoroutine(OnDamageCo());
         }
         else
         {
             Die();
-
-            yield return new WaitForSeconds(3f);
-
-            Destroy(gameObject);
         }
+    }
+
+    private IEnumerator OnDamageCo()
+    {
+        sprite.color = Color.red;
+
+        yield return new WaitForSeconds(0.05f);
+
+        sprite.color = Color.white;
     }
 
     private void Die()
@@ -230,8 +242,14 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = false;
         isChasing = false;
         gameObject.layer = 9;
-        StopCoroutine(AttackCo());
+        capsuleCollider.layer = 9;
+
+        if(runningCo != null)
+            StopCoroutine(runningCo);
+        
         anim.SetTrigger("Die");
+
+        Destroy(gameObject, 3f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
