@@ -11,20 +11,28 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject muzzleFlash;
     public float rate;
-    public float recoil;
+    [SerializeField] private float recoil;
+    private float cameraRecoil;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         mainCamera = Camera.main.GetComponent<MainCamera>();
+
+        cameraRecoil = recoil * 0.2f;
     }
     
     public void Shot()
     {
         StartCoroutine(ShotFlash());
+
+        var t_recoil = Random.Range(-recoil, recoil);
+        firePosition.Rotate(0f, 0f, t_recoil);
         Instantiate(bulletPrefab, firePosition.position, firePosition.rotation);
+        firePosition.Rotate(0f, 0f, -t_recoil);
+
         anim.SetTrigger("Shot");
-        mainCamera.SetCameraShake(recoil, 0.1f);
+        mainCamera.SetCameraShake(cameraRecoil, 0.1f);
     }
 
     private IEnumerator ShotFlash()

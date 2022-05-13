@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public int damage;
 
     [SerializeField] private float speed;
-    [SerializeField] private Vector3 direction;
+    private Vector3 direction;
 
     private void Awake()
     {

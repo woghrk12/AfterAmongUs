@@ -4314,7 +4314,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 405182826477394885, guid: 2ca494da35d742d4495267f7b428abed, type: 3}
   muzzleFlash: {fileID: 1414793111}
   rate: 0.15
-  recoil: 0.5
+  recoil: 5
 --- !u!95 &683368777
 Animator:
   serializedVersion: 3
