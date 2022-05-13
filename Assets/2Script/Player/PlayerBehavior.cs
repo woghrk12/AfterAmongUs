@@ -36,7 +36,7 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private int ammo7MM;
     [SerializeField] private int ammo5MM;
     
-    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private ControlSlider healthBar;
 
     [SerializeField] private Text curAmmoText;
     [SerializeField] private Text totalAmmoText;
@@ -60,7 +60,7 @@ public class PlayerBehavior : MonoBehaviour
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
 
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxValue(maxHealth);
         curHealth = maxHealth;
 
         fireDelay = 0;
@@ -224,7 +224,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         curHealth -= _damage;
 
-        healthBar.SetHealth(curHealth);
+        healthBar.SetValue(curHealth);
 
         if (curHealth > 0)
         {

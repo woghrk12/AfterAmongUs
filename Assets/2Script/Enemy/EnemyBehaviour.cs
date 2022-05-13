@@ -27,7 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
-    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private ControlSlider healthBar;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePosition;
@@ -56,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
         sprite.material.SetColor("_PlayerColor", Color.red);
 
         health = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetMaxValue(maxHealth);
 
         sprite.enabled = false;
         gameObject.SetActive(false);
@@ -216,7 +216,7 @@ public class EnemyBehaviour : MonoBehaviour
         
         if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
 
-        healthBar.SetHealth(health);
+        healthBar.SetValue(health);
 
         if (health > 0)
         {

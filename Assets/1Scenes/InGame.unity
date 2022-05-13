@@ -2233,7 +2233,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 264378778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad405f6222dbd94097457d920b28fb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 964c26884616d844a83345a9797c98cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 264378780}
@@ -8691,7 +8691,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1300057034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad405f6222dbd94097457d920b28fb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 964c26884616d844a83345a9797c98cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 635472218}
@@ -9297,6 +9297,7 @@ MonoBehaviour:
   - {fileID: 208528014}
   enemy:
   - {fileID: 264577135}
+  progress: {fileID: 0}
   player: {fileID: 0}
 --- !u!1 &1413296171
 GameObject:

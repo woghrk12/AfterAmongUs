@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private List<Region> enemySpawnRegions;
 	[SerializeField] private List<GameObject> enemy;
+	[SerializeField] private GameObject progress;
+
 	[SerializeField] private PlayerBehavior player;
 
 	private void Awake()
