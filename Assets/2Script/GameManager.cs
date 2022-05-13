@@ -32,8 +32,9 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private List<Region> enemySpawnRegions;
 	[SerializeField] private List<GameObject> enemy;
-	[SerializeField] private GameObject progress;
-
+	private int enemyCount;
+	[SerializeField] private ControlSlider progress;
+	
 	[SerializeField] private PlayerBehavior player;
 
 	private void Awake()
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+
+		enemyCount = enemy.Count;
+		progress.SetMaxValue(enemyCount);
 	}
 
     private void Start()
@@ -56,16 +60,22 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(SpawnEnemy());
     }
 
-	IEnumerator SpawnEnemy()
+	private IEnumerator SpawnEnemy()
 	{
 		yield return new WaitForSeconds(1f);
 
-		for (int i = 0; i < enemy.Count; i++)
+		for (int i = 0; i < enemyCount; i++)
 		{
 			var tempList = enemySpawnRegions;
 			tempList.Remove(player.playerRegion);						
 			var spawnRegion = tempList[Random.Range(0, tempList.Count)];
 			enemy[i].GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
 		}
+	}
+
+	public void EnemyDie()
+	{
+		enemyCount--;
+		progress.SetValue(enemyCount);
 	}
 }

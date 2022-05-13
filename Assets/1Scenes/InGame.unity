@@ -7260,6 +7260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1112490539}
   - component: {fileID: 1112490540}
+  - component: {fileID: 1112490541}
   m_Layer: 5
   m_Name: Stage Progress
   m_TagString: Untagged
@@ -7339,6 +7340,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1112490541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112490538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964c26884616d844a83345a9797c98cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1112490540}
 --- !u!1 &1130060768
 GameObject:
   m_ObjectHideFlags: 0
@@ -8907,9 +8921,9 @@ MonoBehaviour:
   moveSpeed: 2
   moveDir: {x: 0, y: 0, z: 0}
   maxHealth: 100
-  ammo12Guage: 0
-  ammo7MM: 0
-  ammo5MM: 0
+  ammo12Guage: 50
+  ammo7MM: 50
+  ammo5MM: 50
   healthBar: {fileID: 1300057036}
   curAmmoText: {fileID: 2137725782}
   totalAmmoText: {fileID: 1448717417}
@@ -9297,7 +9311,7 @@ MonoBehaviour:
   - {fileID: 208528014}
   enemy:
   - {fileID: 264577135}
-  progress: {fileID: 0}
+  progress: {fileID: 1112490541}
   player: {fileID: 0}
 --- !u!1 &1413296171
 GameObject:

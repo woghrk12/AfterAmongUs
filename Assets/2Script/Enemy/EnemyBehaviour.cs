@@ -249,6 +249,7 @@ public class EnemyBehaviour : MonoBehaviour
         
         anim.SetTrigger("Die");
 
+        GameManager.Instance.EnemyDie();
         Destroy(gameObject, 3f);
     }
 
