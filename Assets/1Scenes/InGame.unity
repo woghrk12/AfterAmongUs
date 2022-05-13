@@ -2734,7 +2734,11 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3581764585793062761, guid: 43b896ddb30e86d43bbbf5df28fa9f7e, type: 3}
   muzzleFlash: {fileID: 1902538996}
   rate: 1
-  recoil: 15
+  recoil: 20
+  weaponType: 1
+  bulletType: 2
+  maxAmmo: 8
+  curAmmo: 0
 --- !u!212 &331210797
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4945,6 +4949,10 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1414793111}
   rate: 0.15
   recoil: 5
+  weaponType: 0
+  bulletType: 0
+  maxAmmo: 30
+  curAmmo: 0
 --- !u!95 &683368777
 Animator:
   serializedVersion: 3
@@ -8897,10 +8905,15 @@ MonoBehaviour:
   moveSpeed: 2
   moveDir: {x: 0, y: 0, z: 0}
   maxHealth: 100
-  ammo9mm: 0
-  ammo7mm: 0
-  ammo5mm: 0
+  ammo12Guage: 0
+  ammo7MM: 0
+  ammo5MM: 0
   healthBar: {fileID: 1300057036}
+  ammoText: {fileID: 2137725782}
+  ammoImage: {fileID: 1753175664}
+  ammo12GuageImage: {fileID: -4994013504720742411, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
+  ammo7MMImage: {fileID: -6238440442334815089, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
+  ammo5MMImage: {fileID: -8331011272066912826, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
   playerRegion: {fileID: 0}
 --- !u!50 &1313461545
 Rigidbody2D:
@@ -11263,7 +11276,7 @@ GameObject:
   - component: {fileID: 1753175665}
   - component: {fileID: 1753175664}
   m_Layer: 5
-  m_Name: Gun Image
+  m_Name: Bullet Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11278,7 +11291,7 @@ RectTransform:
   m_GameObject: {fileID: 1753175662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 3, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 649855584}
   m_RootOrder: 1
@@ -11286,7 +11299,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 116, y: 35}
+  m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753175664
 MonoBehaviour:
@@ -11308,8 +11321,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1662544935859101991, guid: 99d76298bd185e642b5c713e7f062d9d, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -13629,7 +13642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 0}
+  m_AnchoredPosition: {x: 180, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2137725782
@@ -13659,7 +13672,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 300
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1

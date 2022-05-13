@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private List<PlayerWeapon> weapons;
     private PlayerWeapon equipWeapon;
+    private BulletType bulletType;
     private int equipWeaponIndex = -1;
 
     private float hAxis;
@@ -18,6 +20,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool fDown;
     private bool sDown1;
     private bool sDown2;
+    private bool rDown;
 
     [SerializeField] private Transform playerAim;
     private float fireDelay;
@@ -28,11 +31,19 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private int maxHealth;
     private int curHealth;
-    [SerializeField] private int ammo9mm;
-    [SerializeField] private int ammo7mm;
-    [SerializeField] private int ammo5mm;
-
+    
+    [SerializeField] private int ammo12Guage;
+    [SerializeField] private int ammo7MM;
+    [SerializeField] private int ammo5MM;
+    
     [SerializeField] private HealthBar healthBar;
+
+    [SerializeField] private Text ammoText;
+    [SerializeField] private Image ammoImage;
+
+    [SerializeField] private Sprite ammo12GuageImage;
+    [SerializeField] private Sprite ammo7MMImage;
+    [SerializeField] private Sprite ammo5MMImage;
 
     private bool isDie;
 
@@ -70,6 +81,7 @@ public class PlayerBehavior : MonoBehaviour
         Targeting();
         Fire();
         Swap();
+        Reload();
     }
 
     private void FixedUpdate()
@@ -86,6 +98,7 @@ public class PlayerBehavior : MonoBehaviour
         fDown = Input.GetButton("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
+        rDown = Input.GetButtonDown("Reload");
     }
 
     private void Move()
@@ -131,8 +144,30 @@ public class PlayerBehavior : MonoBehaviour
         if (fDown && isFireReady)
         {
             equipWeapon.GetComponent<PlayerWeapon>().Shot();
+            ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
             fireDelay = 0;
         }
+    }
+
+    private void Reload()
+    {
+        if (equipWeapon == null) return;
+        if (!rDown) return;
+
+        switch (bulletType)
+        {
+            case BulletType.FIVEMM:
+                ammo5MM -= equipWeapon.Reload(ammo5MM);
+                break;
+            case BulletType.SEVENMM:
+                ammo7MM -= equipWeapon.Reload(ammo7MM);
+                break;
+            case BulletType.TWELVEGAUGE:
+                ammo12Guage -= equipWeapon.Reload(ammo12Guage);
+                break;
+        }
+
+        ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
     }
 
     private void Swap()
@@ -152,6 +187,23 @@ public class PlayerBehavior : MonoBehaviour
             equipWeaponIndex = weaponIndex;
             equipWeapon = weapons[weaponIndex];
             equipWeapon.gameObject.SetActive(true);
+
+            ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
+
+            bulletType = equipWeapon.bulletType;
+
+            switch (bulletType)
+            {
+                case BulletType.FIVEMM:
+                    ammoImage.sprite = ammo5MMImage;
+                    break;
+                case BulletType.SEVENMM:
+                    ammoImage.sprite = ammo7MMImage;
+                    break;
+                case BulletType.TWELVEGAUGE:
+                    ammoImage.sprite = ammo12GuageImage;
+                    break;
+            }
         }
     }
 
