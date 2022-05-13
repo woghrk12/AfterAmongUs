@@ -27,10 +27,12 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private Vector3 moveDir;
 
     [SerializeField] private int maxHealth;
-    [SerializeField] private int curHealth;
+    private int curHealth;
     [SerializeField] private int ammo9mm;
     [SerializeField] private int ammo7mm;
     [SerializeField] private int ammo5mm;
+
+    [SerializeField] private HealthBar healthBar;
 
     private bool isDie;
 
@@ -45,6 +47,9 @@ public class PlayerBehavior : MonoBehaviour
 
         var inst = Instantiate(sprite.material);
         sprite.material = inst;
+
+        healthBar.SetMaxHealth(maxHealth);
+        curHealth = maxHealth;
 
         fireDelay = 0;
         isFireReady = true;
@@ -153,6 +158,8 @@ public class PlayerBehavior : MonoBehaviour
     private IEnumerator OnDamageCo(int _damage)
     {
         curHealth -= _damage;
+
+        healthBar.SetHealth(curHealth);
 
         if (curHealth > 0)
         {
