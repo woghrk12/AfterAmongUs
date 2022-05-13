@@ -38,7 +38,8 @@ public class PlayerBehavior : MonoBehaviour
     
     [SerializeField] private HealthBar healthBar;
 
-    [SerializeField] private Text ammoText;
+    [SerializeField] private Text curAmmoText;
+    [SerializeField] private Text totalAmmoText;
     [SerializeField] private Image ammoImage;
 
     [SerializeField] private Sprite ammo12GuageImage;
@@ -144,7 +145,7 @@ public class PlayerBehavior : MonoBehaviour
         if (fDown && isFireReady)
         {
             equipWeapon.GetComponent<PlayerWeapon>().Shot();
-            ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
+            curAmmoText.text = equipWeapon.curAmmo.ToString();
             fireDelay = 0;
         }
     }
@@ -157,17 +158,25 @@ public class PlayerBehavior : MonoBehaviour
         switch (bulletType)
         {
             case BulletType.FIVEMM:
+                if (ammo5MM <= 0) return;
                 ammo5MM -= equipWeapon.Reload(ammo5MM);
+                totalAmmoText.text = ammo5MM.ToString();
                 break;
+
             case BulletType.SEVENMM:
+                if (ammo7MM <= 0) return;
                 ammo7MM -= equipWeapon.Reload(ammo7MM);
+                totalAmmoText.text = ammo7MM.ToString();
                 break;
+
             case BulletType.TWELVEGAUGE:
+                if (ammo12Guage <= 0) return;
                 ammo12Guage -= equipWeapon.Reload(ammo12Guage);
+                totalAmmoText.text = ammo12Guage.ToString();
                 break;
         }
 
-        ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
+        curAmmoText.text = equipWeapon.curAmmo.ToString();
     }
 
     private void Swap()
@@ -188,20 +197,24 @@ public class PlayerBehavior : MonoBehaviour
             equipWeapon = weapons[weaponIndex];
             equipWeapon.gameObject.SetActive(true);
 
-            ammoText.text = equipWeapon.curAmmo.ToString() + " / " + equipWeapon.maxAmmo.ToString();
-
             bulletType = equipWeapon.bulletType;
 
+            curAmmoText.text = equipWeapon.curAmmo.ToString();
             switch (bulletType)
             {
                 case BulletType.FIVEMM:
                     ammoImage.sprite = ammo5MMImage;
+                    totalAmmoText.text = ammo5MM.ToString();
                     break;
+
                 case BulletType.SEVENMM:
                     ammoImage.sprite = ammo7MMImage;
+                    totalAmmoText.text = ammo7MM.ToString();
                     break;
+
                 case BulletType.TWELVEGAUGE:
                     ammoImage.sprite = ammo12GuageImage;
+                    totalAmmoText.text = ammo12Guage.ToString();
                     break;
             }
         }
