@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 	
 	[SerializeField] private PlayerBehavior player;
 
+	[SerializeField] private UnityEngine.UI.Image screen;
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
@@ -67,11 +68,11 @@ public class GameManager : MonoBehaviour
     {
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
-			ChangeLight(true);	
+			StartCoroutine(StageChange(true));
 		}
-		if (Input.GetKeyUp(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.E))
 		{
-			ChangeLight(false);
+			StartCoroutine(StageChange(false));
 		}
     }
 
@@ -94,9 +95,33 @@ public class GameManager : MonoBehaviour
 		progress.SetValue(enemyCount);
 	}
 
-	private void ChangeLight(bool stageStart)
+	private void ChangeLight(bool isStart)
 	{
-		globalLight.SetActive(!stageStart);
-		pointLight.SetActive(stageStart);
+		globalLight.SetActive(!isStart);
+		pointLight.SetActive(isStart);
+	}
+
+	private IEnumerator StageChange(bool isStart)
+	{
+		float timer = 0f;
+		Color screenColor = Color.black;
+
+		while (timer <= 1f)
+		{
+			screenColor.a = timer;
+			screen.color = screenColor;
+			timer += 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
+		
+		ChangeLight(isStart);
+		
+		while (timer >= 0f)
+		{
+			screenColor.a = timer;
+			screen.color = screenColor;
+			timer -= 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 }
