@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
 	
 	[SerializeField] private PlayerBehavior player;
 
+	[SerializeField] private GameObject pointLight;
+	[SerializeField] private GameObject globalLight;
+
 	private void Awake()
 	{
 		var objs = FindObjectsOfType<GameManager>();
@@ -60,7 +63,19 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(SpawnEnemy());
     }
 
-	private IEnumerator SpawnEnemy()
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			ChangeLight(true);	
+		}
+		if (Input.GetKeyUp(KeyCode.Q))
+		{
+			ChangeLight(false);
+		}
+    }
+
+    private IEnumerator SpawnEnemy()
 	{
 		yield return new WaitForSeconds(1f);
 
@@ -77,5 +92,11 @@ public class GameManager : MonoBehaviour
 	{
 		enemyCount--;
 		progress.SetValue(enemyCount);
+	}
+
+	private void ChangeLight(bool stageStart)
+	{
+		globalLight.SetActive(!stageStart);
+		pointLight.SetActive(stageStart);
 	}
 }

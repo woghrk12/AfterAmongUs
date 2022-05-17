@@ -64,12 +64,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log(isChasing);
-            Debug.Log(canAttack);
-        }
-
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
         if (canAttack)
