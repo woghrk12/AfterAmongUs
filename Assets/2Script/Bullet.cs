@@ -9,19 +9,19 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed;
     private Vector3 direction;
 
-    private void Awake()
-    {
-        direction = transform.up;
-    }
-
     private void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
     }
 
+    public void SetDirection(Vector3 dir)
+    {
+        direction = dir;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
-            Destroy(gameObject);
+            ObjectPooling.ReturnObject(gameObject);
     }
 }

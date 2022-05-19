@@ -29,9 +29,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private ControlSlider healthBar;
 
-    [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePosition;
     [SerializeField] private float fireDelay;
+    private Vector3 fireDirection;
 
     private void Awake()
     {
@@ -173,16 +173,18 @@ public class EnemyBehaviour : MonoBehaviour
         openList.Add(_point);
     }
 
-    private void Targeting()
+    private Vector3 Targeting()
     {
         var playerPosition = player.transform.position;
-        var direction = playerPosition - firePosition.position;
+        var direction = (playerPosition - firePosition.position).normalized;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         firePosition.rotation = rotation;
+
+        return direction;
     }
 
     private IEnumerator AttackCo()
@@ -195,8 +197,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        Targeting();
-        Instantiate(bullet, firePosition.position, firePosition.rotation);
+        fireDirection = Targeting();
+        var bullet = ObjectPooling.SpawnObject("Enemy Bullet", firePosition.position, firePosition.rotation).GetComponent<Bullet>();
+        bullet.SetDirection(fireDirection);
 
         yield return new WaitForSeconds(fireDelay);
 
@@ -263,7 +266,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             var damage = collision.GetComponent<Bullet>().damage;
             OnDamage(damage);
-            Destroy(collision.gameObject);
+            ObjectPooling.ReturnObject(collision.gameObject);
         }
     }
 

@@ -280,7 +280,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             var damage = collision.GetComponent<Bullet>().damage;
             StartCoroutine(OnDamageCo(damage));
-            Destroy(collision.gameObject);
+            ObjectPooling.ReturnObject(collision.gameObject);
         }
     }
 
