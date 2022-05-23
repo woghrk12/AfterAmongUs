@@ -6,12 +6,6 @@ public class Region : MonoBehaviour
 {
     public int dstPoint;
     public List<Point> points;
-    [SerializeField] private PointManager pointManager;
-
-    private void Awake()
-    {
-        pointManager = GetComponentInParent<PointManager>();
-    }
 
     public Point FindStartPoint(Vector2 _position)
     {

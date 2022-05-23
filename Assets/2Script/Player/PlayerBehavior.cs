@@ -21,6 +21,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool sDown1;
     private bool sDown2;
     private bool rDown;
+    private bool uDown;
 
     [SerializeField] private Transform playerAim;
     private float fireDelay;
@@ -100,6 +101,7 @@ public class PlayerBehavior : MonoBehaviour
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         rDown = Input.GetButtonDown("Reload");
+        uDown = Input.GetButton("Use");
     }
 
     private void Move()
@@ -220,6 +222,11 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
+    private void Use()
+    { 
+    
+    }
+
     private IEnumerator OnDamageCo(int _damage)
     {
         curHealth -= _damage;
@@ -281,6 +288,14 @@ public class PlayerBehavior : MonoBehaviour
             var damage = collision.GetComponent<Bullet>().damage;
             StartCoroutine(OnDamageCo(damage));
             ObjectPooling.ReturnObject(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Item Box")
+        {
+            if (uDown) collision.GetComponent<ItemBox>().Use();
         }
     }
 

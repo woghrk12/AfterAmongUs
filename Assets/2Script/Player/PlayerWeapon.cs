@@ -69,16 +69,6 @@ public class PlayerWeapon : MonoBehaviour
                 break;
         }
 
-        /*
-        var t_recoil = weaponType != WeaponType.SHOTGUN ? Random.Range(-recoil, recoil) : 0f;
-        triggerPosition.Rotate(0f, 0f, t_recoil);
-        //Vector3 direction = Quaternion.AngleAxis(-30, Vector3.forward) * dir
-
-        
-        var bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation);
-        //bullet.GetComponent<Bullet>().SetDirection();
-        triggerPosition.Rotate(0f, 0f, -t_recoil);
-        */
         anim.SetTrigger("Shot");
         mainCamera.SetCameraShake(cameraRecoil, 0.1f);
     }

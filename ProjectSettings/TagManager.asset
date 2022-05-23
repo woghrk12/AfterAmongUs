@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Wall
   - EnemyBullet
+  - Item Box
   layers:
   - Default
   - TransparentFX

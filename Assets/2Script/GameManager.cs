@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
 		StartCoroutine(SpawnEnemy());
     }
-
+/*
     private void Update()
     {
 		if (Input.GetKeyDown(KeyCode.Q))
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 			StartCoroutine(StageChange(false));
 		}
     }
-
+*/
     private IEnumerator SpawnEnemy()
 	{
 		yield return new WaitForSeconds(1f);
