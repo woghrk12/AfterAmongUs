@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class PointManager : MonoBehaviour
 {
+    public static PointManager instance;
     [SerializeField] private List<Point> pointLists;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {

@@ -61,21 +61,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+		ItemManager.instance.SpawnItems(100);
 		StartCoroutine(SpawnEnemy());
     }
-/*
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			StartCoroutine(StageChange(true));
-		}
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			StartCoroutine(StageChange(false));
-		}
-    }
-*/
+
     private IEnumerator SpawnEnemy()
 	{
 		yield return new WaitForSeconds(1f);

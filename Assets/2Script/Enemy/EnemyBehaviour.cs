@@ -11,8 +11,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private GameObject capsuleCollider;
 
-    [SerializeField] private PointManager pointManager;
-
     [SerializeField] private PlayerBehavior player;
 
     public Region region;
@@ -51,8 +49,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
-        pointManager = GameManager.Instance.pointManager;
-
         sprite.material.SetColor("_PlayerColor", Color.red);
 
         health = maxHealth;
@@ -83,7 +79,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         gameObject.SetActive(true);
         region = _region;
-        transform.position = pointManager.GetPoint(_region.dstPoint).transform.position;
+        transform.position = PointManager.instance.GetPoint(_region.dstPoint).transform.position;
         FindPath(player.playerRegion);
         isChasing = true;
     }
@@ -120,7 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void FindPath(Region _target)
     {
         startPoint = region.FindStartPoint(transform.position);
-        targetPoint = pointManager.GetPoint(_target.dstPoint);
+        targetPoint = PointManager.instance.GetPoint(_target.dstPoint);
 
         openList = new List<Point>() { startPoint };
         closedList = new List<Point>();

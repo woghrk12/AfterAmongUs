@@ -51,6 +51,8 @@ public class PlayerBehavior : MonoBehaviour
 
     public Region playerRegion;
 
+    private GameObject usingObject;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -84,6 +86,7 @@ public class PlayerBehavior : MonoBehaviour
         Fire();
         Swap();
         Reload();
+        Use();
     }
 
     private void FixedUpdate()
@@ -101,7 +104,7 @@ public class PlayerBehavior : MonoBehaviour
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         rDown = Input.GetButtonDown("Reload");
-        uDown = Input.GetButton("Use");
+        uDown = Input.GetButtonDown("Use");
     }
 
     private void Move()
@@ -223,8 +226,12 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void Use()
-    { 
-    
+    {
+        if (!uDown) return;
+
+        if (usingObject == null) return;
+
+        usingObject.GetComponent<ItemBox>().Use();
     }
 
     private IEnumerator OnDamageCo(int _damage)
@@ -289,14 +296,9 @@ public class PlayerBehavior : MonoBehaviour
             StartCoroutine(OnDamageCo(damage));
             ObjectPooling.ReturnObject(collision.gameObject);
         }
-    }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "Item Box")
-        {
-            if (uDown) collision.GetComponent<ItemBox>().Use();
-        }
+        if (collision.CompareTag("Item Box"))
+            usingObject = collision.gameObject;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -305,5 +307,8 @@ public class PlayerBehavior : MonoBehaviour
         {
             playerRegion = null;
         }
+
+        if (collision.CompareTag("Item Box"))
+            usingObject = null;
     }
 }

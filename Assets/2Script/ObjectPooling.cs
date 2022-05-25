@@ -13,7 +13,7 @@ public struct Pool
 
 public class ObjectPooling : MonoBehaviour
 {
-    public static ObjectPooling inst;
+    public static ObjectPooling instance;
 
     [SerializeField] private Pool[] pools;
     private Dictionary<string, Queue<GameObject>> poolDictionary;
@@ -21,7 +21,7 @@ public class ObjectPooling : MonoBehaviour
 
     private void Awake()
     {
-        inst = this;
+        instance = this;
 
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         categories = new Dictionary<string, GameObject>();
@@ -45,9 +45,9 @@ public class ObjectPooling : MonoBehaviour
     }
 
     public static GameObject SpawnObject(string tag, Vector3 position, Quaternion rotation)
-        => inst.SpawnFromPool(tag, position, rotation);
+        => instance.SpawnFromPool(tag, position, rotation);
     public static void ReturnObject(GameObject obj)
-        => inst.ReturnToPool(obj);
+        => instance.ReturnToPool(obj);
 
     private GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {

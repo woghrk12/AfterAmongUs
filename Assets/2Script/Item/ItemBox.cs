@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class ItemBox : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
-
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        spriteRenderer.material.SetFloat("_Highlighted", 1f);
-    }
-    
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        spriteRenderer.material.SetFloat("_Highlighted", 0f);
-    }
-
     public void Use()
     {
         int randomNum = Random.Range(0, 10);
@@ -42,6 +25,7 @@ public class ItemBox : MonoBehaviour
                 break;
         }
 
-        gameObject.SetActive(false);
+        ItemManager.instance.AddPosition(transform.position);
+        ObjectPooling.ReturnObject(gameObject);
     }
 }
