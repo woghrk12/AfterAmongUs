@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3584497251909185813}
   - component: {fileID: 3584497251909185814}
   - component: {fileID: 3584497251909185815}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: 12 Gauge Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3584497252268663242}
   - component: {fileID: 3584497252268663241}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3584497252474121171}
   - component: {fileID: 3584497252474121170}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Capsule Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

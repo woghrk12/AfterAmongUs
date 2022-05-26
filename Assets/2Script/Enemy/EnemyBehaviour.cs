@@ -9,8 +9,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Coroutine runningCo = null;
 
-    [SerializeField] private GameObject capsuleCollider;
-
     [SerializeField] private PlayerBehavior player;
 
     public Region region;
@@ -20,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool isChasing;
     private bool canAttack;
+    private bool isDie;
 
     [SerializeField] private float moveSpeed;
 
@@ -45,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         canAttack = true;
         isChasing = false;
+        isDie = false;
 
         sprite.material.SetColor("_PlayerColor", Color.red);
 
@@ -56,13 +56,15 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (health <= 0 && !isDie) StartCoroutine(Die());
+
         if ((transform.position - player.transform.position).sqrMagnitude > 2f) return;
 
         if (canAttack)
         {
             runningCo = StartCoroutine(AttackCo());
         }
-            
+        
     }
 
     private void FixedUpdate()
@@ -210,10 +212,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             StartCoroutine(OnDamageCo());
         }
-        else
-        {
-            StartCoroutine(Die());
-        }
     }
 
     private IEnumerator OnDamageCo()
@@ -229,8 +227,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         canAttack = false;
         isChasing = false;
-        gameObject.layer = 9;
-        capsuleCollider.layer = 9;
+        isDie = true;
+        gameObject.layer = 10;
 
         if(runningCo != null)
             StopCoroutine(runningCo);

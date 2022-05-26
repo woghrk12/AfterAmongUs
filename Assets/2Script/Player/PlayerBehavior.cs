@@ -242,7 +242,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (curHealth > 0)
         {
-            gameObject.layer = 3;
+            gameObject.layer = 7;
             int countTime = 0;
 
             while (countTime < 10)
@@ -259,7 +259,7 @@ public class PlayerBehavior : MonoBehaviour
 
             ChangeColor(new Color(1f, 1f, 1f, 1f));
 
-            gameObject.layer = 7;
+            gameObject.layer = 6;
         }
         else
         {
@@ -275,7 +275,7 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         moveSpeed = 0;
-        gameObject.layer = 8;
+        gameObject.layer = 7;
         isDie = true;
 
         sprite.flipX = false;

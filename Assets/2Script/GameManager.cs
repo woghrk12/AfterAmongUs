@@ -112,6 +112,6 @@ public class GameManager : MonoBehaviour
 		
 		stage++;
 
-		StartCoroutine(StageStart(30f));
+		StartCoroutine(StageStart(5f));
 	}
 }

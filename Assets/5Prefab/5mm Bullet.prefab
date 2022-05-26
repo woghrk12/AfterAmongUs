@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 405182826477394886}
   - component: {fileID: 7100536045223759144}
   - component: {fileID: -309420809438014440}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: 5mm Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1288368266973514882}
   - component: {fileID: 3390516583400207257}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6356918016181124413}
   - component: {fileID: 7149679205997168961}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Capsule Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

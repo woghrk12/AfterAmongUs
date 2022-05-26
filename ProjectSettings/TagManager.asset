@@ -15,17 +15,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - PlayerOnHit
+  - Map
   - Water
   - UI
-  - Enemy
   - Player
+  - PlayerOnHit
   - PlayerDie
+  - Enemy
   - EnemyDie
   - Bullet
   - EnemyBullet
-  - 
-  - 
+  - Collider
   - 
   - 
   - 
