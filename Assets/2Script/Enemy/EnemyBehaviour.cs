@@ -45,17 +45,13 @@ public class EnemyBehaviour : MonoBehaviour
 
         canAttack = true;
         isChasing = false;
-    }
 
-    private void Start()
-    {
         sprite.material.SetColor("_PlayerColor", Color.red);
 
         health = maxHealth;
         healthBar.SetMaxValue(maxHealth);
 
         sprite.enabled = false;
-        gameObject.SetActive(false);
     }
 
     private void Update()
@@ -77,7 +73,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void SetEnemy(Region _region)
     {
-        gameObject.SetActive(true);
         region = _region;
         transform.position = PointManager.instance.GetPoint(_region.dstPoint).transform.position;
         FindPath(player.playerRegion);
@@ -217,7 +212,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -230,7 +225,7 @@ public class EnemyBehaviour : MonoBehaviour
         sprite.color = Color.white;
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
         canAttack = false;
         isChasing = false;
@@ -242,8 +237,11 @@ public class EnemyBehaviour : MonoBehaviour
         
         anim.SetTrigger("Die");
 
-        GameManager.Instance.EnemyDie();
-        Destroy(gameObject, 3f);
+        GameManager.instance.EnemyDie();
+
+        yield return new WaitForSeconds(3f);
+
+        ObjectPooling.ReturnObject(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,37 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-	private static GameManager instance;
-	public static GameManager Instance
-	{
-		get
-		{
-			if (instance == null)
-			{
-				var obj = FindObjectOfType<GameManager>();
-
-				if (obj != null)
-				{
-					instance = obj;
-				}
-				else
-				{
-					var newObj = new GameObject().AddComponent<GameManager>();
-					instance = newObj;
-				}
-			}
-
-			return instance;
-		}
-	}
+	public static GameManager instance;
 
 	public PointManager pointManager;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
-	[SerializeField] private List<GameObject> enemy;
+
 	private int enemyCount;
 	[SerializeField] private ControlSlider progress;
 	
@@ -41,31 +20,25 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
+	private int stage;
+	[SerializeField] private Text stageText;
+	[SerializeField] private Text timerText;
+
 	private void Awake()
 	{
-		var objs = FindObjectsOfType<GameManager>();
-
-		if (objs.Length != 1)
-		{
-			Destroy(gameObject);
-			return;
-		}
-
-		DontDestroyOnLoad(gameObject);
+		instance = this;
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 
-		enemyCount = enemy.Count;
-		progress.SetMaxValue(enemyCount);
+		stage = 1;
 	}
 
     private void Start()
     {
-		ItemManager.instance.SpawnItems(100);
-		StartCoroutine(SpawnEnemy());
+		StartCoroutine(StageStart(5f));
     }
 
-    private IEnumerator SpawnEnemy()
+    private IEnumerator SpawnEnemy(int num)
 	{
 		yield return new WaitForSeconds(1f);
 
@@ -74,7 +47,8 @@ public class GameManager : MonoBehaviour
 			var tempList = enemySpawnRegions;
 			tempList.Remove(player.playerRegion);						
 			var spawnRegion = tempList[Random.Range(0, tempList.Count)];
-			enemy[i].GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
+			var enemy = ObjectPooling.SpawnObject("Enemy", Vector3.zero, Quaternion.identity);
+			enemy.GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
 		}
 	}
 
@@ -82,6 +56,9 @@ public class GameManager : MonoBehaviour
 	{
 		enemyCount--;
 		progress.SetValue(enemyCount);
+
+		if (enemyCount <= 0)
+			StartCoroutine(StageEnd());
 	}
 
 	private void ChangeLight(bool isStart)
@@ -112,5 +89,29 @@ public class GameManager : MonoBehaviour
 			timer -= 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
+	}
+
+	private IEnumerator StageStart(float timer)
+	{
+		stageText.text = "STAGE  " + stage.ToString();
+		ItemManager.instance.SpawnItems(10);
+
+		yield return new WaitForSeconds(timer);
+		
+		enemyCount = stage * 2;
+		progress.SetMaxValue(enemyCount);
+
+		yield return StageChange(true);
+		
+		StartCoroutine(SpawnEnemy(enemyCount));
+	}
+
+	private IEnumerator StageEnd()
+	{
+		yield return StageChange(false);
+		
+		stage++;
+
+		StartCoroutine(StageStart(30f));
 	}
 }
