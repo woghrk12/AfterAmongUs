@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    private Rigidbody2D rigid;
     private Animator anim;
     private SpriteRenderer sprite;
     private Camera mainCamera;
@@ -22,20 +21,29 @@ public class PlayerBehavior : MonoBehaviour
     private bool sDown2;
     private bool rDown;
     private bool uDown;
+    private bool mDown;
+
+    private bool isLeft;
+    private bool isDie;
+    private bool isFireReady;
 
     [SerializeField] private Transform playerAim;
     private float fireDelay;
-    private bool isFireReady;
 
     [SerializeField] private float moveSpeed;
-    [SerializeField] private Vector3 moveDir;
+    private Vector3 moveDir;
+
+    private Vector3 mPosition;
+    private Vector3 oPosition;
+    private Vector3 direction;
+    private float angle;
 
     [SerializeField] private int maxHealth;
     private int curHealth;
     
-    [SerializeField] private int ammo12Guage;
-    [SerializeField] private int ammo7MM;
-    [SerializeField] private int ammo5MM;
+    private int ammo12Guage;
+    private int ammo7MM;
+    private int ammo5MM;
     
     [SerializeField] private ControlSlider healthBar;
 
@@ -47,15 +55,14 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private Sprite ammo7MMImage;
     [SerializeField] private Sprite ammo5MMImage;
 
-    private bool isDie;
-
     public Region playerRegion;
 
     private GameObject usingObject;
 
+    [SerializeField] private GameObject miniMap;
+
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         mainCamera = Camera.main;
@@ -67,9 +74,13 @@ public class PlayerBehavior : MonoBehaviour
         curHealth = maxHealth;
 
         fireDelay = 0;
+        
         isFireReady = true;
-
         isDie = false;
+
+        ammo12Guage = 50;
+        ammo7MM = 50;
+        ammo5MM = 50;
     }
 
     private void Start()
@@ -87,6 +98,7 @@ public class PlayerBehavior : MonoBehaviour
         Swap();
         Reload();
         Use();
+        TurnOnOffMiniMap();
     }
 
     private void FixedUpdate()
@@ -105,6 +117,7 @@ public class PlayerBehavior : MonoBehaviour
         sDown2 = Input.GetButtonDown("Swap2");
         rDown = Input.GetButtonDown("Reload");
         uDown = Input.GetButtonDown("Use");
+        mDown = Input.GetButtonDown("Map");
     }
 
     private void Move()
@@ -118,16 +131,16 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Targeting()
     {
-        var mPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        var oPosition = transform.position;
+        mPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        oPosition = transform.position;
 
-        var isLeft = mPosition.x < oPosition.x;
+        isLeft = mPosition.x < oPosition.x;
 
         sprite.flipX = isLeft;
         playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
-        var direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
+        direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         if (angle < -80f || angle > 80f)
             angle = Mathf.Clamp(angle, -80f, 80f);
@@ -281,6 +294,13 @@ public class PlayerBehavior : MonoBehaviour
         sprite.flipX = false;
 
         anim.SetTrigger("Die");
+    }
+
+    private void TurnOnOffMiniMap()
+    {
+        if (!mDown) return;
+
+        miniMap.SetActive(!miniMap.activeSelf);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

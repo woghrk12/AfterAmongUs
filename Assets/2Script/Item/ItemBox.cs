@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemBox : MonoBehaviour
 {
+    public MiniMapObject miniMapObject;
+
     public void Use()
     {
         int randomNum = Random.Range(0, 10);
@@ -26,6 +28,7 @@ public class ItemBox : MonoBehaviour
         }
 
         ItemManager.instance.AddPosition(transform.position);
+        MiniMapManager.instance.ReturnObject(miniMapObject);
         ObjectPooling.ReturnObject(gameObject);
     }
 }

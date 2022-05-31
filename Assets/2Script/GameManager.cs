@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
 	private int stage;
 	[SerializeField] private Text stageText;
+
 	[SerializeField] private Text timerText;
 
 	private void Awake()
@@ -96,8 +97,8 @@ public class GameManager : MonoBehaviour
 		stageText.text = "STAGE  " + stage.ToString();
 		ItemManager.instance.SpawnItems(10);
 
-		yield return new WaitForSeconds(timer);
-		
+		yield return TimeCheck(timer);
+
 		enemyCount = stage * 2;
 		progress.SetMaxValue(enemyCount);
 
@@ -113,5 +114,27 @@ public class GameManager : MonoBehaviour
 		stage++;
 
 		StartCoroutine(StageStart(5f));
+	}
+
+	private IEnumerator TimeCheck(float time)
+	{
+		timerText.gameObject.SetActive(true);
+
+		var leftTime = time;
+		var interval = 1;
+		
+		while (leftTime > 0)
+		{
+			leftTime -= interval;
+			
+			timerText.text = leftTime.ToString();
+			var colorValue = Mathf.Lerp(0f, 1f, leftTime / time);
+			
+			timerText.color = new Color(1f, colorValue, colorValue);
+
+			yield return new WaitForSeconds(interval);
+		}
+
+		timerText.gameObject.SetActive(false);
 	}
 }
