@@ -92,7 +92,10 @@ public class PointManager : MonoBehaviour
         }
     }
 
-    public Point GetPoint(int num)
+    public static Point GetPoint(int num)
+        => instance.ReturnPoint(num);
+
+    private Point ReturnPoint(int num)
     {
         return pointLists[num];
     }

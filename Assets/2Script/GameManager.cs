@@ -95,10 +95,11 @@ public class GameManager : MonoBehaviour
 	private IEnumerator StageStart(float timer)
 	{
 		stageText.text = "STAGE  " + stage.ToString();
-		ItemManager.instance.SpawnItems(10);
+		ItemManager.SpawnItems(10);
 
 		yield return TimeCheck(timer);
 
+		ItemManager.ReturnItems();
 		enemyCount = stage * 2;
 		progress.SetMaxValue(enemyCount);
 

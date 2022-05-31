@@ -76,7 +76,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void SetEnemy(Region _region)
     {
         region = _region;
-        transform.position = PointManager.instance.GetPoint(_region.dstPoint).transform.position;
+        transform.position = PointManager.GetPoint(_region.dstPoint).transform.position;
         FindPath(player.playerRegion);
         isChasing = true;
     }
@@ -113,7 +113,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void FindPath(Region _target)
     {
         startPoint = region.FindStartPoint(transform.position);
-        targetPoint = PointManager.instance.GetPoint(_target.dstPoint);
+        targetPoint = PointManager.GetPoint(_target.dstPoint);
 
         openList = new List<Point>() { startPoint };
         closedList = new List<Point>();

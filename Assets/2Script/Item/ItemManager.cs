@@ -10,29 +10,27 @@ public class ItemManager : MonoBehaviour
     private Vector3[] positions;
     private int length;
 
+    private Queue<GameObject> items;
+
     private void Awake()
     {
         instance = this;
 
         length = spawnPositions.Length;
-
         positions = new Vector3[length];
+        items = new Queue<GameObject>();
 
         for (int i = 0; i < length; i++)
             positions[i] = spawnPositions[i].position;
     }
 
-    public void SpawnItems()
-    {
-        if (length <= 0) return;
+    public static void SpawnItems(int num)
+        => instance.SpawnFromPool(num);
+    public static void ReturnItems()
+        => instance.ReturnToPool();
 
-        var position = Random.Range(0, length);
-        ObjectPooling.SpawnObject("Item Box", positions[position], Quaternion.identity);
-        positions[position] = positions[length - 1];
-        length--;
-    }
 
-    public void SpawnItems(int num)
+    private void SpawnFromPool(int num)
     {
         for (int i = 0; i < num; i++)
         {
@@ -40,7 +38,8 @@ public class ItemManager : MonoBehaviour
 
             var position = Random.Range(0, length);
             var obj = ObjectPooling.SpawnObject("Item Box", positions[position], Quaternion.identity);
-            obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.instance.SpawnObject(obj.transform.position);
+            items.Enqueue(obj);
+            obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.SpawnObject(obj.transform.position);
             positions[position] = positions[length - 1];
             length--;
         }
@@ -52,5 +51,15 @@ public class ItemManager : MonoBehaviour
 
         length++;
         positions[length - 1] = position;
+    }
+
+    private void ReturnToPool()
+    {
+        while (items.Count > 0)
+        {
+            var obj = items.Dequeue();
+            MiniMapManager.ReturnObject(obj.GetComponent<ItemBox>().miniMapObject);
+            ObjectPooling.ReturnObject(obj);
+        }
     }
 }

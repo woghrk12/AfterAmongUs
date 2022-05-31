@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    void Start()
-    {
-        MiniMapManager.instance.SpawnObject(transform.position);
-    }
+
 }

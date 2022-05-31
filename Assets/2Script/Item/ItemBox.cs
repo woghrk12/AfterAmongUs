@@ -28,7 +28,7 @@ public class ItemBox : MonoBehaviour
         }
 
         ItemManager.instance.AddPosition(transform.position);
-        MiniMapManager.instance.ReturnObject(miniMapObject);
+        MiniMapManager.ReturnObject(miniMapObject);
         ObjectPooling.ReturnObject(gameObject);
     }
 }

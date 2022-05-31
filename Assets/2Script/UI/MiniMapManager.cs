@@ -47,7 +47,12 @@ public class MiniMapManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public MiniMapObject SpawnObject(Vector2 position)
+    public static MiniMapObject SpawnObject(Vector2 position)
+        => instance.SpawnFromPool(position);
+    public static void ReturnObject(MiniMapObject obj)
+        => instance.ReturnToPool(obj);
+
+    public MiniMapObject SpawnFromPool(Vector2 position)
     {
         var obj = objectQueue.Dequeue().GetComponent<MiniMapObject>();
         obj.gameObject.SetActive(true);
@@ -56,7 +61,7 @@ public class MiniMapManager : MonoBehaviour
         return obj;
     }
 
-    public void ReturnObject(MiniMapObject obj)
+    private void ReturnToPool(MiniMapObject obj)
     {
         objectQueue.Enqueue(obj.gameObject);
         obj.gameObject.SetActive(false);
