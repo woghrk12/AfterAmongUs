@@ -122,14 +122,22 @@ public class GameManager : MonoBehaviour
 		timerText.gameObject.SetActive(true);
 
 		var t_time = p_time;
-		var t_interval = 1;
-		
-		while (t_time > 0)
+		var t_interval = 1f;
+
+		while (t_time > 10f)
+		{
+			t_time -= t_interval;
+			timerText.text = t_time.ToString();
+
+			yield return new WaitForSeconds(t_interval);
+		}
+
+		while (t_time > 0f)
 		{
 			t_time -= t_interval;
 			
 			timerText.text = t_time.ToString();
-			var t_colorValue = Mathf.Lerp(0f, 1f, t_time / p_time);
+			var t_colorValue = Mathf.Lerp(0f, 1f, t_time / 10f);
 			
 			timerText.color = new Color(1f, t_colorValue, t_colorValue);
 
