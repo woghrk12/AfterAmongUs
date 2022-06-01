@@ -40,18 +40,18 @@ public class EnemyBehaviour : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 
-        moveSpeed = 1f;
+        sprite.material.SetColor("_PlayerColor", Color.red);
+    }
+
+    private void OnEnable()
+    {
+        health = maxHealth;
+        healthBar.SetMaxValue(maxHealth);
+        sprite.enabled = false;
 
         canAttack = true;
         isChasing = false;
         isDie = false;
-
-        sprite.material.SetColor("_PlayerColor", Color.red);
-
-        health = maxHealth;
-        healthBar.SetMaxValue(maxHealth);
-
-        sprite.enabled = false;
     }
 
     private void Update()
@@ -64,7 +64,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             runningCo = StartCoroutine(AttackCo());
         }
-        
     }
 
     private void FixedUpdate()
@@ -239,6 +238,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
+        gameObject.layer = 9;
         ObjectPooling.ReturnObject(gameObject);
     }
 

@@ -392,7 +392,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   player: {fileID: 0}
   region: {fileID: 0}
-  moveSpeed: 0
+  moveSpeed: 1
   health: 0
   maxHealth: 10
   healthBar: {fileID: 973337266697008727}
