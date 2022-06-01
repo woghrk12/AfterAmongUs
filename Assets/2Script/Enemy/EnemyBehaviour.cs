@@ -35,8 +35,8 @@ public class EnemyBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
-        var inst = Instantiate(sprite.material);
-        sprite.material = inst;
+        var t_inst = Instantiate(sprite.material);
+        sprite.material = t_inst;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
 
@@ -73,10 +73,10 @@ public class EnemyBehaviour : MonoBehaviour
             Chase();
     }
 
-    public void SetEnemy(Region _region)
+    public void SetEnemy(Region p_region)
     {
-        region = _region;
-        transform.position = PointManager.GetPoint(_region.dstPoint).transform.position;
+        region = p_region;
+        transform.position = PointManager.GetPoint(p_region.dstPoint).transform.position;
         FindPath(player.playerRegion);
         isChasing = true;
     }
@@ -98,22 +98,22 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private void Move(Transform _target)
+    private void Move(Transform p_target)
     {
-        var moveDir = (_target.position - transform.position).normalized;
+        var t_moveDir = (p_target.position - transform.position).normalized;
 
-        var curFlipX = sprite.flipX;
-        sprite.flipX = (moveDir.x != 0) ? (moveDir.x < 0) : curFlipX;
+        var t_flipX = sprite.flipX;
+        sprite.flipX = (t_moveDir.x != 0) ? (t_moveDir.x < 0) : t_flipX;
 
         anim.SetBool("isChasing", isChasing);
 
-        transform.position += moveDir * Time.deltaTime * moveSpeed;
+        transform.position += t_moveDir * Time.deltaTime * moveSpeed;
     }
 
-    private void FindPath(Region _target)
+    private void FindPath(Region p_target)
     {
         startPoint = region.FindStartPoint(transform.position);
-        targetPoint = PointManager.GetPoint(_target.dstPoint);
+        targetPoint = PointManager.GetPoint(p_target.dstPoint);
 
         openList = new List<Point>() { startPoint };
         closedList = new List<Point>();
@@ -133,51 +133,51 @@ public class EnemyBehaviour : MonoBehaviour
             // reach the final destination
             if (curPoint == targetPoint)
             {
-                var targetCurPoint = targetPoint;
+                var t_curPoint = targetPoint;
 
-                while (targetCurPoint != startPoint)
+                while (t_curPoint != startPoint)
                 {
-                    finalList.Add(targetCurPoint);
-                    targetCurPoint = targetCurPoint.parentPoint;
+                    finalList.Add(t_curPoint);
+                    t_curPoint = t_curPoint.parentPoint;
                 }
 
-                finalList.Add(targetCurPoint);
+                finalList.Add(t_curPoint);
                 finalList.Reverse();
             }
 
             // add adjacent points 
-            var adjList = curPoint.adj_Point;
-            var adjWeight = curPoint.adj_Weight;
-            for (int i = 0; i < adjList.Count; i++)
-                OpenListAdd(adjList[i], adjWeight[i]);
+            var t_adjList = curPoint.adj_Point;
+            var t_adjWeight = curPoint.adj_Weight;
+            for (int i = 0; i < t_adjList.Count; i++)
+                OpenListAdd(t_adjList[i], t_adjWeight[i]);
         }
     }
 
-    private void OpenListAdd(Point _point, float _weight)
+    private void OpenListAdd(Point p_point, float p_weight)
     {
-        if (closedList.Contains(_point)) return;
+        if (closedList.Contains(p_point)) return;
 
-        if (openList.Contains(_point) && curPoint.G + _weight > _point.G) return;
+        if (openList.Contains(p_point) && curPoint.G + p_weight > p_point.G) return;
 
-        _point.SetParent(curPoint);
-        _point.SetG(_weight);
-        _point.SetH(_point.transform.position, targetPoint.transform.position);
+        p_point.SetParent(curPoint);
+        p_point.SetG(p_weight);
+        p_point.SetH(p_point.transform.position, targetPoint.transform.position);
 
-        openList.Add(_point);
+        openList.Add(p_point);
     }
 
     private Vector3 Targeting()
     {
-        var playerPosition = player.transform.position;
-        var direction = (playerPosition - firePosition.position).normalized;
+        var t_playerPosition = player.transform.position;
+        var t_direction = (t_playerPosition - firePosition.position).normalized;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float t_angle = Mathf.Atan2(t_direction.y, t_direction.x) * Mathf.Rad2Deg;
 
-        var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        var t_rotation = Quaternion.AngleAxis(t_angle, Vector3.forward);
 
-        firePosition.rotation = rotation;
+        firePosition.rotation = t_rotation;
 
-        return direction;
+        return t_direction;
     }
 
     private IEnumerator AttackCo()
@@ -191,8 +191,8 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         fireDirection = Targeting();
-        var bullet = ObjectPooling.SpawnObject("Enemy Bullet", firePosition.position, firePosition.rotation).GetComponent<Bullet>();
-        bullet.SetDirection(fireDirection);
+        var t_bullet = ObjectPooling.SpawnObject("Enemy Bullet", firePosition.position, firePosition.rotation).GetComponent<Bullet>();
+        t_bullet.SetDirection(fireDirection);
 
         yield return new WaitForSeconds(fireDelay);
 
@@ -200,9 +200,9 @@ public class EnemyBehaviour : MonoBehaviour
         isChasing = true;
     }
 
-    public void OnDamage(int _damage)
+    public void OnDamage(int p_damage)
     {
-        health -= _damage;
+        health -= p_damage;
         
         if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
 
@@ -256,8 +256,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (collision.tag == "Bullet")
         {
-            var damage = collision.GetComponent<Bullet>().damage;
-            OnDamage(damage);
+            var t_damage = collision.GetComponent<Bullet>().damage;
+            OnDamage(t_damage);
             ObjectPooling.ReturnObject(collision.gameObject);
         }
     }

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 	
 	[SerializeField] private PlayerBehavior player;
 
-	[SerializeField] private UnityEngine.UI.Image screen;
+	[SerializeField] private Image screen;
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
@@ -36,20 +36,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-		StartCoroutine(StageStart(5f));
+		StartCoroutine(WaveStart(5f));
     }
 
-    private IEnumerator SpawnEnemy(int num)
+    private IEnumerator SpawnEnemy(int p_num)
 	{
 		yield return new WaitForSeconds(1f);
 
 		for (int i = 0; i < enemyCount; i++)
 		{
-			var tempList = enemySpawnRegions;
-			tempList.Remove(player.playerRegion);						
-			var spawnRegion = tempList[Random.Range(0, tempList.Count)];
-			var enemy = ObjectPooling.SpawnObject("Enemy", Vector3.zero, Quaternion.identity);
-			enemy.GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
+			var t_regions = enemySpawnRegions;
+			t_regions.Remove(player.playerRegion);						
+			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
+			var t_enemy = ObjectPooling.SpawnObject("Enemy", Vector3.zero, Quaternion.identity);
+			t_enemy.GetComponent<EnemyBehaviour>().SetEnemy(t_spawnRegion);
 		}
 	}
 
@@ -59,45 +59,45 @@ public class GameManager : MonoBehaviour
 		progress.SetValue(enemyCount);
 
 		if (enemyCount <= 0)
-			StartCoroutine(StageEnd());
+			StartCoroutine(WaveEnd());
 	}
 
-	private void ChangeLight(bool isStart)
+	private void ChangeLight(bool p_isStart)
 	{
-		globalLight.SetActive(!isStart);
-		pointLight.SetActive(isStart);
+		globalLight.SetActive(!p_isStart);
+		pointLight.SetActive(p_isStart);
 	}
 
-	private IEnumerator StageChange(bool isStart)
+	private IEnumerator StageChange(bool p_isStart)
 	{
-		float timer = 0f;
-		Color screenColor = Color.black;
+		float t_time = 0f;
+		Color t_color = Color.black;
 
-		while (timer <= 1f)
+		while (t_time <= 1f)
 		{
-			screenColor.a = timer;
-			screen.color = screenColor;
-			timer += 0.1f;
+			t_color.a = t_time;
+			screen.color = t_color;
+			t_time += 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
 		
-		ChangeLight(isStart);
+		ChangeLight(p_isStart);
 		
-		while (timer >= 0f)
+		while (t_time >= 0f)
 		{
-			screenColor.a = timer;
-			screen.color = screenColor;
-			timer -= 0.1f;
+			t_color.a = t_time;
+			screen.color = t_color;
+			t_time -= 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
-	private IEnumerator StageStart(float timer)
+	private IEnumerator WaveStart(float p_time)
 	{
-		stageText.text = "STAGE  " + stage.ToString();
+		stageText.text = "WAVE  " + stage.ToString();
 		ItemManager.SpawnItems(10);
 
-		yield return TimeCheck(timer);
+		yield return TimeCheck(p_time);
 
 		ItemManager.ReturnItems();
 		enemyCount = stage * 2;
@@ -108,32 +108,32 @@ public class GameManager : MonoBehaviour
 		StartCoroutine(SpawnEnemy(enemyCount));
 	}
 
-	private IEnumerator StageEnd()
+	private IEnumerator WaveEnd()
 	{
 		yield return StageChange(false);
 		
 		stage++;
 
-		StartCoroutine(StageStart(5f));
+		StartCoroutine(WaveStart(5f));
 	}
 
-	private IEnumerator TimeCheck(float time)
+	private IEnumerator TimeCheck(float p_time)
 	{
 		timerText.gameObject.SetActive(true);
 
-		var leftTime = time;
-		var interval = 1;
+		var t_time = p_time;
+		var t_interval = 1;
 		
-		while (leftTime > 0)
+		while (t_time > 0)
 		{
-			leftTime -= interval;
+			t_time -= t_interval;
 			
-			timerText.text = leftTime.ToString();
-			var colorValue = Mathf.Lerp(0f, 1f, leftTime / time);
+			timerText.text = t_time.ToString();
+			var t_colorValue = Mathf.Lerp(0f, 1f, t_time / p_time);
 			
-			timerText.color = new Color(1f, colorValue, colorValue);
+			timerText.color = new Color(1f, t_colorValue, t_colorValue);
 
-			yield return new WaitForSeconds(interval);
+			yield return new WaitForSeconds(t_interval);
 		}
 
 		timerText.gameObject.SetActive(false);

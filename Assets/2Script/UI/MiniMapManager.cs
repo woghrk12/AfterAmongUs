@@ -36,9 +36,9 @@ public class MiniMapManager : MonoBehaviour
 
         for (int i = 0; i < numQueue; i++)
         {
-            var obj = Instantiate(prefab, transform);
-            objectQueue.Enqueue(obj);
-            obj.SetActive(false);
+            var t_obj = Instantiate(prefab, transform);
+            objectQueue.Enqueue(t_obj);
+            t_obj.SetActive(false);
         }
     }
 
@@ -47,33 +47,33 @@ public class MiniMapManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public static MiniMapObject SpawnObject(Vector2 position)
-        => instance.SpawnFromPool(position);
-    public static void ReturnObject(MiniMapObject obj)
-        => instance.ReturnToPool(obj);
+    public static MiniMapObject SpawnObject(Vector2 p_position)
+        => instance.SpawnFromPool(p_position);
+    public static void ReturnObject(MiniMapObject p_obj)
+        => instance.ReturnToPool(p_obj);
 
-    public MiniMapObject SpawnFromPool(Vector2 position)
+    public MiniMapObject SpawnFromPool(Vector2 p_position)
     {
-        var obj = objectQueue.Dequeue().GetComponent<MiniMapObject>();
-        obj.gameObject.SetActive(true);
-        obj.SetPosition(CalculatePosition(position));
+        var t_obj = objectQueue.Dequeue().GetComponent<MiniMapObject>();
+        t_obj.gameObject.SetActive(true);
+        t_obj.SetPosition(CalculatePosition(p_position));
 
-        return obj;
+        return t_obj;
     }
 
-    private void ReturnToPool(MiniMapObject obj)
+    private void ReturnToPool(MiniMapObject p_obj)
     {
-        objectQueue.Enqueue(obj.gameObject);
-        obj.gameObject.SetActive(false);
+        objectQueue.Enqueue(p_obj.gameObject);
+        p_obj.gameObject.SetActive(false);
     }
 
-    private Vector2 CalculatePosition(Vector2 position)
+    private Vector2 CalculatePosition(Vector2 p_position)
     {
-        var newPosition = position;
+        var t_position = p_position;
 
-        newPosition.x *= rateX;
-        newPosition.y *= rateY;
+        t_position.x *= rateX;
+        t_position.y *= rateY;
 
-        return newPosition;
+        return t_position;
     }
 }

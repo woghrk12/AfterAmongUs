@@ -14,7 +14,7 @@ public class PointManager : MonoBehaviour
 
     private void Start()
     {
-        int[][] arr =
+        int[][] t_pointArray =
         {
             new int[] { 1 },                    // 0
             new int[] { 0, 61 },                // 1 
@@ -82,21 +82,21 @@ public class PointManager : MonoBehaviour
 
         for (int i = 0; i < pointLists.Count; i++)
         {
-            var temp = new List<Point>();
-            var arr_temp = arr[i];
+            var t_pointList = new List<Point>();
+            var t_arr = t_pointArray[i];
 
-            for (int j = 0; j < arr_temp.Length; j++)
-                temp.Add(pointLists[arr_temp[j]]);
+            for (int j = 0; j < t_arr.Length; j++)
+                t_pointList.Add(pointLists[t_arr[j]]);
 
-            pointLists[i].GetComponent<Point>().SetPoint(temp);
+            pointLists[i].GetComponent<Point>().SetPoint(t_pointList);
         }
     }
 
-    public static Point GetPoint(int num)
-        => instance.ReturnPoint(num);
+    public static Point GetPoint(int p_num)
+        => instance.ReturnPoint(p_num);
 
-    private Point ReturnPoint(int num)
+    private Point ReturnPoint(int p_num)
     {
-        return pointLists[num];
+        return pointLists[p_num];
     }
 }

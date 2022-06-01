@@ -24,42 +24,42 @@ public class ItemManager : MonoBehaviour
             positions[i] = spawnPositions[i].position;
     }
 
-    public static void SpawnItems(int num)
-        => instance.SpawnFromPool(num);
+    public static void SpawnItems(int p_num)
+        => instance.SpawnFromPool(p_num);
     public static void ReturnItems()
         => instance.ReturnToPool();
 
 
-    private void SpawnFromPool(int num)
+    private void SpawnFromPool(int p_num)
     {
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < p_num; i++)
         {
             if (length <= 0) return;
 
-            var position = Random.Range(0, length);
-            var obj = ObjectPooling.SpawnObject("Item Box", positions[position], Quaternion.identity);
-            items.Enqueue(obj);
-            obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.SpawnObject(obj.transform.position);
-            positions[position] = positions[length - 1];
+            var t_position = Random.Range(0, length);
+            var t_obj = ObjectPooling.SpawnObject("Item Box", positions[t_position], Quaternion.identity);
+            items.Enqueue(t_obj);
+            t_obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.SpawnObject(t_obj.transform.position);
+            positions[t_position] = positions[length - 1];
             length--;
         }
     }
 
-    public void AddPosition(Vector3 position)
+    public void AddPosition(Vector3 p_position)
     {
         if (length >= spawnPositions.Length) return;
 
         length++;
-        positions[length - 1] = position;
+        positions[length - 1] = p_position;
     }
 
     private void ReturnToPool()
     {
         while (items.Count > 0)
         {
-            var obj = items.Dequeue();
-            MiniMapManager.ReturnObject(obj.GetComponent<ItemBox>().miniMapObject);
-            ObjectPooling.ReturnObject(obj);
+            var t_obj = items.Dequeue();
+            MiniMapManager.ReturnObject(t_obj.GetComponent<ItemBox>().miniMapObject);
+            ObjectPooling.ReturnObject(t_obj);
         }
     }
 }

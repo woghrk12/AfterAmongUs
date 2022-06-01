@@ -18,25 +18,25 @@ public class MainCamera : MonoBehaviour
 
     private void Awake()
     {
-        Camera camera = GetComponent<Camera>();
+        Camera t_camera = GetComponent<Camera>();
 
-        Rect rect = camera.rect;
-        float scaleHeight = ((float)Screen.width / Screen.height) / ((float)width / height);
-        float scaleWidth = 1f / scaleHeight;
+        Rect t_rect = t_camera.rect;
+        float t_scaleHeight = ((float)Screen.width / Screen.height) / ((float)width / height);
+        float t_scaleWidth = 1f / t_scaleHeight;
 
-        if (scaleHeight < 1)
+        if (t_scaleHeight < 1)
         {
-            rect.height = scaleHeight;
-            rect.y = (1f - scaleHeight) / 2f;
+            t_rect.height = t_scaleHeight;
+            t_rect.y = (1f - t_scaleHeight) / 2f;
         }
         else
         {
-            rect.width = scaleWidth;
-            rect.x = (1f - scaleWidth) / 2f;
+            t_rect.width = t_scaleWidth;
+            t_rect.x = (1f - t_scaleWidth) / 2f;
 
         }
 
-        camera.rect = rect;
+        t_camera.rect = t_rect;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -53,18 +53,18 @@ public class MainCamera : MonoBehaviour
         Follow(player);
     }
 
-    private void Follow(Transform target)
+    private void Follow(Transform p_transform)
     {
-        float x = Mathf.Clamp(target.position.x, limitMinX, limitMaxX);
-        float y = Mathf.Clamp(target.position.y, limitMinY, limitMaxY);
-        transform.position = new Vector3(x, y, -10);
+        float t_x = Mathf.Clamp(p_transform.position.x, limitMinX, limitMaxX);
+        float t_y = Mathf.Clamp(p_transform.position.y, limitMinY, limitMaxY);
+        transform.position = new Vector3(t_x, t_y, -10);
     }
 
-    public void SetCameraShake(float _intensity, float _time)
+    public void SetCameraShake(float p_intensity, float p_time)
     {
-        startIntensity = _intensity;
-        shakeTimer = _time;
-        totalShakeTime = _time;
+        startIntensity = p_intensity;
+        shakeTimer = p_time;
+        totalShakeTime = p_time;
     }
 
     private void CameraShake()

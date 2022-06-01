@@ -29,57 +29,56 @@ public class ObjectPooling : MonoBehaviour
 
     private void Start()
     {
-        foreach (Pool pool in pools)
+        foreach (Pool t_pool in pools)
         {
-            var categroy = new GameObject(pool.tag);
-            categroy.transform.SetParent(transform);
-            categories.Add(pool.tag, categroy);
+            var t_categroy = new GameObject(t_pool.tag);
+            t_categroy.transform.SetParent(transform);
+            categories.Add(t_pool.tag, t_categroy);
 
-            poolDictionary.Add(pool.tag, new Queue<GameObject>());
+            poolDictionary.Add(t_pool.tag, new Queue<GameObject>());
 
-            for (int i = 0; i < pool.size; i++)
+            for (int i = 0; i < t_pool.size; i++)
             {
-                var obj = CreateNewObject(pool.tag, pool.prefab);
+                CreateNewObject(t_pool.tag, t_pool.prefab);
             }
         }
     }
 
-    public static GameObject SpawnObject(string tag, Vector3 position, Quaternion rotation)
-        => instance.SpawnFromPool(tag, position, rotation);
-    public static void ReturnObject(GameObject obj)
-        => instance.ReturnToPool(obj);
+    public static GameObject SpawnObject(string p_tag, Vector3 p_position, Quaternion p_rotation)
+        => instance.SpawnFromPool(p_tag, p_position, p_rotation);
+    public static void ReturnObject(GameObject p_obj)
+        => instance.ReturnToPool(p_obj);
 
-    private GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    private GameObject SpawnFromPool(string p_tag, Vector3 p_position, Quaternion p_rotation)
     {
-        Queue<GameObject> poolQueue = poolDictionary[tag];
+        Queue<GameObject> t_poolQueue = poolDictionary[p_tag];
 
-        if (poolQueue.Count <= 0)
+        if (t_poolQueue.Count <= 0)
         {
-            var pool = Array.Find(pools, x => x.tag == tag);
-            var obj = CreateNewObject(pool.tag, pool.prefab);
+            var t_pool = Array.Find(pools, x => x.tag == p_tag);
+            CreateNewObject(t_pool.tag, t_pool.prefab);
         }
 
-        var objectToSpawn = poolQueue.Dequeue();
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
-        objectToSpawn.SetActive(true);
+        var t_obj = t_poolQueue.Dequeue();
+        t_obj.transform.position = p_position;
+        t_obj.transform.rotation = p_rotation;
+        t_obj.SetActive(true);
 
-        return objectToSpawn;
+        return t_obj;
     }
 
-    private void ReturnToPool(GameObject obj)
+    private void ReturnToPool(GameObject p_obj)
     {
-        obj.SetActive(false);
-        poolDictionary[obj.name].Enqueue(obj);
+        p_obj.SetActive(false);
+        poolDictionary[p_obj.name].Enqueue(p_obj);
     }
 
-    private GameObject CreateNewObject(string tag, GameObject prefab)
+    private void CreateNewObject(string p_tag, GameObject p_prefab)
     {
-        var obj = Instantiate(prefab, transform);
-        obj.name = tag;
-        obj.transform.SetParent(categories[tag].transform);
-        poolDictionary[tag].Enqueue(obj);
-        obj.SetActive(false);
-        return obj;
+        var t_obj = Instantiate(p_prefab, transform);
+        t_obj.name = p_tag;
+        t_obj.transform.SetParent(categories[p_tag].transform);
+        poolDictionary[p_tag].Enqueue(t_obj);
+        t_obj.SetActive(false);
     }
 }

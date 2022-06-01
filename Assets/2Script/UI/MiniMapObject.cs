@@ -12,8 +12,8 @@ public class MiniMapObject : MonoBehaviour
         rect = GetComponent<RectTransform>();
     }
 
-    public void SetPosition(Vector2 position)
+    public void SetPosition(Vector2 p_position)
     {
-        rect.anchoredPosition = position;
+        rect.anchoredPosition = p_position;
     }
 }

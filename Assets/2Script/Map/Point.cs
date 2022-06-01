@@ -20,35 +20,35 @@ public class Point : MonoBehaviour
         adj_Weight = new List<float>();
     }
 
-    private float DistXY(Vector2 src, Vector2 dst)
+    private float DistXY(Vector2 p_src, Vector2 p_dst)
     {
-        return (src - dst).sqrMagnitude;
+        return (p_src - p_dst).sqrMagnitude;
     }
 
-    public void SetPoint(List<Point> _adj_Point)
+    public void SetPoint(List<Point> p_adj_Point)
     {
         G = 0; H = 0;
-        adj_Point = _adj_Point;
+        adj_Point = p_adj_Point;
 
         for (int i = 0; i < adj_Point.Count; i++)
         {
-            Transform temp = adj_Point[i].transform;
-            adj_Weight.Add(DistXY(transform.position, temp.position));
+            Transform t_transform = adj_Point[i].transform;
+            adj_Weight.Add(DistXY(transform.position, t_transform.position));
         }
     }
 
-    public void SetG(float _weight)
+    public void SetG(float p_weight)
     {
-        G = parentPoint.G + _weight;
+        G = parentPoint.G + p_weight;
     }
 
-    public void SetH(Vector2 curPoint, Vector2 targetPoint)
+    public void SetH(Vector2 p_curPoint, Vector2 p_targetPoint)
     {
-        H = DistXY(curPoint, targetPoint);
+        H = DistXY(p_curPoint, p_targetPoint);
     }
 
-    public void SetParent(Point _parent)
+    public void SetParent(Point p_parent)
     {
-        parentPoint = _parent;
+        parentPoint = p_parent;
     }
 }

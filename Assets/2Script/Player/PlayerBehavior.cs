@@ -10,6 +10,7 @@ public class PlayerBehavior : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField] private List<PlayerWeapon> weapons;
+    private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
     private BulletType bulletType;
     private int equipWeaponIndex = -1;
@@ -67,16 +68,23 @@ public class PlayerBehavior : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
         mainCamera = Camera.main;
 
-        var inst = Instantiate(sprite.material);
-        sprite.material = inst;
+        var t_inst = Instantiate(sprite.material);
+        sprite.material = t_inst;
 
         healthBar.SetMaxValue(maxHealth);
         curHealth = maxHealth;
 
-        fireDelay = 0;
+        hasWeapons = new bool[weapons.Count];
+
+        for (int i = 0; i < weapons.Count; i++)
+            hasWeapons[i] = true;
+
+        equipWeaponIndex = -1;
         
         isFireReady = true;
         isDie = false;
+
+        fireDelay = 0;
 
         ammo12Guage = 50;
         ammo7MM = 50;
@@ -148,9 +156,9 @@ public class PlayerBehavior : MonoBehaviour
         playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    public void ChangeColor(Color _color)
+    public void ChangeColor(Color p_color)
     {
-        sprite.color= _color;
+        sprite.color= p_color;
     }
 
     private void Fire()
@@ -199,42 +207,38 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Swap()
     {
-        if (sDown1 && equipWeaponIndex == 0) return;
-        if (sDown2 && equipWeaponIndex == 1) return;
-        
-        int weaponIndex = -1;
-        if (sDown1) weaponIndex = 0;
-        if (sDown2) weaponIndex = 1;
+        if (!sDown1 && !sDown2) return;
+        if (sDown1 && (equipWeaponIndex == 0 || !hasWeapons[0])) return;
+        if (sDown2 && (equipWeaponIndex == 1 || !hasWeapons[1])) return;
 
-        if (sDown1 || sDown2)
+        if (equipWeapon != null)
+            equipWeapon.gameObject.SetActive(false);
+
+        if (sDown1) equipWeaponIndex = 0;
+        if (sDown2) equipWeaponIndex = 1;
+
+        equipWeapon = weapons[equipWeaponIndex];
+        equipWeapon.gameObject.SetActive(true);
+
+        bulletType = equipWeapon.bulletType;
+
+        curAmmoText.text = equipWeapon.curAmmo.ToString();
+        switch (bulletType)
         {
-            if (equipWeapon != null)
-                equipWeapon.gameObject.SetActive(false);
+            case BulletType.FIVEMM:
+                ammoImage.sprite = ammo5MMImage;
+                totalAmmoText.text = ammo5MM.ToString();
+                break;
 
-            equipWeaponIndex = weaponIndex;
-            equipWeapon = weapons[weaponIndex];
-            equipWeapon.gameObject.SetActive(true);
+            case BulletType.SEVENMM:
+                ammoImage.sprite = ammo7MMImage;
+                totalAmmoText.text = ammo7MM.ToString();
+                break;
 
-            bulletType = equipWeapon.bulletType;
-
-            curAmmoText.text = equipWeapon.curAmmo.ToString();
-            switch (bulletType)
-            {
-                case BulletType.FIVEMM:
-                    ammoImage.sprite = ammo5MMImage;
-                    totalAmmoText.text = ammo5MM.ToString();
-                    break;
-
-                case BulletType.SEVENMM:
-                    ammoImage.sprite = ammo7MMImage;
-                    totalAmmoText.text = ammo7MM.ToString();
-                    break;
-
-                case BulletType.TWELVEGAUGE:
-                    ammoImage.sprite = ammo12GuageImage;
-                    totalAmmoText.text = ammo12Guage.ToString();
-                    break;
-            }
+            case BulletType.TWELVEGAUGE:
+                ammoImage.sprite = ammo12GuageImage;
+                totalAmmoText.text = ammo12Guage.ToString();
+                break;
         }
     }
 
@@ -244,30 +248,59 @@ public class PlayerBehavior : MonoBehaviour
 
         if (usingObject == null) return;
 
-        usingObject.GetComponent<ItemBox>().Use();
+        var t_item = usingObject.GetComponent<ItemBox>().Use();
+        
+        Debug.Log(t_item.itemType);
+        Debug.Log(t_item.num);
+        
+        switch (t_item.itemType)
+        {
+            case ItemType.AMMO12:
+                ammo12Guage += t_item.num;
+                if (equipWeapon.bulletType == BulletType.TWELVEGAUGE)
+                    totalAmmoText.text = ammo12Guage.ToString();
+                break;
+            case ItemType.AMMO7:
+                ammo7MM += t_item.num;
+                if (equipWeapon.bulletType == BulletType.SEVENMM)
+                    totalAmmoText.text = ammo7MM.ToString();
+                break;
+            case ItemType.AMMO5:
+                ammo5MM += t_item.num;
+                if (equipWeapon.bulletType == BulletType.FIVEMM)
+                    totalAmmoText.text = ammo5MM.ToString();
+                break;
+            case ItemType.HEAL:
+                curHealth += t_item.num;
+                healthBar.SetValue(curHealth);
+                break;
+            case ItemType.GRENADE:
+                break;
+            default:
+                break;  
+        }
     }
 
-    private IEnumerator OnDamageCo(int _damage)
+    private IEnumerator OnDamageCo(int p_damage)
     {
-        curHealth -= _damage;
-
+        curHealth -= p_damage;
         healthBar.SetValue(curHealth);
 
         if (curHealth > 0)
         {
             gameObject.layer = 7;
-            int countTime = 0;
+            int t_countTime = 0;
 
-            while (countTime < 10)
+            while (t_countTime < 10)
             {
-                if (countTime % 2 == 0)
+                if (t_countTime % 2 == 0)
                     ChangeColor(new Color(1f, 1f, 1f, 0.3f));
                 else
                     ChangeColor(new Color(1f, 1f, 1f, 0.6f));
 
                 yield return new WaitForSeconds(0.2f);
 
-                countTime++;
+                t_countTime++;
             }
 
             ChangeColor(new Color(1f, 1f, 1f, 1f));

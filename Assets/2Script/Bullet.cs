@@ -7,16 +7,16 @@ public class Bullet : MonoBehaviour
     public int damage;
 
     [SerializeField] private float speed;
-    private Vector3 direction;
+    private Vector3 dir;
 
     private void Update()
     {
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += dir * speed * Time.deltaTime;
     }
 
-    public void SetDirection(Vector3 dir)
+    public void SetDirection(Vector3 p_dir)
     {
-        direction = dir;
+        dir = p_dir;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -73,22 +73,22 @@ public class PlayerWeapon : MonoBehaviour
         mainCamera.SetCameraShake(cameraRecoil, 0.1f);
     }
 
-    private void UseRifle(Vector3 dir)
+    private void UseRifle(Vector3 p_dir)
     {
         var t_recoil = Random.Range(-recoil, recoil);
-        var bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation).GetComponent<Bullet>();
-        dir = Quaternion.AngleAxis(t_recoil, Vector3.forward) * dir;
-        bullet.SetDirection(dir);
+        var t_bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation).GetComponent<Bullet>();
+        var t_dir = Quaternion.AngleAxis(t_recoil, Vector3.forward) * p_dir;
+        t_bullet.SetDirection(t_dir);
     }
 
-    private void UseShotgun(Vector3 dir)
+    private void UseShotgun(Vector3 p_dir)
     {
         for (int i = 0; i < 5; i++)
         {
             var t_recoil = Random.Range(-recoil, recoil) * 0.5f;
-            var bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation).GetComponent<Bullet>();
-            var fireDir = Quaternion.AngleAxis(t_recoil, Vector3.forward) * dir;
-            bullet.SetDirection(fireDir);
+            var t_bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation).GetComponent<Bullet>();
+            var t_dir = Quaternion.AngleAxis(t_recoil, Vector3.forward) * p_dir;
+            t_bullet.SetDirection(t_dir);
         }
     }
 
@@ -99,11 +99,11 @@ public class PlayerWeapon : MonoBehaviour
         muzzleFlash.SetActive(false);
     }
 
-    public int Reload(int playerAmmo)
+    public int Reload(int p_playerAmmo)
     {
-        var reloadAmmo = playerAmmo < maxAmmo ? playerAmmo : maxAmmo;
+        var t_reloadAmmo = p_playerAmmo < maxAmmo ? p_playerAmmo : maxAmmo;
         curAmmo = maxAmmo;
-        return reloadAmmo;
+        return t_reloadAmmo;
     }
 }
 
