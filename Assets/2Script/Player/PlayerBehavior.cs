@@ -62,6 +62,9 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private GameObject miniMap;
 
+    [SerializeField] private GameObject itemAcqView;
+    [SerializeField] private GameObject itemTextPrefab;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -118,8 +121,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void GetInput()
     {
-        hAxis = Input.GetAxis("Horizontal");
-        vAxis = Input.GetAxis("Vertical");
+        hAxis = Input.GetAxisRaw("Horizontal");
+        vAxis = Input.GetAxisRaw("Vertical");
         fDown = Input.GetButton("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
@@ -249,9 +252,9 @@ public class PlayerBehavior : MonoBehaviour
         if (usingObject == null) return;
 
         var t_item = usingObject.GetComponent<ItemBox>().Use();
-        
-        Debug.Log(t_item.itemType);
-        Debug.Log(t_item.num);
+
+        var t_itemTextPrefab = Instantiate(itemTextPrefab, itemAcqView.transform).GetComponent<ItemText>();
+        t_itemTextPrefab.SetText(t_item.itemType, t_item.num);
         
         switch (t_item.itemType)
         {

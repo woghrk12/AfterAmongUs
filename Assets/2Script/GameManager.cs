@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-		StartCoroutine(WaveStart(5f));
+		StartCoroutine(WaveStart(60f));
     }
 
     private IEnumerator SpawnEnemy(int p_num)

@@ -29,7 +29,6 @@ public class ItemManager : MonoBehaviour
     public static void ReturnItems()
         => instance.ReturnToPool();
 
-
     private void SpawnFromPool(int p_num)
     {
         for (int i = 0; i < p_num; i++)
