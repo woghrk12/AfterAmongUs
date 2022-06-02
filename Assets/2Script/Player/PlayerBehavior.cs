@@ -27,9 +27,13 @@ public class PlayerBehavior : MonoBehaviour
     private bool isLeft;
     private bool isDie;
     private bool isFireReady;
+    private bool isReloadReady;
 
     [SerializeField] private Transform playerAim;
     private float fireDelay;
+
+    private Coroutine reloadCo;
+    private float reloadDelay;
 
     [SerializeField] private float moveSpeed;
     private Vector3 moveDir;
@@ -41,11 +45,11 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private int maxHealth;
     private int curHealth;
-    
+
     private int ammo12Guage;
     private int ammo7MM;
     private int ammo5MM;
-    
+
     [SerializeField] private ControlSlider healthBar;
 
     [SerializeField] private Text curAmmoText;
@@ -83,11 +87,13 @@ public class PlayerBehavior : MonoBehaviour
             hasWeapons[i] = true;
 
         equipWeaponIndex = -1;
-        
+
         isFireReady = true;
         isDie = false;
+        isReloadReady = true;
 
-        fireDelay = 0;
+        fireDelay = 0f;
+        reloadDelay = 0f;
 
         ammo12Guage = 50;
         ammo7MM = 50;
@@ -161,12 +167,13 @@ public class PlayerBehavior : MonoBehaviour
 
     public void ChangeColor(Color p_color)
     {
-        sprite.color= p_color;
+        sprite.color = p_color;
     }
 
     private void Fire()
     {
         if (equipWeapon == null) return;
+        if (!isReloadReady) return;
 
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
@@ -183,30 +190,42 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (equipWeapon == null) return;
         if (!rDown) return;
+        if (!isReloadReady) return;
 
-        switch (bulletType)
+        reloadCo = StartCoroutine(ReloadCo(equipWeapon.bulletType, equipWeapon.reloadTime));
+    }
+
+    private IEnumerator ReloadCo(BulletType p_bulletType, float p_reloadTime)
+    {
+        isReloadReady = false;
+
+        yield return new WaitForSeconds(p_reloadTime);
+        
+        switch (p_bulletType)
         {
             case BulletType.FIVEMM:
-                if (ammo5MM <= 0) return;
+                if (ammo5MM <= 0) break;
                 ammo5MM -= equipWeapon.Reload(ammo5MM);
                 totalAmmoText.text = ammo5MM.ToString();
                 break;
 
             case BulletType.SEVENMM:
-                if (ammo7MM <= 0) return;
+                if (ammo7MM <= 0) break;
                 ammo7MM -= equipWeapon.Reload(ammo7MM);
                 totalAmmoText.text = ammo7MM.ToString();
                 break;
 
             case BulletType.TWELVEGAUGE:
-                if (ammo12Guage <= 0) return;
+                if (ammo12Guage <= 0) break;
                 ammo12Guage -= equipWeapon.Reload(ammo12Guage);
                 totalAmmoText.text = ammo12Guage.ToString();
                 break;
         }
-
         curAmmoText.text = equipWeapon.curAmmo.ToString();
-    }
+
+        reloadCo = null;
+        isReloadReady = true;
+    } 
 
     private void Swap()
     {
@@ -214,8 +233,12 @@ public class PlayerBehavior : MonoBehaviour
         if (sDown1 && (equipWeaponIndex == 0 || !hasWeapons[0])) return;
         if (sDown2 && (equipWeaponIndex == 1 || !hasWeapons[1])) return;
 
-        if (equipWeapon != null)
-            equipWeapon.gameObject.SetActive(false);
+        if (reloadCo != null)
+        {
+            StopCoroutine(reloadCo);
+            isReloadReady = true;
+        } 
+        if (equipWeapon != null) equipWeapon.gameObject.SetActive(false);
 
         if (sDown1) equipWeaponIndex = 0;
         if (sDown2) equipWeaponIndex = 1;
@@ -224,8 +247,7 @@ public class PlayerBehavior : MonoBehaviour
         equipWeapon.gameObject.SetActive(true);
 
         bulletType = equipWeapon.bulletType;
-
-        curAmmoText.text = equipWeapon.curAmmo.ToString();
+        
         switch (bulletType)
         {
             case BulletType.FIVEMM:
@@ -243,6 +265,8 @@ public class PlayerBehavior : MonoBehaviour
                 totalAmmoText.text = ammo12Guage.ToString();
                 break;
         }
+
+        curAmmoText.text = equipWeapon.curAmmo.ToString();
     }
 
     private void Use()

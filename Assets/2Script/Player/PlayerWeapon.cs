@@ -19,7 +19,8 @@ public class PlayerWeapon : MonoBehaviour
     public float rate;
     [SerializeField] private float recoil;
     private float cameraRecoil;
-    
+    public float reloadTime;
+
     [SerializeField] private WeaponType weaponType;
     
     public BulletType bulletType;
@@ -101,8 +102,9 @@ public class PlayerWeapon : MonoBehaviour
 
     public int Reload(int p_playerAmmo)
     {
-        var t_reloadAmmo = p_playerAmmo < maxAmmo ? p_playerAmmo : maxAmmo;
-        curAmmo = maxAmmo;
+        var t_needAmmo = maxAmmo - curAmmo;
+        var t_reloadAmmo = p_playerAmmo < t_needAmmo ? p_playerAmmo : t_needAmmo;
+        curAmmo += t_reloadAmmo;
         return t_reloadAmmo;
     }
 }
