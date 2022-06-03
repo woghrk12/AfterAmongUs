@@ -43,14 +43,13 @@ public class PlayerBehavior : MonoBehaviour
     private Vector3 direction;
     private float angle;
 
+    [SerializeField] private ControlSlider healthBar;
     [SerializeField] private int maxHealth;
     private int curHealth;
 
     private int ammo12Guage;
     private int ammo7MM;
     private int ammo5MM;
-
-    [SerializeField] private ControlSlider healthBar;
 
     [SerializeField] private Text curAmmoText;
     [SerializeField] private Text totalAmmoText;
