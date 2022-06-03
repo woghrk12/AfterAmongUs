@@ -5,6 +5,11 @@ using UnityEngine;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] private GameObject title;
+    [SerializeField] private float startShakeIntensity;
+    private void Start()
+    {
+        CameraShaking.SetCameraShake(startShakeIntensity);
+    }
 
     private void Update()
     {
