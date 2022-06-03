@@ -5,6 +5,8 @@ using Cinemachine;
 
 public class CameraShaking : MonoBehaviour
 {
+    public static CameraShaking instance;
+
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
     private float startIntensity = 0f;
@@ -15,6 +17,8 @@ public class CameraShaking : MonoBehaviour
 
     private void Awake()
     {
+        instance = Camera.main.GetComponent<CameraShaking>();
+
         virtualCameraNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
@@ -25,22 +29,25 @@ public class CameraShaking : MonoBehaviour
         CameraShake();
     }
 
-    public void SetCameraShake(float p_intensity, float p_frequency)
+    public static void SetCameraShake(float p_intensity)
+        => instance.SetShakeValue(p_intensity, 0f, true);
+    public static void SetCameraShake(float p_intensity, float p_time)
+        => instance.SetShakeValue(p_intensity, p_time, false);
+
+    private void SetShakeValue(float p_intensity, float p_time, bool p_isInfinite)
     {
-        virtualCameraNoise.m_AmplitudeGain = p_intensity;
-        virtualCameraNoise.m_FrequencyGain = p_frequency;
+        if (!p_isInfinite)
+        {
+            startIntensity = p_intensity;
+            shakeTimer = p_time;
+            totalShakeTime = p_time;
+        }
+        else
+        {
+            virtualCameraNoise.m_AmplitudeGain = p_intensity;
+        }
 
-        isInfinite = true;
-    }
-
-    public void SetCameraShake(float p_intensity, float p_frequency, float p_time)
-    {
-        startIntensity = p_intensity;
-        shakeTimer = p_time;
-        totalShakeTime = p_time;
-
-        virtualCameraNoise.m_FrequencyGain = p_frequency;
-        isInfinite = false;
+        isInfinite = p_isInfinite;
     }
 
     private void CameraShake()

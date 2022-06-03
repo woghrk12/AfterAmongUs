@@ -8,7 +8,6 @@ public enum WeaponType { RIFLE, SHOTGUN }
 public class PlayerWeapon : MonoBehaviour
 {
     private Animator anim;
-    private MainCamera mainCamera;
 
     [SerializeField] private Transform triggerPosition;
     [SerializeField] private Transform firePosition;
@@ -32,7 +31,6 @@ public class PlayerWeapon : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        mainCamera = Camera.main.GetComponent<MainCamera>();
 
         cameraRecoil = recoil * 0.2f;
 
@@ -71,7 +69,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         anim.SetTrigger("Shot");
-        mainCamera.SetCameraShake(cameraRecoil, 0.1f);
+        CameraShaking.SetCameraShake(cameraRecoil, 0.1f);
     }
 
     private void UseRifle(Vector3 p_dir)

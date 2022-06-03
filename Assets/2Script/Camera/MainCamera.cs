@@ -10,12 +10,6 @@ public class MainCamera : MonoBehaviour
 
     private Transform player;
 
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
-    private float startIntensity = 0f;
-    private float shakeTimer = 0f;
-    private float totalShakeTime = 0f;
-
     private void Awake()
     {
         Camera t_camera = GetComponent<Camera>();
@@ -39,13 +33,6 @@ public class MainCamera : MonoBehaviour
         t_camera.rect = t_rect;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        virtualCameraNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-    }
-
-    private void Update()
-    {
-        CameraShake();
     }
 
     private void LateUpdate()
@@ -58,22 +45,5 @@ public class MainCamera : MonoBehaviour
         float t_x = Mathf.Clamp(p_transform.position.x, limitMinX, limitMaxX);
         float t_y = Mathf.Clamp(p_transform.position.y, limitMinY, limitMaxY);
         transform.position = new Vector3(t_x, t_y, -10);
-    }
-
-    public void SetCameraShake(float p_intensity, float p_time)
-    {
-        startIntensity = p_intensity;
-        shakeTimer = p_time;
-        totalShakeTime = p_time;
-    }
-
-    private void CameraShake()
-    {
-        if (shakeTimer > 0f)
-        {
-            shakeTimer -= Time.deltaTime;
-
-            virtualCameraNoise.m_AmplitudeGain = Mathf.Lerp(0f, startIntensity, shakeTimer / totalShakeTime);
-        }
     }
 }
