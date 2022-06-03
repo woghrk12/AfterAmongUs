@@ -6,9 +6,6 @@ using Cinemachine;
 public class MainCamera : MonoBehaviour
 {
     [SerializeField] private int width, height;
-    [SerializeField] private float limitMinX, limitMaxX, limitMinY, limitMaxY;
-
-    private Transform player;
 
     private void Awake()
     {
@@ -27,23 +24,8 @@ public class MainCamera : MonoBehaviour
         {
             t_rect.width = t_scaleWidth;
             t_rect.x = (1f - t_scaleWidth) / 2f;
-
         }
 
         t_camera.rect = t_rect;
-
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    private void LateUpdate()
-    {
-        Follow(player);
-    }
-
-    private void Follow(Transform p_transform)
-    {
-        float t_x = Mathf.Clamp(p_transform.position.x, limitMinX, limitMaxX);
-        float t_y = Mathf.Clamp(p_transform.position.y, limitMinY, limitMaxY);
-        transform.position = new Vector3(t_x, t_y, -10);
     }
 }
