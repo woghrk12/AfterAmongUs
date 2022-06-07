@@ -6,16 +6,29 @@ using Cinemachine;
 
 public class TitleManager : MonoBehaviour
 {
-    [SerializeField] private GameObject title;
-    [SerializeField] private float startShakeIntensity;
+    [SerializeField] private GameObject titleImage;
 
     [SerializeField] private Button gameStartButton;
 
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera startVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera playerVirtualCamera;
 
-    private void Start()
+    [SerializeField] private Transform[] spawnPositions;
+
+    [SerializeField] private GameObject player;
+
+    private void Update()
     {
-        CameraShaking.SetCameraShake(startShakeIntensity);
+        if (Input.GetKeyDown(KeyCode.Q))
+            SwitchCamera(true);
+        if (Input.GetKeyDown(KeyCode.R))
+            SwitchCamera(false);
+    }
+
+    private void SwitchCamera(bool p_isPlayer)
+    {
+        playerVirtualCamera.gameObject.SetActive(p_isPlayer);
+        startVirtualCamera.gameObject.SetActive(!p_isPlayer);
     }
 
     private IEnumerator GameStart()
@@ -24,20 +37,23 @@ public class TitleManager : MonoBehaviour
         gameStartButton.enabled = false;
 
         yield return new WaitForSeconds(0.5f);
-        
-        title.GetComponent<Animator>().SetTrigger("FadeOut");
+
+        titleImage.GetComponent<Animator>().SetTrigger("FadeOut");
 
         yield return new WaitForSeconds(0.5f);
+       
+        var t_randomNum = Random.Range(0, spawnPositions.Length);
+        var t_spawnPosition = spawnPositions[t_randomNum];
 
-        CameraShaking.SetCameraShake(startShakeIntensity / 2f);
-        var timer = 0f;
-        var totaltime = 1f;
-        while (timer <= 1f)
-        {
-            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(5f, 2.5f, timer / totaltime);
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        player.SetActive(true);
+        player.transform.position = t_spawnPosition.position;
+        SwitchCamera(true);
+
+        yield return new WaitForSeconds(2f);
+        
+        player.GetComponent<SpriteRenderer>().enabled = true;
+        player.GetComponent<SpriteRenderer>().flipX = t_randomNum >= (spawnPositions.Length / 2);
+        player.GetComponent<Animator>().SetTrigger("Spawn");
     }
 
     public void OnClickStartButton()
