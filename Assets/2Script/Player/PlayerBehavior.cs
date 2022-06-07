@@ -33,7 +33,6 @@ public class PlayerBehavior : MonoBehaviour
     private float fireDelay;
 
     private Coroutine reloadCo;
-    private float reloadDelay;
 
     [SerializeField] private float moveSpeed;
     private Vector3 moveDir;
@@ -92,7 +91,6 @@ public class PlayerBehavior : MonoBehaviour
         isReloadReady = true;
 
         fireDelay = 0f;
-        reloadDelay = 0f;
 
         ammo12Guage = 50;
         ammo7MM = 50;
