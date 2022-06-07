@@ -23,4 +23,9 @@ public class TitleManager : MonoBehaviour
     {
         title.GetComponent<Animator>().SetTrigger("FadeOut");
     }
+
+    public void OnClickStartButton()
+    {
+        GameStart();
+    }
 }
