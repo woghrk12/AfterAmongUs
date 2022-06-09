@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	private int enemyCount;
 	[SerializeField] private ControlSlider progress;
 	
-	[SerializeField] private PlayerBehavior player;
+	[SerializeField] private GamePlayer player;
 
 	[SerializeField] private Image screen;
 	[SerializeField] private GameObject pointLight;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 	{
 		instance = this;
 
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
 
 		stage = 1;
 	}
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
 		StartCoroutine(WaveStart(5f));
+		player.canMove = true;
     }
 
     private IEnumerator SpawnEnemy(int p_num)

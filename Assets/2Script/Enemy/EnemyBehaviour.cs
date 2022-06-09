@@ -9,7 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Coroutine runningCo = null;
 
-    [SerializeField] private PlayerBehavior player;
+    [SerializeField] private GamePlayer player;
 
     public Region region;
 
@@ -38,7 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
         var t_inst = Instantiate(sprite.material);
         sprite.material = t_inst;
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
 
         sprite.material.SetColor("_PlayerColor", Color.red);
     }

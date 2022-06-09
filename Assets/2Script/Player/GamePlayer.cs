@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerBehavior : MonoBehaviour
+public class GamePlayer : PlayerBehaviour
 {
-    private Animator anim;
-    private SpriteRenderer sprite;
     private Camera mainCamera;
 
     [SerializeField] private List<PlayerWeapon> weapons;
@@ -15,8 +13,6 @@ public class PlayerBehavior : MonoBehaviour
     private BulletType bulletType;
     private int equipWeaponIndex = -1;
 
-    private float hAxis;
-    private float vAxis;
     private bool fDown;
     private bool sDown1;
     private bool sDown2;
@@ -24,7 +20,6 @@ public class PlayerBehavior : MonoBehaviour
     private bool uDown;
     private bool mDown;
 
-    private bool isLeft;
     private bool isDie;
     private bool isFireReady;
     private bool isReloadReady;
@@ -33,9 +28,6 @@ public class PlayerBehavior : MonoBehaviour
     private float fireDelay;
 
     private Coroutine reloadCo;
-
-    [SerializeField] private float moveSpeed;
-    private Vector3 moveDir;
 
     private Vector3 mPosition;
     private Vector3 oPosition;
@@ -60,8 +52,6 @@ public class PlayerBehavior : MonoBehaviour
 
     public Region playerRegion;
 
-    private GameObject usingObject;
-
     [SerializeField] private GameObject miniMap;
 
     [SerializeField] private GameObject itemAcqView;
@@ -70,11 +60,11 @@ public class PlayerBehavior : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         mainCamera = Camera.main;
 
-        var t_inst = Instantiate(sprite.material);
-        sprite.material = t_inst;
+        var t_inst = Instantiate(spriteRenderer.material);
+        spriteRenderer.material = t_inst;
 
         healthBar.SetMaxValue(maxHealth);
         curHealth = maxHealth;
@@ -99,14 +89,15 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Start()
     {
-        sprite.material.SetColor("_PlayerColor", Color.magenta);
+        spriteRenderer.material.SetColor("_PlayerColor", Color.magenta);
     }
 
-    private void Update()
+    protected override void Update()
     {
         if (isDie) return;
 
-        GetInput();
+        base.Update();
+
         Targeting();
         Fire();
         Swap();
@@ -115,32 +106,21 @@ public class PlayerBehavior : MonoBehaviour
         TurnOnOffMiniMap();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        if (isDie) return;
-
-        Move();
+        base.FixedUpdate();
     }
 
-    private void GetInput()
+    protected override void GetInput()
     {
-        hAxis = Input.GetAxisRaw("Horizontal");
-        vAxis = Input.GetAxisRaw("Vertical");
+        base.GetInput();
+
         fDown = Input.GetButton("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         rDown = Input.GetButtonDown("Reload");
         uDown = Input.GetButtonDown("Use");
         mDown = Input.GetButtonDown("Map");
-    }
-
-    private void Move()
-    {
-        moveDir = Vector3.ClampMagnitude(new Vector3(hAxis, vAxis, 0f), 1f);
-
-        anim.SetBool("isWalk", moveDir != Vector3.zero ? true : false);
-
-        transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
     private void Targeting()
@@ -150,7 +130,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isLeft = mPosition.x < oPosition.x;
 
-        sprite.flipX = isLeft;
+        spriteRenderer.flipX = isLeft;
         playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
         direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
 
@@ -160,11 +140,6 @@ public class PlayerBehavior : MonoBehaviour
             angle = Mathf.Clamp(angle, -80f, 80f);
 
         playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-
-    public void ChangeColor(Color p_color)
-    {
-        sprite.color = p_color;
     }
 
     private void Fire()
@@ -197,7 +172,7 @@ public class PlayerBehavior : MonoBehaviour
         isReloadReady = false;
 
         yield return new WaitForSeconds(p_reloadTime);
-        
+
         switch (p_bulletType)
         {
             case BulletType.FIVEMM:
@@ -222,7 +197,7 @@ public class PlayerBehavior : MonoBehaviour
 
         reloadCo = null;
         isReloadReady = true;
-    } 
+    }
 
     private void Swap()
     {
@@ -234,7 +209,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             StopCoroutine(reloadCo);
             isReloadReady = true;
-        } 
+        }
         if (equipWeapon != null) equipWeapon.gameObject.SetActive(false);
 
         if (sDown1) equipWeaponIndex = 0;
@@ -244,7 +219,7 @@ public class PlayerBehavior : MonoBehaviour
         equipWeapon.gameObject.SetActive(true);
 
         bulletType = equipWeapon.bulletType;
-        
+
         switch (bulletType)
         {
             case BulletType.FIVEMM:
@@ -276,7 +251,7 @@ public class PlayerBehavior : MonoBehaviour
 
         var t_itemTextPrefab = Instantiate(itemTextPrefab, itemAcqView.transform).GetComponent<ItemText>();
         t_itemTextPrefab.SetText(t_item.itemType, t_item.num);
-        
+
         switch (t_item.itemType)
         {
             case ItemType.AMMO12:
@@ -301,7 +276,7 @@ public class PlayerBehavior : MonoBehaviour
             case ItemType.GRENADE:
                 break;
             default:
-                break;  
+                break;
         }
     }
 
@@ -318,16 +293,16 @@ public class PlayerBehavior : MonoBehaviour
             while (t_countTime < 10)
             {
                 if (t_countTime % 2 == 0)
-                    ChangeColor(new Color(1f, 1f, 1f, 0.3f));
+                    SetColor(new Color(1f, 1f, 1f, 0.3f));
                 else
-                    ChangeColor(new Color(1f, 1f, 1f, 0.6f));
+                    SetColor(new Color(1f, 1f, 1f, 0.6f));
 
                 yield return new WaitForSeconds(0.2f);
 
                 t_countTime++;
             }
 
-            ChangeColor(new Color(1f, 1f, 1f, 1f));
+            SetColor(new Color(1f, 1f, 1f, 1f));
 
             gameObject.layer = 6;
         }
@@ -347,8 +322,9 @@ public class PlayerBehavior : MonoBehaviour
         moveSpeed = 0;
         gameObject.layer = 7;
         isDie = true;
+        canMove = false;
 
-        sprite.flipX = false;
+        spriteRenderer.flipX = false;
 
         anim.SetTrigger("Die");
     }

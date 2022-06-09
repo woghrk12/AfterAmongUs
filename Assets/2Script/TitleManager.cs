@@ -15,7 +15,7 @@ public class TitleManager : MonoBehaviour
 
     [SerializeField] private Transform[] spawnPositions;
 
-    [SerializeField] private GameObject player;
+    [SerializeField] private TitlePlayer player;
 
     private void Update()
     {
@@ -45,15 +45,17 @@ public class TitleManager : MonoBehaviour
         var t_randomNum = Random.Range(0, spawnPositions.Length);
         var t_spawnPosition = spawnPositions[t_randomNum];
 
-        player.SetActive(true);
         player.transform.position = t_spawnPosition.position;
+
         SwitchCamera(true);
 
         yield return new WaitForSeconds(2f);
         
-        player.GetComponent<SpriteRenderer>().enabled = true;
-        player.GetComponent<SpriteRenderer>().flipX = t_randomNum >= (spawnPositions.Length / 2);
-        player.GetComponent<Animator>().SetTrigger("Spawn");
+        player.SpawnPlayer(t_randomNum >= (spawnPositions.Length / 2));
+
+        yield return new WaitForSeconds(0.5f);
+
+        player.canMove = true;
     }
 
     public void OnClickStartButton()
