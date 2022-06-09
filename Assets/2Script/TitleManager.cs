@@ -7,6 +7,7 @@ using Cinemachine;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] private GameObject titleImage;
+    [SerializeField] private Image background;
 
     [SerializeField] private Button gameStartButton;
 
@@ -20,9 +21,7 @@ public class TitleManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
-            SwitchCamera(true);
-        if (Input.GetKeyDown(KeyCode.R))
-            SwitchCamera(false);
+            StartCoroutine(TurnToInGameScene());
     }
 
     private void SwitchCamera(bool p_isPlayer)
@@ -61,5 +60,46 @@ public class TitleManager : MonoBehaviour
     public void OnClickStartButton()
     {
         StartCoroutine(GameStart());
+    }
+
+    private IEnumerator TurnToInGameScene()
+    {
+        SwitchCamera(false);
+
+        yield return new WaitForSeconds(2f);
+        
+        var t_totalTime = 1f;
+        var t_timer = 0f;
+        var t_position= startVirtualCamera.transform.position;
+
+        while (t_timer <= t_totalTime)
+        {
+            t_position.y = Mathf.Lerp(0f, 5f, t_timer / t_totalTime);
+            startVirtualCamera.transform.position = t_position;
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
+
+        t_timer = 0f;
+
+        while (t_timer <= t_totalTime)
+        {
+            t_position.y = Mathf.Lerp(5f, -15f, t_timer / t_totalTime);
+            startVirtualCamera.transform.position = t_position;
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
+
+        t_timer = 0f;
+        background.gameObject.SetActive(true);
+        var t_color = background.color;
+
+        while (t_timer <= t_totalTime)
+        {
+            t_color.a = Mathf.Lerp(0f, 1f, t_timer / t_totalTime);
+            background.color = t_color;
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
     }
 }
