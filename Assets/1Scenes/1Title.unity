@@ -6831,6 +6831,7 @@ GameObject:
   - component: {fileID: 2019563793}
   - component: {fileID: 2019563794}
   - component: {fileID: 2019563795}
+  - component: {fileID: 2019563796}
   m_Layer: 0
   m_Name: Laptop Highlighted
   m_TagString: Untagged
@@ -6915,6 +6916,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dcc6266fb78204e861654354fbe00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &2019563796
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019563792}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.61, y: 0.51}
+    newSize: {x: 0.61, y: 0.51}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2028861169
 GameObject:
   m_ObjectHideFlags: 0
@@ -7276,6 +7303,7 @@ GameObject:
   - component: {fileID: 2082216238}
   - component: {fileID: 2082216239}
   - component: {fileID: 2082216240}
+  - component: {fileID: 2082216241}
   m_Layer: 0
   m_Name: Laptop Outline
   m_TagString: Untagged
@@ -7360,6 +7388,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdfb4de4e2937c429e51f0a1e5943cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &2082216241
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082216237}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.61, y: 0.51}
+    newSize: {x: 0.61, y: 0.51}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3}
+  m_EdgeRadius: 0
 --- !u!1 &2090513049
 GameObject:
   m_ObjectHideFlags: 0
