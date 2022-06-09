@@ -64,6 +64,7 @@ public class TitleManager : MonoBehaviour
 
     private IEnumerator TurnToInGameScene()
     {
+        player.canMove = false;
         SwitchCamera(false);
 
         yield return new WaitForSeconds(2f);
