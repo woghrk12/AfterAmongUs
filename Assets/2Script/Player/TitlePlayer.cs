@@ -54,13 +54,6 @@ public class TitlePlayer : PlayerBehaviour
         anim.SetTrigger("Spawn");
     }
 
-    public void Use() 
-    {
-        canMove = false;
-        playerUI.SetActive(false);
-    }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Interactable"))
@@ -68,7 +61,7 @@ public class TitlePlayer : PlayerBehaviour
             useButton.interactable = true;
             useButton.onClick.AddListener(() =>
                 {
-                    Use();
+                    playerUI.SetActive(false);
                     collision.GetComponentInParent<Laptop>().Use();
                 });
         }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Laptop : MonoBehaviour
 {
-    [SerializeField] private GameObject colorSelectPanel;
+    [SerializeField] private ColorSelectPanel colorSelectPanel;
 
     public void Use()
     {
-        colorSelectPanel.SetActive(true);
+        colorSelectPanel.gameObject.SetActive(true);
+        colorSelectPanel.EnablePanel();
     }
 }
