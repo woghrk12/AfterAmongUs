@@ -732,6 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  playerUI: {fileID: 1858687623}
   useButton: {fileID: 853451477}
 --- !u!1 &377294351
 GameObject:

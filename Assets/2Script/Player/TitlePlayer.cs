@@ -7,6 +7,7 @@ public class TitlePlayer : PlayerBehaviour
 {
     private bool uDown;
 
+    [SerializeField] private GameObject playerUI;
     [SerializeField] private Button useButton;
 
     private void Awake()
@@ -53,12 +54,10 @@ public class TitlePlayer : PlayerBehaviour
         anim.SetTrigger("Spawn");
     }
 
-    private void Use() 
+    public void Use() 
     {
-        if (!uDown) return;
-
         canMove = false;
-
+        playerUI.SetActive(false);
     }
 
 
@@ -67,6 +66,11 @@ public class TitlePlayer : PlayerBehaviour
         if (collision.CompareTag("Interactable"))
         {
             useButton.interactable = true;
+            useButton.onClick.AddListener(() =>
+                {
+                    Use();
+                    collision.GetComponentInParent<Laptop>().Use();
+                });
         }
     }
 
@@ -75,6 +79,7 @@ public class TitlePlayer : PlayerBehaviour
         if (collision.CompareTag("Interactable"))
         {
             useButton.interactable = false;
+            useButton.onClick.RemoveAllListeners();
         }
     }
 }
