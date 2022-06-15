@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitlePlayer : PlayerBehaviour
 {
     private bool uDown;
+
+    [SerializeField] private Button useButton;
 
     private void Awake()
     {
@@ -56,5 +59,22 @@ public class TitlePlayer : PlayerBehaviour
 
         canMove = false;
 
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            useButton.interactable = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            useButton.interactable = false;
+        }
     }
 }
