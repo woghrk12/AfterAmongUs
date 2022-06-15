@@ -732,6 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  useButton: {fileID: 853451477}
 --- !u!1 &377294351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,7 +1577,7 @@ GameObject:
   - component: {fileID: 853451478}
   - component: {fileID: 853451477}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Use Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2037,7 +2038,7 @@ GameObject:
   - component: {fileID: 1162780408}
   - component: {fileID: 1162780409}
   m_Layer: 0
-  m_Name: TitleManager
+  m_Name: Title Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2086,6 +2087,7 @@ MonoBehaviour:
   - {fileID: 783405094}
   - {fileID: 433143912}
   player: {fileID: 376445345}
+  playerUI: {fileID: 1858687623}
 --- !u!1 &1189246356
 GameObject:
   m_ObjectHideFlags: 0
@@ -8898,7 +8900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1858687624
 RectTransform:
   m_ObjectHideFlags: 0

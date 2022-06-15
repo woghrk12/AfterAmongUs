@@ -19,6 +19,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPositions;
 
     [SerializeField] private TitlePlayer player;
+    [SerializeField] private GameObject playerUI;
 
     private void Awake()
     {
@@ -56,7 +57,8 @@ public class TitleManager : MonoBehaviour
         SwitchCamera(true);
 
         yield return new WaitForSeconds(2f);
-        
+
+        playerUI.SetActive(true);
         player.SpawnPlayer(t_randomNum >= (spawnPositions.Length / 2));
 
         yield return new WaitForSeconds(0.5f);
