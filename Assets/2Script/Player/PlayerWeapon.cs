@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType { FIVEMM, SEVENMM, TWELVEGAUGE }
-public enum WeaponType { RIFLE, SHOTGUN }
-
 public class PlayerWeapon : MonoBehaviour
 {
     private Animator anim;

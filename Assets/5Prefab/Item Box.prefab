@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9e35f8c4521b442afcbfba9362cfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniMapObject: {fileID: 0}
 --- !u!61 &2330087383881265777
 BoxCollider2D:
   m_ObjectHideFlags: 0

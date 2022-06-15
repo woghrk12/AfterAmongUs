@@ -244,17 +244,17 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Region")
+        if (collision.CompareTag("Region"))
         {
             region = collision.GetComponent<Region>();
         }
 
-        if (collision.tag == "Camera Collider")
+        if (collision.CompareTag("Camera Collider"))
         {
             sprite.enabled = true;
         }
 
-        if (collision.tag == "Bullet")
+        if (collision.CompareTag("Bullet"))
         {
             var t_damage = collision.GetComponent<Bullet>().damage;
             OnDamage(t_damage);
@@ -264,7 +264,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Camera Collider")
+        if (collision.CompareTag("Camera Collider"))
         {
             sprite.enabled = false;
         }

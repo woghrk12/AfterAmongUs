@@ -248,7 +248,7 @@ public class GamePlayer : PlayerBehaviour
         if (usingObject == null) return;
 
         var t_item = usingObject.GetComponent<ItemBox>().Use();
-
+        
         var t_itemTextPrefab = Instantiate(itemTextPrefab, itemAcqView.transform).GetComponent<ItemText>();
         t_itemTextPrefab.SetText(t_item.itemType, t_item.num);
 
@@ -338,30 +338,30 @@ public class GamePlayer : PlayerBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Region")
+        if (collision.CompareTag("Region"))
         {
             playerRegion = collision.GetComponent<Region>();
         }
 
-        if (collision.tag == "EnemyBullet")
+        if (collision.CompareTag("EnemyBullet"))
         {
             var damage = collision.GetComponent<Bullet>().damage;
             StartCoroutine(OnDamageCo(damage));
             ObjectPooling.ReturnObject(collision.gameObject);
         }
 
-        if (collision.CompareTag("Item Box"))
+        if (collision.CompareTag("Interactable"))
             usingObject = collision.gameObject;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Region")
+        if (collision.CompareTag("Region"))
         {
             playerRegion = null;
         }
 
-        if (collision.CompareTag("Item Box"))
+        if (collision.CompareTag("Interactable"))
             usingObject = null;
     }
 }

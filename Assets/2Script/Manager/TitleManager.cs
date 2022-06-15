@@ -6,6 +6,8 @@ using Cinemachine;
 
 public class TitleManager : MonoBehaviour
 {
+    public static TitleManager instance;
+
     [SerializeField] private GameObject titleImage;
     [SerializeField] private Image background;
 
@@ -18,10 +20,15 @@ public class TitleManager : MonoBehaviour
 
     [SerializeField] private TitlePlayer player;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
-            StartCoroutine(TurnToInGameScene());
+            StartCoroutine(SwitchToInGameScene());
     }
 
     private void SwitchCamera(bool p_isPlayer)
@@ -62,7 +69,9 @@ public class TitleManager : MonoBehaviour
         StartCoroutine(GameStart());
     }
 
-    private IEnumerator TurnToInGameScene()
+    public static void InGameStart() => instance.StartCoroutine(instance.SwitchToInGameScene());
+
+    private IEnumerator SwitchToInGameScene()
     {
         player.canMove = false;
         SwitchCamera(false);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TitlePlayer : PlayerBehaviour
 {
+    private bool uDown;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -25,6 +27,13 @@ public class TitlePlayer : PlayerBehaviour
         base.FixedUpdate();
     }
 
+    protected override void GetInput()
+    {
+        base.GetInput();
+
+        uDown = Input.GetButtonDown("Use");
+    }
+
     protected override void Move()
     {
         base.Move();
@@ -39,5 +48,13 @@ public class TitlePlayer : PlayerBehaviour
         spriteRenderer.flipX = p_isFlipX;
         
         anim.SetTrigger("Spawn");
+    }
+
+    private void Use() 
+    {
+        if (!uDown) return;
+
+        canMove = false;
+
     }
 }
