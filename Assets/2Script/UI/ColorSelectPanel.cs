@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class ColorSelectPanel : MonoBehaviour
 {
+    [SerializeField] private GameObject cancelImage;
+    [SerializeField] private GameObject background;
     [SerializeField] private GameObject selectPanel;
-    private Animator anim;
+    private Animator animSelectPanel;
 
     private void Awake()
     {
-        anim = selectPanel.GetComponent<Animator>();
+        animSelectPanel = selectPanel.GetComponent<Animator>();
     }
 
     public void EnablePanel()
     {
-        anim.SetTrigger("On");
+        cancelImage.SetActive(true);
+        background.SetActive(true);
+        animSelectPanel.SetTrigger("On");
     }
 
     public void DisablePanel()
     {
-        anim.SetTrigger("Off");
+        cancelImage.SetActive(false);
+        background.SetActive(false);
+        animSelectPanel.SetTrigger("Off");
     }
 }

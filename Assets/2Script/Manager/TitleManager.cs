@@ -20,6 +20,7 @@ public class TitleManager : MonoBehaviour
 
     [SerializeField] private TitlePlayer player;
     [SerializeField] private GameObject playerUI;
+    [SerializeField] private ColorSelectPanel colorSelectPanel;
 
     private void Awake()
     {
@@ -123,5 +124,30 @@ public class TitleManager : MonoBehaviour
 
         t_color.a = t_fadeIn ? 0f : 1f;
         background.color = t_color;
+    }
+
+    public static void TurnOnPlayerUI() => instance.EnablePlayerUI();
+    public static void TurnOffPlayerUI() => instance.DisablePlayerUI();
+    public static void TurnOnColorSelectPanel() => instance.EnableColorSelectPanel();
+    public static void TurnOffColorSelectPanel() => instance.DisableColorSelectPanel();
+
+    private void EnablePlayerUI()
+    {
+        playerUI.SetActive(true);
+    }
+
+    private void DisablePlayerUI()
+    {
+        playerUI.SetActive(false);
+    }
+
+    private void EnableColorSelectPanel()
+    {
+        colorSelectPanel.EnablePanel();
+    }
+
+    private void DisableColorSelectPanel()
+    {
+        colorSelectPanel.DisablePanel();
     }
 }
