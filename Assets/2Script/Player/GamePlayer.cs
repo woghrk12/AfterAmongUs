@@ -17,7 +17,6 @@ public class GamePlayer : PlayerBehaviour
     private bool sDown1;
     private bool sDown2;
     private bool rDown;
-    private bool uDown;
     private bool mDown;
 
     private bool isDie;
@@ -56,6 +55,8 @@ public class GamePlayer : PlayerBehaviour
 
     [SerializeField] private GameObject itemAcqView;
     [SerializeField] private GameObject itemTextPrefab;
+
+    [SerializeField] private Button useButton;
 
     private void Awake()
     {
@@ -102,7 +103,6 @@ public class GamePlayer : PlayerBehaviour
         Fire();
         Swap();
         Reload();
-        Use();
         TurnOnOffMiniMap();
     }
 
@@ -119,7 +119,6 @@ public class GamePlayer : PlayerBehaviour
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         rDown = Input.GetButtonDown("Reload");
-        uDown = Input.GetButtonDown("Use");
         mDown = Input.GetButtonDown("Map");
     }
 
@@ -243,8 +242,6 @@ public class GamePlayer : PlayerBehaviour
 
     private void Use()
     {
-        if (!uDown) return;
-
         if (usingObject == null) return;
 
         var t_item = usingObject.GetComponent<ItemBox>().Use();
@@ -351,7 +348,15 @@ public class GamePlayer : PlayerBehaviour
         }
 
         if (collision.CompareTag("Interactable"))
+        {
             usingObject = collision.gameObject;
+            useButton.interactable = true;
+            useButton.onClick.AddListener(() =>
+                {
+                    Use();
+                });
+        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -362,6 +367,10 @@ public class GamePlayer : PlayerBehaviour
         }
 
         if (collision.CompareTag("Interactable"))
+        {
             usingObject = null;
+            useButton.interactable = false;
+            useButton.onClick.RemoveAllListeners();
+        }
     }
 }

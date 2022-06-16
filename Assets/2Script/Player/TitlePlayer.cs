@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class TitlePlayer : PlayerBehaviour
 {
-    private bool uDown;
-
-    [SerializeField] private GameObject playerUI;
     [SerializeField] private Button useButton;
 
     private void Awake()
@@ -34,8 +31,6 @@ public class TitlePlayer : PlayerBehaviour
     protected override void GetInput()
     {
         base.GetInput();
-
-        uDown = Input.GetButtonDown("Use");
     }
 
     protected override void Move()
@@ -62,7 +57,7 @@ public class TitlePlayer : PlayerBehaviour
             useButton.onClick.AddListener(() =>
                 {
                     TitleManager.TurnOffPlayerUI();
-                    collision.GetComponentInParent<Laptop>().Use();
+                    collision.GetComponent<Laptop>().Use();
                 });
         }
     }
