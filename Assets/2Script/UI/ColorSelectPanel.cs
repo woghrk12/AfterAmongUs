@@ -16,15 +16,32 @@ public class ColorSelectPanel : MonoBehaviour
 
     public void EnablePanel()
     {
+        StartCoroutine(EnablePanelCo());
+    }
+
+    private IEnumerator EnablePanelCo()
+    {
+        animSelectPanel.SetTrigger("On");
+
+        yield return new WaitForSeconds(1f);
+
         cancelImage.SetActive(true);
         background.SetActive(true);
-        animSelectPanel.SetTrigger("On");
     }
 
     public void DisablePanel()
     {
+        StartCoroutine(DisablePanelCo());
+    }
+
+    private IEnumerator DisablePanelCo()
+    {
         cancelImage.SetActive(false);
         background.SetActive(false);
         animSelectPanel.SetTrigger("Off");
+
+        yield return new WaitForSeconds(1f);
+
+        TitleManager.TurnOnPlayerUI();
     }
 }
