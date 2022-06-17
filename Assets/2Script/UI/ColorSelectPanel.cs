@@ -11,6 +11,8 @@ public class ColorSelectPanel : MonoBehaviour
     [SerializeField] private GameObject selectPanel;
     private Animator animSelectPanel;
 
+    private Coroutine runningCo;
+
     private void Awake()
     {
         animSelectPanel = selectPanel.GetComponent<Animator>();
@@ -21,7 +23,9 @@ public class ColorSelectPanel : MonoBehaviour
 
     public void EnablePanel()
     {
-        StartCoroutine(EnablePanelCo());
+        if (runningCo != null) StopCoroutine(runningCo);
+
+        runningCo = StartCoroutine(EnablePanelCo());
     }
 
     private IEnumerator EnablePanelCo()
@@ -36,7 +40,9 @@ public class ColorSelectPanel : MonoBehaviour
 
     public void DisablePanel()
     {
-        StartCoroutine(DisablePanelCo());
+        if (runningCo != null) StopCoroutine(runningCo);
+
+        runningCo = StartCoroutine(DisablePanelCo());
     }
 
     private IEnumerator DisablePanelCo()
