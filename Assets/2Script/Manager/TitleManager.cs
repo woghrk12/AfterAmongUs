@@ -11,6 +11,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private GameObject titleImage;
     [SerializeField] private Image background;
 
+    [SerializeField] private Button startButton;
     [SerializeField] private Button gameStartButton;
 
     [SerializeField] private CinemachineVirtualCamera startVirtualCamera;
@@ -33,10 +34,15 @@ public class TitleManager : MonoBehaviour
         startVirtualCamera.gameObject.SetActive(!p_isPlayer);
     }
 
+    public void OnClickStartButton()
+    {
+        StartCoroutine(GameStart());
+    }
+
     private IEnumerator GameStart()
     {
-        gameStartButton.GetComponent<Animator>().SetTrigger("FadeOut");
-        gameStartButton.enabled = false;
+        startButton.GetComponent<Animator>().SetTrigger("FadeOut");
+        startButton.enabled = false;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -61,11 +67,6 @@ public class TitleManager : MonoBehaviour
         player.canMove = true;
     }
 
-    public void OnClickStartButton()
-    {
-        StartCoroutine(GameStart());
-    }
-
     public void OnClickGameStartButton()
     {
         StartCoroutine(SwitchToInGameScene());
@@ -73,14 +74,13 @@ public class TitleManager : MonoBehaviour
 
     private IEnumerator SwitchToInGameScene()
     {
-        colorSelectPanel.DisablePanel();
-
-        yield return new WaitForSeconds(1f);
-
+        gameStartButton.interactable = false;
         SwitchCamera(false);
 
         yield return new WaitForSeconds(2f);
-        
+
+        playerUI.SetActive(false);
+
         var t_totalTime = 0.5f;
         var t_timer = 0f;
         var t_position= startVirtualCamera.transform.position;

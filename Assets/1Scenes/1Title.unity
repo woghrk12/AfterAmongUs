@@ -2138,7 +2138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleImage: {fileID: 1667679489}
   background: {fileID: 1769100365}
-  gameStartButton: {fileID: 2090513051}
+  startButton: {fileID: 2090513051}
+  gameStartButton: {fileID: 1377626708}
   startVirtualCamera: {fileID: 1575013373}
   playerVirtualCamera: {fileID: 943670527}
   spawnPositions:
@@ -7615,17 +7616,17 @@ RectTransform:
   m_GameObject: {fileID: 1377626706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1446092207}
-  m_Father: {fileID: 1594130835}
-  m_RootOrder: 2
+  m_Father: {fileID: 1858687624}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -30, y: 30}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 200, y: 80}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1377626708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8316,7 +8317,6 @@ RectTransform:
   m_Children:
   - {fileID: 1568810456}
   - {fileID: 377294352}
-  - {fileID: 1377626707}
   m_Father: {fileID: 133349884}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9167,6 +9167,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 853451476}
+  - {fileID: 1377626707}
   m_Father: {fileID: 2052072848}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
