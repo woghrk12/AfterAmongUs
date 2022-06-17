@@ -286,7 +286,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 57184025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &57184025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cancelImage: {fileID: 380614307}
   background: {fileID: 1849280156}
+  previewImage: {fileID: 775917416}
   selectPanel: {fileID: 1594130834}
 --- !u!1 &183876901
 GameObject:
@@ -747,6 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72950024e81dd7b478ecd9fc7ba91a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
   moveSpeed: 2
   useButton: {fileID: 853451477}
 --- !u!1 &377294351
@@ -1213,7 +1227,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 597123275}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &597123275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,7 +1359,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 682249942}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &682249942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2004,7 +2042,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1162044525}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1162044525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7025,7 +7075,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1260289880}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1260289880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7145,7 +7207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1295257756}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1295257756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7265,7 +7339,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1303359086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1303359086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7417,7 +7503,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1338744923}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1338744923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7785,7 +7883,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1426307848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1426307848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8717,7 +8827,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1784626083}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1784626083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8812,7 +8934,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -9134,7 +9256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1903333024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 11
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1903333024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9458,7 +9592,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032580345}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 133349885}
+        m_TargetAssemblyTypeName: ColorSelectPanel, Assembly-CSharp
+        m_MethodName: OnClickColorSelectButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032580345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9472,7 +9618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.4, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

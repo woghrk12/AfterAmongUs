@@ -25,6 +25,7 @@ public class TitleManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
     }
 
     private void Update()
@@ -148,4 +149,9 @@ public class TitleManager : MonoBehaviour
         playerUI.SetActive(true);
         colorSelectPanel.DisablePanel();
     }
+
+    public static void ChangePlayerColor(EPlayerColor p_color) => instance.SetPlayerColor(p_color);
+
+    private void SetPlayerColor(EPlayerColor p_color) => player.SetColor(p_color);
+    
 }

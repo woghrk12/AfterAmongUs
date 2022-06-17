@@ -290,16 +290,16 @@ public class GamePlayer : PlayerBehaviour
             while (t_countTime < 10)
             {
                 if (t_countTime % 2 == 0)
-                    SetColor(new Color(1f, 1f, 1f, 0.3f));
+                    SetAlpha(0.3f);
                 else
-                    SetColor(new Color(1f, 1f, 1f, 0.6f));
+                    SetAlpha(0.6f);
 
                 yield return new WaitForSeconds(0.2f);
 
                 t_countTime++;
             }
 
-            SetColor(new Color(1f, 1f, 1f, 1f));
+            SetAlpha(1f);
 
             gameObject.layer = 6;
         }

@@ -10,7 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
     protected float hAxis;
     protected float vAxis;
 
-    public bool canMove { get; set; }
+    public bool canMove;
 
     protected bool isLeft;
 
@@ -55,8 +55,15 @@ public class PlayerBehaviour : MonoBehaviour
         transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
-    public void SetColor(Color p_color)
+    public void SetColor(EPlayerColor p_color)
     {
-        spriteRenderer.color = p_color;
+        spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor(p_color));
+    }
+
+    public void SetAlpha(float p_value)
+    {
+        var t_color = spriteRenderer.color;
+        t_color.a = p_value;
+        spriteRenderer.color = t_color;
     }
 }

@@ -33,5 +33,4 @@ public class PlayerColor
     public static Color White { get { return colors[(int)EPlayerColor.WHITE]; } }
     public static Color Black { get { return colors[(int)EPlayerColor.BLACK]; } }
     public static Color Gray { get { return colors[(int)EPlayerColor.GRAY]; } }
-
 }
