@@ -56,7 +56,6 @@ public class TitlePlayer : PlayerBehaviour
             useButton.interactable = true;
             useButton.onClick.AddListener(() =>
                 {
-                    TitleManager.TurnOffPlayerUI();
                     collision.GetComponent<Laptop>().Use();
                 });
         }

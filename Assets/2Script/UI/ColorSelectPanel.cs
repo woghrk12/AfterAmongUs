@@ -41,7 +41,5 @@ public class ColorSelectPanel : MonoBehaviour
         animSelectPanel.SetTrigger("Off");
 
         yield return new WaitForSeconds(1f);
-
-        TitleManager.TurnOnPlayerUI();
     }
 }

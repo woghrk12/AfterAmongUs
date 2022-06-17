@@ -72,11 +72,17 @@ public class TitleManager : MonoBehaviour
         StartCoroutine(GameStart());
     }
 
-    public static void InGameStart() => instance.StartCoroutine(instance.SwitchToInGameScene());
+    public void OnClickGameStartButton()
+    {
+        StartCoroutine(SwitchToInGameScene());
+    }
 
     private IEnumerator SwitchToInGameScene()
     {
-        player.canMove = false;
+        colorSelectPanel.DisablePanel();
+
+        yield return new WaitForSeconds(1f);
+
         SwitchCamera(false);
 
         yield return new WaitForSeconds(2f);
@@ -126,28 +132,20 @@ public class TitleManager : MonoBehaviour
         background.color = t_color;
     }
 
-    public static void TurnOnPlayerUI() => instance.EnablePlayerUI();
-    public static void TurnOffPlayerUI() => instance.DisablePlayerUI();
     public static void TurnOnColorSelectPanel() => instance.EnableColorSelectPanel();
     public static void TurnOffColorSelectPanel() => instance.DisableColorSelectPanel();
 
-    private void EnablePlayerUI()
-    {
-        playerUI.SetActive(true);
-    }
-
-    private void DisablePlayerUI()
-    {
-        playerUI.SetActive(false);
-    }
-
     private void EnableColorSelectPanel()
     {
+        player.canMove = false;
+        playerUI.SetActive(false);
         colorSelectPanel.EnablePanel();
     }
 
     private void DisableColorSelectPanel()
     {
+        player.canMove = true;
+        playerUI.SetActive(true);
         colorSelectPanel.DisablePanel();
     }
 }
