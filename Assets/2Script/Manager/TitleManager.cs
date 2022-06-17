@@ -74,6 +74,7 @@ public class TitleManager : MonoBehaviour
 
     private IEnumerator SwitchToInGameScene()
     {
+        player.canMove = false;
         gameStartButton.interactable = false;
         SwitchCamera(false);
 
