@@ -17,6 +17,7 @@ public struct Item
     public int num;
 }
 
+public enum EScene { TITLE, INGAME, LOADING }
 public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE }
 public enum EWeaponType { RIFLE, SHOTGUN }
 public enum EItemType { AMMO5, AMMO7, AMMO12, HEAL, GRENADE, WEAPON };

@@ -108,6 +108,8 @@ public class TitleManager : MonoBehaviour
         background.gameObject.SetActive(true);
 
         yield return ChangeBackground(1f);
+
+        LoadingManager.LoadScene(EScene.INGAME);
     }
 
     private IEnumerator ChangeBackground(float p_time)
@@ -147,5 +149,4 @@ public class TitleManager : MonoBehaviour
     public static void ChangePlayerColor(EPlayerColor p_color) => instance.SetPlayerColor(p_color);
 
     private void SetPlayerColor(EPlayerColor p_color) => player.SetColor(p_color);
-    
 }

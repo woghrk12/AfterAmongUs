@@ -13,8 +13,5 @@ public class ControlSlider : MonoBehaviour
         slider.value = p_value;
     }
 
-    public void SetValue(int p_value)
-    {
-        slider.value = p_value;
-    }
+    public void SetValue(int p_value) { slider.value = p_value; }
 }
