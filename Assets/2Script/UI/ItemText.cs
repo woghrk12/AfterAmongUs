@@ -12,7 +12,7 @@ public class ItemText : MonoBehaviour
     private Color textColor;
     private float alphaValue;
 
-    public void SetText(ItemType p_itemType, int p_num)
+    public void SetText(EItemType p_itemType, int p_num)
     {
         itemText.text = p_itemType.ToString();
         numText.text = p_num.ToString();

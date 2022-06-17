@@ -13,10 +13,11 @@ public struct Pool
 [Serializable]
 public struct Item
 {
-    public ItemType itemType;
+    public EItemType itemType;
     public int num;
 }
 
-public enum BulletType { FIVEMM, SEVENMM, TWELVEGAUGE }
-public enum WeaponType { RIFLE, SHOTGUN }
-public enum ItemType { AMMO5, AMMO7, AMMO12, HEAL, GRENADE, WEAPON };
+public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE }
+public enum EWeaponType { RIFLE, SHOTGUN }
+public enum EItemType { AMMO5, AMMO7, AMMO12, HEAL, GRENADE, WEAPON };
+public enum EPlayerColor { RED, BLUE, GREEN, YELLOW, ORANGE, PURPLE, CYAN, BROWN, PINK, WHITE, BLACK, GRAY }

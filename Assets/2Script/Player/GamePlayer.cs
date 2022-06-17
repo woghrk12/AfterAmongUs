@@ -10,7 +10,7 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private List<PlayerWeapon> weapons;
     private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
-    private BulletType bulletType;
+    private EBulletType bulletType;
     private int equipWeaponIndex = -1;
 
     private bool fDown;
@@ -166,7 +166,7 @@ public class GamePlayer : PlayerBehaviour
         reloadCo = StartCoroutine(ReloadCo(equipWeapon.bulletType, equipWeapon.reloadTime));
     }
 
-    private IEnumerator ReloadCo(BulletType p_bulletType, float p_reloadTime)
+    private IEnumerator ReloadCo(EBulletType p_bulletType, float p_reloadTime)
     {
         isReloadReady = false;
 
@@ -174,19 +174,19 @@ public class GamePlayer : PlayerBehaviour
 
         switch (p_bulletType)
         {
-            case BulletType.FIVEMM:
+            case EBulletType.FIVEMM:
                 if (ammo5MM <= 0) break;
                 ammo5MM -= equipWeapon.Reload(ammo5MM);
                 totalAmmoText.text = ammo5MM.ToString();
                 break;
 
-            case BulletType.SEVENMM:
+            case EBulletType.SEVENMM:
                 if (ammo7MM <= 0) break;
                 ammo7MM -= equipWeapon.Reload(ammo7MM);
                 totalAmmoText.text = ammo7MM.ToString();
                 break;
 
-            case BulletType.TWELVEGAUGE:
+            case EBulletType.TWELVEGAUGE:
                 if (ammo12Guage <= 0) break;
                 ammo12Guage -= equipWeapon.Reload(ammo12Guage);
                 totalAmmoText.text = ammo12Guage.ToString();
@@ -221,17 +221,17 @@ public class GamePlayer : PlayerBehaviour
 
         switch (bulletType)
         {
-            case BulletType.FIVEMM:
+            case EBulletType.FIVEMM:
                 ammoImage.sprite = ammo5MMImage;
                 totalAmmoText.text = ammo5MM.ToString();
                 break;
 
-            case BulletType.SEVENMM:
+            case EBulletType.SEVENMM:
                 ammoImage.sprite = ammo7MMImage;
                 totalAmmoText.text = ammo7MM.ToString();
                 break;
 
-            case BulletType.TWELVEGAUGE:
+            case EBulletType.TWELVEGAUGE:
                 ammoImage.sprite = ammo12GuageImage;
                 totalAmmoText.text = ammo12Guage.ToString();
                 break;
@@ -251,26 +251,26 @@ public class GamePlayer : PlayerBehaviour
 
         switch (t_item.itemType)
         {
-            case ItemType.AMMO12:
+            case EItemType.AMMO12:
                 ammo12Guage += t_item.num;
-                if (equipWeapon.bulletType == BulletType.TWELVEGAUGE)
+                if (equipWeapon.bulletType == EBulletType.TWELVEGAUGE)
                     totalAmmoText.text = ammo12Guage.ToString();
                 break;
-            case ItemType.AMMO7:
+            case EItemType.AMMO7:
                 ammo7MM += t_item.num;
-                if (equipWeapon.bulletType == BulletType.SEVENMM)
+                if (equipWeapon.bulletType == EBulletType.SEVENMM)
                     totalAmmoText.text = ammo7MM.ToString();
                 break;
-            case ItemType.AMMO5:
+            case EItemType.AMMO5:
                 ammo5MM += t_item.num;
-                if (equipWeapon.bulletType == BulletType.FIVEMM)
+                if (equipWeapon.bulletType == EBulletType.FIVEMM)
                     totalAmmoText.text = ammo5MM.ToString();
                 break;
-            case ItemType.HEAL:
+            case EItemType.HEAL:
                 curHealth += t_item.num;
                 healthBar.SetValue(curHealth);
                 break;
-            case ItemType.GRENADE:
+            case EItemType.GRENADE:
                 break;
             default:
                 break;

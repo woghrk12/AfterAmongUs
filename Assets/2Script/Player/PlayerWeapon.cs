@@ -17,9 +17,9 @@ public class PlayerWeapon : MonoBehaviour
     private float cameraRecoil;
     public float reloadTime;
 
-    [SerializeField] private WeaponType weaponType;
+    [SerializeField] private EWeaponType weaponType;
     
-    public BulletType bulletType;
+    public EBulletType bulletType;
     private string bulletTag;
     
     public int maxAmmo;
@@ -33,13 +33,13 @@ public class PlayerWeapon : MonoBehaviour
 
         switch (bulletType)
         {
-            case BulletType.FIVEMM:
+            case EBulletType.FIVEMM:
                 bulletTag = "5mm Bullet";
                 break;
-            case BulletType.SEVENMM:
+            case EBulletType.SEVENMM:
                 bulletTag = "5mm Bullet";
                 break;
-            case BulletType.TWELVEGAUGE:
+            case EBulletType.TWELVEGAUGE:
                 bulletTag = "12 Gauge Bullet";
                 break;
         }
@@ -56,11 +56,11 @@ public class PlayerWeapon : MonoBehaviour
 
         switch (weaponType)
         {
-            case WeaponType.RIFLE:
+            case EWeaponType.RIFLE:
                 UseRifle(direction);
                 break;
 
-            case WeaponType.SHOTGUN:
+            case EWeaponType.SHOTGUN:
                 UseShotgun(direction);
                 break;
         }
