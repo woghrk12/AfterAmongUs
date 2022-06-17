@@ -234,7 +234,7 @@ public class EnemyBehaviour : MonoBehaviour
         
         anim.SetTrigger("Die");
 
-        GameManager.instance.EnemyDie();
+        InGameManager.instance.EnemyDie();
 
         yield return new WaitForSeconds(3f);
 

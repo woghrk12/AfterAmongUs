@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class InGameManager : MonoBehaviour
 {
-	public static GameManager instance;
+	public static InGameManager instance;
 
 	public PointManager pointManager;
 
@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
 	private int enemyCount;
 	[SerializeField] private ControlSlider progress;
-	
+
 	[SerializeField] private GamePlayer player;
 
 	[SerializeField] private Image screen;
@@ -34,20 +34,20 @@ public class GameManager : MonoBehaviour
 		stage = 1;
 	}
 
-    private void Start()
-    {
+	private void Start()
+	{
 		StartCoroutine(WaveStart(5f));
 		player.canMove = true;
-    }
+	}
 
-    private IEnumerator SpawnEnemy(int p_num)
+	private IEnumerator SpawnEnemy(int p_num)
 	{
 		yield return new WaitForSeconds(1f);
 
 		for (int i = 0; i < enemyCount; i++)
 		{
 			var t_regions = enemySpawnRegions;
-			t_regions.Remove(player.playerRegion);						
+			t_regions.Remove(player.playerRegion);
 			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
 			var t_enemy = ObjectPooling.SpawnObject("Enemy", Vector3.zero, Quaternion.identity);
 			t_enemy.GetComponent<EnemyBehaviour>().SetEnemy(t_spawnRegion);
@@ -81,9 +81,9 @@ public class GameManager : MonoBehaviour
 			t_time += 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
-		
+
 		ChangeLight(p_isStart);
-		
+
 		while (t_time >= 0f)
 		{
 			t_color.a = t_time;
@@ -105,14 +105,14 @@ public class GameManager : MonoBehaviour
 		progress.SetMaxValue(enemyCount);
 
 		yield return StageChange(true);
-		
+
 		StartCoroutine(SpawnEnemy(enemyCount));
 	}
 
 	private IEnumerator WaveEnd()
 	{
 		yield return StageChange(false);
-		
+
 		stage++;
 
 		StartCoroutine(WaveStart(5f));
@@ -136,10 +136,10 @@ public class GameManager : MonoBehaviour
 		while (t_time > 0f)
 		{
 			t_time -= t_interval;
-			
+
 			timerText.text = t_time.ToString();
 			var t_colorValue = Mathf.Lerp(0f, 1f, t_time / 10f);
-			
+
 			timerText.color = new Color(1f, t_colorValue, t_colorValue);
 
 			yield return new WaitForSeconds(t_interval);
