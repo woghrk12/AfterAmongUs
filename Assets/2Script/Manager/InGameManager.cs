@@ -36,6 +36,7 @@ public class InGameManager : MonoBehaviour
 
 	private void Start()
 	{
+		player.SetColor(GameManager.playerColor);
 		StartCoroutine(WaveStart(5f));
 		player.canMove = true;
 	}

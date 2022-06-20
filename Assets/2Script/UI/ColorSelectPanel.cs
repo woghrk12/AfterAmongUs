@@ -31,7 +31,7 @@ public class ColorSelectPanel : MonoBehaviour
     private IEnumerator EnablePanelCo()
     {
         animSelectPanel.SetTrigger("On");
-
+        previewImage.material.SetColor("_PlayerColor", PlayerColor.GetColor(GameManager.playerColor));
         yield return new WaitForSeconds(1f);
 
         cancelImage.SetActive(true);
@@ -58,5 +58,6 @@ public class ColorSelectPanel : MonoBehaviour
     {
         previewImage.material.SetColor("_PlayerColor", PlayerColor.GetColor((EPlayerColor)p_color));
         TitleManager.ChangePlayerColor((EPlayerColor)p_color);
+        GameManager.playerColor = (EPlayerColor)p_color;
     }
 }

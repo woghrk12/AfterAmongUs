@@ -28,6 +28,11 @@ public class TitleManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        SetPlayerColor(GameManager.playerColor);
+    }
+
     private void SwitchCamera(bool p_isPlayer)
     {
         playerVirtualCamera.gameObject.SetActive(p_isPlayer);

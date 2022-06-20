@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public static EPlayerColor playerColor;
+
 	private void Awake()
 	{
 		var objs = FindObjectsOfType<GameManager>();
