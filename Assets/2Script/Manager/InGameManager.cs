@@ -38,7 +38,7 @@ public class InGameManager : MonoBehaviour
 	{
 		player.SetColor(GameManager.playerColor);
 		StartCoroutine(WaveStart(5f));
-		player.canMove = true;
+		player.CanMove = true;
 	}
 
 	private IEnumerator SpawnEnemy(int p_num)

@@ -15,7 +15,7 @@ public class TitlePlayer : PlayerBehaviour
         var t_instMat = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_instMat;
 
-        canMove = false;
+        CanMove = false;
     }
 
     protected override void Update()

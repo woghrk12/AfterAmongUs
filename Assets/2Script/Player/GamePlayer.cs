@@ -319,7 +319,7 @@ public class GamePlayer : PlayerBehaviour
         moveSpeed = 0;
         gameObject.layer = 7;
         isDie = true;
-        canMove = false;
+        CanMove = false;
 
         spriteRenderer.flipX = false;
 

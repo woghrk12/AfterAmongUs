@@ -10,7 +10,16 @@ public class PlayerBehaviour : MonoBehaviour
     protected float hAxis;
     protected float vAxis;
 
-    public bool canMove;
+    private bool canMove;
+    public bool CanMove
+    {
+        set 
+        {
+            canMove = value;
+            anim.SetBool("isWalk", value);
+        }
+        get { return canMove; }
+    }
 
     protected bool isLeft;
 

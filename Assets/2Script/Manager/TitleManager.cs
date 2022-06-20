@@ -69,7 +69,7 @@ public class TitleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        player.canMove = true;
+        player.CanMove = true;
     }
 
     public void OnClickGameStartButton()
@@ -79,7 +79,7 @@ public class TitleManager : MonoBehaviour
 
     private IEnumerator SwitchToInGameScene()
     {
-        player.canMove = false;
+        player.CanMove = false;
         gameStartButton.interactable = false;
         SwitchCamera(false);
 
@@ -139,14 +139,14 @@ public class TitleManager : MonoBehaviour
 
     private void EnableColorSelectPanel()
     {
-        player.canMove = false;
+        player.CanMove = false;
         playerUI.SetActive(false);
         colorSelectPanel.EnablePanel();
     }
 
     private void DisableColorSelectPanel()
     {
-        player.canMove = true;
+        player.CanMove = true;
         playerUI.SetActive(true);
         colorSelectPanel.DisablePanel();
     }
