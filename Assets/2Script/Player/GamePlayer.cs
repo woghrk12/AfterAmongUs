@@ -11,11 +11,12 @@ public class GamePlayer : PlayerBehaviour
     private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
     private EBulletType bulletType;
-    private int equipWeaponIndex = -1;
+    private int equipWeaponIndex;
 
     private bool fDown;
     private bool sDown1;
     private bool sDown2;
+    private bool sDown3;
     private bool rDown;
     private bool mDown;
 
@@ -40,6 +41,7 @@ public class GamePlayer : PlayerBehaviour
     private int ammo12Guage;
     private int ammo7MM;
     private int ammo5MM;
+    private int ammo9MM;
 
     [SerializeField] private Text curAmmoText;
     [SerializeField] private Text totalAmmoText;
@@ -48,6 +50,7 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private Sprite ammo12GuageImage;
     [SerializeField] private Sprite ammo7MMImage;
     [SerializeField] private Sprite ammo5MMImage;
+    [SerializeField] private Sprite ammo9MMImage;
 
     public Region playerRegion;
 
@@ -75,7 +78,7 @@ public class GamePlayer : PlayerBehaviour
         for (int i = 0; i < weapons.Count; i++)
             hasWeapons[i] = true;
 
-        equipWeaponIndex = -1;
+        equipWeaponIndex = 0;
 
         isFireReady = true;
         isDie = false;
@@ -86,11 +89,18 @@ public class GamePlayer : PlayerBehaviour
         ammo12Guage = 50;
         ammo7MM = 50;
         ammo5MM = 50;
+        ammo9MM = 50;
     }
 
     private void Start()
     {
-        spriteRenderer.material.SetColor("_PlayerColor", Color.magenta);
+        equipWeapon = weapons[equipWeaponIndex];
+        equipWeapon.gameObject.SetActive(true);
+        bulletType = equipWeapon.bulletType;
+
+        ammoImage.sprite = ammo9MMImage;
+        totalAmmoText.text = ammo9MM.ToString();
+        curAmmoText.text = equipWeapon.curAmmo.ToString();
     }
 
     protected override void Update()
@@ -118,6 +128,7 @@ public class GamePlayer : PlayerBehaviour
         fDown = Input.GetButton("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
+        sDown3 = Input.GetButtonDown("Swap3");
         rDown = Input.GetButtonDown("Reload");
         mDown = Input.GetButtonDown("Map");
     }
@@ -186,6 +197,12 @@ public class GamePlayer : PlayerBehaviour
                 totalAmmoText.text = ammo7MM.ToString();
                 break;
 
+            case EBulletType.NINEMM:
+                if (ammo9MM <= 0) break;
+                ammo9MM -= equipWeapon.Reload(ammo9MM);
+                totalAmmoText.text = ammo9MM.ToString();
+                break;
+
             case EBulletType.TWELVEGAUGE:
                 if (ammo12Guage <= 0) break;
                 ammo12Guage -= equipWeapon.Reload(ammo12Guage);
@@ -200,9 +217,10 @@ public class GamePlayer : PlayerBehaviour
 
     private void Swap()
     {
-        if (!sDown1 && !sDown2) return;
+        if (!sDown1 && !sDown2 && !sDown3) return;
         if (sDown1 && (equipWeaponIndex == 0 || !hasWeapons[0])) return;
         if (sDown2 && (equipWeaponIndex == 1 || !hasWeapons[1])) return;
+        if (sDown3 && (equipWeaponIndex == 2 || !hasWeapons[2])) return;
 
         if (reloadCo != null)
         {
@@ -213,6 +231,7 @@ public class GamePlayer : PlayerBehaviour
 
         if (sDown1) equipWeaponIndex = 0;
         if (sDown2) equipWeaponIndex = 1;
+        if (sDown3) equipWeaponIndex = 2;
 
         equipWeapon = weapons[equipWeaponIndex];
         equipWeapon.gameObject.SetActive(true);
@@ -229,6 +248,11 @@ public class GamePlayer : PlayerBehaviour
             case EBulletType.SEVENMM:
                 ammoImage.sprite = ammo7MMImage;
                 totalAmmoText.text = ammo7MM.ToString();
+                break;
+
+            case EBulletType.NINEMM:
+                ammoImage.sprite = ammo9MMImage;
+                totalAmmoText.text = ammo9MM.ToString();
                 break;
 
             case EBulletType.TWELVEGAUGE:
@@ -256,22 +280,33 @@ public class GamePlayer : PlayerBehaviour
                 if (equipWeapon.bulletType == EBulletType.TWELVEGAUGE)
                     totalAmmoText.text = ammo12Guage.ToString();
                 break;
+
             case EItemType.AMMO7:
                 ammo7MM += t_item.num;
                 if (equipWeapon.bulletType == EBulletType.SEVENMM)
                     totalAmmoText.text = ammo7MM.ToString();
                 break;
+
             case EItemType.AMMO5:
                 ammo5MM += t_item.num;
                 if (equipWeapon.bulletType == EBulletType.FIVEMM)
                     totalAmmoText.text = ammo5MM.ToString();
                 break;
+
+            case EItemType.AMMO9:
+                ammo9MM += t_item.num;
+                if (equipWeapon.bulletType == EBulletType.NINEMM)
+                    totalAmmoText.text = ammo9MM.ToString();
+                break;
+
             case EItemType.HEAL:
                 curHealth += t_item.num;
                 healthBar.SetValue(curHealth);
                 break;
+
             case EItemType.GRENADE:
                 break;
+
             default:
                 break;
         }

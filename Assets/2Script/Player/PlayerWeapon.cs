@@ -42,6 +42,9 @@ public class PlayerWeapon : MonoBehaviour
             case EBulletType.TWELVEGAUGE:
                 bulletTag = "12 Gauge Bullet";
                 break;
+            case EBulletType.NINEMM:
+                bulletTag = "9mm Bullet";
+                break;
         }
     }
     
@@ -56,12 +59,13 @@ public class PlayerWeapon : MonoBehaviour
 
         switch (weaponType)
         {
+            case EWeaponType.PISTOL:
             case EWeaponType.RIFLE:
-                UseRifle(direction);
+                SingleShot(direction);
                 break;
 
             case EWeaponType.SHOTGUN:
-                UseShotgun(direction);
+                MultiShot(direction);
                 break;
         }
 
@@ -69,7 +73,7 @@ public class PlayerWeapon : MonoBehaviour
         CameraShaking.SetCameraShake(cameraRecoil, 0.1f);
     }
 
-    private void UseRifle(Vector3 p_dir)
+    private void SingleShot(Vector3 p_dir)
     {
         var t_recoil = Random.Range(-recoil, recoil);
         var t_bullet = ObjectPooling.SpawnObject(bulletTag, firePosition.position, firePosition.rotation).GetComponent<Bullet>();
@@ -77,7 +81,7 @@ public class PlayerWeapon : MonoBehaviour
         t_bullet.SetDirection(t_dir);
     }
 
-    private void UseShotgun(Vector3 p_dir)
+    private void MultiShot(Vector3 p_dir)
     {
         for (int i = 0; i < 5; i++)
         {
