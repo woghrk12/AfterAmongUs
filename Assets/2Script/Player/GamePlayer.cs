@@ -109,7 +109,6 @@ public class GamePlayer : PlayerBehaviour
 
         base.Update();
 
-        Targeting();
         Fire();
         Swap();
         Reload();
@@ -133,23 +132,25 @@ public class GamePlayer : PlayerBehaviour
         mDown = Input.GetButtonDown("Map");
     }
 
-    private void Targeting()
+    protected override void Move()
     {
-        mPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        oPosition = transform.position;
+        base.Move();
 
-        isLeft = mPosition.x < oPosition.x;
+        if (moveDir == Vector3.zero) return;
 
-        spriteRenderer.flipX = isLeft;
-        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
-        direction = isLeft ? oPosition - mPosition : mPosition - oPosition;
+        angle = (isLeft ? Mathf.Atan2(-moveDir.y, -moveDir.x) : Mathf.Atan2(moveDir.y, moveDir.x)) * Mathf.Rad2Deg;
 
-        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        if (angle < -80f || angle > 80f)
-            angle = Mathf.Clamp(angle, -80f, 80f);
+        if (angle < -90f || angle > 90f)
+            angle = Mathf.Clamp(angle, -90f, 90f);
 
         playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        if (moveDir.x != 0)
+        {
+            isLeft = moveDir.x < 0;
+            spriteRenderer.flipX = isLeft;
+            playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+        }
     }
 
     private void Fire()
