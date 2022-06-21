@@ -9,9 +9,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform triggerPosition;
     [SerializeField] private Transform firePosition;
     private Vector3 direction;
+    private float angle;
 
-    [SerializeField] private GameObject muzzleFlash;
-    
     public float rate;
     [SerializeField] private float recoil;
     private float cameraRecoil;
@@ -53,18 +52,18 @@ public class PlayerWeapon : MonoBehaviour
         if (curAmmo <= 0) return;
         curAmmo--;
 
-        StartCoroutine(ShotFlash());
-
         direction = (firePosition.position - triggerPosition.position).normalized;
-
+        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         switch (weaponType)
         {
             case EWeaponType.PISTOL:
             case EWeaponType.RIFLE:
+                ObjectPooling.SpawnObject("Single Muzzle Flash", firePosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
                 SingleShot(direction);
                 break;
 
             case EWeaponType.SHOTGUN:
+                ObjectPooling.SpawnObject("Multiple Muzzle Flash", firePosition.position, Quaternion.AngleAxis(angle, Vector3.forward));
                 MultiShot(direction);
                 break;
         }
@@ -90,13 +89,6 @@ public class PlayerWeapon : MonoBehaviour
             var t_dir = Quaternion.AngleAxis(t_recoil, Vector3.forward) * p_dir;
             t_bullet.SetDirection(t_dir);
         }
-    }
-
-    private IEnumerator ShotFlash()
-    {
-        muzzleFlash.SetActive(true);
-        yield return new WaitForSeconds(0.05f);
-        muzzleFlash.SetActive(false);
     }
 
     public int Reload(int p_playerAmmo)
