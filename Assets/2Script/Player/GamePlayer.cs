@@ -111,7 +111,6 @@ public class GamePlayer : PlayerBehaviour
         
         Fire();
         Swap();
-        Reload();
         TurnOnOffMiniMap();
     }
 
@@ -178,21 +177,27 @@ public class GamePlayer : PlayerBehaviour
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
 
+        if (!isFireReady) return;
+
         target = playerRader.GetTarget();
 
-        if (isFireReady && target != null)
+        if (target == null) return;
+
+        if (equipWeapon.curAmmo <= 0)
         {
-            Targeting();
-            equipWeapon.GetComponent<PlayerWeapon>().Shot();
-            curAmmoText.text = equipWeapon.curAmmo.ToString();
-            fireDelay = 0;
+            Reload();
+            return;
         }
+
+        Targeting();
+        equipWeapon.GetComponent<PlayerWeapon>().Shot();
+        curAmmoText.text = equipWeapon.curAmmo.ToString();
+        fireDelay = 0;
     }
 
     private void Reload()
     {
         if (equipWeapon == null) return;
-        if (!rDown) return;
         if (!isReloadReady) return;
 
         reloadCo = StartCoroutine(ReloadCo(equipWeapon.bulletType, equipWeapon.reloadTime));
