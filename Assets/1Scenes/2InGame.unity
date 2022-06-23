@@ -8682,6 +8682,9 @@ MonoBehaviour:
   - tag: Item Box
     prefab: {fileID: 9066941750215294787, guid: 78e404bc61bd9834786715126ea4fe02, type: 3}
     size: 10
+  - tag: EnemyPortal
+    prefab: {fileID: 354597390505762013, guid: 0db8089725124cc4b9f2a1c31b227003, type: 3}
+    size: 10
   - tag: Enemy
     prefab: {fileID: 973337266696540069, guid: 9cf451aedf70ca24b88e6928e5e3cc10, type: 3}
     size: 10

@@ -41,7 +41,13 @@ public class InGameManager : MonoBehaviour
 		player.CanMove = true;
 	}
 
-	private IEnumerator SpawnEnemy(int p_num)
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.O))
+			StartCoroutine(SpawnPortal(2));
+    }
+
+    private IEnumerator SpawnEnemy(int p_num)
 	{
 		yield return new WaitForSeconds(1f);
 
@@ -55,13 +61,20 @@ public class InGameManager : MonoBehaviour
 		}
 	}
 
-	public void EnemyDie()
+	private IEnumerator SpawnPortal(int p_num)
 	{
-		enemyCount--;
-		progress.SetValue(enemyCount);
+		yield return new WaitForSeconds(1f);
 
-		if (enemyCount <= 0)
-			StartCoroutine(WaveEnd());
+		for (int i = 0; i < p_num; i++)
+		{
+			var t_regions = enemySpawnRegions;
+			t_regions.Remove(player.playerRegion);
+			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
+			t_regions.Remove(t_spawnRegion);
+			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", PointManager.GetPoint(t_spawnRegion.dstPoint).transform.position, Quaternion.identity).GetComponent<EnemyPortal>();
+			t_portal.spawnRegion = t_spawnRegion;
+			t_portal.SpawnEnemy();
+		}
 	}
 
 	private void ChangeLight(bool p_isStart)
