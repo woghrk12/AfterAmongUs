@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerRader : MonoBehaviour
 {
-    private CircleCollider2D circleCollider;
-
     [SerializeField] private Transform playerAim;
     private List<Transform> enemys;
     private Transform target;
@@ -13,7 +11,6 @@ public class PlayerRader : MonoBehaviour
 
     private void Awake()
     {
-        circleCollider = GetComponent<CircleCollider2D>();
         enemys = new List<Transform>();
     }
 
@@ -26,7 +23,7 @@ public class PlayerRader : MonoBehaviour
 
     public void SetRange(float p_range)
     {
-        circleCollider.radius = p_range;
+        transform.localScale = new Vector3(p_range, p_range, 1f);
         range = p_range;
     }
 
