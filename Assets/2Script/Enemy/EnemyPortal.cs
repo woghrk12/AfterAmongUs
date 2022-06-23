@@ -2,28 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPortal : MonoBehaviour
-{
-    private SpriteRenderer spriteRenderer;
-
-    [SerializeField] private int health;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private ControlSlider healthBar;
-
-    public Region spawnRegion;
-
+public class EnemyPortal : EnemyBehaviour
+{ 
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
-    private void OnEnable()
+    public void SpawnEnemy()
     {
-        health = maxHealth;
-        healthBar.SetMaxValue(maxHealth);
+        attackCo = StartCoroutine(SpawnEnemyCo());
     }
-
-    public void SpawnEnemy() => StartCoroutine(SpawnEnemyCo());
 
     private IEnumerator SpawnEnemyCo()
     {
@@ -34,8 +24,8 @@ public class EnemyPortal : MonoBehaviour
             Debug.Log(t_randomTime);
             yield return new WaitForSeconds(t_randomTime);
             
-            var t_enemy = ObjectPooling.SpawnObject("Enemy", transform.position, Quaternion.identity);
-            t_enemy.GetComponent<EnemyBehaviour>().SetEnemy(spawnRegion);
+            var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", transform.position, Quaternion.identity);
+            t_enemy.GetComponent<EnemyNormal>().SetEnemy(spawnRegion);
         }
     }
 }

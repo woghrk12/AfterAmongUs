@@ -43,21 +43,23 @@ public class InGameManager : MonoBehaviour
 
     private void Update()
     {
-		if (Input.GetKeyDown(KeyCode.O))
-			StartCoroutine(SpawnPortal(2));
+		if (Input.GetKeyDown(KeyCode.F1))
+			StartCoroutine(SpawnPortal(1));
+		if (Input.GetKeyDown(KeyCode.F2))
+			StartCoroutine(SpawnEnemy(1));
     }
 
     private IEnumerator SpawnEnemy(int p_num)
 	{
 		yield return new WaitForSeconds(1f);
 
-		for (int i = 0; i < enemyCount; i++)
+		for (int i = 0; i < p_num; i++)
 		{
 			var t_regions = enemySpawnRegions;
 			t_regions.Remove(player.playerRegion);
 			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
-			var t_enemy = ObjectPooling.SpawnObject("Enemy", Vector3.zero, Quaternion.identity);
-			t_enemy.GetComponent<EnemyBehaviour>().SetEnemy(t_spawnRegion);
+			var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", Vector3.zero, Quaternion.identity).GetComponent<EnemyNormal>();
+			t_enemy.SetEnemy(t_spawnRegion);
 		}
 	}
 
@@ -71,9 +73,8 @@ public class InGameManager : MonoBehaviour
 			t_regions.Remove(player.playerRegion);
 			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
 			t_regions.Remove(t_spawnRegion);
-			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", PointManager.GetPoint(t_spawnRegion.dstPoint).transform.position, Quaternion.identity).GetComponent<EnemyPortal>();
-			t_portal.spawnRegion = t_spawnRegion;
-			t_portal.SpawnEnemy();
+			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", Vector3.zero, Quaternion.identity).GetComponent<EnemyPortal>();
+			t_portal.SetEnemy(t_spawnRegion);
 		}
 	}
 
