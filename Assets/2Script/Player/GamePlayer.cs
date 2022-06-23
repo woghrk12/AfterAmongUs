@@ -138,18 +138,12 @@ public class GamePlayer : PlayerBehaviour
         {
             isLeft = moveDir.x < 0;
             spriteRenderer.flipX = isLeft;
-            playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
         }
 
         isWalk = moveDir != Vector3.zero;
         if (!isWalk) return;
 
-        angle = (isLeft ? Mathf.Atan2(-moveDir.y, -moveDir.x) : Mathf.Atan2(moveDir.y, moveDir.x)) * Mathf.Rad2Deg;
-
-        if (angle < -90f || angle > 90f)
-            angle = Mathf.Clamp(angle, -90f, 90f);
-
-        playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        RotatePlayerAim(moveDir);
     }
 
     private void Targeting()
@@ -157,14 +151,20 @@ public class GamePlayer : PlayerBehaviour
         isLeft = target.position.x < transform.position.x;
 
         spriteRenderer.flipX = isLeft;
-        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
-        
         direction = target.position - playerAim.position;
-        angle = (isLeft ? Mathf.Atan2(-direction.y, -direction.x) : Mathf.Atan2(direction.y, direction.x)) * Mathf.Rad2Deg;
-        
+
+        RotatePlayerAim(direction);
+    }
+
+    private void RotatePlayerAim(Vector3 p_dir)
+    {
+        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+
+        angle = (isLeft ? Mathf.Atan2(-p_dir.y, -p_dir.x) : Mathf.Atan2(p_dir.y, p_dir.x)) * Mathf.Rad2Deg;
+
         if (angle < -90f || angle > 90f)
             angle = Mathf.Clamp(angle, -90f, 90f);
-        
+
         playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
