@@ -5,32 +5,30 @@ using UnityEngine.UI;
 
 public class GamePlayer : PlayerBehaviour
 {
-    private Camera mainCamera;
-
     [SerializeField] private List<PlayerWeapon> weapons;
     private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
     private EBulletType bulletType;
     private int equipWeaponIndex;
 
-    private bool fDown;
     private bool sDown1;
     private bool sDown2;
     private bool sDown3;
     private bool rDown;
     private bool mDown;
 
+    private bool isWalk;
     private bool isDie;
     private bool isFireReady;
     private bool isReloadReady;
 
     [SerializeField] private Transform playerAim;
     private float fireDelay;
+    [SerializeField] private PlayerRader playerRader;
+    private Transform target;
 
     private Coroutine reloadCo;
 
-    private Vector3 mPosition;
-    private Vector3 oPosition;
     private Vector3 direction;
     private float angle;
 
@@ -65,7 +63,6 @@ public class GamePlayer : PlayerBehaviour
     {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        mainCamera = Camera.main;
 
         var t_inst = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_inst;
@@ -80,6 +77,7 @@ public class GamePlayer : PlayerBehaviour
 
         equipWeaponIndex = 0;
 
+        isWalk = false;
         isFireReady = true;
         isDie = false;
         isReloadReady = true;
@@ -98,6 +96,8 @@ public class GamePlayer : PlayerBehaviour
         equipWeapon.gameObject.SetActive(true);
         bulletType = equipWeapon.bulletType;
 
+        playerRader.SetRange(equipWeapon.range);
+
         ammoImage.sprite = ammo9MMImage;
         totalAmmoText.text = ammo9MM.ToString();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
@@ -108,7 +108,7 @@ public class GamePlayer : PlayerBehaviour
         if (isDie) return;
 
         base.Update();
-
+        
         Fire();
         Swap();
         Reload();
@@ -124,7 +124,6 @@ public class GamePlayer : PlayerBehaviour
     {
         base.GetInput();
 
-        fDown = Input.GetButton("Fire");
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
@@ -136,7 +135,15 @@ public class GamePlayer : PlayerBehaviour
     {
         base.Move();
 
-        if (moveDir == Vector3.zero) return;
+        if (moveDir.x != 0)
+        {
+            isLeft = moveDir.x < 0;
+            spriteRenderer.flipX = isLeft;
+            playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+        }
+
+        isWalk = moveDir != Vector3.zero;
+        if (!isWalk) return;
 
         angle = (isLeft ? Mathf.Atan2(-moveDir.y, -moveDir.x) : Mathf.Atan2(moveDir.y, moveDir.x)) * Mathf.Rad2Deg;
 
@@ -144,25 +151,38 @@ public class GamePlayer : PlayerBehaviour
             angle = Mathf.Clamp(angle, -90f, 90f);
 
         playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
-        if (moveDir.x != 0)
-        {
-            isLeft = moveDir.x < 0;
-            spriteRenderer.flipX = isLeft;
-            playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
-        }
+    private void Targeting()
+    {
+        isLeft = target.position.x < transform.position.x;
+
+        spriteRenderer.flipX = isLeft;
+        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+        
+        direction = target.position - playerAim.position;
+        angle = (isLeft ? Mathf.Atan2(-direction.y, -direction.x) : Mathf.Atan2(direction.y, direction.x)) * Mathf.Rad2Deg;
+        
+        if (angle < -90f || angle > 90f)
+            angle = Mathf.Clamp(angle, -90f, 90f);
+        
+        playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void Fire()
     {
         if (equipWeapon == null) return;
         if (!isReloadReady) return;
+        if (isWalk) return;
 
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
 
-        if (fDown && isFireReady)
+        target = playerRader.GetTarget();
+
+        if (isFireReady && target != null)
         {
+            Targeting();
             equipWeapon.GetComponent<PlayerWeapon>().Shot();
             curAmmoText.text = equipWeapon.curAmmo.ToString();
             fireDelay = 0;
@@ -238,6 +258,8 @@ public class GamePlayer : PlayerBehaviour
         equipWeapon.gameObject.SetActive(true);
 
         bulletType = equipWeapon.bulletType;
+
+        playerRader.SetRange(equipWeapon.range);
 
         switch (bulletType)
         {
@@ -392,7 +414,6 @@ public class GamePlayer : PlayerBehaviour
                     Use();
                 });
         }
-        
     }
 
     private void OnTriggerExit2D(Collider2D collision)

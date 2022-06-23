@@ -11,6 +11,7 @@ public class PlayerWeapon : MonoBehaviour
     private Vector3 direction;
     private float angle;
 
+    public float range;
     public float rate;
     [SerializeField] private float recoil;
     private float cameraRecoil;
