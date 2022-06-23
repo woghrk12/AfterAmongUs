@@ -2997,7 +2997,7 @@ Transform:
   m_Children:
   - {fileID: 1362323613}
   m_Father: {fileID: 1313461542}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &417496159
 CircleCollider2D:
@@ -10236,9 +10236,9 @@ Transform:
   m_LocalPosition: {x: 0.74, y: 1.6, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
-  - {fileID: 417496158}
   - {fileID: 1495863487}
   - {fileID: 1927194783}
+  - {fileID: 417496158}
   - {fileID: 1999700281}
   - {fileID: 892913908}
   m_Father: {fileID: 0}
@@ -11414,7 +11414,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1313461542}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1495863488
 SpriteRenderer:
@@ -14605,7 +14605,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1313461542}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1927194784
 BoxCollider2D:

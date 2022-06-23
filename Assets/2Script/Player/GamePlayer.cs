@@ -14,7 +14,6 @@ public class GamePlayer : PlayerBehaviour
     private bool sDown1;
     private bool sDown2;
     private bool sDown3;
-    private bool rDown;
     private bool mDown;
 
     private bool isWalk;
@@ -126,7 +125,6 @@ public class GamePlayer : PlayerBehaviour
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
-        rDown = Input.GetButtonDown("Reload");
         mDown = Input.GetButtonDown("Map");
     }
 
