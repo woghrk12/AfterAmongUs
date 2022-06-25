@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TitlePlayer : PlayerBehaviour
 {
-    [SerializeField] private Button useButton;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -16,6 +14,8 @@ public class TitlePlayer : PlayerBehaviour
         spriteRenderer.material = t_instMat;
 
         CanMove = false;
+
+        canUseObject = new List<GameObject>();
     }
 
     protected override void Update()
@@ -47,26 +47,5 @@ public class TitlePlayer : PlayerBehaviour
         spriteRenderer.flipX = p_isFlipX;
         
         anim.SetTrigger("Spawn");
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Interactable"))
-        {
-            useButton.interactable = true;
-            useButton.onClick.AddListener(() =>
-                {
-                    collision.GetComponent<Laptop>().Use();
-                });
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Interactable"))
-        {
-            useButton.interactable = false;
-            useButton.onClick.RemoveAllListeners();
-        }
     }
 }

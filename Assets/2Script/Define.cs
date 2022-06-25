@@ -10,19 +10,13 @@ public struct Pool
     public int size;
 }
 
-[Serializable]
-public struct Item
-{
-    public EItemType itemType;
-    public int num;
-}
-
-public enum EScene { TITLE, INGAME, LOADING }
-public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE, NINEMM }
-public enum EWeaponType { RIFLE, SHOTGUN, PISTOL }
-public enum EItemType { AMMO5, AMMO7, AMMO12, AMMO9, HEAL, GRENADE, WEAPON };
-public enum EPlayerColor { RED, BLUE, GREEN, YELLOW, ORANGE, PURPLE, CYAN, BROWN, PINK, WHITE, BLACK, GRAY }
+public enum EScene { TITLE, INGAME, LOADING, END }
+public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE, NINEMM, END }
+public enum EWeaponType { RIFLE, SHOTGUN, PISTOL, END }
+public enum EItemType { AMMO5, AMMO7, AMMO12, AMMO9, HEAL, GRENADE, WEAPON, END }
+public enum EPlayerColor { RED, BLUE, GREEN, YELLOW, ORANGE, PURPLE, CYAN, BROWN, PINK, WHITE, BLACK, GRAY, END }
 public enum ELayer { 
     DEFAULT, TRANSPARENTFX, IGNORERAYCAST, MAP, WATER, UI, PLAYER, PLAYERONHIT, 
-    PLAYERDIE, ENEMY, ENEMYDIE, BULLET, ENEMYBULLET, COLLIDER, RADER, ENEMYRADER 
+    PLAYERDIE, ENEMY, ENEMYDIE, BULLET, ENEMYBULLET, COLLIDER, RADER, ENEMYRADER, 
+    END 
 }

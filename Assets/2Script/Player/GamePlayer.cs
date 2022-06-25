@@ -56,8 +56,6 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private GameObject itemAcqView;
     [SerializeField] private GameObject itemTextPrefab;
 
-    [SerializeField] private Button useButton;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -87,6 +85,8 @@ public class GamePlayer : PlayerBehaviour
         ammo7MM = 50;
         ammo5MM = 50;
         ammo9MM = 50;
+
+        canUseObject = new List<GameObject>();
     }
 
     private void Start()
@@ -289,48 +289,59 @@ public class GamePlayer : PlayerBehaviour
 
         curAmmoText.text = equipWeapon.curAmmo.ToString();
     }
-
-    private void Use()
+    
+    private void GetItem(EItemType p_itemType, int p_num)
     {
-        if (usingObject == null) return;
-
-        var t_item = usingObject.GetComponent<ItemBox>().Use();
-        
         var t_itemTextPrefab = Instantiate(itemTextPrefab, itemAcqView.transform).GetComponent<ItemText>();
-        t_itemTextPrefab.SetText(t_item.itemType, t_item.num);
+        t_itemTextPrefab.SetText(p_itemType, p_num);
 
-        switch (t_item.itemType)
+        switch (p_itemType)
         {
             case EItemType.AMMO12:
-                ammo12Guage += t_item.num;
+                ammo12Guage += p_num;
                 if (equipWeapon.bulletType == EBulletType.TWELVEGAUGE)
                     totalAmmoText.text = ammo12Guage.ToString();
                 break;
 
             case EItemType.AMMO7:
-                ammo7MM += t_item.num;
+                ammo7MM += p_num;
                 if (equipWeapon.bulletType == EBulletType.SEVENMM)
                     totalAmmoText.text = ammo7MM.ToString();
                 break;
 
             case EItemType.AMMO5:
-                ammo5MM += t_item.num;
+                ammo5MM += p_num;
                 if (equipWeapon.bulletType == EBulletType.FIVEMM)
                     totalAmmoText.text = ammo5MM.ToString();
                 break;
 
             case EItemType.AMMO9:
-                ammo9MM += t_item.num;
+                ammo9MM += p_num;
                 if (equipWeapon.bulletType == EBulletType.NINEMM)
                     totalAmmoText.text = ammo9MM.ToString();
                 break;
 
             case EItemType.HEAL:
-                curHealth += t_item.num;
+                curHealth += p_num;
                 healthBar.SetValue(curHealth);
                 break;
 
             case EItemType.GRENADE:
+                break;
+
+            case EItemType.WEAPON:
+                if (p_num == (int)EWeaponType.PISTOL)
+                {
+
+                }
+                else if (p_num == (int)EWeaponType.RIFLE)
+                {
+
+                }
+                else if (p_num == (int)EWeaponType.SHOTGUN)
+                { 
+                
+                }
                 break;
 
             default:
@@ -394,8 +405,10 @@ public class GamePlayer : PlayerBehaviour
         miniMap.SetActive(!miniMap.activeSelf);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        base.OnTriggerEnter2D(collision);
+
         if (collision.CompareTag("Region"))
         {
             playerRegion = collision.GetComponent<Region>();
@@ -408,29 +421,22 @@ public class GamePlayer : PlayerBehaviour
             ObjectPooling.ReturnObject(collision.gameObject);
         }
 
-        if (collision.CompareTag("Interactable"))
+        if (collision.CompareTag("Item"))
         {
-            usingObject = collision.gameObject;
-            useButton.interactable = true;
-            useButton.onClick.AddListener(() =>
-                {
-                    Use();
-                });
+            EItemType t_itemType; int t_num;
+            collision.GetComponent<Item>().GetItemValue(out t_itemType, out t_num);
+            GetItem(t_itemType, t_num);
+            ObjectPooling.ReturnObject(collision.gameObject);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
+        base.OnTriggerExit2D(collision);
+
         if (collision.CompareTag("Region"))
         {
             playerRegion = null;
-        }
-
-        if (collision.CompareTag("Interactable"))
-        {
-            usingObject = null;
-            useButton.interactable = false;
-            useButton.onClick.RemoveAllListeners();
         }
     }
 }

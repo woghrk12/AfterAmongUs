@@ -1019,7 +1019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486325526}
   - component: {fileID: 486325527}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ship Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1808,7 +1808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 869050914}
   - component: {fileID: 869050915}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box Collider 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8132,7 +8132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1527016021}
   - component: {fileID: 1527016022}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box Collider 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8631,7 +8631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1707250512}
   - component: {fileID: 1707250513}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box Collider 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8946,7 +8946,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791502704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.529, y: 1.224, z: 0}
+  m_LocalPosition: {x: -0.982, y: 0.047, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 2019563793}
@@ -9002,7 +9002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803843616}
   - component: {fileID: 1803843617}
-  m_Layer: 6
+  m_Layer: 13
   m_Name: Box Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10239,7 +10239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2096280946}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}

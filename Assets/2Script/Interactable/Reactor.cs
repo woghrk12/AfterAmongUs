@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reactor : MonoBehaviour
+public class Reactor : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Use()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Reactor");
     }
 }

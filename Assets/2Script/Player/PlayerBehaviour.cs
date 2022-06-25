@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] protected float moveSpeed;
     protected Vector3 moveDir;
 
-    protected GameObject usingObject;
+    [SerializeField] protected Button useButton;
+    protected List<GameObject> canUseObject;
+    protected GameObject interactObject;
 
     private void Awake()
     {
@@ -35,6 +38,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         var t_instMat = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_instMat;
+
+        canUseObject = new List<GameObject>();
     }
 
     protected virtual void Update()
@@ -74,5 +79,46 @@ public class PlayerBehaviour : MonoBehaviour
         var t_color = spriteRenderer.color;
         t_color.a = p_value;
         spriteRenderer.color = t_color;
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            canUseObject.Add(collision.gameObject);
+
+            if (useButton.interactable) return;
+
+            interactObject = collision.gameObject;
+            useButton.interactable = true;
+            useButton.onClick.AddListener(() =>
+                {
+                    collision.GetComponent<Interactable>().Use();
+                });
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            canUseObject.Remove(collision.gameObject);
+            useButton.onClick.RemoveAllListeners();
+
+            if (canUseObject.Count <= 0)
+            {
+                interactObject = null;
+                useButton.interactable = false;
+            }
+
+            if (interactObject == collision.gameObject)
+            {
+                interactObject = canUseObject[0];
+                useButton.onClick.AddListener(() =>
+                    {
+                        collision.GetComponent<Interactable>().Use();
+                    });
+            }
+        }
     }
 }
