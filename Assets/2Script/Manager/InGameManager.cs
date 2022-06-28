@@ -15,6 +15,7 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private ControlSlider progress;
 
 	[SerializeField] private GamePlayer player;
+	private Region playerRegion;
 
 	[SerializeField] private Image screen;
 	[SerializeField] private GameObject pointLight;
@@ -58,7 +59,7 @@ public class InGameManager : MonoBehaviour
 		for (int i = 0; i < p_num; i++)
 		{
 			var t_regions = enemySpawnRegions;
-			t_regions.Remove(player.playerRegion);
+			t_regions.Remove(playerRegion);
 			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
 			var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", Vector3.zero, Quaternion.identity).GetComponent<EnemyNormal>();
 			t_enemy.SetEnemy(t_spawnRegion);
@@ -72,7 +73,7 @@ public class InGameManager : MonoBehaviour
 		for (int i = 0; i < p_num; i++)
 		{
 			var t_regions = enemySpawnRegions;
-			t_regions.Remove(player.playerRegion);
+			t_regions.Remove(playerRegion);
 			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
 			t_regions.Remove(t_spawnRegion);
 			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", Vector3.zero, Quaternion.identity).GetComponent<EnemyPortal>();
@@ -165,5 +166,15 @@ public class InGameManager : MonoBehaviour
 		}
 
 		timerText.gameObject.SetActive(false);
+	}
+
+	public void SetPlayerRegion(Region p_region)
+	{
+		playerRegion = p_region;
+	}
+
+	public Region GetPlayerRegion()
+	{
+		return playerRegion;
 	}
 }

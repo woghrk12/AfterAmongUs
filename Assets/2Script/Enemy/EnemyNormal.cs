@@ -38,7 +38,7 @@ public class EnemyNormal : EnemyBehaviour
 
     private void OnEnable()
     {
-        attackRegion = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>().playerRegion;
+        attackRegion = InGameManager.instance.GetPlayerRegion();
     }
 
     protected override void Update()

@@ -49,8 +49,6 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private Sprite ammo5MMImage;
     [SerializeField] private Sprite ammo9MMImage;
 
-    public Region playerRegion;
-
     [SerializeField] private GameObject miniMap;
 
     [SerializeField] private GameObject itemAcqView;
@@ -409,11 +407,6 @@ public class GamePlayer : PlayerBehaviour
     {
         base.OnTriggerEnter2D(collision);
 
-        if (collision.CompareTag("Region"))
-        {
-            playerRegion = collision.GetComponent<Region>();
-        }
-
         if (collision.CompareTag("EnemyBullet"))
         {
             var damage = collision.GetComponent<Bullet>().damage;
@@ -427,16 +420,6 @@ public class GamePlayer : PlayerBehaviour
             collision.GetComponent<Item>().GetItemValue(out t_itemType, out t_num);
             GetItem(t_itemType, t_num);
             ObjectPooling.ReturnObject(collision.gameObject);
-        }
-    }
-
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
-
-        if (collision.CompareTag("Region"))
-        {
-            playerRegion = null;
         }
     }
 }
