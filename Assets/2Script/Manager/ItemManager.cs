@@ -38,7 +38,7 @@ public class ItemManager : MonoBehaviour
             var t_position = Random.Range(0, length);
             var t_obj = ObjectPooling.SpawnObject("Item Box", positions[t_position], Quaternion.identity);
             items.Enqueue(t_obj);
-            t_obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.SpawnObject(t_obj.transform.position);
+            t_obj.GetComponent<ItemBox>().miniMapObject = MiniMapManager.SpawnObject(t_obj.transform.position, EMiniMapObject.ITEMBOX);
             positions[t_position] = positions[length - 1];
             length--;
         }

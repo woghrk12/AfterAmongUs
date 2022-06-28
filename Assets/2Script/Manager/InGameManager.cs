@@ -77,6 +77,8 @@ public class InGameManager : MonoBehaviour
 			t_regions.Remove(t_spawnRegion);
 			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", Vector3.zero, Quaternion.identity).GetComponent<EnemyPortal>();
 			t_portal.SetEnemy(t_spawnRegion);
+
+			t_portal.miniMapObject = MiniMapManager.SpawnObject(t_portal.transform.position, EMiniMapObject.ENEMYPORTAL);
 		}
 	}
 

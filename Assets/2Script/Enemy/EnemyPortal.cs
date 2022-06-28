@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPortal : EnemyBehaviour
-{ 
+{
+    public MiniMapObject miniMapObject;
+
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
+    }
+
+    protected override IEnumerator DieCo()
+    {
+        MiniMapManager.ReturnObject(miniMapObject);
+
+        return base.DieCo();
     }
 
     public void SpawnEnemy()

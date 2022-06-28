@@ -57,7 +57,5 @@ public class ItemBox : Interactable
                 t_item.SetItem(EItemType.WEAPON, Random.Range(0, (int)EWeaponType.END), transform.position);
                 break;
         }
-
-        
     }
 }

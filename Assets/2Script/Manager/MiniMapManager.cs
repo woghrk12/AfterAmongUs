@@ -20,6 +20,9 @@ public class MiniMapManager : MonoBehaviour
     private Queue<GameObject> objectQueue;
     [SerializeField] private GameObject prefab;
 
+    [SerializeField] private Sprite itemBoxSprite;
+    [SerializeField] private Sprite enemyPortalSprite;
+
     private void Awake()
     {
         instance = this;    
@@ -47,16 +50,28 @@ public class MiniMapManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public static MiniMapObject SpawnObject(Vector2 p_position)
-        => instance.SpawnFromPool(p_position);
+    public static MiniMapObject SpawnObject(Vector2 p_position, EMiniMapObject p_objType)
+        => instance.SpawnFromPool(p_position, p_objType);
     public static void ReturnObject(MiniMapObject p_obj)
         => instance.ReturnToPool(p_obj);
 
-    public MiniMapObject SpawnFromPool(Vector2 p_position)
+    public MiniMapObject SpawnFromPool(Vector2 p_position, EMiniMapObject p_objType)
     {
         var t_obj = objectQueue.Dequeue().GetComponent<MiniMapObject>();
         t_obj.gameObject.SetActive(true);
-        t_obj.SetPosition(CalculatePosition(p_position));
+
+        switch (p_objType)
+        {
+            case EMiniMapObject.ITEMBOX:
+                t_obj.SetObject(CalculatePosition(p_position), itemBoxSprite);
+                break;
+            case EMiniMapObject.ENEMYPORTAL:
+                t_obj.SetObject(CalculatePosition(p_position), enemyPortalSprite);
+                break;
+            default:
+                break;
+        }
+        
 
         return t_obj;
     }
