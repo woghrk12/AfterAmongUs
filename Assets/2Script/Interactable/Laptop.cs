@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laptop : Interactable
+public class Laptop : MonoBehaviour, IInteractable
 {
-    public override void Use()
+    public void Use()
     {
         TitleManager.TurnOnColorSelectPanel();
     }

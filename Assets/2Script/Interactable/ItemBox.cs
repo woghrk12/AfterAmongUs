@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemBox : Interactable
+public class ItemBox : MonoBehaviour, IInteractable
 {
     public MiniMapObject miniMapObject;
 
-    public override void Use()
+    public void Use()
     {
         int t_random = Random.Range(1, 3);
 

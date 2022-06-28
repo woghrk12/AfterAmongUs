@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reactor : Interactable
+public class Reactor : MonoBehaviour, IInteractable, IMission
 {
     private Animator anim;
     private BoxCollider2D boxCollider;
@@ -15,10 +15,20 @@ public class Reactor : Interactable
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    public override void Use()
+    public void Use()
     {
         InGameManager.SetPlayerRegion(region);
-        anim.SetTrigger("isActivated");
+        anim.SetBool("isActivated", true);
         boxCollider.enabled = false;
+    }
+
+    public IMission StartMission()
+    {
+        return this;
+    }
+
+    public bool EndMission()
+    {
+        return false;
     }
 }

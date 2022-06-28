@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Structure
 [Serializable]
 public struct Pool
 {
@@ -10,6 +11,7 @@ public struct Pool
     public int size;
 }
 
+// Enum
 public enum EScene { TITLE, INGAME, LOADING, END }
 public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE, NINEMM, END }
 public enum EWeaponType { RIFLE, SHOTGUN, PISTOL, END }
@@ -21,3 +23,14 @@ public enum ELayer {
     END 
 }
 public enum EMiniMapObject { ITEMBOX, ENEMYPORTAL, END }
+
+// Interface
+public interface IInteractable
+{
+    void Use();
+}
+public interface IMission
+{
+    IMission StartMission();
+    bool EndMission();
+}

@@ -93,7 +93,7 @@ public class PlayerBehaviour : MonoBehaviour
             useButton.interactable = true;
             useButton.onClick.AddListener(() =>
                 {
-                    collision.GetComponent<Interactable>().Use();
+                    collision.GetComponent<IInteractable>().Use();
                 });
         }
     }
@@ -116,7 +116,7 @@ public class PlayerBehaviour : MonoBehaviour
                 interactObject = canUseObject[0];
                 useButton.onClick.AddListener(() =>
                     {
-                        collision.GetComponent<Interactable>().Use();
+                        collision.GetComponent<IInteractable>().Use();
                     });
             }
         }
