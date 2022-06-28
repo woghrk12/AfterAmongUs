@@ -10615,7 +10615,6 @@ MonoBehaviour:
   ammo7MMImage: {fileID: -6238440442334815089, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
   ammo5MMImage: {fileID: -8331011272066912826, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
   ammo9MMImage: {fileID: 2071408885045126531, guid: b5c9ee8573de57949a76a452855198d5, type: 3}
-  playerRegion: {fileID: 0}
   miniMap: {fileID: 792598611}
   itemAcqView: {fileID: 2129970403}
   itemTextPrefab: {fileID: 7572096058661456841, guid: e5215344a50e79641a4c75a290d86957, type: 3}
@@ -13031,7 +13030,7 @@ GameObject:
   - component: {fileID: 1619980676}
   - component: {fileID: 1619980677}
   - component: {fileID: 1619980678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Reactor
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -13085,6 +13084,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5fe8b85b9ba0d439b911a12600d837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  region: {fileID: 2137889254}
+  completeTime: 10
+  numEnemyPortal: 0
+  maxHealth: 50
 --- !u!61 &1619980678
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13095,7 +13098,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.8, y: 0.8}

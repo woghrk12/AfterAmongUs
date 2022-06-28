@@ -15,7 +15,7 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private ControlSlider progress;
 
 	[SerializeField] private GamePlayer player;
-	private Region playerRegion;
+	private static Region playerRegion;
 
 	[SerializeField] private Image screen;
 	[SerializeField] private GameObject pointLight;
@@ -168,12 +168,12 @@ public class InGameManager : MonoBehaviour
 		timerText.gameObject.SetActive(false);
 	}
 
-	public void SetPlayerRegion(Region p_region)
+	public static void SetPlayerRegion(Region p_region)
 	{
 		playerRegion = p_region;
 	}
 
-	public Region GetPlayerRegion()
+	public static Region GetPlayerRegion()
 	{
 		return playerRegion;
 	}
