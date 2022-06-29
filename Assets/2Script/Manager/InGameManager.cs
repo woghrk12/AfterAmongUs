@@ -112,7 +112,7 @@ public class InGameManager : MonoBehaviour
 	public static void FadeIn() => instance.StartCoroutine(instance.ChangeScreen(true));
 	public static void FadeOut() => instance.StartCoroutine(instance.ChangeScreen(false));
 
-	private IEnumerator TimeCheck(float p_time)
+	private IEnumerator TimeCheckCo(float p_time)
 	{
 		timerText.gameObject.SetActive(true);
 
@@ -141,4 +141,6 @@ public class InGameManager : MonoBehaviour
 
 		timerText.gameObject.SetActive(false);
 	}
+
+	public static void TimeCheck(float p_time) => instance.StartCoroutine(instance.TimeCheckCo(p_time));
 }
