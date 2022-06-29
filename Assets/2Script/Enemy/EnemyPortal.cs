@@ -19,8 +19,10 @@ public class EnemyPortal : EnemyBehaviour
         return base.DieCo();
     }
 
-    public void SpawnEnemy()
+    public override void SetEnemy(Region p_region)
     {
+        base.SetEnemy(p_region);
+
         attackCo = StartCoroutine(SpawnEnemyCo());
     }
 
@@ -30,7 +32,6 @@ public class EnemyPortal : EnemyBehaviour
         {
             var t_randomTime = Random.Range(5f, 8f);
 
-            Debug.Log(t_randomTime);
             yield return new WaitForSeconds(t_randomTime);
             
             var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", transform.position, Quaternion.identity);

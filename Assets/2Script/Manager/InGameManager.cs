@@ -7,11 +7,8 @@ public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
 
-	public PointManager pointManager;
-
 	[SerializeField] private List<Region> enemySpawnRegions;
 
-	private int enemyCount;
 	[SerializeField] private ControlSlider progress;
 
 	[SerializeField] private GamePlayer player;
@@ -21,9 +18,6 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
-	private int stage;
-	[SerializeField] private Text stageText;
-
 	[SerializeField] private Text timerText;
 
 	private void Awake()
@@ -31,8 +25,6 @@ public class InGameManager : MonoBehaviour
 		instance = this;
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
-
-		stage = 1;
 	}
 
 	private void Start()
@@ -49,10 +41,20 @@ public class InGameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.F2))
 			StartCoroutine(SpawnEnemy(1));
 		if (Input.GetKeyDown(KeyCode.F3))
-			ItemManager.SpawnItems(1);
+			ItemManager.SpawnItems(1);	
     }
 
-    private IEnumerator SpawnEnemy(int p_num)
+	public static void SetPlayerRegion(Region p_region)
+	{
+		playerRegion = p_region;
+	}
+
+	public static Region GetPlayerRegion()
+	{
+		return playerRegion;
+	}
+
+	private IEnumerator SpawnEnemy(int p_num)
 	{
 		yield return new WaitForSeconds(1f);
 
@@ -98,8 +100,8 @@ public class InGameManager : MonoBehaviour
 		{
 			t_color.a = t_time;
 			screen.color = t_color;
-			t_time += 0.1f;
-			yield return new WaitForSeconds(0.1f);
+			t_time += Time.deltaTime;
+			yield return null;
 		}
 
 		ChangeLight(p_isStart);
@@ -108,34 +110,9 @@ public class InGameManager : MonoBehaviour
 		{
 			t_color.a = t_time;
 			screen.color = t_color;
-			t_time -= 0.1f;
-			yield return new WaitForSeconds(0.1f);
+			t_time -= Time.deltaTime;
+			yield return null;
 		}
-	}
-
-	private IEnumerator WaveStart(float p_time)
-	{
-		stageText.text = "WAVE  " + stage.ToString();
-		ItemManager.SpawnItems(10);
-
-		yield return TimeCheck(p_time);
-
-		ItemManager.ReturnItems();
-		enemyCount = stage * 2;
-		progress.SetMaxValue(enemyCount);
-
-		yield return StageChange(true);
-
-		StartCoroutine(SpawnEnemy(enemyCount));
-	}
-
-	private IEnumerator WaveEnd()
-	{
-		yield return StageChange(false);
-
-		stage++;
-
-		StartCoroutine(WaveStart(5f));
 	}
 
 	private IEnumerator TimeCheck(float p_time)
@@ -168,13 +145,24 @@ public class InGameManager : MonoBehaviour
 		timerText.gameObject.SetActive(false);
 	}
 
-	public static void SetPlayerRegion(Region p_region)
+	private IEnumerator WaveStart(float p_time)
 	{
-		playerRegion = p_region;
+		ItemManager.SpawnItems(10);
+
+		yield return TimeCheck(p_time);
+
+		ItemManager.ReturnItems();
+
+		yield return StageChange(true);
+
+		SpawnPortal(5);
 	}
 
-	public static Region GetPlayerRegion()
+	private IEnumerator WaveEnd()
 	{
-		return playerRegion;
+		yield return StageChange(false);
+
+		StartCoroutine(WaveStart(5f));
 	}
+
 }

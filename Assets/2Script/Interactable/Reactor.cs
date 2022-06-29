@@ -9,10 +9,26 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
 
     [SerializeField] private Region region;
 
+    private float completeTime;
+
+    [SerializeField] private ControlSlider controlSlider;
+    [SerializeField] private int maxHealth;
+    private int curHealth;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void Use()
@@ -29,6 +45,7 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
 
     public bool EndMission()
     {
+
         return false;
     }
 }
