@@ -37,9 +37,9 @@ public class InGameManager : MonoBehaviour
     private void Update()
     {
 		if (Input.GetKeyDown(KeyCode.F1))
-			StartCoroutine(SpawnPortal(1));
+			StartCoroutine(ChangeScreen(true));
 		if (Input.GetKeyDown(KeyCode.F2))
-			StartCoroutine(SpawnEnemy(1));
+			StartCoroutine(ChangeScreen(false));
 		if (Input.GetKeyDown(KeyCode.F3))
 			ItemManager.SpawnItems(1);	
     }
@@ -91,29 +91,26 @@ public class InGameManager : MonoBehaviour
 		pointLight.SetActive(p_isStart);
 	}
 
-	private IEnumerator StageChange(bool p_isStart)
+	public static void TurnOnGlobalLight() => instance.ChangeLight(false);
+	public static void TurnOnPointLight() => instance.ChangeLight(true);
+
+	private IEnumerator ChangeScreen(bool p_isFadeIn)
 	{
-		float t_time = 0f;
-		Color t_color = Color.black;
+		float t_timer = 0f;
+		float t_totalTime = 1f;
+		Color t_color = screen.color;
 
-		while (t_time <= 1f)
+		while (t_timer <= 1f)
 		{
-			t_color.a = t_time;
+			t_color.a = Mathf.Lerp(p_isFadeIn ? 1f : 0f, p_isFadeIn ? 0f : 1f, t_timer / t_totalTime);
 			screen.color = t_color;
-			t_time += Time.deltaTime;
-			yield return null;
-		}
-
-		ChangeLight(p_isStart);
-
-		while (t_time >= 0f)
-		{
-			t_color.a = t_time;
-			screen.color = t_color;
-			t_time -= Time.deltaTime;
+			t_timer += Time.deltaTime;
 			yield return null;
 		}
 	}
+
+	public static void FadeIn() => instance.StartCoroutine(instance.ChangeScreen(true));
+	public static void FadeOut() => instance.StartCoroutine(instance.ChangeScreen(false));
 
 	private IEnumerator TimeCheck(float p_time)
 	{
@@ -144,25 +141,4 @@ public class InGameManager : MonoBehaviour
 
 		timerText.gameObject.SetActive(false);
 	}
-
-	private IEnumerator WaveStart(float p_time)
-	{
-		ItemManager.SpawnItems(10);
-
-		yield return TimeCheck(p_time);
-
-		ItemManager.ReturnItems();
-
-		yield return StageChange(true);
-
-		SpawnPortal(5);
-	}
-
-	private IEnumerator WaveEnd()
-	{
-		yield return StageChange(false);
-
-		StartCoroutine(WaveStart(5f));
-	}
-
 }
