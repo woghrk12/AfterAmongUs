@@ -14,11 +14,8 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GamePlayer player;
 	private static Region playerRegion;
 
-	[SerializeField] private Image screen;
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
-
-	[SerializeField] private Text timerText;
 
 	private void Awake()
 	{
@@ -37,9 +34,9 @@ public class InGameManager : MonoBehaviour
     private void Update()
     {
 		if (Input.GetKeyDown(KeyCode.F1))
-			StartCoroutine(ChangeScreen(true));
+			StartCoroutine(InGameUIManager.FadeIn());
 		if (Input.GetKeyDown(KeyCode.F2))
-			StartCoroutine(ChangeScreen(false));
+			StartCoroutine(InGameUIManager.FadeOut());
 		if (Input.GetKeyDown(KeyCode.F3))
 			ItemManager.SpawnItems(1);	
     }
@@ -93,54 +90,4 @@ public class InGameManager : MonoBehaviour
 
 	public static void TurnOnGlobalLight() => instance.ChangeLight(false);
 	public static void TurnOnPointLight() => instance.ChangeLight(true);
-
-	private IEnumerator ChangeScreen(bool p_isFadeIn)
-	{
-		float t_timer = 0f;
-		float t_totalTime = 1f;
-		Color t_color = screen.color;
-
-		while (t_timer <= 1f)
-		{
-			t_color.a = Mathf.Lerp(p_isFadeIn ? 1f : 0f, p_isFadeIn ? 0f : 1f, t_timer / t_totalTime);
-			screen.color = t_color;
-			t_timer += Time.deltaTime;
-			yield return null;
-		}
-	}
-
-	public static void FadeIn() => instance.StartCoroutine(instance.ChangeScreen(true));
-	public static void FadeOut() => instance.StartCoroutine(instance.ChangeScreen(false));
-
-	private IEnumerator TimeCheckCo(float p_time)
-	{
-		timerText.gameObject.SetActive(true);
-
-		var t_time = p_time;
-		var t_interval = 1f;
-
-		while (t_time > 10f)
-		{
-			t_time -= t_interval;
-			timerText.text = t_time.ToString();
-
-			yield return new WaitForSeconds(t_interval);
-		}
-
-		while (t_time > 0f)
-		{
-			t_time -= t_interval;
-
-			timerText.text = t_time.ToString();
-			var t_colorValue = Mathf.Lerp(0f, 1f, t_time / 10f);
-
-			timerText.color = new Color(1f, t_colorValue, t_colorValue);
-
-			yield return new WaitForSeconds(t_interval);
-		}
-
-		timerText.gameObject.SetActive(false);
-	}
-
-	public static void TimeCheck(float p_time) => instance.StartCoroutine(instance.TimeCheckCo(p_time));
 }
