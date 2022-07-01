@@ -31,6 +31,7 @@ public interface IInteractable
 }
 public interface IMission
 {
-    IMission StartMission();
-    bool EndMission();
+    void StartMission();
+    bool SuccessMission();
+    bool FailMission();
 }

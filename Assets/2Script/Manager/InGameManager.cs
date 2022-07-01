@@ -17,6 +17,8 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
+	private IMission missionInProgress;
+
 	private void Awake()
 	{
 		instance = this;
@@ -90,4 +92,18 @@ public class InGameManager : MonoBehaviour
 
 	public static void TurnOnGlobalLight() => instance.ChangeLight(false);
 	public static void TurnOnPointLight() => instance.ChangeLight(true);
+
+	private bool CheckMission(IMission p_mission)
+	{
+		if (missionInProgress == null)
+		{
+			missionInProgress = p_mission;
+			Debug.Log(missionInProgress);
+			return true;
+		}
+
+		return false;
+	}
+
+	public static bool SetMission(IMission p_mission) { return instance.CheckMission(p_mission); }
 }
