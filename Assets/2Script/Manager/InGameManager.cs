@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class InGameManager : MonoBehaviour
 {
@@ -17,13 +18,15 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
-	private IMission missionInProgress;
+	public static IMission missionInProgress;
 
 	private void Awake()
 	{
 		instance = this;
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
+
+		missionInProgress = null;
 	}
 
 	private void Start()
@@ -36,9 +39,9 @@ public class InGameManager : MonoBehaviour
     private void Update()
     {
 		if (Input.GetKeyDown(KeyCode.F1))
-			StartCoroutine(InGameUIManager.FadeIn());
+			StartCoroutine(SpawnPortal(4));
 		if (Input.GetKeyDown(KeyCode.F2))
-			StartCoroutine(InGameUIManager.FadeOut());
+			StartCoroutine(SpawnEnemy(4));
 		if (Input.GetKeyDown(KeyCode.F3))
 			ItemManager.SpawnItems(1);	
     }
@@ -93,17 +96,36 @@ public class InGameManager : MonoBehaviour
 	public static void TurnOnGlobalLight() => instance.ChangeLight(false);
 	public static void TurnOnPointLight() => instance.ChangeLight(true);
 
-	private bool CheckMission(IMission p_mission)
+	private IEnumerator BlinkColorLight(Color p_color)
 	{
-		if (missionInProgress == null)
+		var t_timer = 0f;
+		var t_totalTime = 1f;
+		
+		var t_color = globalLight.GetComponent<Light2D>().color;
+		
+		while (t_timer <= t_totalTime) 
 		{
-			missionInProgress = p_mission;
-			Debug.Log(missionInProgress);
-			return true;
+			globalLight.GetComponent<Light2D>().color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+			t_timer += Time.deltaTime;
+			yield return null;
 		}
 
-		return false;
+		while (t_timer >= 0f)
+		{
+			globalLight.GetComponent<Light2D>().color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+			t_timer -= Time.deltaTime;
+			yield return null;
+		}
 	}
 
-	public static bool SetMission(IMission p_mission) { return instance.CheckMission(p_mission); }
+	public static IEnumerator TurnOnColorLight(Color p_color, int p_num = 1)
+	{
+		var t_num = p_num;
+
+		while (t_num > 0)
+		{
+			yield return instance.BlinkColorLight(p_color);
+			t_num--;
+		}
+	} 
 }

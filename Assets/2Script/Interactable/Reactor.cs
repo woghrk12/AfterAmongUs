@@ -5,52 +5,86 @@ using UnityEngine;
 public class Reactor : MonoBehaviour, IInteractable, IMission
 {
     private Animator anim;
-    private BoxCollider2D boxCollider;
+    private BoxCollider2D controlBoxCollider;
+    private BoxCollider2D hitBox;
 
     [SerializeField] private Region region;
 
     [SerializeField] private float completeTime;
-    private bool isComplete;
-
-    private bool IsComplete 
+    private bool isComplete = false;
+    private bool IsComplete
     {
-        set 
+        set
         {
             isComplete = value;
             if (value) SuccessMission();
         }
     }
 
+    private Coroutine runningCo;
+
+    [SerializeField] private GameObject spriteParent;
+    private SpriteRenderer[] sprites;
+
     [SerializeField] private ControlSlider controlSlider;
     [SerializeField] private int maxHealth;
-    private int curHealth; 
+    private int curHealth;
+
+    private Coroutine onDamageCo;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        hitBox = GetComponent<BoxCollider2D>();
+        controlBoxCollider = GetComponentInChildren<BoxCollider2D>();
+
+        sprites = spriteParent.GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
     {
-        
+        controlSlider.SetMaxValue(maxHealth);
+        curHealth = maxHealth;
     }
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F5))
+            FailMission();
+        if (Input.GetKeyDown(KeyCode.F6))
+            StartMission();
     }
 
     public void Use()
     {
-        if (!InGameManager.SetMission(this)) return;
-    
+        if (!SetMission(this)) return;
+
         StartMission();
+    }
+
+    private bool SetMission(IMission p_mission)
+    {
+        if (InGameManager.missionInProgress == null)
+        {
+            InGameManager.missionInProgress = p_mission;
+            return true;
+        }
+        return false;
     }
 
     public void StartMission()
     {
-        StartCoroutine(ChangeLight());
+        StartCoroutine(StartMissionCo());
+    }
+
+    private IEnumerator StartMissionCo()
+    {
+        controlBoxCollider.enabled = false;
+        hitBox.enabled = true;
+
+        yield return ChangeLight();
+
+        runningCo = StartCoroutine(PerformMission());
     }
 
     private IEnumerator ChangeLight()
@@ -58,24 +92,90 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
         yield return InGameUIManager.FadeOut();
 
         InGameManager.SetPlayerRegion(region);
-        
+
         anim.SetBool("isActivated", true);
-        boxCollider.enabled = false;
 
         InGameManager.TurnOnPointLight();
 
         yield return InGameUIManager.FadeIn();
     }
 
+    private IEnumerator PerformMission()
+    {
+        yield return InGameUIManager.TimeCheck(completeTime);
+
+        IsComplete = true;
+    }
+
     public bool SuccessMission()
     {
+        anim.SetTrigger("Complete");
+        InGameManager.TurnOnGlobalLight();
+        hitBox.enabled = false;
+
         return true;
     }
 
     public bool FailMission()
     {
+        StopCoroutine(runningCo);
+        runningCo = null;
+
+        InGameManager.TurnOnGlobalLight();
+
+        anim.SetBool("isActivated", false);
+
+        hitBox.enabled = false;
+        controlBoxCollider.enabled = true;
+
+        InGameManager.missionInProgress = null;
+
+        StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
 
         return false;
     }
 
+    private void CheckHealth()
+    {
+        if (curHealth > 0) return;
+
+        controlSlider.SetMaxValue(maxHealth);
+        curHealth = maxHealth;
+
+        controlSlider.gameObject.SetActive(false);
+
+        FailMission();
+    }
+
+    private void OnDamage(int p_damage)
+    {
+        if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
+
+        curHealth -= p_damage;
+        controlSlider.SetValue(curHealth);
+        if(onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
+    }
+
+    private IEnumerator OnDamageCo()
+    {
+        for(int i =0; i < sprites.Length; i++)
+            sprites[i].color = Color.red;
+
+        yield return new WaitForSeconds(0.05f);
+
+        for (int i = 0; i < sprites.Length; i++)
+            sprites[i].color = Color.white;
+
+        onDamageCo = null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            var t_damage = collision.GetComponent<Bullet>().damage;
+            OnDamage(t_damage);
+            ObjectPooling.ReturnObject(collision.gameObject);
+        }
+    }
 }

@@ -248,6 +248,7 @@ MonoBehaviour:
   health: 10
   maxHealth: 10
   healthBar: {fileID: 354597390438279014}
+  miniMapObject: {fileID: 0}
 --- !u!70 &354597390505762014
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -417,7 +418,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -691654709
+  m_SortingLayerID: 816926483
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &354597390891378976
