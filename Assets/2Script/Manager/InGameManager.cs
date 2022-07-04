@@ -30,7 +30,7 @@ public class InGameManager : MonoBehaviour
 		{
 			numFailMission = value;
 
-			if (numFailMission >= numTotalMission - numNeedMission) EndGame();
+			if (numFailMission >= numTotalMission - numNeedMission) StartCoroutine(EndGame());
 		}
 		get
 		{
@@ -46,7 +46,7 @@ public class InGameManager : MonoBehaviour
 
 			progress.SetValue(numCompleteMission);
 
-			if (numCompleteMission >= numNeedMission) EndGame();
+			if (numCompleteMission >= numNeedMission) StartCoroutine(EndGame());
 			
 		}
 		get { return numCompleteMission; }
@@ -165,9 +165,12 @@ public class InGameManager : MonoBehaviour
 		}
 	}
 
-	private void EndGame()
+	private IEnumerator EndGame()
 	{
-		LoadingManager.LoadScene(EScene.TITLE);
+		yield return InGameUIManager.FadeOut();
+
+		LoadingManager.LoadScene(EScene.ENDING);
 	}
+
 }
 

@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-
+    public void OnClick()
+    {
+        LoadingManager.LoadScene(EScene.TITLE);
+    }
 }

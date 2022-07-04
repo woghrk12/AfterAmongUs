@@ -12,7 +12,7 @@ public struct Pool
 }
 
 // Enum
-public enum EScene { TITLE, INGAME, LOADING, END }
+public enum EScene { TITLE, INGAME, LOADING, ENDING, END }
 public enum EBulletType { FIVEMM, SEVENMM, TWELVEGAUGE, NINEMM, END }
 public enum EWeaponType { RIFLE, SHOTGUN, PISTOL, END }
 public enum EItemType { AMMO5, AMMO7, AMMO12, AMMO9, HEAL, GRENADE, WEAPON, END }
