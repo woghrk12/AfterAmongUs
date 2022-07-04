@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reactor : MonoBehaviour, IInteractable, IMission
+public class Reactor : MonoBehaviour, IMission
 {
     private Animator anim;
-    private BoxCollider2D controlBoxCollider;
     private BoxCollider2D hitBox;
 
     [SerializeField] private Region region;
@@ -18,11 +17,11 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
         {
             isComplete = value;
             if (value) SuccessMission();
+            else FailMission();
         }
     }
 
     private Coroutine runningCo;
-
     [SerializeField] private GameObject spriteParent;
     private SpriteRenderer[] sprites;
 
@@ -36,7 +35,6 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
     {
         anim = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
-        controlBoxCollider = GetComponentInChildren<BoxCollider2D>();
 
         sprites = spriteParent.GetComponentsInChildren<SpriteRenderer>();
     }
@@ -49,27 +47,7 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
-            FailMission();
-        if (Input.GetKeyDown(KeyCode.F6))
-            StartMission();
-    }
-
-    public void Use()
-    {
-        if (!SetMission(this)) return;
-
-        StartMission();
-    }
-
-    private bool SetMission(IMission p_mission)
-    {
-        if (InGameManager.missionInProgress == null)
-        {
-            InGameManager.missionInProgress = p_mission;
-            return true;
-        }
-        return false;
+        CheckHealth();
     }
 
     public void StartMission()
@@ -79,7 +57,6 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
 
     private IEnumerator StartMissionCo()
     {
-        controlBoxCollider.enabled = false;
         hitBox.enabled = true;
 
         yield return ChangeLight();
@@ -126,13 +103,21 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
         anim.SetBool("isActivated", false);
 
         hitBox.enabled = false;
-        controlBoxCollider.enabled = true;
 
         InGameManager.missionInProgress = null;
 
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
 
         return false;
+    }
+
+    private void OnDamage(int p_damage)
+    {
+        if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
+
+        curHealth -= p_damage;
+        controlSlider.SetValue(curHealth);
+        if (onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
     }
 
     private void CheckHealth()
@@ -147,18 +132,9 @@ public class Reactor : MonoBehaviour, IInteractable, IMission
         FailMission();
     }
 
-    private void OnDamage(int p_damage)
-    {
-        if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
-
-        curHealth -= p_damage;
-        controlSlider.SetValue(curHealth);
-        if(onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
-    }
-
     private IEnumerator OnDamageCo()
     {
-        for(int i =0; i < sprites.Length; i++)
+        for (int i = 0; i < sprites.Length; i++)
             sprites[i].color = Color.red;
 
         yield return new WaitForSeconds(0.05f);

@@ -7,6 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
+	public static IMission missionInProgress;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
 
@@ -17,8 +18,6 @@ public class InGameManager : MonoBehaviour
 
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
-
-	public static IMission missionInProgress;
 
 	private void Awake()
 	{
