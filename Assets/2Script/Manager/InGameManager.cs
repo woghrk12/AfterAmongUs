@@ -77,7 +77,7 @@ public class InGameManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.F1))
 			StartCoroutine(SpawnPortal(4));
 		if (Input.GetKeyDown(KeyCode.F2))
-			StartCoroutine(SpawnEnemy(4));
+			StartCoroutine(SpawnEnemy(1));
 		if (Input.GetKeyDown(KeyCode.F3))
 			ItemManager.SpawnItems(1);	
     }

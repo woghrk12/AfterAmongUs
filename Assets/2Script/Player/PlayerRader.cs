@@ -29,9 +29,9 @@ public class PlayerRader : MonoBehaviour
 
     private void FindTarget()
     {
-        int t_mask = 1 << (int)ELayer.MAP | 1 << (int)ELayer.ENEMY;
-
         if (enemys.Count <= 0) return;
+
+        int t_mask = 1 << (int)ELayer.MAP | 1 << (int)ELayer.ENEMY;
 
         Vector3 t_dir; Ray2D t_ray; RaycastHit2D t_hitInfo;
 
