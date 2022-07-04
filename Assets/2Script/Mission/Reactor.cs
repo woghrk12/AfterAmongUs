@@ -48,6 +48,11 @@ public class Reactor : MonoBehaviour, IMission
     private void Update()
     {
         CheckHealth();
+
+        if (Input.GetKeyDown(KeyCode.F4))
+            SuccessMission();
+        if (Input.GetKeyDown(KeyCode.F5))
+            FailMission();
     }
 
     public void StartMission()
@@ -90,6 +95,10 @@ public class Reactor : MonoBehaviour, IMission
         InGameManager.TurnOnGlobalLight();
         hitBox.enabled = false;
 
+        InGameManager.instance.NumCompleteMission++;
+
+        StartCoroutine(InGameManager.TurnOnColorLight(new Color(0.6f, 1f, 0.6f), 1));
+
         return true;
     }
 
@@ -105,6 +114,7 @@ public class Reactor : MonoBehaviour, IMission
         hitBox.enabled = false;
 
         InGameManager.missionInProgress = null;
+        InGameManager.instance.NumFailMission++;
 
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
 

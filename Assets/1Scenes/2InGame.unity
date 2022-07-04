@@ -11160,6 +11160,8 @@ MonoBehaviour:
   player: {fileID: 0}
   pointLight: {fileID: 892913907}
   globalLight: {fileID: 175577864}
+  numTotalMission: 8
+  numNeedMission: 5
 --- !u!1 &1412739782
 GameObject:
   m_ObjectHideFlags: 0
@@ -13068,7 +13070,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619980674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5fe8b85b9ba0d439b911a12600d837, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d9e6bb7249b5248b4a16bc2415dc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   region: {fileID: 2137889254}

@@ -7,6 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
+
 	public static IMission missionInProgress;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
@@ -19,13 +20,49 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
+	[SerializeField] private int numTotalMission;
+	[SerializeField] private int numNeedMission;
+
+	private int numFailMission;
+	public int NumFailMission
+	{
+		set
+		{
+			numFailMission = value;
+
+			if (numFailMission >= numTotalMission - numNeedMission) EndGame();
+		}
+		get
+		{
+			return numFailMission;
+		}
+	}
+	private int numCompleteMission;
+	public int NumCompleteMission
+	{
+		set
+		{
+			numCompleteMission = value;
+
+			progress.SetValue(numCompleteMission);
+
+			if (numCompleteMission >= numNeedMission) EndGame();
+			
+		}
+		get { return numCompleteMission; }
+	}
+
 	private void Awake()
 	{
 		instance = this;
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
 
+		progress.SetMaxValue(numNeedMission);
+		progress.SetValue(numCompleteMission);
+
 		missionInProgress = null;
+		numCompleteMission = 0;
 	}
 
 	private void Start()
@@ -126,5 +163,11 @@ public class InGameManager : MonoBehaviour
 			yield return instance.BlinkColorLight(p_color);
 			t_num--;
 		}
-	} 
+	}
+
+	private void EndGame()
+	{
+		LoadingManager.LoadScene(EScene.TITLE);
+	}
 }
+
