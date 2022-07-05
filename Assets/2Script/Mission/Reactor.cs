@@ -91,10 +91,13 @@ public class Reactor : MonoBehaviour, IMission
 
     public bool SuccessMission()
     {
-        anim.SetTrigger("Complete");
         InGameManager.TurnOnGlobalLight();
         hitBox.enabled = false;
 
+        anim.SetTrigger("Complete");
+        controlSlider.gameObject.SetActive(false);
+
+        InGameManager.missionInProgress = null;
         InGameManager.instance.NumCompleteMission++;
 
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(0.6f, 1f, 0.6f), 1));
@@ -108,10 +111,10 @@ public class Reactor : MonoBehaviour, IMission
         runningCo = null;
 
         InGameManager.TurnOnGlobalLight();
+        hitBox.enabled = false;
 
         anim.SetBool("isActivated", false);
-
-        hitBox.enabled = false;
+        controlSlider.gameObject.SetActive(false);
 
         InGameManager.missionInProgress = null;
         InGameManager.instance.NumFailMission++;
