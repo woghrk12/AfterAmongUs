@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reactor : MonoBehaviour, IMission
+public class LowerEngine : MonoBehaviour, IMission
 {
     private Animator anim;
     private BoxCollider2D hitBox;
@@ -22,21 +22,18 @@ public class Reactor : MonoBehaviour, IMission
     }
 
     private Coroutine runningCo;
-    [SerializeField] private GameObject spriteParent;
-    private SpriteRenderer[] sprites;
 
     [SerializeField] private ControlSlider controlSlider;
     [SerializeField] private int maxHealth;
     private int curHealth;
 
     private Coroutine onDamageCo;
+    [SerializeField] private SpriteRenderer coreSprite;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
-
-        sprites = spriteParent.GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -49,9 +46,8 @@ public class Reactor : MonoBehaviour, IMission
     {
         CheckHealth();
 
-
         if (Input.GetKeyDown(KeyCode.F4))
-            StartCoroutine(OnDamageCo());
+            StartCoroutine(BrokenCoreObject());
     }
 
     public void StartMission()
@@ -118,6 +114,8 @@ public class Reactor : MonoBehaviour, IMission
         anim.SetBool("isActivated", false);
         controlSlider.gameObject.SetActive(false);
 
+        StartCoroutine(BrokenCoreObject());
+
         InGameManager.missionInProgress = null;
         InGameManager.instance.NumFailMission++;
 
@@ -129,6 +127,18 @@ public class Reactor : MonoBehaviour, IMission
         return false;
     }
 
+    private IEnumerator BrokenCoreObject()
+    {
+        var t_timer = 0f;
+        var t_totalTime = 1f;
+
+        while (t_timer <= t_totalTime)
+        {
+            coreSprite.color = Color.Lerp(Color.white, Color.gray, t_timer / t_totalTime);
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
+    }
     private void OnDamage(int p_damage)
     {
         if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
@@ -136,6 +146,17 @@ public class Reactor : MonoBehaviour, IMission
         curHealth -= p_damage;
         controlSlider.SetValue(curHealth);
         if (onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
+    }
+
+    private IEnumerator OnDamageCo()
+    {
+        coreSprite.color = Color.red;
+
+        yield return new WaitForSeconds(0.05f);
+
+        coreSprite.color = Color.white;
+
+        onDamageCo = null;
     }
 
     private void CheckHealth()
@@ -150,19 +171,6 @@ public class Reactor : MonoBehaviour, IMission
         FailMission();
     }
 
-    private IEnumerator OnDamageCo()
-    {
-        for (int i = 0; i < sprites.Length; i++)
-            sprites[i].color = Color.red;
-
-        yield return new WaitForSeconds(0.05f);
-
-        for (int i = 0; i < sprites.Length; i++)
-            sprites[i].color = Color.white;
-
-        onDamageCo = null;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyBullet"))
@@ -173,3 +181,5 @@ public class Reactor : MonoBehaviour, IMission
         }
     }
 }
+
+
