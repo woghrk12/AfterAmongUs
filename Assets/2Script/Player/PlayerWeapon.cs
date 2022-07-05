@@ -46,6 +46,8 @@ public class PlayerWeapon : MonoBehaviour
                 bulletTag = "9mm Bullet";
                 break;
         }
+
+        curAmmo = maxAmmo;
     }
     
     public void Shot()
