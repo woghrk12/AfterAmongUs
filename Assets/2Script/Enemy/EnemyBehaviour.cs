@@ -32,6 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         health = maxHealth;
         healthBar.SetMaxValue(maxHealth);
+        healthBar.gameObject.SetActive(false);
         spriteRenderer.enabled = false;
         spawnRegion = p_region;
         transform.position = PointManager.GetPoint(p_region.dstPoint).transform.position;
@@ -75,6 +76,8 @@ public class EnemyBehaviour : MonoBehaviour
         isDie = true;
         gameObject.layer = (int)ELayer.ENEMYDIE;
         anim.SetTrigger("Die");
+
+        healthBar.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(3f);
 
