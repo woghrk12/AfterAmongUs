@@ -167,17 +167,11 @@ public class GamePlayer : PlayerBehaviour
     private void Fire()
     {
         if (equipWeapon == null) return;
-        if (!isReloadReady) return;
-        if (isWalk) return;
 
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
-
-        if (!isFireReady) return;
-
-        target = playerRader.GetTarget();
-
-        if (target == null) return;
+        
+        if (!isReloadReady) return;
 
         if (equipWeapon.curAmmo <= 0)
         {
@@ -185,6 +179,12 @@ public class GamePlayer : PlayerBehaviour
             return;
         }
 
+        if (isWalk) return;
+        if (!isFireReady) return;
+
+        target = playerRader.GetTarget();
+        if (target == null) return;
+        
         Targeting();
         equipWeapon.GetComponent<PlayerWeapon>().Shot();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
