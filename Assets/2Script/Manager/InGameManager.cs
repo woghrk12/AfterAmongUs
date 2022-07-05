@@ -7,8 +7,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
-
 	public static IMission missionInProgress;
+	public static List<EnemyBehaviour> enemys;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
 
@@ -63,6 +63,8 @@ public class InGameManager : MonoBehaviour
 
 		missionInProgress = null;
 		numCompleteMission = 0;
+
+		enemys = new List<EnemyBehaviour>();
 	}
 
 	private void Start()
@@ -118,6 +120,7 @@ public class InGameManager : MonoBehaviour
 			t_regions.Remove(t_spawnRegion);
 			var t_portal = ObjectPooling.SpawnObject("EnemyPortal", Vector3.zero, Quaternion.identity).GetComponent<EnemyPortal>();
 			t_portal.SetEnemy(t_spawnRegion);
+			enemys.Add(t_portal);
 
 			t_portal.miniMapObject = MiniMapManager.SpawnObject(t_portal.transform.position, EMiniMapObject.ENEMYPORTAL);
 		}

@@ -102,6 +102,9 @@ public class Reactor : MonoBehaviour, IMission
 
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(0.6f, 1f, 0.6f), 1));
 
+        for (int i = 0; i < InGameManager.enemys.Count; i++)
+            InGameManager.enemys[i].Die();
+
         return true;
     }
 
@@ -120,6 +123,9 @@ public class Reactor : MonoBehaviour, IMission
         InGameManager.instance.NumFailMission++;
 
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
+
+        for (int i = 0; i < InGameManager.enemys.Count; i++)
+            InGameManager.enemys[i].Die();
 
         return false;
     }

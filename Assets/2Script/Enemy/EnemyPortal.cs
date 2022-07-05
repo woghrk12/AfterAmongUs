@@ -34,8 +34,9 @@ public class EnemyPortal : EnemyBehaviour
 
             yield return new WaitForSeconds(t_randomTime);
             
-            var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", transform.position, Quaternion.identity);
-            t_enemy.GetComponent<EnemyNormal>().SetEnemy(spawnRegion);
+            var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", transform.position, Quaternion.identity).GetComponent<EnemyNormal>();
+            t_enemy.SetEnemy(spawnRegion);
+            InGameManager.enemys.Add(t_enemy);
         }
     }
 }

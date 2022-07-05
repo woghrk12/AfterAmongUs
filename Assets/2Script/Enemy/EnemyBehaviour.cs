@@ -65,6 +65,11 @@ public class EnemyBehaviour : MonoBehaviour
         StartCoroutine(DieCo());
     }
 
+    public void Die()
+    {
+        health = 0;
+    }
+
     protected virtual IEnumerator DieCo()
     {
         isDie = true;
