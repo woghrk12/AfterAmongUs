@@ -3490,7 +3490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 501671907}
   - component: {fileID: 501671908}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Camera Collider
   m_TagString: Camera Collider
   m_Icon: {fileID: 0}

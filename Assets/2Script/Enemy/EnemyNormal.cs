@@ -23,6 +23,8 @@ public class EnemyNormal : EnemyBehaviour
     [SerializeField] private float fireDelay;
     private Vector3 fireDirection;
 
+    [SerializeField] private CapsuleCollider2D capsuleCollider;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -62,8 +64,11 @@ public class EnemyNormal : EnemyBehaviour
 
         enemyRader.SetRange(detectionRange);
         
+        if(!capsuleCollider.enabled) capsuleCollider.enabled = true;
+
         FindPath(attackRegion);
-        
+
+        target = null;
         isChasing = true;
         canAttack = true;
         isDie = false;
@@ -186,7 +191,10 @@ public class EnemyNormal : EnemyBehaviour
     {
         canAttack = false;
         isChasing = false;
+        
+        capsuleCollider.enabled = false;
 
-        return base.DieCo();
+        yield return base.DieCo();
+        
     }
 }

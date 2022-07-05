@@ -349,6 +349,7 @@ MonoBehaviour:
   detectionRange: 7
   fireRange: 1.5
   fireDelay: 3
+  capsuleCollider: {fileID: 973337266354530364}
 --- !u!1 &973337266697008720
 GameObject:
   m_ObjectHideFlags: 0

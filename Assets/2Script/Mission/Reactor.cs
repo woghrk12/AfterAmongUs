@@ -77,7 +77,7 @@ public class Reactor : MonoBehaviour, IMission
 
         anim.SetBool("isActivated", true);
 
-        InGameManager.TurnOnPointLight();
+        //InGameManager.TurnOnPointLight();
 
         yield return InGameUIManager.FadeIn();
     }
