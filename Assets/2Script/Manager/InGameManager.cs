@@ -74,16 +74,6 @@ public class InGameManager : MonoBehaviour
 		player.CanMove = true;
 	}
 
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.F1))
-			StartCoroutine(SpawnPortal(4));
-		if (Input.GetKeyDown(KeyCode.F2))
-			StartCoroutine(SpawnEnemy(1));
-		if (Input.GetKeyDown(KeyCode.F3))
-			ItemManager.SpawnItems(1);	
-    }
-
 	public static void SetPlayerRegion(Region p_region)
 	{
 		playerRegion = p_region;

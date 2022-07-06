@@ -35,3 +35,8 @@ public interface IMission
     bool SuccessMission();
     bool FailMission();
 }
+public interface IEffect
+{
+    void StartEffect();
+    void StopEffect();
+}

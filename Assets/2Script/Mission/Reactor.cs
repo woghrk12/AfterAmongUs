@@ -48,10 +48,6 @@ public class Reactor : MonoBehaviour, IMission
     private void Update()
     {
         CheckHealth();
-
-
-        if (Input.GetKeyDown(KeyCode.F4))
-            StartCoroutine(OnDamageCo());
     }
 
     public void StartMission()

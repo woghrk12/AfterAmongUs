@@ -23,6 +23,9 @@ public class LowerEngine : MonoBehaviour, IMission
 
     private Coroutine runningCo;
 
+    [SerializeField] private GameObject effectParent;
+    private IEffect[] effects;
+
     [SerializeField] private ControlSlider controlSlider;
     [SerializeField] private int maxHealth;
     private int curHealth;
@@ -34,6 +37,8 @@ public class LowerEngine : MonoBehaviour, IMission
     {
         anim = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
+
+        effects = effectParent.GetComponentsInChildren<IEffect>();
     }
 
     private void Start()
@@ -45,9 +50,6 @@ public class LowerEngine : MonoBehaviour, IMission
     private void Update()
     {
         CheckHealth();
-
-        if (Input.GetKeyDown(KeyCode.F4))
-            StartCoroutine(BrokenCoreObject());
     }
 
     public void StartMission()
@@ -60,6 +62,9 @@ public class LowerEngine : MonoBehaviour, IMission
         hitBox.enabled = true;
 
         yield return ChangeLight();
+
+        for (int i = 0; i < effects.Length; i++)
+            effects[i].StartEffect();
 
         runningCo = StartCoroutine(PerformMission());
     }
@@ -114,6 +119,9 @@ public class LowerEngine : MonoBehaviour, IMission
         anim.SetBool("isActivated", false);
         controlSlider.gameObject.SetActive(false);
 
+        for (int i = 0; i < effects.Length; i++)
+            effects[i].StopEffect();
+
         StartCoroutine(BrokenCoreObject());
 
         InGameManager.missionInProgress = null;
@@ -139,6 +147,7 @@ public class LowerEngine : MonoBehaviour, IMission
             yield return null;
         }
     }
+
     private void OnDamage(int p_damage)
     {
         if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
