@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Light : MonoBehaviour, IEffect
+public class PipeLight : MonoBehaviour, IEffect
 {
     private SpriteRenderer spriteRenderer;
     private Coroutine runningCo;

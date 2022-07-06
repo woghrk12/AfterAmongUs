@@ -2573,7 +2573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425703608}
   - component: {fileID: 425703609}
-  - component: {fileID: 425703610}
+  - component: {fileID: 425703611}
   m_Layer: 0
   m_Name: Pipe Light 2
   m_TagString: Untagged
@@ -2646,7 +2646,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &425703610
+--- !u!114 &425703611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2655,7 +2655,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 425703607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f4b1fd9975b184193a09337fb34c32, type: 3}
+  m_Script: {fileID: 11500000, guid: 714da04a9187c86448a1df502fa4f66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightSprites:
@@ -6570,7 +6570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 874878140}
   - component: {fileID: 874878141}
-  - component: {fileID: 874878142}
+  - component: {fileID: 874878143}
   m_Layer: 0
   m_Name: Body Light
   m_TagString: Untagged
@@ -6643,7 +6643,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &874878142
+--- !u!114 &874878143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6652,7 +6652,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 874878139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f4b1fd9975b184193a09337fb34c32, type: 3}
+  m_Script: {fileID: 11500000, guid: 714da04a9187c86448a1df502fa4f66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightSprites:
@@ -16029,7 +16029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1820525915}
   - component: {fileID: 1820525916}
-  - component: {fileID: 1820525917}
+  - component: {fileID: 1820525918}
   m_Layer: 0
   m_Name: Manifold Light
   m_TagString: Untagged
@@ -16102,7 +16102,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1820525917
+--- !u!114 &1820525918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16111,7 +16111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1820525914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f4b1fd9975b184193a09337fb34c32, type: 3}
+  m_Script: {fileID: 11500000, guid: 714da04a9187c86448a1df502fa4f66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightSprites:
@@ -18298,7 +18298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2036319129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f4b1fd9975b184193a09337fb34c32, type: 3}
+  m_Script: {fileID: 11500000, guid: 714da04a9187c86448a1df502fa4f66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightSprites:
