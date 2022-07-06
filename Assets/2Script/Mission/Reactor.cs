@@ -60,17 +60,10 @@ public class Reactor : MonoBehaviour, IMission
     {
         hitBox.enabled = true;
 
-        yield return ChangeLight();
+        yield return InGameUIManager.FadeOut();
 
         for (int i = 0; i < effects.Length; i++)
             effects[i].StartEffect();
-
-        runningCo = StartCoroutine(PerformMission());
-    }
-
-    private IEnumerator ChangeLight()
-    {
-        yield return InGameUIManager.FadeOut();
 
         InGameManager.SetPlayerRegion(region);
 
@@ -79,6 +72,8 @@ public class Reactor : MonoBehaviour, IMission
         //InGameManager.TurnOnPointLight();
 
         yield return InGameUIManager.FadeIn();
+
+        runningCo = StartCoroutine(PerformMission());
     }
 
     private IEnumerator PerformMission()
