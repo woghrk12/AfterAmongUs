@@ -22,21 +22,22 @@ public class Reactor : MonoBehaviour, IMission
     }
 
     private Coroutine runningCo;
-    [SerializeField] private GameObject spriteParent;
-    private SpriteRenderer[] sprites;
+    [SerializeField] private GameObject effectParent;
+    private IEffect[] effects;
 
     [SerializeField] private ControlSlider controlSlider;
     [SerializeField] private int maxHealth;
     private int curHealth;
 
     private Coroutine onDamageCo;
+    [SerializeField] private SpriteRenderer coreSprite;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
 
-        sprites = spriteParent.GetComponentsInChildren<SpriteRenderer>();
+        effects = effectParent.GetComponentsInChildren<IEffect>();
     }
 
     private void Start()
@@ -60,6 +61,9 @@ public class Reactor : MonoBehaviour, IMission
         hitBox.enabled = true;
 
         yield return ChangeLight();
+
+        for (int i = 0; i < effects.Length; i++)
+            effects[i].StartEffect();
 
         runningCo = StartCoroutine(PerformMission());
     }
@@ -114,6 +118,9 @@ public class Reactor : MonoBehaviour, IMission
         anim.SetBool("isActivated", false);
         controlSlider.gameObject.SetActive(false);
 
+        for (int i = 0; i < effects.Length; i++)
+            effects[i].StopEffect();
+
         InGameManager.missionInProgress = null;
         InGameManager.instance.NumFailMission++;
 
@@ -148,13 +155,11 @@ public class Reactor : MonoBehaviour, IMission
 
     private IEnumerator OnDamageCo()
     {
-        for (int i = 0; i < sprites.Length; i++)
-            sprites[i].color = Color.red;
+        coreSprite.color = Color.red;
 
         yield return new WaitForSeconds(0.05f);
 
-        for (int i = 0; i < sprites.Length; i++)
-            sprites[i].color = Color.white;
+        coreSprite.color = Color.white;
 
         onDamageCo = null;
     }

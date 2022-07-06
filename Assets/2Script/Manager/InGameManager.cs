@@ -74,7 +74,7 @@ public class InGameManager : MonoBehaviour
 		player.CanMove = true;
 	}
 
-	public static void SetPlayerRegion(Region p_region)
+    public static void SetPlayerRegion(Region p_region)
 	{
 		playerRegion = p_region;
 	}
