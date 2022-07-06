@@ -30,6 +30,7 @@ public class Reactor : MonoBehaviour, IMission
     private int curHealth;
 
     private Coroutine onDamageCo;
+    private Coroutine alertCo;
     [SerializeField] private SpriteRenderer coreSprite;
 
     private void Awake()
@@ -134,6 +135,7 @@ public class Reactor : MonoBehaviour, IMission
         curHealth -= p_damage;
         controlSlider.SetValue(curHealth);
         if (onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
+        if (alertCo == null) alertCo = StartCoroutine(ShowAlertTextCo());
     }
 
     private void CheckHealth()
@@ -157,6 +159,13 @@ public class Reactor : MonoBehaviour, IMission
         coreSprite.color = Color.white;
 
         onDamageCo = null;
+    }
+
+    private IEnumerator ShowAlertTextCo()
+    {
+        yield return InGameUIManager.AlertUnderAttack(this.name);
+
+        alertCo = null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -31,6 +31,7 @@ public class LowerEngine : MonoBehaviour, IMission
     private int curHealth;
 
     private Coroutine onDamageCo;
+    private Coroutine alertCo;
     [SerializeField] private SpriteRenderer coreSprite;
 
     private void Awake()
@@ -150,6 +151,7 @@ public class LowerEngine : MonoBehaviour, IMission
         curHealth -= p_damage;
         controlSlider.SetValue(curHealth);
         if (onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
+        if (alertCo == null) alertCo = StartCoroutine(ShowAlertTextCo());
     }
 
     private IEnumerator OnDamageCo()
@@ -161,6 +163,13 @@ public class LowerEngine : MonoBehaviour, IMission
         coreSprite.color = Color.white;
 
         onDamageCo = null;
+    }
+
+    private IEnumerator ShowAlertTextCo()
+    {
+        yield return InGameUIManager.AlertUnderAttack(this.name);
+
+        alertCo = null;
     }
 
     private void CheckHealth()
@@ -185,5 +194,3 @@ public class LowerEngine : MonoBehaviour, IMission
         }
     }
 }
-
-

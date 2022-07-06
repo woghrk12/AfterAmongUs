@@ -10,6 +10,8 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private Image screen;
     [SerializeField] private Text timerText;
 
+    [SerializeField] private Text alertText;
+
     private void Awake()
     {
         instance = this;
@@ -64,4 +66,31 @@ public class InGameUIManager : MonoBehaviour
     }
 
     public static IEnumerator TimeCheck(float p_time) => instance.TimeCheckCo(p_time);
+
+    private IEnumerator ShowAlertText(string p_name)
+    {
+        alertText.text = $"The {p_name} is under attack";
+        alertText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+
+        var t_originColor = alertText.color;
+
+        var t_timer = 0f;
+        var t_totalTime = 1f;
+        var t_color = t_originColor;
+        var t_alpha = t_color.a;
+        while (t_timer < t_totalTime)
+        {
+            t_alpha = Mathf.Lerp(1f, 0f, t_timer / t_totalTime);
+            t_color.a = t_alpha;
+            t_timer += Time.deltaTime;
+            alertText.color = t_color;
+            yield return null;
+        }
+
+        alertText.gameObject.SetActive(false);
+        alertText.color = t_originColor;
+    }
+
+    public static IEnumerator AlertUnderAttack(string p_name) => instance.ShowAlertText(p_name);
 }
