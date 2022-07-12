@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class JoyStick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    [SerializeField] private RectTransform leverTransform;
-    private RectTransform rectTransform;
-    private Vector2 inputPos;
-    private Vector2 leverPos;
-    private Vector2 inputDir;
+    public float Horizontal { get { return inputDir.x; } }
+    public float Vertical { get { return inputDir.y; } }
+    public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
 
-    [SerializeField, Range(0, 150)] private float leverRange;
+    [SerializeField] private RectTransform handle = null;
+    [SerializeField] private RectTransform background = null;
+
+    private Vector2 inputDir = Vector2.zero;
+    private Vector2 radius = Vector2.zero;    
+
+    [SerializeField] private float handleRange = 0f;
+    [SerializeField, Range(0, 1)] private float minValue = 0f;
+    [SerializeField, Range(0, 1)] private float maxValue = 0f;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        radius = background.sizeDelta / 2;
     }
 
-    private void Update()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        InputDirection();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        ControlLever(eventData);
+        OnDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -33,22 +34,27 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         ControlLever(eventData);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
-        leverTransform.anchoredPosition = Vector2.zero;
         inputDir = Vector2.zero;
+        handle.anchoredPosition = Vector2.zero;
     }
 
     private void ControlLever(PointerEventData p_eventData)
     {
-        inputPos = p_eventData.position - rectTransform.anchoredPosition;
-        leverPos = inputPos.sqrMagnitude < leverRange * leverRange ? inputPos : inputPos.normalized * leverRange;
-        inputDir = Vector2.ClampMagnitude(inputPos, 1f);
-        leverTransform.anchoredPosition = leverPos;
+        inputDir = (p_eventData.position - (Vector2)background.position) / radius;
+        HandleInput(inputDir.magnitude);
+        handle.anchoredPosition = inputDir * radius * handleRange;
     }
 
-    private void InputDirection()
+    private void HandleInput(float p_magnitude)
     {
-        Debug.Log(inputDir.x + " / " + inputDir.y);
+        if (p_magnitude > minValue)
+        {
+            if (p_magnitude > maxValue)
+                inputDir = inputDir.normalized * maxValue;
+        }
+        else
+            inputDir = Vector2.zero;
     }
 }
