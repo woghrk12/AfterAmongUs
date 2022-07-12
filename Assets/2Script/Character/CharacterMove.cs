@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CharacterMove : MonoBehaviour
 {
     private Animator anim;
     [SerializeField] private SpriteRenderer spriteRender;
-    
+
+    [SerializeField] private JoyStick joyStick;
+
+    private EControlType controlType = EControlType.JOYSTICK;
+
     [SerializeField] private float moveSpeed;
 
     private bool isLeft;
@@ -28,7 +34,32 @@ public class CharacterMove : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void Move(Vector3 p_moveDir)
+    private void FixedUpdate()
+    {
+        if (!canMove) return;
+
+        MoveByControlType();
+    }
+
+    private void MoveByControlType()
+    {
+        switch (controlType)
+        {
+            case EControlType.JOYSTICK:
+                Move(joyStick.Direction);
+                break;
+        }
+    }
+
+    public void SetControlType(EControlType p_controlType)
+    {
+        controlType = p_controlType;
+
+        if (controlType != EControlType.JOYSTICK)
+            joyStick.gameObject.SetActive(false);
+    }
+
+    private void Move(Vector3 p_moveDir)
     {
         if (!canMove) return;
 

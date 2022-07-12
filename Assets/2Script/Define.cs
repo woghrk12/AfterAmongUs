@@ -23,6 +23,7 @@ public enum ELayer {
     CAMERACOLLIDER, END 
 }
 public enum EMiniMapObject { ITEMBOX, ENEMYPORTAL, END }
+public enum EControlType { JOYSTICK, KEYBOARD, END }
 
 // Interface
 public interface IInteractable
