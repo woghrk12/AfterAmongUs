@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim = null;
     [SerializeField] private SpriteRenderer spriteRender;
 
     [SerializeField] private JoyStick joyStick = null;
@@ -12,13 +12,20 @@ public class CharacterMove : MonoBehaviour
 
     private EControlType controlType = EControlType.KEYBOARD;
 
-    [SerializeField] private float moveSpeed;
-    private Vector3 moveDir;
+    [SerializeField] private float moveSpeed = 0f;
+    private Vector3 moveDir = Vector3.zero;
 
-    private bool isLeft;
-    public bool IsLeft { get { return isLeft; } }
+    private bool isLeft = false;
+    public bool IsLeft 
+    {
+        set 
+        {
+            isLeft = value;
+            spriteRender.flipX = isLeft;
+        }
+        get { return isLeft; } }
 
-    private bool canMove = true;
+    private bool canMove = false;
     public bool CanMove
     {
         set 
@@ -29,11 +36,6 @@ public class CharacterMove : MonoBehaviour
         get { return canMove; }
     }
 
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
-
     private void Start()
     {
         SetControlType(controlType);
@@ -41,6 +43,8 @@ public class CharacterMove : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F6))
+            SetControlType(EControlType.JOYSTICK);
         SetMoveDirection();
     }
 
@@ -69,7 +73,7 @@ public class CharacterMove : MonoBehaviour
         controlType = p_controlType;
 
         joyStick.gameObject.SetActive(controlType == EControlType.JOYSTICK);
-        keyBoard.IsKeyBoard = controlType == EControlType.KEYBOARD;
+        keyBoard.gameObject.SetActive(controlType == EControlType.KEYBOARD);
     }
 
     private void Move(Vector3 p_moveDir)
@@ -80,8 +84,7 @@ public class CharacterMove : MonoBehaviour
 
         if (p_moveDir.x != 0)
         {
-            isLeft = p_moveDir.x < 0;
-            spriteRender.flipX = isLeft;
+            IsLeft = p_moveDir.x < 0;
         }
     }
 }

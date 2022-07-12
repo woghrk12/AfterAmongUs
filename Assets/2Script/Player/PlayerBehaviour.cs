@@ -8,24 +8,10 @@ public class PlayerBehaviour : MonoBehaviour
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
 
-    protected float hAxis;
-    protected float vAxis;
+    protected CharacterMove moveController;
 
-    private bool canMove;
-    public bool CanMove
-    {
-        set 
-        {
-            canMove = value;
-            anim.SetBool("isWalk", value);
-        }
-        get { return canMove; }
-    }
-
-    protected bool isLeft;
-
-    [SerializeField] protected float moveSpeed;
-    protected Vector3 moveDir;
+    public bool CanMove { set { moveController.CanMove = value; } get { return moveController.CanMove; } }
+    public bool IsLeft { get { return moveController.IsLeft; } }
 
     [SerializeField] protected Button useButton;
     protected List<GameObject> canUseObject;
@@ -39,34 +25,9 @@ public class PlayerBehaviour : MonoBehaviour
         var t_instMat = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_instMat;
 
+        moveController = GetComponent<CharacterMove>();
+
         canUseObject = new List<GameObject>();
-    }
-
-    protected virtual void Update()
-    {
-        GetInput();
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        if (!canMove) return;
-
-        Move();
-    }
-
-    protected virtual void GetInput()
-    {
-        hAxis = Input.GetAxisRaw("Horizontal");
-        vAxis = Input.GetAxisRaw("Vertical");
-    }
-
-    protected virtual void Move()
-    {
-        moveDir = Vector3.ClampMagnitude(new Vector3(hAxis, vAxis, 0f), 1f);
-
-        anim.SetBool("isWalk", moveDir != Vector3.zero ? true : false);
-
-        transform.position += moveDir * Time.deltaTime * moveSpeed;
     }
 
     public void SetColor(EPlayerColor p_color)
@@ -74,7 +35,7 @@ public class PlayerBehaviour : MonoBehaviour
         spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor(p_color));
     }
 
-    public void SetAlpha(float p_value)
+    protected void SetAlpha(float p_value)
     {
         var t_color = spriteRenderer.color;
         t_color.a = p_value;

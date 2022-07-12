@@ -12,13 +12,8 @@ public class KeyBoard : MonoBehaviour
     private float hAxis = 0f;
     private float vAxis = 0f;
 
-    private bool isKeyBoard = false;
-    public bool IsKeyBoard { set { isKeyBoard = value; } get { return isKeyBoard; } }
-
     void Update()
     {
-        if (!isKeyBoard) return;
-
         GetInput();
     }
 
