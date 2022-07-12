@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class CharacterMove : MonoBehaviour
 {
     private Animator anim;
     [SerializeField] private SpriteRenderer spriteRender;
 
-    [SerializeField] private JoyStick joyStick;
+    [SerializeField] private JoyStick joyStick = null;
+    [SerializeField] private KeyBoard keyBoard = null;
 
-    private EControlType controlType = EControlType.JOYSTICK;
+    private EControlType controlType = EControlType.KEYBOARD;
 
     [SerializeField] private float moveSpeed;
+    private Vector3 moveDir;
 
     private bool isLeft;
     public bool IsLeft { get { return isLeft; } }
@@ -34,19 +34,32 @@ public class CharacterMove : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        SetControlType(controlType);
+    }
+
+    private void Update()
+    {
+        SetMoveDirection();
+    }
+
     private void FixedUpdate()
     {
         if (!canMove) return;
 
-        MoveByControlType();
+        Move(moveDir);
     }
 
-    private void MoveByControlType()
+    private void SetMoveDirection()
     {
         switch (controlType)
         {
             case EControlType.JOYSTICK:
-                Move(joyStick.Direction);
+                moveDir = joyStick.Direction;
+                break;
+            case EControlType.KEYBOARD:
+                moveDir = keyBoard.Direction;
                 break;
         }
     }
@@ -55,14 +68,12 @@ public class CharacterMove : MonoBehaviour
     {
         controlType = p_controlType;
 
-        if (controlType != EControlType.JOYSTICK)
-            joyStick.gameObject.SetActive(false);
+        joyStick.gameObject.SetActive(controlType == EControlType.JOYSTICK);
+        keyBoard.IsKeyBoard = controlType == EControlType.KEYBOARD;
     }
 
     private void Move(Vector3 p_moveDir)
     {
-        if (!canMove) return;
-
         transform.position += p_moveDir * Time.deltaTime * moveSpeed;
 
         anim.SetBool("isWalk", p_moveDir != Vector3.zero ? true : false);
