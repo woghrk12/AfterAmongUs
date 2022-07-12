@@ -13,32 +13,9 @@ public class TitlePlayer : PlayerBehaviour
         var t_instMat = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_instMat;
 
-        CanMove = false;
+        moveController = GetComponent<CharacterMove>();
 
         canUseObject = new List<GameObject>();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
-    protected override void GetInput()
-    {
-        base.GetInput();
-    }
-
-    protected override void Move()
-    {
-        base.Move();
-
-        if(moveDir.x != 0f)
-            spriteRenderer.flipX = moveDir.x < 0;
     }
 
     public void SpawnPlayer(bool p_isFlipX)
