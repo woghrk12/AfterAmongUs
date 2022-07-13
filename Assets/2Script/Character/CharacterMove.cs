@@ -15,6 +15,8 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private float moveSpeed = 0f;
     private Vector3 moveDir = Vector3.zero;
 
+    public bool IsMove { get { return moveDir != Vector3.zero; } }
+
     private bool isLeft = false;
     public bool IsLeft 
     {
@@ -45,12 +47,15 @@ public class CharacterMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F6))
             SetControlType(EControlType.JOYSTICK);
+        if (Input.GetKeyDown(KeyCode.F7))
+            SetControlType(EControlType.KEYBOARD);
+
         SetMoveDirection();
     }
 
     private void FixedUpdate()
     {
-        if (!canMove) return;
+        if (!CanMove) return;
 
         Move(moveDir);
     }

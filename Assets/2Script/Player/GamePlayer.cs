@@ -16,7 +16,6 @@ public class GamePlayer : PlayerBehaviour
     private bool sDown3;
     private bool mDown;
 
-    private bool isWalk;
     private bool isDie;
     private bool isFireReady;
     private bool isReloadReady;
@@ -62,6 +61,8 @@ public class GamePlayer : PlayerBehaviour
         var t_inst = Instantiate(spriteRenderer.material);
         spriteRenderer.material = t_inst;
 
+        moveController = GetComponent<CharacterMove>();
+
         healthBar.SetMaxValue(maxHealth);
         curHealth = maxHealth;
 
@@ -72,7 +73,6 @@ public class GamePlayer : PlayerBehaviour
 
         equipWeaponIndex = 0;
 
-        isWalk = false;
         isFireReady = true;
         isDie = false;
         isReloadReady = true;
@@ -98,38 +98,31 @@ public class GamePlayer : PlayerBehaviour
         ammoImage.sprite = ammo9MMImage;
         totalAmmoText.text = ammo9MM.ToString();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
+
+        moveController.CanMove = true;
     }
 
-    protected override void Update()
+    private void Update()
     {
         if (isDie) return;
 
-        base.Update();
-        
+        GetInput();
         Fire();
         Swap();
         TurnOnOffMiniMap();
     }
 
-    protected override void FixedUpdate()
+    private void GetInput()
     {
-        base.FixedUpdate();
-    }
-
-    protected override void GetInput()
-    {
-        base.GetInput();
-
         sDown1 = Input.GetButtonDown("Swap1");
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
         mDown = Input.GetButtonDown("Map");
     }
 
-    protected override void Move()
+    private void Move()
     {
-        base.Move();
-
+        /*
         if (moveDir.x != 0)
         {
             isLeft = moveDir.x < 0;
@@ -140,23 +133,25 @@ public class GamePlayer : PlayerBehaviour
         if (!isWalk) return;
 
         RotatePlayerAim(moveDir);
+        */
     }
 
     private void Targeting()
     {
-        isLeft = target.position.x < transform.position.x;
-
-        spriteRenderer.flipX = isLeft;
         direction = target.position - playerAim.position;
+
+        moveController.IsLeft = direction.x < 0;
 
         RotatePlayerAim(direction);
     }
 
     private void RotatePlayerAim(Vector3 p_dir)
     {
-        playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
+        var t_isLeft = p_dir.x < 0;
 
-        angle = (isLeft ? Mathf.Atan2(-p_dir.y, -p_dir.x) : Mathf.Atan2(p_dir.y, p_dir.x)) * Mathf.Rad2Deg;
+        playerAim.localScale = new Vector3(t_isLeft ? -1f : 1f, 1f, 1f);
+
+        angle = (t_isLeft ? Mathf.Atan2(-p_dir.y, -p_dir.x) : Mathf.Atan2(p_dir.y, p_dir.x)) * Mathf.Rad2Deg;
 
         if (angle < -90f || angle > 90f)
             angle = Mathf.Clamp(angle, -90f, 90f);
@@ -179,7 +174,7 @@ public class GamePlayer : PlayerBehaviour
             return;
         }
 
-        if (isWalk) return;
+        if (moveController.IsMove) return;
         if (!isFireReady) return;
 
         target = playerRader.GetTarget();
@@ -386,7 +381,6 @@ public class GamePlayer : PlayerBehaviour
             equipWeapon.gameObject.SetActive(false);
         }
 
-        moveSpeed = 0;
         gameObject.layer = 7;
         isDie = true;
         CanMove = false;
