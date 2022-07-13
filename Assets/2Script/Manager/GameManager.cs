@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	public static EPlayerColor playerColor;
+	public static EControlType controlType = EControlType.END;
 
 	private void Awake()
 	{
@@ -40,6 +41,13 @@ public class GameManager : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
+
+#if UNITY_EDITOR
+		controlType = EControlType.KEYBOARD;
+#endif
+#if UNITY_ANDROID
+		controlType = EControlType.JOYSTICK;
+#endif
 	}
 }
 

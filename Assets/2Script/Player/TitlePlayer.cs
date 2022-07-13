@@ -18,6 +18,11 @@ public class TitlePlayer : PlayerBehaviour
         canUseObject = new List<GameObject>();
     }
 
+    private void Start()
+    {
+        moveController.SetControlType(GameManager.controlType);
+    }
+
     public void SpawnPlayer(bool p_isFlipX)
     {
         spriteRenderer.enabled = true;

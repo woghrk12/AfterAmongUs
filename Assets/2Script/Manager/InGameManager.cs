@@ -67,13 +67,6 @@ public class InGameManager : MonoBehaviour
 		enemys = new List<EnemyBehaviour>();
 	}
 
-	private void Start()
-	{
-		player.SetColor(GameManager.playerColor);
-		//StartCoroutine(WaveStart(5f));
-		player.CanMove = true;
-	}
-
     public static void SetPlayerRegion(Region p_region)
 	{
 		playerRegion = p_region;

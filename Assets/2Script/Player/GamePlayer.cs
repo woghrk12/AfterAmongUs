@@ -99,6 +99,7 @@ public class GamePlayer : PlayerBehaviour
         totalAmmoText.text = ammo9MM.ToString();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
 
+        moveController.SetControlType(GameManager.controlType);
         moveController.CanMove = true;
     }
 
