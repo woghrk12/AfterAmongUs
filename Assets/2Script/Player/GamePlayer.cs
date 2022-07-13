@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GamePlayer : PlayerBehaviour
 {
+    [SerializeField] private CharacterTargeting targetingController;
     [SerializeField] private List<PlayerWeapon> weapons;
     private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
@@ -20,15 +21,10 @@ public class GamePlayer : PlayerBehaviour
     private bool isFireReady;
     private bool isReloadReady;
 
-    [SerializeField] private Transform playerAim;
     private float fireDelay;
     [SerializeField] private PlayerRader playerRader;
-    private Transform target;
 
     private Coroutine reloadCo;
-
-    private Vector3 direction;
-    private float angle;
 
     [SerializeField] private ControlSlider healthBar;
     [SerializeField] private int maxHealth;
@@ -100,7 +96,7 @@ public class GamePlayer : PlayerBehaviour
         curAmmoText.text = equipWeapon.curAmmo.ToString();
 
         moveController.SetControlType(GameManager.controlType);
-        moveController.CanMove = true;
+        CanMove = true;
     }
 
     private void Update()
@@ -121,45 +117,6 @@ public class GamePlayer : PlayerBehaviour
         mDown = Input.GetButtonDown("Map");
     }
 
-    private void Move()
-    {
-        /*
-        if (moveDir.x != 0)
-        {
-            isLeft = moveDir.x < 0;
-            spriteRenderer.flipX = isLeft;
-        }
-
-        isWalk = moveDir != Vector3.zero;
-        if (!isWalk) return;
-
-        RotatePlayerAim(moveDir);
-        */
-    }
-
-    private void Targeting()
-    {
-        direction = target.position - playerAim.position;
-
-        moveController.IsLeft = direction.x < 0;
-
-        RotatePlayerAim(direction);
-    }
-
-    private void RotatePlayerAim(Vector3 p_dir)
-    {
-        var t_isLeft = p_dir.x < 0;
-
-        playerAim.localScale = new Vector3(t_isLeft ? -1f : 1f, 1f, 1f);
-
-        angle = (t_isLeft ? Mathf.Atan2(-p_dir.y, -p_dir.x) : Mathf.Atan2(p_dir.y, p_dir.x)) * Mathf.Rad2Deg;
-
-        if (angle < -90f || angle > 90f)
-            angle = Mathf.Clamp(angle, -90f, 90f);
-
-        playerAim.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-
     private void Fire()
     {
         if (equipWeapon == null) return;
@@ -178,10 +135,8 @@ public class GamePlayer : PlayerBehaviour
         if (moveController.IsMove) return;
         if (!isFireReady) return;
 
-        target = playerRader.GetTarget();
-        if (target == null) return;
-        
-        Targeting();
+        targetingController.Target = playerRader.GetTarget();
+        if (targetingController.Target == null) return;
         equipWeapon.GetComponent<PlayerWeapon>().Shot();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
         fireDelay = 0;

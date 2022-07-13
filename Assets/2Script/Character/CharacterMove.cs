@@ -57,7 +57,7 @@ public class CharacterMove : MonoBehaviour
     {
         if (!CanMove) return;
 
-        Move(moveDir);
+        Move();
     }
 
     private void SetMoveDirection()
@@ -81,15 +81,15 @@ public class CharacterMove : MonoBehaviour
         keyBoard.gameObject.SetActive(controlType == EControlType.KEYBOARD);
     }
 
-    private void Move(Vector3 p_moveDir)
+    private void Move()
     {
-        transform.position += p_moveDir * Time.deltaTime * moveSpeed;
+        transform.position += moveDir * Time.deltaTime * moveSpeed;
 
-        anim.SetBool("isWalk", p_moveDir != Vector3.zero ? true : false);
+        anim.SetBool("isWalk", IsMove ? true : false);
 
-        if (p_moveDir.x != 0)
+        if (moveDir.x != 0)
         {
-            IsLeft = p_moveDir.x < 0;
+            IsLeft = moveDir.x < 0;
         }
     }
 }

@@ -10,8 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     protected CharacterMove moveController;
 
-    public bool CanMove { set { moveController.CanMove = value; } get { return moveController.CanMove; } }
-    public bool IsLeft { set { moveController.IsLeft = value; } get { return moveController.IsLeft; } }
+    public bool CanMove { set { moveController.CanMove = value; } }
+    public bool IsLeft { set { moveController.IsLeft = value; } }
 
     [SerializeField] protected Button useButton;
     protected List<GameObject> canUseObject;
