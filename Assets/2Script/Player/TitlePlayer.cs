@@ -23,10 +23,10 @@ public class TitlePlayer : PlayerBehaviour
         moveController.SetControlType(GameManager.controlType);
     }
 
-    public void SpawnPlayer(bool p_isFlipX)
+    public void SpawnPlayer(bool p_isLeft)
     {
         spriteRenderer.enabled = true;
-        spriteRenderer.flipX = p_isFlipX;
+        moveController.IsLeft = p_isLeft;
         
         anim.SetTrigger("Spawn");
     }

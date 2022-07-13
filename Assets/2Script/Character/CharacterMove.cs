@@ -23,7 +23,7 @@ public class CharacterMove : MonoBehaviour
         set 
         {
             isLeft = value;
-            spriteRender.flipX = isLeft;
+            transform.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
         }
         get { return isLeft; } }
 
