@@ -131,12 +131,20 @@ public class GamePlayer : PlayerBehaviour
             Reload();
             return;
         }
-
-        if (moveController.IsMove) return;
+        
         if (!isFireReady) return;
 
         targetingController.Target = playerRader.GetTarget();
-        if (targetingController.Target == null) return;
+        if (targetingController.Target == null)
+        {
+            targetingController.IsTargeting = false;
+            return;
+        }
+
+        targetingController.IsTargeting = true;
+
+        if (moveController.IsMove) return;
+
         equipWeapon.GetComponent<PlayerWeapon>().Shot();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
         fireDelay = 0;

@@ -7,22 +7,11 @@ public class CharacterTargeting : MonoBehaviour
     private Transform target = null;
     public Transform Target { set { target = value; } get { return target; } }
 
-    [SerializeField] private Transform playerAim;
+    [SerializeField] private Transform playerAim = null;
 
     private float originAngle = 0f;
     private Vector3 direction = Vector3.zero;
     private float angle = 0f;
-
-    private bool isLeft = false;
-    public bool IsLeft
-    {
-        set 
-        {
-            isLeft = value;
-            playerAim.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);
-        }
-        get { return isLeft; }
-    }
 
     private bool isTargeting = false;
     public bool IsTargeting
@@ -57,7 +46,7 @@ public class CharacterTargeting : MonoBehaviour
     {
         var t_isLeft = p_dir.x < 0;
         
-        playerAim.localScale = new Vector3(t_isLeft ? -1f : 1f, 1f, 1f);
+        transform.localScale = new Vector3(t_isLeft ? -1f : 1f, 1f, 1f);
 
         angle = (t_isLeft ? Mathf.Atan2(-p_dir.y, -p_dir.x) : Mathf.Atan2(p_dir.y, p_dir.x)) * Mathf.Rad2Deg;
 
