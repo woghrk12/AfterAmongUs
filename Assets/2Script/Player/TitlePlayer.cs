@@ -14,8 +14,6 @@ public class TitlePlayer : PlayerBehaviour
         spriteRenderer.material = t_instMat;
 
         moveController = GetComponent<CharacterMove>();
-
-        canUseObject = new List<GameObject>();
     }
 
     private void Start()

@@ -79,8 +79,6 @@ public class GamePlayer : PlayerBehaviour
         ammo7MM = 50;
         ammo5MM = 50;
         ammo9MM = 50;
-
-        canUseObject = new List<GameObject>();
     }
 
     private void Start()
@@ -361,10 +359,8 @@ public class GamePlayer : PlayerBehaviour
         miniMap.SetActive(!miniMap.activeSelf);
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
-
         if (collision.CompareTag("EnemyBullet"))
         {
             var damage = collision.GetComponent<Bullet>().damage;

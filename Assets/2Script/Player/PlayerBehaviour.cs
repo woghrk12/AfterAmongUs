@@ -13,10 +13,6 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanMove { set { moveController.CanMove = value; } }
     public bool IsLeft { set { moveController.IsLeft = value; } }
 
-    [SerializeField] protected Button useButton;
-    protected List<GameObject> canUseObject;
-    protected GameObject interactObject;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -26,8 +22,6 @@ public class PlayerBehaviour : MonoBehaviour
         spriteRenderer.material = t_instMat;
 
         moveController = GetComponent<CharacterMove>();
-
-        canUseObject = new List<GameObject>();
     }
 
     public void SetColor(EPlayerColor p_color)
@@ -40,46 +34,5 @@ public class PlayerBehaviour : MonoBehaviour
         var t_color = spriteRenderer.color;
         t_color.a = p_value;
         spriteRenderer.color = t_color;
-    }
-
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Interactable"))
-        {
-            canUseObject.Add(collision.gameObject);
-
-            if (useButton.interactable) return;
-
-            interactObject = collision.gameObject;
-            useButton.interactable = true;
-            useButton.onClick.AddListener(() =>
-                {
-                    collision.GetComponent<IInteractable>().Use();
-                });
-        }
-    }
-
-    protected virtual void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Interactable"))
-        {
-            canUseObject.Remove(collision.gameObject);
-            useButton.onClick.RemoveAllListeners();
-
-            if (canUseObject.Count <= 0)
-            {
-                interactObject = null;
-                useButton.interactable = false;
-            }
-
-            if (interactObject == collision.gameObject)
-            {
-                interactObject = canUseObject[0];
-                useButton.onClick.AddListener(() =>
-                    {
-                        collision.GetComponent<IInteractable>().Use();
-                    });
-            }
-        }
     }
 }

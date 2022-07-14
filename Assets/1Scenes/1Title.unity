@@ -735,13 +735,14 @@ GameObject:
   - component: {fileID: 376445344}
   - component: {fileID: 376445345}
   - component: {fileID: 376445346}
+  - component: {fileID: 376445347}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &376445341
 Animator:
   serializedVersion: 3
@@ -854,6 +855,19 @@ MonoBehaviour:
   joyStick: {fileID: 1576922513}
   keyBoard: {fileID: 836765590}
   moveSpeed: 2
+--- !u!114 &376445347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376445340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496573b28f1dbe64babd3e93916a48d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useButton: {fileID: 853451477}
 --- !u!1 &377294351
 GameObject:
   m_ObjectHideFlags: 0
