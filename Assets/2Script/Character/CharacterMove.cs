@@ -45,11 +45,6 @@ public class CharacterMove : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F6))
-            SetControlType(EControlType.JOYSTICK);
-        if (Input.GetKeyDown(KeyCode.F7))
-            SetControlType(EControlType.KEYBOARD);
-
         SetMoveDirection();
     }
 
