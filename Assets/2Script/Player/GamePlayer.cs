@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GamePlayer : PlayerBehaviour
 {
     [SerializeField] private CharacterTargeting targetingController;
+    [SerializeField] private CharacterDamagable healthController;
+
     [SerializeField] private List<PlayerWeapon> weapons;
     private bool[] hasWeapons;
     private PlayerWeapon equipWeapon;
@@ -17,7 +19,6 @@ public class GamePlayer : PlayerBehaviour
     private bool sDown3;
     private bool mDown;
 
-    private bool isDie;
     private bool isFireReady;
     private bool isReloadReady;
 
@@ -25,10 +26,6 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private PlayerRader playerRader;
 
     private Coroutine reloadCo;
-
-    [SerializeField] private ControlSlider healthBar;
-    [SerializeField] private int maxHealth;
-    private int curHealth;
 
     private int ammo12Guage;
     private int ammo7MM;
@@ -59,8 +56,7 @@ public class GamePlayer : PlayerBehaviour
 
         moveController = GetComponent<CharacterMove>();
 
-        healthBar.SetMaxValue(maxHealth);
-        curHealth = maxHealth;
+        healthController = GetComponent<CharacterDamagable>();
 
         hasWeapons = new bool[weapons.Count];
 
@@ -70,7 +66,6 @@ public class GamePlayer : PlayerBehaviour
         equipWeaponIndex = 0;
 
         isFireReady = true;
-        isDie = false;
         isReloadReady = true;
 
         fireDelay = 0f;
@@ -79,6 +74,9 @@ public class GamePlayer : PlayerBehaviour
         ammo7MM = 50;
         ammo5MM = 50;
         ammo9MM = 50;
+
+        healthController.onDamageEvent += OnDamageEvent;
+        healthController.onDieEvent += OnDieEvent;
     }
 
     private void Start()
@@ -95,11 +93,12 @@ public class GamePlayer : PlayerBehaviour
 
         moveController.SetControlType(GameManager.controlType);
         CanMove = true;
+        healthController.SetHealth();
     }
 
     private void Update()
     {
-        if (isDie) return;
+        if (healthController.IsDie) return;
 
         GetInput();
         Fire();
@@ -277,8 +276,8 @@ public class GamePlayer : PlayerBehaviour
                 break;
 
             case EItemType.HEAL:
-                curHealth += p_num;
-                healthBar.SetValue(curHealth);
+                //curHealth += p_num;
+                //healthBar.SetValue(curHealth);
                 break;
 
             case EItemType.GRENADE:
@@ -304,39 +303,34 @@ public class GamePlayer : PlayerBehaviour
         }
     }
 
-    private IEnumerator OnDamageCo(int p_damage)
+    private void OnDamageEvent()
     {
-        curHealth -= p_damage;
-        healthBar.SetValue(curHealth);
-
-        if (curHealth > 0)
-        {
-            gameObject.layer = 7;
-            int t_countTime = 0;
-
-            while (t_countTime < 10)
-            {
-                if (t_countTime % 2 == 0)
-                    SetAlpha(0.3f);
-                else
-                    SetAlpha(0.6f);
-
-                yield return new WaitForSeconds(0.2f);
-
-                t_countTime++;
-            }
-
-            SetAlpha(1f);
-
-            gameObject.layer = 6;
-        }
-        else
-        {
-            Die();
-        }
+        StartCoroutine(OnDamageCo());
     }
 
-    private void Die()
+    private IEnumerator OnDamageCo()
+    {
+        gameObject.layer = 7;
+        int t_countTime = 0;
+
+        while (t_countTime < 10)
+        {
+            if (t_countTime % 2 == 0)
+                SetAlpha(0.3f);
+            else
+                SetAlpha(0.6f);
+
+            yield return new WaitForSeconds(0.2f);
+
+            t_countTime++;
+        }
+
+        SetAlpha(1f);
+
+        gameObject.layer = 6;
+    }
+
+    private void OnDieEvent()
     {
         if (equipWeapon != null)
         {
@@ -344,7 +338,6 @@ public class GamePlayer : PlayerBehaviour
         }
 
         gameObject.layer = 7;
-        isDie = true;
         CanMove = false;
 
         spriteRenderer.flipX = false;
@@ -364,7 +357,7 @@ public class GamePlayer : PlayerBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             var damage = collision.GetComponent<Bullet>().damage;
-            StartCoroutine(OnDamageCo(damage));
+            healthController.OnDamage(damage);
             ObjectPooling.ReturnObject(collision.gameObject);
         }
 

@@ -17,7 +17,7 @@ public class CharacterDamagable : MonoBehaviour
 
     private void Update()
     {
-        if (curHealth <= 0) Die();
+        if (curHealth <= 0 && !IsDie) Die();
     }
 
     public void SetHealth()
