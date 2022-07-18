@@ -44,7 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         transform.position = PointManager.GetPoint(p_region.dstPoint).transform.position;
     }
 
-    protected virtual void OnDamageEvent()
+    private void OnDamageEvent()
     {
         if (onDamageCo != null) onDamageCo = StartCoroutine(OnDamageCo());
     }
@@ -58,7 +58,7 @@ public class EnemyBehaviour : MonoBehaviour
         onDamageCo = null;
     }
     
-    protected virtual void OnDieEvent()
+    private void OnDieEvent()
     {
         if (attackCo != null) StopCoroutine(attackCo);
         StartCoroutine(DieCo());

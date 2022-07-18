@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
-	public static IMission missionInProgress;
+	public static IMission missionInProgress = null;
 	public static List<EnemyBehaviour> enemys;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
@@ -20,10 +20,10 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GameObject pointLight;
 	[SerializeField] private GameObject globalLight;
 
-	[SerializeField] private int numTotalMission;
-	[SerializeField] private int numNeedMission;
+	[SerializeField] private int numTotalMission = 0;
+	[SerializeField] private int numNeedMission = 0;
 
-	private int numFailMission;
+	private int numFailMission = 0;
 	public int NumFailMission
 	{
 		set
@@ -37,7 +37,7 @@ public class InGameManager : MonoBehaviour
 			return numFailMission;
 		}
 	}
-	private int numCompleteMission;
+	private int numCompleteMission = 0;
 	public int NumCompleteMission
 	{
 		set
@@ -58,12 +58,6 @@ public class InGameManager : MonoBehaviour
 
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
 
-		progress.SetMaxValue(numNeedMission);
-		progress.SetValue(numCompleteMission);
-
-		missionInProgress = null;
-		numCompleteMission = 0;
-
 		enemys = new List<EnemyBehaviour>();
 	}
 
@@ -72,10 +66,18 @@ public class InGameManager : MonoBehaviour
 		player.SetColor(GameManager.playerColor);
     }
 
+    private void OnEnable()
+    {
+		missionInProgress = null;
+		NumCompleteMission = 0;
+		NumFailMission = 0;
+
+		progress.SetMaxValue(numNeedMission);
+		progress.SetValue(NumCompleteMission);
+	}
+
     void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.F1))
-			StartCoroutine(SpawnEnemy(5));
 		if (Input.GetKeyDown(KeyCode.F2))
 			StartCoroutine(SpawnPortal(2));
 	}
@@ -88,20 +90,6 @@ public class InGameManager : MonoBehaviour
 	public static Region GetPlayerRegion()
 	{
 		return playerRegion;
-	}
-
-	private IEnumerator SpawnEnemy(int p_num)
-	{
-		yield return new WaitForSeconds(1f);
-
-		for (int i = 0; i < p_num; i++)
-		{
-			var t_regions = enemySpawnRegions;
-			t_regions.Remove(playerRegion);
-			var t_spawnRegion = t_regions[Random.Range(0, t_regions.Count)];
-			var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", Vector3.zero, Quaternion.identity).GetComponent<EnemyNormal>();
-			t_enemy.SetEnemy(t_spawnRegion);
-		}
 	}
 
 	private IEnumerator SpawnPortal(int p_num)

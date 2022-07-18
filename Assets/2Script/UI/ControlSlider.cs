@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ControlSlider : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
+    [SerializeField] private Slider slider = null;
 
     public void SetMaxValue(int p_value)
     {
