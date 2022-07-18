@@ -93,7 +93,7 @@ public class GamePlayer : PlayerBehaviour
 
         moveController.SetControlType(GameManager.controlType);
         CanMove = true;
-        healthController.SetHealth();
+        healthController.SetHealth(true);
     }
 
     private void Update()

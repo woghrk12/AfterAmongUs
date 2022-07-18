@@ -67,7 +67,20 @@ public class InGameManager : MonoBehaviour
 		enemys = new List<EnemyBehaviour>();
 	}
 
-    public static void SetPlayerRegion(Region p_region)
+    private void Start()
+    {
+		player.SetColor(GameManager.playerColor);
+    }
+
+    void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.F1))
+			StartCoroutine(SpawnEnemy(5));
+		if (Input.GetKeyDown(KeyCode.F2))
+			StartCoroutine(SpawnPortal(2));
+	}
+
+	public static void SetPlayerRegion(Region p_region)
 	{
 		playerRegion = p_region;
 	}

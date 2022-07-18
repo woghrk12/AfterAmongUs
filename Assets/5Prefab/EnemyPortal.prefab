@@ -191,8 +191,9 @@ GameObject:
   - component: {fileID: 354597390505762001}
   - component: {fileID: 354597390505762014}
   - component: {fileID: 4016527800145184083}
+  - component: {fileID: -1558201758342538980}
   m_Layer: 9
-  m_Name: Portal
+  m_Name: EnemyPortal
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,9 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3761947e128d04d9cddba50e58314a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 10
-  healthBar: {fileID: 354597390438279014}
+  healthController: {fileID: -1558201758342538980}
   miniMapObject: {fileID: 0}
 --- !u!70 &354597390505762014
 CapsuleCollider2D:
@@ -286,6 +285,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-1558201758342538980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354597390505762013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9237e0befb8e55e46bbb4fa3da13f607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 354597390438279014}
+  maxHealth: 10
 --- !u!1 &354597390564560314
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,18 +38,20 @@ public class EnemyNormal : EnemyBehaviour
         target = null;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
         attackRegion = InGameManager.GetPlayerRegion();
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         target = enemyRader.GetTarget();
         if (target == null) return;
+
         if ((transform.position - target.position).sqrMagnitude > fireRange * fireRange) return;
+
         if (canAttack) attackCo = StartCoroutine(AttackCo());
     }
 
@@ -71,7 +73,6 @@ public class EnemyNormal : EnemyBehaviour
         target = null;
         isChasing = true;
         canAttack = true;
-        isDie = false;
     }
 
     private void Chase()
@@ -195,6 +196,5 @@ public class EnemyNormal : EnemyBehaviour
         capsuleCollider.enabled = false;
 
         yield return base.DieCo();
-        
     }
 }

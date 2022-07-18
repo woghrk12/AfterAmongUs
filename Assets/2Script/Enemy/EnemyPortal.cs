@@ -28,7 +28,7 @@ public class EnemyPortal : EnemyBehaviour
 
     private IEnumerator SpawnEnemyCo()
     {
-        while (health > 0)
+        while (!healthController.IsDie)
         {
             var t_randomTime = Random.Range(5f, 8f);
 

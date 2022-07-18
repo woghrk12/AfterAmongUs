@@ -25,9 +25,7 @@ public class Reactor : MonoBehaviour, IMission
     [SerializeField] private GameObject effectParent;
     private IEffect[] effects;
 
-    [SerializeField] private ControlSlider controlSlider;
-    [SerializeField] private int maxHealth;
-    private int curHealth;
+    [SerializeField] private CharacterDamagable healthController;
 
     private Coroutine onDamageCo;
     private Coroutine alertCo;
@@ -39,17 +37,14 @@ public class Reactor : MonoBehaviour, IMission
         hitBox = GetComponent<BoxCollider2D>();
 
         effects = effectParent.GetComponentsInChildren<IEffect>();
+
+        healthController.onDamageEvent += OnDamageEvent;
+        healthController.onDieEvent += OnDieEvent;
     }
 
     private void Start()
     {
-        controlSlider.SetMaxValue(maxHealth);
-        curHealth = maxHealth;
-    }
-
-    private void Update()
-    {
-        CheckHealth();
+        healthController.SetHealth(false);
     }
 
     public void StartMission()
@@ -90,7 +85,6 @@ public class Reactor : MonoBehaviour, IMission
         hitBox.enabled = false;
 
         anim.SetTrigger("Complete");
-        controlSlider.gameObject.SetActive(false);
 
         InGameManager.missionInProgress = null;
         InGameManager.instance.NumCompleteMission++;
@@ -98,7 +92,7 @@ public class Reactor : MonoBehaviour, IMission
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(0.6f, 1f, 0.6f), 1));
 
         for (int i = 0; i < InGameManager.enemys.Count; i++)
-            InGameManager.enemys[i].Die();
+            InGameManager.enemys[i].IsDie = true;
 
         return true;
     }
@@ -112,7 +106,6 @@ public class Reactor : MonoBehaviour, IMission
         hitBox.enabled = false;
 
         anim.SetBool("isActivated", false);
-        controlSlider.gameObject.SetActive(false);
 
         for (int i = 0; i < effects.Length; i++)
             effects[i].StopEffect();
@@ -123,31 +116,15 @@ public class Reactor : MonoBehaviour, IMission
         StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
 
         for (int i = 0; i < InGameManager.enemys.Count; i++)
-            InGameManager.enemys[i].Die();
+            InGameManager.enemys[i].IsDie = true;
 
         return false;
     }
 
-    private void OnDamage(int p_damage)
+    private void OnDamageEvent()
     {
-        if (!controlSlider.gameObject.activeSelf) controlSlider.gameObject.SetActive(true);
-
-        curHealth -= p_damage;
-        controlSlider.SetValue(curHealth);
         if (onDamageCo == null) onDamageCo = StartCoroutine(OnDamageCo());
         if (alertCo == null) alertCo = StartCoroutine(ShowAlertTextCo());
-    }
-
-    private void CheckHealth()
-    {
-        if (curHealth > 0) return;
-
-        controlSlider.SetMaxValue(maxHealth);
-        curHealth = maxHealth;
-
-        controlSlider.gameObject.SetActive(false);
-
-        FailMission();
     }
 
     private IEnumerator OnDamageCo()
@@ -161,6 +138,8 @@ public class Reactor : MonoBehaviour, IMission
         onDamageCo = null;
     }
 
+    private void OnDieEvent() => FailMission();
+
     private IEnumerator ShowAlertTextCo()
     {
         yield return InGameUIManager.AlertUnderAttack(this.name);
@@ -173,7 +152,7 @@ public class Reactor : MonoBehaviour, IMission
         if (collision.CompareTag("EnemyBullet"))
         {
             var t_damage = collision.GetComponent<Bullet>().damage;
-            OnDamage(t_damage);
+            healthController.OnDamage(t_damage);
             ObjectPooling.ReturnObject(collision.gameObject);
         }
     }

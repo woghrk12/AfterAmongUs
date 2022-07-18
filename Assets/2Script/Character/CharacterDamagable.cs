@@ -20,16 +20,20 @@ public class CharacterDamagable : MonoBehaviour
         if (curHealth <= 0 && !IsDie) Die();
     }
 
-    public void SetHealth()
+    public void SetHealth(bool p_isPlayer)
     {
         IsDie = false;
         healthBar.SetMaxValue(maxHealth);
         curHealth = maxHealth;
+
+        if (!p_isPlayer) healthBar.gameObject.SetActive(false);
     }
 
     public void OnDamage(int p_damage)
     {
         if (IsDie) return;
+
+        if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
 
         curHealth -= p_damage;
         healthBar.SetValue(curHealth);
@@ -38,9 +42,11 @@ public class CharacterDamagable : MonoBehaviour
             onDamageEvent.Invoke();
     }
 
-    private void Die()
+    public void Die()
     {
         IsDie = true;
+
+        healthBar.gameObject.SetActive(false);
 
         if (onDieEvent != null)
             onDieEvent.Invoke();

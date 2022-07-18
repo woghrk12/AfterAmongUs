@@ -7,15 +7,22 @@ public class EnemyBehaviour : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected Animator anim;
 
-    [SerializeField] protected int health;
-    [SerializeField] protected int maxHealth;
-    [SerializeField] protected ControlSlider healthBar;
+    [SerializeField] protected CharacterDamagable healthController;
 
     protected Coroutine attackCo;
+    protected Coroutine onDamageCo = null;
 
     protected Region spawnRegion;
 
-    protected bool isDie;
+    public bool IsDie 
+    {
+        set 
+        {
+            healthController.IsDie = value;
+            if (healthController.IsDie) healthController.Die();
+        }
+        get { return healthController.IsDie; } 
+    }
 
     private void Awake()
     {
@@ -23,61 +30,44 @@ public class EnemyBehaviour : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    protected virtual void Update()
+    protected virtual void OnEnable()
     {
-        CheckHealth();
+        healthController.onDamageEvent += OnDamageEvent;
+        healthController.onDieEvent += OnDieEvent;
     }
 
     public virtual void SetEnemy(Region p_region)
     {
-        health = maxHealth;
-        healthBar.SetMaxValue(maxHealth);
-        healthBar.gameObject.SetActive(false);
+        healthController.SetHealth(false);
         spriteRenderer.enabled = false;
         spawnRegion = p_region;
         transform.position = PointManager.GetPoint(p_region.dstPoint).transform.position;
     }
 
-    public virtual void OnDamage(int p_damage)
+    protected virtual void OnDamageEvent()
     {
-        health -= p_damage;
-        
-        if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
-        if (health <= 0) health = 0;
-
-        healthBar.SetValue(health);
-
-        StartCoroutine(OnDamageCo());
+        if (onDamageCo != null) onDamageCo = StartCoroutine(OnDamageCo());
     }
 
-    protected virtual IEnumerator OnDamageCo()
+    private IEnumerator OnDamageCo()
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.05f);
         spriteRenderer.color = Color.white;
+
+        onDamageCo = null;
     }
-
-    protected virtual void CheckHealth()
+    
+    protected virtual void OnDieEvent()
     {
-        if (health > 0) return;
-        if (isDie) return;
-
         if (attackCo != null) StopCoroutine(attackCo);
         StartCoroutine(DieCo());
     }
 
-    public void Die()
-    {
-        health = 0;
-    }
-
     protected virtual IEnumerator DieCo()
     {
-        isDie = true;
         gameObject.layer = (int)ELayer.ENEMYDIE;
         anim.SetTrigger("Die");
-
-        healthBar.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(3f);
 
@@ -95,7 +85,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             var t_damage = collision.GetComponent<Bullet>().damage;
-            OnDamage(t_damage);
+            healthController.OnDamage(t_damage);
             ObjectPooling.ReturnObject(collision.gameObject);
         }
     }
