@@ -7,9 +7,11 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
+	
 	public static Mission missionInProgress = null;
-	public static List<EnemyBehaviour> enemys;
+	private Coroutine missionCo = null;
 
+	public static List<EnemyBehaviour> enemys;
 	[SerializeField] private List<Region> enemySpawnRegions;
 
 	[SerializeField] private ControlSlider progress;
@@ -116,9 +118,6 @@ public class InGameManager : MonoBehaviour
 		pointLight.SetActive(p_isStart);
 	}
 
-	public static void TurnOnGlobalLight() => instance.ChangeLight(false);
-	public static void TurnOnPointLight() => instance.ChangeLight(true);
-
 	private IEnumerator BlinkColorLight(Color p_color)
 	{
 		var t_timer = 0f;
@@ -141,7 +140,7 @@ public class InGameManager : MonoBehaviour
 		}
 	}
 
-	public static IEnumerator TurnOnColorLight(Color p_color, int p_num = 1)
+	private IEnumerator TurnOnColorLight(Color p_color, int p_num = 1)
 	{
 		var t_num = p_num;
 
@@ -152,12 +151,62 @@ public class InGameManager : MonoBehaviour
 		}
 	}
 
+	public bool StartMission(Mission p_mission)
+	{
+		if (missionInProgress != null) return false;
+
+		missionInProgress = p_mission;
+		StartCoroutine(StartMissionCo());
+
+		return true;
+	}
+
+	private IEnumerator StartMissionCo()
+	{
+		yield return InGameUIManager.FadeOut();
+		ChangeLight(true);
+		missionInProgress.SetMission(out playerRegion);
+		yield return InGameUIManager.FadeIn();
+
+		missionCo = StartCoroutine(missionInProgress.PerformMission());
+	}
+
+	public void EndMission(bool p_isSuccess)
+	{
+		ChangeLight(false);
+
+		while (enemys.Count > 0)
+		{
+			enemys[0].IsDie = true;
+			enemys.RemoveAt(0);
+		}
+		
+		if (p_isSuccess) SuccessMission();
+		else FailMission();
+
+		missionInProgress = null;
+		missionCo = null;
+	}
+
+	private void SuccessMission()
+	{
+		NumCompleteMission++;
+		StartCoroutine(TurnOnColorLight(new Color(0.6f, 1f, 0.6f)));
+	}
+
+	private void FailMission()
+	{
+		StopCoroutine(missionCo);
+
+		NumFailMission++;
+		StartCoroutine(TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
+	}
+
 	private IEnumerator EndGame()
 	{
 		yield return InGameUIManager.FadeOut();
 
 		LoadingManager.LoadScene(EScene.ENDING);
 	}
-
 }
 

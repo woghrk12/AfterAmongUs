@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ControlBox : MonoBehaviour, IInteractable
 {
+    private InGameManager inGameManager = null;
+
     private BoxCollider2D boxCollider;
     private Mission mission;
 
@@ -13,21 +15,15 @@ public class ControlBox : MonoBehaviour, IInteractable
         mission = GetComponentInParent<Mission>();
     }
 
-    public void Use()
+    private void Start()
     {
-        if (!SetMission(mission)) return;
-
-        boxCollider.enabled = false;
-        mission.StartMission();
+        inGameManager = InGameManager.instance;
     }
 
-    private bool SetMission(Mission p_mission)
+    public void Use()
     {
-        if (InGameManager.missionInProgress == null)
-        {
-            InGameManager.missionInProgress = p_mission;
-            return true;
-        }
-        return false;
+        if (!inGameManager.StartMission(mission)) return;
+
+        boxCollider.enabled = false;
     }
 }

@@ -36,6 +36,12 @@ public class EnemyBehaviour : MonoBehaviour
         healthController.onDieEvent += OnDieEvent;
     }
 
+    private void OnDisable()
+    {
+        healthController.onDamageEvent -= OnDamageEvent;
+        healthController.onDieEvent -= OnDieEvent;
+    }
+
     public virtual void SetEnemy(Region p_region)
     {
         healthController.SetHealth(false);

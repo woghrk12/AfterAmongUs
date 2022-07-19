@@ -7,21 +7,12 @@ public class Mission : MonoBehaviour
     private Animator anim = null;
     private BoxCollider2D hitBox = null;
 
+    private InGameManager inGameManager = null;
+
     [SerializeField] private Region region = null;
 
-    [SerializeField] private float completeTime = 0;
-    private bool isComplete = false;
-    private bool IsComplete
-    {
-        set
-        {
-            isComplete = value;
-            if (value) SuccessMission();
-            else FailMission();
-        }
-    }
+    public float completeTime = 0;
 
-    private Coroutine runningCo = null;
     private Coroutine onDamageCo = null;
     private Coroutine alertCo = null;
 
@@ -45,72 +36,28 @@ public class Mission : MonoBehaviour
 
     private void Start()
     {
+        inGameManager = InGameManager.instance;
+
         healthController.SetHealth(false);
     }
 
-    public void StartMission() => StartCoroutine(StartMissionCo());
-
-    private IEnumerator StartMissionCo()
+    public void SetMission(out Region p_target)
     {
+        p_target = region;
+        
         hitBox.enabled = true;
-
-        yield return InGameUIManager.FadeOut();
 
         for (int i = 0; i < effects.Length; i++)
             effects[i].StartEffect();
 
-        InGameManager.SetPlayerRegion(region);
-
         anim.SetBool("isActivated", true);
-
-        //InGameManager.TurnOnPointLight();
-
-        yield return InGameUIManager.FadeIn();
-
-        runningCo = StartCoroutine(PerformMission());
     }
 
-    private IEnumerator PerformMission()
+    public IEnumerator PerformMission()
     {
         yield return InGameUIManager.TimeCheck(completeTime);
 
-        IsComplete = true;
-    }
-
-    public bool SuccessMission()
-    {
-        InGameManager.TurnOnGlobalLight();
-        hitBox.enabled = false;
-
-        anim.SetTrigger("Complete");
-
-        InGameManager.missionInProgress = null;
-        InGameManager.instance.NumCompleteMission++;
-
-        StartCoroutine(InGameManager.TurnOnColorLight(new Color(0.6f, 1f, 0.6f), 1));
-
-        return true;
-    }
-
-    public bool FailMission()
-    {
-        StopCoroutine(runningCo);
-        runningCo = null;
-
-        InGameManager.TurnOnGlobalLight();
-        hitBox.enabled = false;
-
-        anim.SetBool("isActivated", false);
-
-        for (int i = 0; i < effects.Length; i++)
-            effects[i].StopEffect();
-
-        InGameManager.missionInProgress = null;
-        InGameManager.instance.NumFailMission++;
-
-        StartCoroutine(InGameManager.TurnOnColorLight(new Color(1f, 0.5f, 0.5f), 3));
-
-        return false;
+        inGameManager.EndMission(true);
     }
 
     private void OnDamageEvent()
@@ -137,7 +84,32 @@ public class Mission : MonoBehaviour
         alertCo = null;
     }
 
-    private void OnDieEvent() => FailMission();
+    private void OnDieEvent()
+    {
+        hitBox.enabled = false;
+
+        anim.SetBool("isActivated", false);
+
+        for (int i = 0; i < effects.Length; i++)
+            effects[i].StopEffect();
+
+        StartCoroutine(BrokenCoreObject());
+
+        inGameManager.EndMission(false);
+    }
+
+    private IEnumerator BrokenCoreObject()
+    {
+        var t_timer = 0f;
+        var t_totalTime = 1f;
+
+        while (t_timer <= t_totalTime)
+        {
+            coreSprite.color = Color.Lerp(Color.white, Color.gray, t_timer / t_totalTime);
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
