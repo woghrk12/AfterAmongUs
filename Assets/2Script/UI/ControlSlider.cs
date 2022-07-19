@@ -7,6 +7,11 @@ public class ControlSlider : MonoBehaviour
 {
     [SerializeField] private Slider slider = null;
 
+    private void Awake()
+    {
+        slider.interactable = false;
+    }
+
     public void SetMaxValue(int p_value)
     {
         slider.maxValue = p_value;
