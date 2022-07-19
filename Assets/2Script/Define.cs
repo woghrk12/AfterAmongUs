@@ -30,12 +30,6 @@ public interface IInteractable
 {
     void Use();
 }
-public interface IMission
-{
-    void StartMission();
-    bool SuccessMission();
-    bool FailMission();
-}
 public interface IEffect
 {
     void StartEffect();

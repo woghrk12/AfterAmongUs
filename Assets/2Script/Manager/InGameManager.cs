@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
-	public static IMission missionInProgress = null;
+	public static Mission missionInProgress = null;
 	public static List<EnemyBehaviour> enemys;
 
 	[SerializeField] private List<Region> enemySpawnRegions;
@@ -30,7 +30,7 @@ public class InGameManager : MonoBehaviour
 		{
 			numFailMission = value;
 
-			if (numFailMission >= numTotalMission - numNeedMission) StartCoroutine(EndGame());
+			if (numFailMission >= numTotalMission - numNeedMission) instance.StartCoroutine(instance.EndGame());
 		}
 		get
 		{
@@ -44,9 +44,9 @@ public class InGameManager : MonoBehaviour
 		{
 			numCompleteMission = value;
 
-			progress.SetValue(numCompleteMission);
+			instance.progress.SetValue(numCompleteMission);
 
-			if (numCompleteMission >= numNeedMission) StartCoroutine(EndGame());
+			if (numCompleteMission >= numNeedMission) instance.StartCoroutine(instance.EndGame());
 			
 		}
 		get { return numCompleteMission; }

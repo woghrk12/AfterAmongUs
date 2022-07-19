@@ -5,12 +5,12 @@ using UnityEngine;
 public class ControlBox : MonoBehaviour, IInteractable
 {
     private BoxCollider2D boxCollider;
-    private IMission mission;
+    private Mission mission;
 
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-        mission = GetComponentInParent<IMission>();
+        mission = GetComponentInParent<Mission>();
     }
 
     public void Use()
@@ -21,7 +21,7 @@ public class ControlBox : MonoBehaviour, IInteractable
         mission.StartMission();
     }
 
-    private bool SetMission(IMission p_mission)
+    private bool SetMission(Mission p_mission)
     {
         if (InGameManager.missionInProgress == null)
         {
