@@ -5,14 +5,17 @@ using UnityEngine;
 public class ControlBox : MonoBehaviour, IInteractable
 {
     private InGameManager inGameManager = null;
-
-    private BoxCollider2D boxCollider;
-    private Mission mission;
+    
+    private Mission mission = null;
+    
+    private BoxCollider2D boxCollider = null;
+    [SerializeField] private BoxCollider2D highlightedCollider = null;
+    [SerializeField] private BoxCollider2D outLineCollider = null;
 
     private void Awake()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
         mission = GetComponentInParent<Mission>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -25,5 +28,7 @@ public class ControlBox : MonoBehaviour, IInteractable
         if (!inGameManager.StartMission(mission)) return;
 
         boxCollider.enabled = false;
+        highlightedCollider.enabled = false;
+        outLineCollider.enabled = false;    
     }
 }
