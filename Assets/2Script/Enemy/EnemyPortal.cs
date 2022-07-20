@@ -36,6 +36,7 @@ public class EnemyPortal : EnemyBehaviour
             
             var t_enemy = ObjectPooling.SpawnObject("EnemyNormal", transform.position, Quaternion.identity).GetComponent<EnemyNormal>();
             t_enemy.SetEnemy(spawnRegion);
+            InGameManager.enemys.Add(t_enemy);
         }
     }
 }
