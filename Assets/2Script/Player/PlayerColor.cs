@@ -13,7 +13,7 @@ public class PlayerColor
         new Color(1f, 0.6f, 0f),
         new Color(0.6f, 0f, 1f),
         new Color(0f, 1f, 1f),
-        new Color(0.6f, 0.3f, 1f),
+        new Color(0.6f, 0.3f, 0f),
         new Color(1f, 0f, 0.6f),
         new Color(0.9f, 0.9f, 0.9f),
         new Color(0.1f, 0.1f, 0.1f),
