@@ -24,13 +24,6 @@ public class PlayerRader : MonoBehaviour
         CheckTarget(target);
     }
 
-    public Transform GetTarget()
-    {
-        if (target == null) FindTarget();
-
-        return target;
-    }
-
     public void SetRange(float p_range)
     {
         transform.localScale = new Vector3(p_range, p_range, 1f);

@@ -130,7 +130,7 @@ public class GamePlayer : PlayerBehaviour
         
         if (!isFireReady) return;
 
-        targetingController.Target = playerRader.GetTarget();
+        targetingController.Target = playerRader.Target;
         if (targetingController.Target == null)
         {
             targetingController.IsTargeting = false;
