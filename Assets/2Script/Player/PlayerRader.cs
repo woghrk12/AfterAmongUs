@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class PlayerRader : MonoBehaviour
 {
-    [SerializeField] private Transform playerAim;
-    private List<Transform> enemys;
-    private Transform target;
-    private float range = 0;
-
-    private void Awake()
+    [SerializeField] private Transform playerAim = null;
+    
+    private List<Transform> enemys = new List<Transform>();
+    private Transform target = null;
+    public Transform Target
     {
-        enemys = new List<Transform>();
+        get
+        {
+            if (target == null) FindTarget();
+
+            return target;
+        }
+    }
+    private float range = 0f;
+
+    private void Update()
+    {
+        CheckTarget(target);
     }
 
     public Transform GetTarget()
@@ -25,6 +35,22 @@ public class PlayerRader : MonoBehaviour
     {
         transform.localScale = new Vector3(p_range, p_range, 1f);
         range = p_range;
+    }
+
+    private void CheckTarget(Transform p_target)
+    {
+        if (p_target == null) return;
+
+        int t_mask = 1 << (int)ELayer.MAP | 1 << (int)ELayer.ENEMY;
+        Vector3 t_dir = p_target.position - playerAim.position;
+        Ray2D t_ray = new Ray2D(playerAim.position, t_dir);
+        RaycastHit2D t_hitInfo = Physics2D.Raycast(t_ray.origin, t_ray.direction, range, t_mask);
+
+        if (t_hitInfo.collider.gameObject.layer != (int)ELayer.ENEMY)
+        {
+            target = null;
+            FindTarget();
+        }
     }
 
     private void FindTarget()
