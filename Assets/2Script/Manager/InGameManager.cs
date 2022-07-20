@@ -63,11 +63,6 @@ public class InGameManager : MonoBehaviour
 		enemys = new List<EnemyBehaviour>();
 	}
 
-    private void Start()
-    {
-		player.SetColor(GameManager.playerColor);
-    }
-
     private void OnEnable()
     {
 		missionInProgress = null;
@@ -76,6 +71,8 @@ public class InGameManager : MonoBehaviour
 
 		progress.SetMaxValue(numNeedMission);
 		progress.SetValue(NumCompleteMission);
+
+		player.CanMove = true;
 	}
 
     void Update()

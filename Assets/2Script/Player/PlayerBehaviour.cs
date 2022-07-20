@@ -5,34 +5,23 @@ using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    protected Animator anim;
-    protected SpriteRenderer spriteRenderer;
-
-    protected CharacterMove moveController;
+    protected CharacterMove moveController = null;
+    protected CharacterColor colorController = null;
 
     public bool CanMove { set { moveController.CanMove = value; } }
     public bool IsLeft { set { moveController.IsLeft = value; } }
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        anim = GetComponent<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        var t_instMat = Instantiate(spriteRenderer.material);
-        spriteRenderer.material = t_instMat;
-
         moveController = GetComponent<CharacterMove>();
+        colorController = GetComponent<CharacterColor>();
     }
 
-    public void SetColor(EPlayerColor p_color)
+    protected virtual void Start()
     {
-        spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor(p_color));
+        moveController.SetControlType(GameManager.controlType);
+        colorController.SetColor(GameManager.playerColor);
     }
 
-    protected void SetAlpha(float p_value)
-    {
-        var t_color = spriteRenderer.color;
-        t_color.a = p_value;
-        spriteRenderer.color = t_color;
-    }
+    public void SetColor(EPlayerColor p_color) => colorController.SetColor(p_color);
 }

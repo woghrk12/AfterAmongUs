@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class GamePlayer : PlayerBehaviour
 {
-    [SerializeField] private CharacterTargeting targetingController;
-    [SerializeField] private CharacterDamagable healthController;
+    private Animator anim = null;
+
+    protected CharacterTargeting targetingController;
+    protected CharacterDamagable healthController;
 
     [SerializeField] private List<PlayerWeapon> weapons;
     private bool[] hasWeapons;
@@ -46,16 +48,13 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private GameObject itemAcqView;
     [SerializeField] private GameObject itemTextPrefab;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         anim = GetComponent<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        var t_inst = Instantiate(spriteRenderer.material);
-        spriteRenderer.material = t_inst;
-
-        moveController = GetComponent<CharacterMove>();
-
+        targetingController = GetComponent<CharacterTargeting>();
         healthController = GetComponent<CharacterDamagable>();
 
         hasWeapons = new bool[weapons.Count];
@@ -79,8 +78,10 @@ public class GamePlayer : PlayerBehaviour
         healthController.onDieEvent += OnDieEvent;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         equipWeapon = weapons[equipWeaponIndex];
         equipWeapon.gameObject.SetActive(true);
         bulletType = equipWeapon.bulletType;
@@ -91,8 +92,6 @@ public class GamePlayer : PlayerBehaviour
         totalAmmoText.text = ammo9MM.ToString();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
 
-        moveController.SetControlType(GameManager.controlType);
-        CanMove = true;
         healthController.SetHealth(true);
     }
 
@@ -316,16 +315,16 @@ public class GamePlayer : PlayerBehaviour
         while (t_countTime < 10)
         {
             if (t_countTime % 2 == 0)
-                SetAlpha(0.3f);
+                colorController.SetAlpha(0.3f);
             else
-                SetAlpha(0.6f);
+                colorController.SetAlpha(0.6f);
 
             yield return new WaitForSeconds(0.2f);
 
             t_countTime++;
         }
 
-        SetAlpha(1f);
+        colorController.SetAlpha(1f);
 
         gameObject.layer = 6;
     }
@@ -339,8 +338,6 @@ public class GamePlayer : PlayerBehaviour
 
         gameObject.layer = 7;
         CanMove = false;
-
-        spriteRenderer.flipX = false;
 
         anim.SetTrigger("Die");
     }
