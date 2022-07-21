@@ -35,10 +35,10 @@ public class InGameUIManager : MonoBehaviour
     public static IEnumerator FadeIn() => instance.ChangeScreen(true);
     public static IEnumerator FadeOut() => instance.ChangeScreen(false);
 
-    private IEnumerator TimeCheckCo(float p_time)
-    {
-        timerText.gameObject.SetActive(true);
+    public void SwitchTimeText(bool p_isOn) => timerText.gameObject.SetActive(p_isOn);
 
+    public IEnumerator TimeCheck(float p_time)
+    {
         var t_time = p_time;
         var t_interval = 1f;
 
@@ -61,11 +61,7 @@ public class InGameUIManager : MonoBehaviour
 
             yield return new WaitForSeconds(t_interval);
         }
-
-        timerText.gameObject.SetActive(false);
     }
-
-    public static IEnumerator TimeCheck(float p_time) => instance.TimeCheckCo(p_time);
 
     private IEnumerator ShowAlertText(string p_name)
     {

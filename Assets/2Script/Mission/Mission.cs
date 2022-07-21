@@ -8,6 +8,7 @@ public class Mission : MonoBehaviour
     private BoxCollider2D hitBox = null;
 
     private InGameManager inGameManager = null;
+    private InGameUIManager inGameUIManager = null;
 
     [SerializeField] private Region region = null;
 
@@ -37,6 +38,7 @@ public class Mission : MonoBehaviour
     private void Start()
     {
         inGameManager = InGameManager.instance;
+        inGameUIManager = InGameUIManager.instance;
 
         healthController.SetHealth(false);
     }
@@ -55,7 +57,7 @@ public class Mission : MonoBehaviour
 
     public IEnumerator PerformMission()
     {
-        yield return InGameUIManager.TimeCheck(completeTime);
+        yield return inGameUIManager.TimeCheck(completeTime);
 
         inGameManager.EndMission(true);
     }

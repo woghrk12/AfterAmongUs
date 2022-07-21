@@ -7,7 +7,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
 	public static InGameManager instance;
-	
+	private InGameUIManager inGameUIManager = null;
+
 	public static Mission missionInProgress = null;
 	private Coroutine missionCo = null;
 
@@ -61,6 +62,11 @@ public class InGameManager : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<GamePlayer>();
 
 		enemys = new List<EnemyBehaviour>();
+	}
+
+    private void Start()
+    {
+		inGameUIManager = InGameUIManager.instance;
 	}
 
     private void OnEnable()
@@ -165,6 +171,7 @@ public class InGameManager : MonoBehaviour
 		StartCoroutine(TurnOnPointLight());
 		missionInProgress.SetMission(out playerRegion);
 
+		inGameUIManager.SwitchTimeText(true);
 		missionCo = StartCoroutine(missionInProgress.PerformMission());
 
 		return true;
@@ -184,6 +191,7 @@ public class InGameManager : MonoBehaviour
 		if (p_isSuccess) SuccessMission();
 		else FailMission();
 
+		inGameUIManager.SwitchTimeText(false);
 		missionInProgress = null;
 		missionCo = null;
 	}
