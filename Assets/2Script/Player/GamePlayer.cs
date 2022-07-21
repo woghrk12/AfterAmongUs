@@ -10,15 +10,12 @@ public class GamePlayer : PlayerBehaviour
     protected CharacterTargeting targetingController;
     protected CharacterDamagable healthController;
 
-    [SerializeField] private List<PlayerWeapon> weapons;
-    private bool[] hasWeapons;
-    private PlayerWeapon equipWeapon;
-    private EBulletType bulletType;
-    private int equipWeaponIndex;
+    [SerializeField] private List<Weapon> weapons = null;
+    private bool[] hasWeapons = null;
+    private Weapon equipWeapon = null;
+    private EBulletType bulletType = EBulletType.END;
+    private int equipWeaponIndex = -1;
 
-    private bool sDown1;
-    private bool sDown2;
-    private bool sDown3;
     private bool mDown;
 
     private bool isFireReady;
@@ -34,9 +31,9 @@ public class GamePlayer : PlayerBehaviour
     private int ammo5MM;
     private int ammo9MM;
 
-    [SerializeField] private Text curAmmoText;
-    [SerializeField] private Text totalAmmoText;
-    [SerializeField] private Image ammoImage;
+    [SerializeField] private Text curAmmoText = null;
+    [SerializeField] private Text totalAmmoText = null;
+    [SerializeField] private Image ammoImage = null;
 
     [SerializeField] private Sprite ammo12GuageImage;
     [SerializeField] private Sprite ammo7MMImage;
@@ -62,8 +59,6 @@ public class GamePlayer : PlayerBehaviour
         for (int i = 0; i < weapons.Count; i++)
             hasWeapons[i] = true;
 
-        equipWeaponIndex = 0;
-
         isFireReady = true;
         isReloadReady = true;
 
@@ -81,17 +76,7 @@ public class GamePlayer : PlayerBehaviour
     protected override void Start()
     {
         base.Start();
-
-        equipWeapon = weapons[equipWeaponIndex];
-        equipWeapon.gameObject.SetActive(true);
-        bulletType = equipWeapon.bulletType;
-
-        playerRader.SetRange(equipWeapon.range);
-
-        ammoImage.sprite = ammo9MMImage;
-        totalAmmoText.text = ammo9MM.ToString();
-        curAmmoText.text = equipWeapon.curAmmo.ToString();
-
+        
         healthController.SetHealth(true);
     }
 
@@ -101,15 +86,11 @@ public class GamePlayer : PlayerBehaviour
 
         GetInput();
         Fire();
-        Swap();
         TurnOnOffMiniMap();
     }
 
     private void GetInput()
     {
-        sDown1 = Input.GetButtonDown("Swap1");
-        sDown2 = Input.GetButtonDown("Swap2");
-        sDown3 = Input.GetButtonDown("Swap3");
         mDown = Input.GetButtonDown("Map");
     }
 
@@ -141,7 +122,7 @@ public class GamePlayer : PlayerBehaviour
 
         if (moveController.IsMove) return;
 
-        equipWeapon.GetComponent<PlayerWeapon>().Shot();
+        equipWeapon.GetComponent<Weapon>().UseWeapon();
         curAmmoText.text = equipWeapon.curAmmo.ToString();
         fireDelay = 0;
     }
@@ -192,31 +173,29 @@ public class GamePlayer : PlayerBehaviour
         isReloadReady = true;
     }
 
-    private void Swap()
+    public void Swap(int p_index)
     {
-        if (!sDown1 && !sDown2 && !sDown3) return;
-        if (sDown1 && (equipWeaponIndex == 0 || !hasWeapons[0])) return;
-        if (sDown2 && (equipWeaponIndex == 1 || !hasWeapons[1])) return;
-        if (sDown3 && (equipWeaponIndex == 2 || !hasWeapons[2])) return;
+        if (p_index == 0 && !hasWeapons[0]) return;
+        if (p_index == 1 && !hasWeapons[1]) return;
+        if (p_index == 2 && !hasWeapons[2]) return;
+
+        if (equipWeaponIndex == p_index) return;
 
         if (reloadCo != null)
         {
             StopCoroutine(reloadCo);
             isReloadReady = true;
         }
+
         if (equipWeapon != null) equipWeapon.gameObject.SetActive(false);
-
-        if (sDown1) equipWeaponIndex = 0;
-        if (sDown2) equipWeaponIndex = 1;
-        if (sDown3) equipWeaponIndex = 2;
-
+    
+        equipWeaponIndex = p_index;
         equipWeapon = weapons[equipWeaponIndex];
         equipWeapon.gameObject.SetActive(true);
-
-        bulletType = equipWeapon.bulletType;
-
+      
         playerRader.SetRange(equipWeapon.range);
-
+      
+        bulletType = equipWeapon.bulletType;
         switch (bulletType)
         {
             case EBulletType.FIVEMM:
@@ -239,7 +218,6 @@ public class GamePlayer : PlayerBehaviour
                 totalAmmoText.text = ammo12Guage.ToString();
                 break;
         }
-
         curAmmoText.text = equipWeapon.curAmmo.ToString();
     }
     
