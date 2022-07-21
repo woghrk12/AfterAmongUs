@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 2859000037079687010}
   - component: {fileID: 6596336754786120498}
   m_Layer: 0
-  m_Name: Multiple Muzzle Flash
+  m_Name: Muzzle Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
