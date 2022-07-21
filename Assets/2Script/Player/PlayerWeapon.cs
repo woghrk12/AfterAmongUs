@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     private Animator anim;
+    public Sprite WeaponSprite { get { return GetComponentInChildren<SpriteRenderer>().sprite; } }
 
     [SerializeField] private Transform triggerPosition;
     [SerializeField] private Transform firePosition;
