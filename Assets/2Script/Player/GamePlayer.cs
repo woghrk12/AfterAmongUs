@@ -16,8 +16,6 @@ public class GamePlayer : PlayerBehaviour
     private EBulletType bulletType = EBulletType.END;
     private int equipWeaponIndex = -1;
 
-    private bool mDown;
-
     private bool isFireReady;
     private bool isReloadReady;
 
@@ -39,8 +37,6 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private Sprite ammo7MMImage;
     [SerializeField] private Sprite ammo5MMImage;
     [SerializeField] private Sprite ammo9MMImage;
-
-    [SerializeField] private GameObject miniMap;
 
     [SerializeField] private GameObject itemAcqView;
     [SerializeField] private GameObject itemTextPrefab;
@@ -84,14 +80,7 @@ public class GamePlayer : PlayerBehaviour
     {
         if (healthController.IsDie) return;
 
-        GetInput();
         Fire();
-        TurnOnOffMiniMap();
-    }
-
-    private void GetInput()
-    {
-        mDown = Input.GetButtonDown("Map");
     }
 
     private void Fire()
@@ -253,8 +242,7 @@ public class GamePlayer : PlayerBehaviour
                 break;
 
             case EItemType.HEAL:
-                //curHealth += p_num;
-                //healthBar.SetValue(curHealth);
+                healthController.Cure(p_num);
                 break;
 
             case EItemType.GRENADE:
@@ -318,13 +306,6 @@ public class GamePlayer : PlayerBehaviour
         CanMove = false;
 
         anim.SetTrigger("Die");
-    }
-
-    private void TurnOnOffMiniMap()
-    {
-        if (!mDown) return;
-
-        miniMap.SetActive(!miniMap.activeSelf);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

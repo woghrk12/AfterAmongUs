@@ -51,4 +51,12 @@ public class CharacterDamagable : MonoBehaviour
         if (onDieEvent != null)
             onDieEvent.Invoke();
     }
+
+    public void Cure(int p_value)
+    {
+        if (IsDie) return;
+
+        curHealth = curHealth + p_value > maxHealth ? maxHealth : curHealth + p_value;
+        healthBar.SetValue(curHealth);
+    }
 }
