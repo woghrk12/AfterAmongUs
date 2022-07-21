@@ -26,10 +26,8 @@ public abstract class Weapon : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-    }
 
-    private void Start()
-    {
+        curAmmo = maxAmmo;
         cameraRecoil = recoil * 0.2f;
 
         switch (bulletType)
@@ -47,8 +45,6 @@ public abstract class Weapon : MonoBehaviour
                 bulletTag = "9mm Bullet";
                 break;
         }
-
-        curAmmo = maxAmmo;
     }
 
     protected abstract void Shot(Transform p_origin, Vector3 p_dir);
