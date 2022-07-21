@@ -19,8 +19,8 @@ public class InGameManager : MonoBehaviour
 	[SerializeField] private GamePlayer player;
 	private static Region playerRegion;
 
-	[SerializeField] private GameObject pointLight;
-	[SerializeField] private GameObject globalLight;
+	[SerializeField] private Light2D pointLight;
+	[SerializeField] private Light2D globalLight;
 
 	[SerializeField] private int numTotalMission = 0;
 	[SerializeField] private int numNeedMission = 0;
@@ -109,10 +109,18 @@ public class InGameManager : MonoBehaviour
 		}
 	}
 
-	private void ChangeLight(bool p_isStart)
+	private IEnumerator TurnOnPointLight()
 	{
-		globalLight.SetActive(!p_isStart);
-		pointLight.SetActive(p_isStart);
+		var t_timer = 0f;
+		var t_totalTime = 2f;
+
+		while (t_timer <= t_totalTime)
+		{
+			globalLight.intensity = Mathf.Lerp(1f, 0f, t_timer / t_totalTime);
+			pointLight.intensity = 1f - globalLight.intensity;
+			t_timer += Time.deltaTime;
+			yield return null;
+		}
 	}
 
 	private IEnumerator BlinkColorLight(Color p_color)
@@ -120,18 +128,18 @@ public class InGameManager : MonoBehaviour
 		var t_timer = 0f;
 		var t_totalTime = 1f;
 		
-		var t_color = globalLight.GetComponent<Light2D>().color;
+		var t_color = globalLight.color;
 		
 		while (t_timer <= t_totalTime) 
 		{
-			globalLight.GetComponent<Light2D>().color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+			globalLight.color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
 			t_timer += Time.deltaTime;
 			yield return null;
 		}
 
 		while (t_timer >= 0f)
 		{
-			globalLight.GetComponent<Light2D>().color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+			globalLight.color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
 			t_timer -= Time.deltaTime;
 			yield return null;
 		}
@@ -153,24 +161,19 @@ public class InGameManager : MonoBehaviour
 		if (missionInProgress != null) return false;
 
 		missionInProgress = p_mission;
-		StartCoroutine(StartMissionCo());
+
+		StartCoroutine(TurnOnPointLight());
+		missionInProgress.SetMission(out playerRegion);
+
+		missionCo = StartCoroutine(missionInProgress.PerformMission());
 
 		return true;
 	}
 
-	private IEnumerator StartMissionCo()
-	{
-		yield return InGameUIManager.FadeOut();
-		ChangeLight(true);
-		missionInProgress.SetMission(out playerRegion);
-		yield return InGameUIManager.FadeIn();
-
-		missionCo = StartCoroutine(missionInProgress.PerformMission());
-	}
-
 	public void EndMission(bool p_isSuccess)
 	{
-		ChangeLight(false);
+		pointLight.intensity = 0f;
+		globalLight.intensity = 1f;
 
 		while (enemys.Count > 0)
 		{
