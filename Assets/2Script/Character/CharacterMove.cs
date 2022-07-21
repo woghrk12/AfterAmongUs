@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterMove : MonoBehaviour
 {
     [SerializeField] private Animator anim = null;
-    [SerializeField] private SpriteRenderer spriteRender;
 
     [SerializeField] private JoyStick joyStick = null;
     [SerializeField] private KeyBoard keyBoard = null;
@@ -33,7 +32,11 @@ public class CharacterMove : MonoBehaviour
         set 
         {
             canMove = value;
-            if(!canMove) anim.SetBool("isWalk", canMove);
+            if (!canMove)
+            {
+                moveDir = Vector3.zero;
+                anim.SetBool("isWalk", IsMove);
+            }
         }
         get { return canMove; }
     }
@@ -45,13 +48,13 @@ public class CharacterMove : MonoBehaviour
 
     private void Update()
     {
+        if (!CanMove) return;
         SetMoveDirection();
     }
 
     private void FixedUpdate()
     {
         if (!CanMove) return;
-
         Move();
     }
 
@@ -80,7 +83,7 @@ public class CharacterMove : MonoBehaviour
     {
         transform.position += moveDir * Time.deltaTime * moveSpeed;
 
-        anim.SetBool("isWalk", IsMove ? true : false);
+        anim.SetBool("isWalk", IsMove);
 
         if (moveDir.x != 0)
         {
