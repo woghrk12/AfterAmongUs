@@ -21,7 +21,7 @@ public abstract class Weapon : MonoBehaviour
     protected string bulletTag = "";
 
     public int maxAmmo = 0;
-    public int curAmmo = 0;
+    [HideInInspector] public int curAmmo = 0;
 
     private void Awake()
     {

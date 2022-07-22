@@ -41,6 +41,8 @@ public class GamePlayer : PlayerBehaviour
     [SerializeField] private GameObject itemAcqView;
     [SerializeField] private GameObject itemTextPrefab;
 
+    [SerializeField] private PlayerWeaponGroup weaponUIController = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +76,11 @@ public class GamePlayer : PlayerBehaviour
         base.Start();
         
         healthController.SetHealth(true);
+
+        for (int i = 0; i < weapons.Count; i++)
+            weaponUIController.SetMaxValue(i, weapons[i].maxAmmo);
+
+        weaponUIController.OnClickWeaponButton(0);
     }
 
     private void Update()
@@ -112,7 +119,10 @@ public class GamePlayer : PlayerBehaviour
         if (moveController.IsMove) return;
 
         equipWeapon.GetComponent<Weapon>().UseWeapon();
+
         curAmmoText.text = equipWeapon.curAmmo.ToString();
+        weaponUIController.SetValue(equipWeaponIndex, equipWeapon.curAmmo);
+        
         fireDelay = 0;
     }
 
@@ -156,7 +166,9 @@ public class GamePlayer : PlayerBehaviour
                 totalAmmoText.text = ammo12Guage.ToString();
                 break;
         }
+
         curAmmoText.text = equipWeapon.curAmmo.ToString();
+        weaponUIController.SetValue(equipWeaponIndex, equipWeapon.curAmmo);
 
         reloadCo = null;
         isReloadReady = true;

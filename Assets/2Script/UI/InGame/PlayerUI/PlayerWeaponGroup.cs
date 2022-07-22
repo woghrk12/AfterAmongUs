@@ -1,25 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerWeaponGroup : MonoBehaviour
 {
     [SerializeField] private GamePlayer player = null;
-    [SerializeField] private Image[] weaponButtons = null;
+    [SerializeField] private ControlSlider[] remainBullets = null;
 
-    private void Start()
-    {
-        OnClickWeaponButton(0);
-    }
-
+    public void SetMaxValue(int p_index, int p_value) => remainBullets[p_index].SetMaxValue(p_value);
+    public void SetValue(int p_index, int p_value) => remainBullets[p_index].SetValue(p_value);
     public void OnClickWeaponButton(int p_index)
     {
-        player.Swap(p_index);
+        for (int i = 0; i < remainBullets.Length; i++)
+            remainBullets[i].gameObject.SetActive(i == p_index);
 
-        for (int i = 0; i < weaponButtons.Length; i++)
-        {
-            weaponButtons[i].color = (i == p_index) ? Color.green : Color.white;
-        }
-    }
+        player.Swap(p_index);
+    } 
 }
