@@ -9,6 +9,7 @@ public class CharacterDamagable : MonoBehaviour
     [SerializeField] private int maxHealth = 0;
     private int curHealth = 0;
 
+    [SerializeField] private bool isPlayer = false;
     private bool isDie = false;
     public bool IsDie { set { isDie = value; } get { return isDie; } }
 
@@ -17,7 +18,7 @@ public class CharacterDamagable : MonoBehaviour
 
     private void Update()
     {
-        if (curHealth <= 0 && !IsDie) Die();
+        if (curHealth <= 0 && !IsDie) Die(isPlayer);
     }
 
     public void SetHealth(bool p_isPlayer)
@@ -42,11 +43,11 @@ public class CharacterDamagable : MonoBehaviour
             onDamageEvent.Invoke();
     }
 
-    public void Die()
+    public void Die(bool p_isOn)
     {
         IsDie = true;
 
-        healthBar.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(p_isOn);
 
         if (onDieEvent != null)
             onDieEvent.Invoke();

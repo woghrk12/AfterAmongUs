@@ -59,7 +59,20 @@ public class Mission : MonoBehaviour
     {
         yield return inGameUIManager.TimeCheck(completeTime);
 
+        OnEndEvent();
         inGameManager.EndMission(true);
+    }
+
+    private void OnEndEvent()
+    {
+        hitBox.enabled = false;
+
+        anim.SetTrigger("Complete");
+
+        healthController.onDieEvent -= OnDieEvent;
+        healthController.onDamageEvent -= OnDamageEvent;
+
+        healthController.Die(false);
     }
 
     private void OnDamageEvent()

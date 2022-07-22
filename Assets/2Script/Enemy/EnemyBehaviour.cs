@@ -19,7 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
         set 
         {
             healthController.IsDie = value;
-            if (healthController.IsDie) healthController.Die();
+            if (healthController.IsDie) healthController.Die(false);
         }
         get { return healthController.IsDie; } 
     }
