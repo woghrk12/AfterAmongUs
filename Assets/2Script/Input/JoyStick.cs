@@ -22,11 +22,6 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         radius = background.sizeDelta / 2;
     }
 
-    private void Update()
-    {
-        Debug.Log(Direction);
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
