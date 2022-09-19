@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
+    [SerializeField] private Animator anim = null;
+
     [SerializeField] private float moveSpeed = 0f;
     private Vector3 moveDir = Vector3.zero;
+
+    public bool IsMove { get { return moveDir != Vector3.zero; } }
 
     private bool isLeft = false;
     public bool IsLeft 
@@ -36,6 +40,8 @@ public class CharacterMove : MonoBehaviour
     private void Move()
     {
         transform.position += moveDir * Time.deltaTime * moveSpeed;
+
+        anim.SetBool("isWalk", IsMove);
 
         if (moveDir.x != 0f) IsLeft = moveDir.x < 0f;
     }
