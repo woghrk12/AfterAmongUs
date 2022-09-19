@@ -14,6 +14,7 @@ public class TitleUIManager : MonoBehaviour
     private void Start()
     {
         UIManager.DisableJoystick();
+        UIManager.FadeIn();
     }
 
     private IEnumerator StartEffect()
