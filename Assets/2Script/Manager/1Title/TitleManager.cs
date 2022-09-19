@@ -26,6 +26,7 @@ public class TitleManager : MonoBehaviour
     {
         var t_num = Random.Range(0, spawnPositions.Length);
         titlePlayer.transform.position = spawnPositions[t_num].position;
+        titlePlayer.transform.localScale = new Vector3(t_num > 4 ? -1f : 1f, 1f, 1f);
 
         titlePlayer.gameObject.SetActive(true);
 
