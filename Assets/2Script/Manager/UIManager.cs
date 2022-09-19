@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	private JoyStick joyStick = null;
-	public JoyStick JoyStick { get { return joyStick; } }
+	private JoyStick joystick = null;
+	public JoyStick Joystick { get { return joystick; } }
 
 	private void Awake()
 	{
@@ -42,6 +42,9 @@ public class UIManager : MonoBehaviour
 
 		DontDestroyOnLoad(gameObject);
 
-		joyStick = GetComponentInChildren<JoyStick>();
+		joystick = GetComponentInChildren<JoyStick>();
 	}
+
+	public static void ActivateJoystick() => Instance.joystick.gameObject.SetActive(true);
+	public static void DisableJoystick() => Instance.joystick.gameObject.SetActive(false);
 }

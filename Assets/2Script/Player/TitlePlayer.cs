@@ -6,13 +6,13 @@ public class TitlePlayer : MonoBehaviour
 {
     private Animator anim = null;
     [SerializeField] private CharacterMove moveController = null;
-    private JoyStick joyStick = null;
+    private JoyStick joystick = null;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
 
-        joyStick = UIManager.Instance.JoyStick;
+        joystick = UIManager.Instance.Joystick;
     }
 
     private void FixedUpdate()
@@ -20,5 +20,5 @@ public class TitlePlayer : MonoBehaviour
         Move();
     }
 
-    private void Move() => moveController.MoveCharacter(joyStick.Direction, anim);
+    private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
 }
