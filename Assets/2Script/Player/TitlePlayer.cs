@@ -10,6 +10,17 @@ public class TitlePlayer : MonoBehaviour
 
     private JoyStick joystick = null;
 
+    private bool canMove = false;
+    public bool CanMove
+    {
+        set 
+        {
+            canMove = value;
+            if (!canMove) moveController.MoveCharacter(Vector3.zero, anim);
+        }
+        get { return canMove; }
+    }
+    
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -19,11 +30,14 @@ public class TitlePlayer : MonoBehaviour
 
     private void OnEnable()
     {
+        CanMove = false;
         anim.SetTrigger("Spawn");
     }
 
     private void FixedUpdate()
     {
+        if (!canMove) return;
+
         Move();
     }
 

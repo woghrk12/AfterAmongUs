@@ -26,7 +26,11 @@ public class TitleManager : MonoBehaviour
     {
         var t_num = Random.Range(0, spawnPositions.Length);
         titlePlayer.transform.position = spawnPositions[t_num].position;
+
         titlePlayer.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(1f);
+        
+        titlePlayer.CanMove = true;
     }
 }
