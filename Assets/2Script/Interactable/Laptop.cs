@@ -6,8 +6,5 @@ public class Laptop : MonoBehaviour, IInteractable
 {
     [SerializeField] private TitleUIManager titleUIManager = null;
 
-    public void Use()
-    {
-        titleUIManager.OnCustomUI();
-    }
+    public void Use() => titleUIManager.OnCustomUI();
 }
