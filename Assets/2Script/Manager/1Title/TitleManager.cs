@@ -14,6 +14,7 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
+        titlePlayer.SetPlayerColor((int)GameManager.playerColor);
         titlePlayer.gameObject.SetActive(false);
     }
 

@@ -12,16 +12,16 @@ public class UIManager : MonoBehaviour
 		{
 			if (instance == null)
 			{
-				var obj = FindObjectOfType<UIManager>();
+				var t_obj = FindObjectOfType<UIManager>();
 
-				if (obj != null)
+				if (t_obj != null)
 				{
-					instance = obj;
+					instance = t_obj;
 				}
 				else
 				{
-					var newObj = new GameObject().AddComponent<UIManager>();
-					instance = newObj;
+					var t_newObj = new GameObject().AddComponent<UIManager>();
+					instance = t_newObj;
 				}
 			}
 			return instance;
@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
 
 	private void Awake()
 	{
-		var objs = FindObjectsOfType<UIManager>();
+		var t_objs = FindObjectsOfType<UIManager>();
 
-		if (objs.Length != 1)
+		if (t_objs.Length != 1)
 		{
 			Destroy(gameObject);
 			return;

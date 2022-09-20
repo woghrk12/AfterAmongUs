@@ -8,6 +8,7 @@ public class TitlePlayer : MonoBehaviour
     
     [SerializeField] private CharacterMove moveController = null;
     [SerializeField] private CharacterInteract interactController = null;
+    [SerializeField] private CharacterColor colorController = null;
 
     private JoyStick joystick = null;
 
@@ -43,6 +44,8 @@ public class TitlePlayer : MonoBehaviour
     }
 
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
+
+    public void SetPlayerColor(int p_color) => colorController.SetColor(p_color);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
