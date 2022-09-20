@@ -28,10 +28,13 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	[SerializeField]private JoyStick joystick = null;
+	[SerializeField] private GameObject playerUI = null;
+	[SerializeField] private JoyStick joystick = null;
+	[SerializeField] private Button useButton = null;
 	[SerializeField] private Image screen = null;
 
 	public JoyStick Joystick { get { return joystick; } }
+	public Button UseButton { get { return useButton; } }
 
 	private void Awake()
 	{
@@ -48,8 +51,8 @@ public class UIManager : MonoBehaviour
 		joystick = GetComponentInChildren<JoyStick>();
 	}
 
-	public static void ActivateJoystick() => Instance.joystick.gameObject.SetActive(true);
-	public static void DisableJoystick() => Instance.joystick.gameObject.SetActive(false);
+	public static void ActivatePlayerUI() => Instance.playerUI.SetActive(true);
+	public static void DisablePlayerUI() => Instance.playerUI.SetActive(false);
 	public static void FadeIn() => instance.StartCoroutine(instance.FadeInCo());
 	public static void FadeOut() => instance.StartCoroutine(instance.FadeOutCo());
 

@@ -8,14 +8,20 @@ public class TitleUIManager : MonoBehaviour
     [SerializeField] private TitleManager titleManager = null;
     [SerializeField] private Image titleImage = null;
     [SerializeField] private Button gameStartButton = null;
-
-    public void OnClickGameStartButton() => StartCoroutine(StartEffect());
+    [SerializeField] private GameObject customUI = null;
 
     private void Start()
     {
-        UIManager.DisableJoystick();
+        UIManager.DisablePlayerUI();
         UIManager.FadeIn();
     }
+
+    public void OnClickGameStartButton() => StartCoroutine(StartEffect());
+
+    #region OnOffFunction
+    public void OnCustomUI() => customUI.SetActive(true);
+    public void OffCustomUI() => customUI.SetActive(false);
+    #endregion
 
     private IEnumerator StartEffect()
     {
@@ -27,6 +33,6 @@ public class TitleUIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         titleManager.GameStart();
-        UIManager.ActivateJoystick();
+        UIManager.ActivatePlayerUI();
     }
 }

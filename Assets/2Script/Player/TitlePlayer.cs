@@ -7,6 +7,7 @@ public class TitlePlayer : MonoBehaviour
     private Animator anim = null;
     
     [SerializeField] private CharacterMove moveController = null;
+    [SerializeField] private CharacterInteract interactController = null;
 
     private JoyStick joystick = null;
 
@@ -42,4 +43,16 @@ public class TitlePlayer : MonoBehaviour
     }
 
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+            interactController.AddObj(collision.GetComponentInParent<IInteractable>());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+            interactController.RemoveObj(collision.GetComponentInParent<IInteractable>());
+    }
 }
