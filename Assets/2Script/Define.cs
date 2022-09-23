@@ -5,6 +5,7 @@ using UnityEngine;
 // Enum
 public enum ESortingType { STATIC, UPDATE }
 public enum EPlayerColor { RED, BLUE, GREEN, PINK, ORANGE, YELLOW, BLACK, WHITE, PURPLE, BROWN, CYAN, LIME, END }
+public enum EPlayerWeapon { RIFLE, SHOTGUN, PISTOL, SNIPER, MACHINEGUN, SUBMACHINEGUN, NONE }
 
 // Interface
 
