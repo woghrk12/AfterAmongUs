@@ -51,6 +51,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
-            Debug.Log(playerWeapon[0] +" " + playerWeapon[1]);
+            UIManager.Alert("We need two weapons");
     }
 }
