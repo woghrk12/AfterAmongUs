@@ -46,11 +46,4 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < playerWeapon.Length; i++)
             playerWeapon[i] = EPlayerWeapon.NONE;
     }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-            UIManager.Alert("We need two weapons");
-    }
 }

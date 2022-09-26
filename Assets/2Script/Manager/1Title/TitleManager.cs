@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
@@ -36,5 +37,33 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         titlePlayer.CanMove = true;
+    }
+
+    public void EnterInGame() => StartCoroutine(EnterInGameCo());
+
+    private IEnumerator EnterInGameCo()
+    {
+        titlePlayer.CanMove = false;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(1);
+    }
+
+    public bool CheckCanStartGame()
+    {
+        if (!CheckWeapon(GameManager.playerWeapon))
+        {
+            UIManager.Alert("We need two weapons!!");
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool CheckWeapon(EPlayerWeapon[] p_weapons)
+    {
+        for (int i = 0; i < p_weapons.Length; i++)
+            if (p_weapons[i] == EPlayerWeapon.NONE) return false;
+
+        return true;
     }
 }

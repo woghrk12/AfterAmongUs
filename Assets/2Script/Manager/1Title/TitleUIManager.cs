@@ -9,16 +9,25 @@ public class TitleUIManager : MonoBehaviour
     [SerializeField] private Image titleImage = null;
     [SerializeField] private Button gameStartButton = null;
     [SerializeField] private GameObject customUI = null;
+    [SerializeField] private GameObject shipUI = null;
 
     private bool inProgress = false;
 
     private void Start()
     {
-        UIManager.DisablePlayerUI();
         UIManager.FadeIn();
     }
 
     public void OnClickGameStartButton() => StartCoroutine(StartEffect());
+    public void OnClickInGameButton()
+    {
+        if (!titleManager.CheckCanStartGame()) return;
+
+        OffShipUI();
+        titleManager.EnterInGame();
+        UIManager.DisablePlayerUI();
+        UIManager.FadeOut();
+    }
 
     #region OnOffFunction
 
@@ -26,37 +35,51 @@ public class TitleUIManager : MonoBehaviour
     {
         if (inProgress) return;
         UIManager.DisablePlayerUI();
-        StartCoroutine(OpenUI(customUI.GetComponent<Animator>(), 0.2f));
+        OffShipUI();
+        StartCoroutine(OpenUI(customUI, 0.2f));
     }
     public void OffCustomUI()
     {
         if (inProgress) return;
         UIManager.ActivatePlayerUI();
-        StartCoroutine(CloseUI(customUI.GetComponent<Animator>(), 0.2f));
+        OnShipUI();
+        StartCoroutine(CloseUI(customUI, 0.2f));
     }
-    private IEnumerator CloseUI(Animator p_anim, float p_time)
-    {
-        if (p_anim == null) yield break;
-        if (!p_anim.gameObject.activeSelf) yield break;
+    public void OnShipUI() => StartCoroutine(OpenUI(shipUI));
+    public void OffShipUI() => StartCoroutine(CloseUI(shipUI));
 
+    private IEnumerator CloseUI(GameObject p_uiObj, float p_time = 0f)
+    {
+        if (!p_uiObj.activeSelf) yield break;
+        
         inProgress = true;
 
-        p_anim.SetTrigger("Off");
-        yield return new WaitForSeconds(p_time);
-        p_anim.gameObject.SetActive(false);
+        var t_anim = p_uiObj.GetComponent<Animator>();
+        if (t_anim != null)
+        {
+            t_anim.SetTrigger("Off");
+            yield return new WaitForSeconds(p_time);
+        }
+        
+        p_uiObj.SetActive(false);
 
         inProgress = false;
     }
-    private IEnumerator OpenUI(Animator p_anim, float p_time)
+    private IEnumerator OpenUI(GameObject p_uiObj, float p_time = 0f)
     {
-        if (p_anim == null) yield break;
+        if (p_uiObj.activeSelf) yield break;
 
         inProgress = true;
 
-        if (!p_anim.gameObject.activeSelf) p_anim.gameObject.SetActive(true);
-        p_anim.SetTrigger("On");
-        yield return new WaitForSeconds(p_time);
+        p_uiObj.SetActive(true);
 
+        var t_anim = p_uiObj.GetComponent<Animator>();
+        if (t_anim != null)
+        {
+            t_anim.SetTrigger("On");
+            yield return new WaitForSeconds(p_time);
+        }
+    
         inProgress = false;
     }
 
@@ -73,5 +96,6 @@ public class TitleUIManager : MonoBehaviour
 
         titleManager.GameStart();
         UIManager.ActivatePlayerUI();
+        OnShipUI();
     }
 }
