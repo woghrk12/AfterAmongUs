@@ -60,15 +60,26 @@ public class UIManager : MonoBehaviour
 	public static void FadeOut() => Instance.StartCoroutine(Instance.FadeOutCo());
 	public static void Alert(string p_text) => Instance.ShowAlertText(p_text);
 
+	public void OnScreen()
+	{
+		if (screen.gameObject.activeSelf) return;
+		screen.gameObject.SetActive(true);
+	}
+	public void OffScreen()
+	{
+		if (!screen.gameObject.activeSelf) return;
+		screen.gameObject.SetActive(false);
+	}
+
 	private IEnumerator FadeInCo()
 	{
-		if (!screen.gameObject.activeSelf) screen.gameObject.SetActive(true);
+		OnScreen();
 		yield return ChangeScreen(true);
-		screen.gameObject.SetActive(false);
+		OffScreen();
 	}
 	private IEnumerator FadeOutCo()
 	{
-		if (!screen.gameObject.activeSelf) screen.gameObject.SetActive(true);
+		OnScreen();
 		yield return ChangeScreen(false);
 	}
 
