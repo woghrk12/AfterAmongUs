@@ -50,8 +50,6 @@ public class UIManager : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
-
-		joystick = GetComponentInChildren<JoyStick>();
 	}
 
 	public static void ActivatePlayerUI() => Instance.playerUI.SetActive(true);

@@ -7,7 +7,6 @@ public class InGameUIManager : MonoBehaviour
     private void Start()
     {
         UIManager.FadeIn();
+        UIManager.ActivatePlayerUI();
     }
-
- 
 }
