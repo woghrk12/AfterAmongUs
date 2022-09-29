@@ -8,6 +8,7 @@ public class GamePlayer : MonoBehaviour
 
     [SerializeField] private CharacterMove moveController = null;
     [SerializeField] private CharacterColor colorController = null;
+    [SerializeField] private CharacterTargeting targetingController = null;
 
     private JoyStick joystick = null;
 
@@ -22,12 +23,19 @@ public class GamePlayer : MonoBehaviour
         get { return canMove; }
     }
 
+    private Transform target = null;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
 
         joystick = UIManager.Instance.Joystick;
         colorController.SetColor((int)GameManager.playerColor);
+    }
+
+    private void Update()
+    {
+        Targeting(target);
     }
 
     private void FixedUpdate()
@@ -38,4 +46,5 @@ public class GamePlayer : MonoBehaviour
     }
     
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
+    private void Targeting(Transform p_target) => targetingController.Targeting(p_target);
 }

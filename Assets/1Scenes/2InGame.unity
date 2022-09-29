@@ -1875,12 +1875,12 @@ GameObject:
   - component: {fileID: 664487778}
   - component: {fileID: 664487777}
   m_Layer: 0
-  m_Name: Player (1)
+  m_Name: Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &664487777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,7 +1894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAim: {fileID: 236852967}
-  target: {fileID: 1055882487}
 --- !u!4 &664487778
 Transform:
   m_ObjectHideFlags: 0
@@ -3591,6 +3590,7 @@ GameObject:
   - component: {fileID: 1489938168}
   - component: {fileID: 1489938167}
   - component: {fileID: 1489938166}
+  - component: {fileID: 1489938169}
   - component: {fileID: 1489938165}
   m_Layer: 0
   m_Name: Player
@@ -3598,7 +3598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1489938165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3613,6 +3613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveController: {fileID: 1489938168}
   colorController: {fileID: 1489938166}
+  targetingController: {fileID: 1489938169}
 --- !u!114 &1489938166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3651,6 +3652,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+--- !u!114 &1489938169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489938164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da526a498f4c3fb49a1484b772b359f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAim: {fileID: 223302340}
 --- !u!50 &1489938170
 Rigidbody2D:
   serializedVersion: 4

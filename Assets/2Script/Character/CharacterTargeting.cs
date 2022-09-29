@@ -19,7 +19,7 @@ public class CharacterTargeting : MonoBehaviour
         get { return isTargeting; }
     }
 
-    public void Targeting(Transform p_target = null)
+    public void Targeting(Transform p_target)
     {
         if (!isTargeting) return;
         if (p_target == null)
