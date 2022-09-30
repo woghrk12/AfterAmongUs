@@ -9,6 +9,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private CharacterMove moveController = null;
     [SerializeField] private CharacterColor colorController = null;
     [SerializeField] private CharacterTargeting targetingController = null;
+    [SerializeField] private CharacterRader rader = null;
 
     private JoyStick joystick = null;
 
@@ -23,8 +24,6 @@ public class GamePlayer : MonoBehaviour
         get { return canMove; }
     }
 
-    private Transform target = null;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -33,9 +32,14 @@ public class GamePlayer : MonoBehaviour
         colorController.SetColor((int)GameManager.playerColor);
     }
 
+    private void Start()
+    {
+        rader.SetRange(2f);
+    }
+
     private void Update()
     {
-        Targeting(target);
+        Targeting(rader.Target);
     }
 
     private void FixedUpdate()

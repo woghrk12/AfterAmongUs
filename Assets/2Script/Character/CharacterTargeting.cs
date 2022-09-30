@@ -8,23 +8,11 @@ public class CharacterTargeting : MonoBehaviour
     private Vector3 direction = Vector3.zero;
     private float angle = 0f;
 
-    private bool isTargeting = false;
-    public bool IsTargeting 
-    {
-        set
-        {
-            isTargeting = value;
-            if(!isTargeting) playerAim.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
-        }
-        get { return isTargeting; }
-    }
-
     public void Targeting(Transform p_target)
     {
-        if (!isTargeting) return;
-        if (p_target == null)
+        if (!p_target)
         {
-            IsTargeting = false;
+            playerAim.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
             return;
         }
 

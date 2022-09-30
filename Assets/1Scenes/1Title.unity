@@ -5166,7 +5166,7 @@ GameObject:
   - component: {fileID: 1355144448}
   - component: {fileID: 1355144449}
   - component: {fileID: 1355144450}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Highlighted HitBox
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -7683,7 +7683,7 @@ GameObject:
   - component: {fileID: 1951495967}
   - component: {fileID: 1951495968}
   - component: {fileID: 1951495969}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Outline HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
