@@ -8,10 +8,12 @@ public class CameraSetting : MonoBehaviour
     [SerializeField] private float setHeight = 0;
     private Camera mainCam = null;
 
+    [SerializeField] private float size = 1f;
+
     private void Awake()
     {
         mainCam = Camera.main;
-
+        mainCam.orthographicSize = size;
         SetResolution();
     }
 

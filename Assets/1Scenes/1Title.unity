@@ -2724,6 +2724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setWidth: 1920
   setHeight: 1080
+  size: 4
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
