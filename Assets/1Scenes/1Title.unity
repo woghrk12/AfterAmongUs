@@ -2741,6 +2741,8 @@ MonoBehaviour:
   target: {fileID: 131682826}
   offset: {x: 0, y: 0, z: -10}
   followSpeed: 2
+  minPos: {x: -1, y: -0.3}
+  maxPos: {x: 1, y: 0.3}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

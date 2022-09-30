@@ -4511,6 +4511,8 @@ MonoBehaviour:
   target: {fileID: 1489938172}
   offset: {x: 0, y: 0, z: -10}
   followSpeed: 2
+  minPos: {x: -4.7, y: -4.2}
+  maxPos: {x: 6.7, y: 3.8}
 --- !u!114 &1490360431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4523,7 +4525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49542892d3dc9d04692e7e4a13dd7c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startForce: 10
+  startForce: 0
   offset: {x: 0.2, y: 0.2, z: 0}
 --- !u!1 &1499898790
 GameObject:
