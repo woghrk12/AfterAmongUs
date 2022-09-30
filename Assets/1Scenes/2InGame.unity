@@ -2920,6 +2920,7 @@ PolygonCollider2D:
       - {x: -0.5957796, y: -0.42528665}
       - {x: -0.39905977, y: -0.55852914}
       - {x: -0.18617082, y: -0.60915744}
+      - {x: 0.07388234, y: -0.5975652}
       - {x: 0.22004402, y: -0.5851743}
       - {x: 0.53844357, y: -0.4301169}
       - {x: 0.7057624, y: -0.15809798}
@@ -4375,6 +4376,7 @@ GameObject:
   - component: {fileID: 1490360428}
   - component: {fileID: 1490360430}
   - component: {fileID: 1490360429}
+  - component: {fileID: 1490360431}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4509,6 +4511,20 @@ MonoBehaviour:
   target: {fileID: 1489938172}
   offset: {x: 0, y: 0, z: -10}
   followSpeed: 2
+--- !u!114 &1490360431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490360424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49542892d3dc9d04692e7e4a13dd7c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startForce: 10
+  offset: {x: 0.2, y: 0.2, z: 0}
 --- !u!1 &1499898790
 GameObject:
   m_ObjectHideFlags: 0
