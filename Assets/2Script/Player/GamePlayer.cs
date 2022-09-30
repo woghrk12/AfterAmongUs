@@ -27,14 +27,13 @@ public class GamePlayer : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
         joystick = UIManager.Instance.Joystick;
-        colorController.SetColor((int)GameManager.playerColor);
     }
 
     private void Start()
     {
         rader.SetRange(2f);
+        colorController.SetColor((int)GameManager.playerColor);
     }
 
     private void Update()

@@ -9,6 +9,12 @@ public class ColorSelectPanel : MonoBehaviour
     [SerializeField] private Image characterPreview = null;
     [SerializeField] private List<Button> colorSelectButtons = new List<Button>();
 
+    private void Awake()
+    {
+        var t_inst = Instantiate(characterPreview.material);
+        characterPreview.material = t_inst;
+    }
+
     private void OnEnable()
     {
         var t_color = (int)GameManager.playerColor;

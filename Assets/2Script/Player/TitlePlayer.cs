@@ -26,7 +26,6 @@ public class TitlePlayer : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
         joystick = UIManager.Instance.Joystick;
     }
 
