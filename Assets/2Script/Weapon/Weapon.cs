@@ -7,16 +7,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform triggerPosition = null;
     [SerializeField] private Transform firePosition = null;
     [SerializeField] private float range = 0f;
+    public float Range { get { return range; } }
 
     [SerializeField] private GameObject bullet = null; 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-            UseWeapon();
-    }
-
-    private void UseWeapon()
+    public void UseWeapon()
     {
         Shot(firePosition.position, firePosition.position - triggerPosition.position);
     }

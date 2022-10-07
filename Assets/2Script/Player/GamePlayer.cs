@@ -10,6 +10,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private CharacterColor colorController = null;
     [SerializeField] private CharacterTargeting targetingController = null;
     [SerializeField] private CharacterRader rader = null;
+    [SerializeField] private PlayerWeapon weaponController = null;
 
     private JoyStick joystick = null;
 
@@ -32,13 +33,26 @@ public class GamePlayer : MonoBehaviour
 
     private void Start()
     {
-        rader.SetRange(2f);
+        weaponController.InitWeapon();
+        rader.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetColor((int)GameManager.playerColor);
     }
 
     private void Update()
     {
         Targeting(rader.Target);
+
+        if (Input.GetKeyDown(KeyCode.F1))
+            Fire();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Swap(0);
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            Swap(1);
+        }
     }
 
     private void FixedUpdate()
@@ -50,4 +64,10 @@ public class GamePlayer : MonoBehaviour
     
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
     private void Targeting(Transform p_target) => targetingController.Targeting(p_target);
+    private void Fire() => weaponController.UseWeapon();
+    private void Swap(int p_idx)
+    {
+        weaponController.ChangeWeapon(p_idx);
+        rader.SetRange(weaponController.EquipWeapon.Range);
+    } 
 }
