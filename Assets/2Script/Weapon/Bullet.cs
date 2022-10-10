@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private int rayMask = 0;
     private RaycastHit2D hitInfo;
 
-    [SerializeField] private GameObject hitEffect = null;
+    [SerializeField] private string hitEffect = null;
 
     private void Awake()
     {
@@ -27,6 +27,8 @@ public class Bullet : MonoBehaviour
         
         StartCoroutine(CheckOnHit());
     }
+
+    public void MoveBullet() => StartCoroutine(CheckOnHit());
 
     private IEnumerator CheckOnHit()
     {
@@ -43,8 +45,8 @@ public class Bullet : MonoBehaviour
 
         var t_normal = hitInfo.normal;
         var t_angle = Mathf.Atan2(t_normal.y, t_normal.x) * Mathf.Rad2Deg;
-        Instantiate(hitEffect, hitInfo.point, Quaternion.AngleAxis(t_angle, Vector3.forward));
-        gameObject.SetActive(false);
+        ObjectPoolingManager.SpawnObject(hitEffect, hitInfo.point, Quaternion.AngleAxis(t_angle, Vector3.forward));
+        ObjectPoolingManager.ReturnObject(gameObject);
     }
 }
 

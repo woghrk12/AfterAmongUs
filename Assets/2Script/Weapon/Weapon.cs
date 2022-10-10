@@ -13,8 +13,8 @@ public class Weapon : MonoBehaviour
     
     public float Range { get { return range; } }
 
-    [SerializeField] private GameObject bullet = null;
-    [SerializeField] private GameObject muzzleFlash = null;
+    [SerializeField] private string bullet = null;
+    [SerializeField] private string muzzleFlash = null;
 
     private void Awake()
     {
@@ -28,11 +28,11 @@ public class Weapon : MonoBehaviour
 
     private void Shot(Vector3 p_firePos, Vector3 p_dir)
     {
-        var t_muzzleFlahs = Instantiate(muzzleFlash, Vector3.zero, Quaternion.identity).GetComponent<MuzzleFlash>();
-        t_muzzleFlahs.SetFlash(p_firePos, p_dir);
-        t_muzzleFlahs.ShowFlash();
+        var t_muzzleFlash = ObjectPoolingManager.SpawnObject(muzzleFlash).GetComponent<MuzzleFlash>();
+        t_muzzleFlash.SetFlash(p_firePos, p_dir);
+        t_muzzleFlash.ShowFlash();
 
-        var t_bullet = Instantiate(bullet, Vector3.zero, Quaternion.identity).GetComponent<Bullet>();
+        var t_bullet = ObjectPoolingManager.SpawnObject(bullet).GetComponent<Bullet>();
         t_bullet.InitValue(p_firePos, p_dir);
         anim.SetTrigger("Shot");
     }

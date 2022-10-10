@@ -128,4 +128,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   targetLayer: 9
-  hitEffect: {fileID: 2161050387621090443, guid: 3ca0ddc48bdf64444afcfca53515e28b, type: 3}
+  hitEffect: HitEffect

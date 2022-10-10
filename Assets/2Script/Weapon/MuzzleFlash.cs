@@ -21,8 +21,7 @@ public class MuzzleFlash : MonoBehaviour
 
     private IEnumerator FlashCo()
     {
-        gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        gameObject.SetActive(false);
+        ObjectPoolingManager.ReturnObject(gameObject);
     }
 }

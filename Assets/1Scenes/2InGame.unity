@@ -390,6 +390,59 @@ Transform:
   m_Father: {fileID: 176010027}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &114172318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114172319}
+  - component: {fileID: 114172320}
+  m_Layer: 0
+  m_Name: Object Pooling Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &114172319
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114172318}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1073981015}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114172320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114172318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13de4c153211bc74988397b94e4b2667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Bullet
+    prefab: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
+    size: 10
+  - tag: MuzzleFlash
+    prefab: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+    size: 10
+  - tag: HitEffect
+    prefab: {fileID: 2161050387621090443, guid: 3ca0ddc48bdf64444afcfca53515e28b, type: 3}
+    size: 10
 --- !u!1 &123286467
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +534,7 @@ Transform:
   m_Children:
   - {fileID: 106798985}
   m_Father: {fileID: 1073981015}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187859349
 GameObject:
@@ -6981,8 +7034,8 @@ MonoBehaviour:
   firePosition: {fileID: 895559699}
   range: 5
   recoilPower: 0.7
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!95 &564235756
 Animator:
   serializedVersion: 3
@@ -7290,7 +7343,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1073981015}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &620153997
 GameObject:
@@ -8418,6 +8471,7 @@ Transform:
   m_Children:
   - {fileID: 341497480}
   - {fileID: 220217647}
+  - {fileID: 114172319}
   - {fileID: 2094062211}
   - {fileID: 176010027}
   - {fileID: 1673895703}
@@ -8857,8 +8911,8 @@ MonoBehaviour:
   firePosition: {fileID: 187859350}
   range: 5
   recoilPower: 0.3
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!1 &1278098139
 GameObject:
   m_ObjectHideFlags: 0
@@ -9069,8 +9123,8 @@ MonoBehaviour:
   firePosition: {fileID: 1296948214}
   range: 5
   recoilPower: 0.6
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!95 &1334627344
 Animator:
   serializedVersion: 3
@@ -9142,8 +9196,8 @@ MonoBehaviour:
   firePosition: {fileID: 907853810}
   range: 5
   recoilPower: 1
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!95 &1419142170
 Animator:
   serializedVersion: 3
@@ -9506,7 +9560,6 @@ GameObject:
   - component: {fileID: 1489938167}
   - component: {fileID: 1489938166}
   - component: {fileID: 1489938169}
-  - component: {fileID: 1489938173}
   - component: {fileID: 1489938165}
   m_Layer: 0
   m_Name: Player
@@ -9642,18 +9695,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1489938173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489938164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b3f449571f895499b839640c8473c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1490360424
 GameObject:
   m_ObjectHideFlags: 0
@@ -10436,7 +10477,7 @@ Transform:
   - {fileID: 1841074370}
   - {fileID: 191496803}
   m_Father: {fileID: 1073981015}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676163728
 GameObject:
@@ -10827,8 +10868,8 @@ MonoBehaviour:
   firePosition: {fileID: 1800846495}
   range: 5
   recoilPower: 0.3
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!95 &1802244954
 Animator:
   serializedVersion: 3
@@ -11729,8 +11770,8 @@ MonoBehaviour:
   firePosition: {fileID: 1677714218}
   range: 5
   recoilPower: 0.1
-  bullet: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
-  muzzleFlash: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
+  bullet: Bullet
+  muzzleFlash: MuzzleFlash
 --- !u!95 &2040972644
 Animator:
   serializedVersion: 3
@@ -11861,7 +11902,7 @@ Transform:
   m_Children:
   - {fileID: 1490360427}
   m_Father: {fileID: 1073981015}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2105253174
 GameObject:
