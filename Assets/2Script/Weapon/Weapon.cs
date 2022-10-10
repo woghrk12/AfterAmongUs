@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform firePosition = null;
     [SerializeField] private float range = 0f;
     [SerializeField, Range(0f, 1f)] private float recoilPower = 0f;
-    
+    [SerializeField, Range(0f, 5f)] private float accurate = 0f;
     public float Range { get { return range; } }
 
     [SerializeField] private string bullet = null;
@@ -33,7 +33,8 @@ public class Weapon : MonoBehaviour
         t_muzzleFlash.ShowFlash();
 
         var t_bullet = ObjectPoolingManager.SpawnObject(bullet).GetComponent<Bullet>();
-        t_bullet.InitValue(p_firePos, p_dir);
+        var t_dir = Quaternion.AngleAxis(Random.Range(-accurate, accurate), Vector3.forward) * p_dir;
+        t_bullet.InitValue(p_firePos, t_dir);
         anim.SetTrigger("Shot");
     }
 }

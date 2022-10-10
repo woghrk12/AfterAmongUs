@@ -7034,6 +7034,7 @@ MonoBehaviour:
   firePosition: {fileID: 895559699}
   range: 5
   recoilPower: 0.7
+  accurate: 3
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &564235756
@@ -8911,6 +8912,7 @@ MonoBehaviour:
   firePosition: {fileID: 187859350}
   range: 5
   recoilPower: 0.3
+  accurate: 5
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!1 &1278098139
@@ -9123,6 +9125,7 @@ MonoBehaviour:
   firePosition: {fileID: 1296948214}
   range: 5
   recoilPower: 0.6
+  accurate: 0
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &1334627344
@@ -9196,6 +9199,7 @@ MonoBehaviour:
   firePosition: {fileID: 907853810}
   range: 5
   recoilPower: 1
+  accurate: 0
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &1419142170
@@ -10868,6 +10872,7 @@ MonoBehaviour:
   firePosition: {fileID: 1800846495}
   range: 5
   recoilPower: 0.3
+  accurate: 3
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &1802244954
@@ -11770,6 +11775,7 @@ MonoBehaviour:
   firePosition: {fileID: 1677714218}
   range: 5
   recoilPower: 0.1
+  accurate: 1
   bullet: Bullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &2040972644
