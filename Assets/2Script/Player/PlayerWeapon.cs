@@ -9,6 +9,13 @@ public class PlayerWeapon : MonoBehaviour
     private Weapon equipWeapon = null;
     public Weapon EquipWeapon { get { return equipWeapon; } }
 
+    private float fireDelay = 0f;
+
+    private void Update()
+    {
+        fireDelay += Time.deltaTime;
+    }
+
     public void InitWeapon()
     {
         var t_weapons = GameManager.playerWeapon;
@@ -22,9 +29,17 @@ public class PlayerWeapon : MonoBehaviour
     public void ChangeWeapon(int p_idx)
     {
         equipWeapon = hasWeapon[p_idx];
+        fireDelay = equipWeapon.FireRate;
+
         for(int i = 0; i < hasWeapon.Length; i++)
             hasWeapon[i].gameObject.SetActive(p_idx == i);
     }
 
-    public void UseWeapon() => equipWeapon.UseWeapon();
+    public void UseWeapon()
+    {
+        if (fireDelay < equipWeapon.FireRate) return;
+        
+        fireDelay = 0f;
+        equipWeapon.UseWeapon();
+    }
 }

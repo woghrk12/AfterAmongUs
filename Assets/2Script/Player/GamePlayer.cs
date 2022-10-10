@@ -42,7 +42,7 @@ public class GamePlayer : MonoBehaviour
     {
         Targeting(rader.Target);
 
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKey(KeyCode.F1))
             Fire();
 
         if (Input.GetKeyDown(KeyCode.Alpha1))

@@ -11,7 +11,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float range = 0f;
     [SerializeField, Range(0f, 1f)] private float recoilPower = 0f;
     [SerializeField, Range(0f, 5f)] private float accurate = 0f;
+    [SerializeField] private float fireRate = 0f;
+
     public float Range { get { return range; } }
+    public float FireRate { get { return fireRate; } }
 
     [SerializeField] private string bullet = null;
     [SerializeField] private string muzzleFlash = null;
@@ -21,10 +24,7 @@ public class Weapon : MonoBehaviour
         anim.SetFloat("motionSpeed", 1.5f - recoilPower);
     }
 
-    public void UseWeapon()
-    {
-        Shot(firePosition.position, firePosition.position - triggerPosition.position);
-    }
+    public void UseWeapon() => Shot(firePosition.position, firePosition.position - triggerPosition.position);
 
     private void Shot(Vector3 p_firePos, Vector3 p_dir)
     {
