@@ -4,32 +4,38 @@ using UnityEngine;
 
 public class CameraShaking : MonoBehaviour
 {
-    [SerializeField] private float startForce = 0f;
-    private float force = 0f;
+    [SerializeField] private float force = 0f;
     [SerializeField] private Vector3 offset = Vector3.zero;
 
     private Quaternion originRot = Quaternion.identity;
 
-    private Coroutine runningCo = null;
+    private Coroutine shakeCo = null;
+    private Coroutine reduceCo = null;
+
+    public bool ShakeSwitch
+    {
+        set 
+        {
+            if (value)
+            {
+                if (shakeCo != null) return;
+                shakeCo = StartCoroutine(ShakeCameraCo());
+            }
+            else
+            {
+                if (shakeCo == null) return;
+                StopCoroutine(shakeCo);
+                shakeCo = null;
+            }
+        }
+    }
 
     private void Awake()
     {
         originRot = transform.rotation;
     }
 
-    private void Start()
-    {
-        StartShaking(startForce);
-    }
-
-    public void StartShaking(float p_force)
-    {
-        force = p_force;
-        runningCo = StartCoroutine(ShakeCamera());
-    }
-    public void StopShaking() => StartCoroutine(ResetCamera());
-
-    private IEnumerator ShakeCamera()
+    private IEnumerator ShakeCameraCo()
     {
         var t_originEuler = originRot.eulerAngles;
 
@@ -51,20 +57,34 @@ public class CameraShaking : MonoBehaviour
         }
     }
 
-    private IEnumerator ResetCamera()
+    public void StartShaking(float p_force)
+    {
+        force = p_force;
+        ShakeSwitch = true;
+    }
+
+    public void ShakeCamera(float p_force, float p_time)
+    {
+        if (reduceCo != null) StopCoroutine(reduceCo);
+
+        force = p_force;
+        ShakeSwitch = true;
+        reduceCo = StartCoroutine(ReduceForce(p_time));
+    }
+
+    private IEnumerator ReduceForce(float p_totalTime)
     {
         var t_timer = 0f;
-        var t_totalTime = 1f;
         var t_originForce = force;
 
-        while (t_timer < t_totalTime)
+        while (t_timer < p_totalTime)
         {
-            force = Mathf.Lerp(t_originForce, 0f, t_timer / t_totalTime);
-            t_timer += 0.1f;
-            yield return new WaitForSeconds(0.1f);
+            force = Mathf.Lerp(t_originForce, 0f, t_timer / p_totalTime);
+            t_timer += Time.deltaTime;
+            yield return null;
         }
 
-        StopCoroutine(runningCo);
+        ShakeSwitch = false;
         transform.rotation = originRot;
         force = t_originForce;
     }

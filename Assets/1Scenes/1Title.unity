@@ -2755,7 +2755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49542892d3dc9d04692e7e4a13dd7c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startForce: 15
+  force: 0
   offset: {x: 0.3, y: 0.3, z: 0}
 --- !u!1 &529145544
 GameObject:
@@ -11651,7 +11651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1826063704
 RectTransform:
   m_ObjectHideFlags: 0

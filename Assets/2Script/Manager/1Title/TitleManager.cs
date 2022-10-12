@@ -16,6 +16,7 @@ public class TitleManager : MonoBehaviour
     {
         titlePlayer.SetPlayerColor((int)GameManager.playerColor);
         titlePlayer.gameObject.SetActive(false);
+        Camera.main.GetComponent<CameraShaking>().StartShaking(15f);
     }
 
     public void GameStart()

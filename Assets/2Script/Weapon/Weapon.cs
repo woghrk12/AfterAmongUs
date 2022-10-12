@@ -5,6 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Animator anim = null;
+    private CameraShaking cameraShake = null;
 
     [SerializeField] private Transform triggerPosition = null;
     [SerializeField] private Transform firePosition = null;
@@ -22,9 +23,14 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         anim.SetFloat("motionSpeed", 1.5f - recoilPower);
+        cameraShake = Camera.main.GetComponent<CameraShaking>();
     }
 
-    public void UseWeapon() => Shot(firePosition.position, firePosition.position - triggerPosition.position);
+    public void UseWeapon()
+    {
+        Shot(firePosition.position, firePosition.position - triggerPosition.position);
+        cameraShake.ShakeCamera(recoilPower * 10f, recoilPower);
+    }
 
     private void Shot(Vector3 p_firePos, Vector3 p_dir)
     {

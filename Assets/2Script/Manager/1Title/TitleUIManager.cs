@@ -15,6 +15,7 @@ public class TitleUIManager : MonoBehaviour
 
     private void Start()
     {
+        UIManager.DisablePlayerUI();
         UIManager.FadeIn();
     }
 
