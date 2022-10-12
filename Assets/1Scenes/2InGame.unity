@@ -434,13 +434,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Bullet
+  - tag: RifleBullet
     prefab: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
     size: 10
   - tag: MuzzleFlash
     prefab: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
     size: 10
-  - tag: HitEffect
+  - tag: SingleHitEffect
     prefab: {fileID: 2161050387621090443, guid: 3ca0ddc48bdf64444afcfca53515e28b, type: 3}
     size: 10
 --- !u!1 &123286467
@@ -7036,7 +7036,7 @@ MonoBehaviour:
   recoilPower: 0.7
   accurate: 1.5
   fireRate: 0.5
-  bullet: Bullet
+  bullet: 0
   muzzleFlash: MuzzleFlash
 --- !u!95 &564235756
 Animator:
@@ -8915,7 +8915,7 @@ MonoBehaviour:
   recoilPower: 0.3
   accurate: 3
   fireRate: 0.15
-  bullet: Bullet
+  bullet: RifleBullet
   muzzleFlash: MuzzleFlash
 --- !u!1 &1278098139
 GameObject:
@@ -9129,7 +9129,7 @@ MonoBehaviour:
   recoilPower: 0.6
   accurate: 0
   fireRate: 0.7
-  bullet: Bullet
+  bullet: 0
   muzzleFlash: MuzzleFlash
 --- !u!95 &1334627344
 Animator:
@@ -9204,7 +9204,7 @@ MonoBehaviour:
   recoilPower: 1
   accurate: 0
   fireRate: 1.5
-  bullet: Bullet
+  bullet: 0
   muzzleFlash: MuzzleFlash
 --- !u!95 &1419142170
 Animator:
@@ -9867,7 +9867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 0
-  offset: {x: 0.3, y: 0.3, z: 0}
+  offset: {x: 0.2, y: 0.2, z: 0}
 --- !u!1 &1499898790
 GameObject:
   m_ObjectHideFlags: 0
@@ -10878,7 +10878,7 @@ MonoBehaviour:
   recoilPower: 0.3
   accurate: 5
   fireRate: 0.12
-  bullet: Bullet
+  bullet: 0
   muzzleFlash: MuzzleFlash
 --- !u!95 &1802244954
 Animator:
@@ -11782,7 +11782,7 @@ MonoBehaviour:
   recoilPower: 0.1
   accurate: 2
   fireRate: 0.1
-  bullet: Bullet
+  bullet: 0
   muzzleFlash: MuzzleFlash
 --- !u!95 &2040972644
 Animator:

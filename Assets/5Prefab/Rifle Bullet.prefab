@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7510721049536734995}
   - component: {fileID: 5224188751545914122}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Rifle Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,9 +123,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7510721049536734993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c038ebf675a902d4cb5b025f84bee249, type: 3}
+  m_Script: {fileID: 11500000, guid: 4df74523392eb46488ac0687154737aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
   targetLayer: 9
-  hitEffect: HitEffect
+  hitEffect: SingleHitEffect
