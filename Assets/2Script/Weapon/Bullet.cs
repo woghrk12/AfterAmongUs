@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 0f;
     private Vector3 direction = Vector3.zero;
@@ -12,9 +12,7 @@ public class Bullet : MonoBehaviour
     private int rayMask = 0;
     private RaycastHit2D hitInfo;
 
-    [SerializeField] private string hitEffect = null;
-
-    private void Awake()
+    protected void Awake()
     {
         rayMask = 1 << (int)ELayer.MAP | 1 << (int)targetLayer;
     }
@@ -43,11 +41,11 @@ public class Bullet : MonoBehaviour
             yield return null;
         }
 
-        var t_normal = hitInfo.normal;
-        var t_angle = Mathf.Atan2(t_normal.y, t_normal.x) * Mathf.Rad2Deg;
-        ObjectPoolingManager.SpawnObject(hitEffect, hitInfo.point, Quaternion.AngleAxis(t_angle, Vector3.forward));
+        OnHit(hitInfo);
         ObjectPoolingManager.ReturnObject(gameObject);
     }
+
+    protected abstract void OnHit(RaycastHit2D p_hitInfo);
 }
 
 
