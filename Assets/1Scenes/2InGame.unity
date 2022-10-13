@@ -440,6 +440,15 @@ MonoBehaviour:
   - tag: SniperBullet
     prefab: {fileID: 653772151218925349, guid: 8eb7d03ae420f8c4aa3cde5be4daafc3, type: 3}
     size: 10
+  - tag: PistolBullet
+    prefab: {fileID: 7510721049536734993, guid: 243f12a70124f3549856562f2067eaa9, type: 3}
+    size: 10
+  - tag: MachinegunBullet
+    prefab: {fileID: 7510721049536734993, guid: 4ba04c1792f24a1418dca8402e37051d, type: 3}
+    size: 10
+  - tag: SubmachinegunBullet
+    prefab: {fileID: 7510721049536734993, guid: db2d8c1571b648c4daf07714b9dca270, type: 3}
+    size: 10
   - tag: MuzzleFlash
     prefab: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
     size: 10
@@ -448,6 +457,9 @@ MonoBehaviour:
     size: 10
   - tag: SectorHitEffect
     prefab: {fileID: 5772749703694970346, guid: 7e48bfbec8892b648b2a0a77dcd55045, type: 3}
+    size: 10
+  - tag: CircleHitEffect
+    prefab: {fileID: 8183316662222317535, guid: c785f6dc156a79a429ab2110c54acae1, type: 3}
     size: 10
 --- !u!1 &123286467
 GameObject:
@@ -7042,7 +7054,7 @@ MonoBehaviour:
   recoilPower: 0.7
   accurate: 1.5
   fireRate: 0.5
-  bullet: 0
+  bullet: PistolBullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &564235756
 Animator:
@@ -10926,7 +10938,7 @@ MonoBehaviour:
   recoilPower: 0.3
   accurate: 5
   fireRate: 0.12
-  bullet: 0
+  bullet: MachinegunBullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &1802244954
 Animator:
@@ -11830,7 +11842,7 @@ MonoBehaviour:
   recoilPower: 0.1
   accurate: 2
   fireRate: 0.1
-  bullet: 0
+  bullet: SubmachinegunBullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &2040972644
 Animator:
