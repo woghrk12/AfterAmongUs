@@ -7,10 +7,12 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField] private float speed = 0f;
     private Vector3 direction = Vector3.zero;
 
-    [SerializeField] private ELayer targetLayer = ELayer.END;
+    [SerializeField] protected ELayer targetLayer = ELayer.END;
 
     private int rayMask = 0;
     private RaycastHit2D hitInfo;
+
+    [SerializeField] protected int damage = 0;
 
     protected void Awake()
     {
@@ -41,11 +43,18 @@ public abstract class Bullet : MonoBehaviour
             yield return null;
         }
 
-        OnHit(hitInfo);
+        OnHit(direction, hitInfo);
         ObjectPoolingManager.ReturnObject(gameObject);
     }
 
-    protected abstract void OnHit(RaycastHit2D p_hitInfo);
+    protected abstract void OnHit(Vector3 p_dir, RaycastHit2D p_hitInfo);
+
+    protected void DealDamage(Transform p_target, int p_damage)
+    {
+        var t_target = p_target.GetComponentInParent<Damagable>();
+        if (!t_target) return;
+        t_target.OnHit(p_damage);
+    }
 }
 
 

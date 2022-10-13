@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 052ba68300000000adb37547091a496a0bac508f
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -437,11 +437,17 @@ MonoBehaviour:
   - tag: RifleBullet
     prefab: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
     size: 10
+  - tag: SniperBullet
+    prefab: {fileID: 653772151218925349, guid: 8eb7d03ae420f8c4aa3cde5be4daafc3, type: 3}
+    size: 10
   - tag: MuzzleFlash
     prefab: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
     size: 10
   - tag: SingleHitEffect
     prefab: {fileID: 2161050387621090443, guid: 3ca0ddc48bdf64444afcfca53515e28b, type: 3}
+    size: 10
+  - tag: SectorHitEffect
+    prefab: {fileID: 5772749703694970346, guid: 7e48bfbec8892b648b2a0a77dcd55045, type: 3}
     size: 10
 --- !u!1 &123286467
 GameObject:
@@ -8422,6 +8428,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1055882487}
+  - component: {fileID: 1055882488}
   m_Layer: 0
   m_Name: Target 2
   m_TagString: Untagged
@@ -8444,6 +8451,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1055882488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055882486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c3d93bb2b29c42946f255a9486027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 1078880835}
 --- !u!1 &1073981014
 GameObject:
   m_ObjectHideFlags: 0
@@ -9204,7 +9224,7 @@ MonoBehaviour:
   recoilPower: 1
   accurate: 0
   fireRate: 1.5
-  bullet: 0
+  bullet: SniperBullet
   muzzleFlash: MuzzleFlash
 --- !u!95 &1419142170
 Animator:
@@ -9912,6 +9932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533314070}
+  - component: {fileID: 1533314071}
   m_Layer: 0
   m_Name: Target 1
   m_TagString: Untagged
@@ -9934,6 +9955,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1533314071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533314069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c3d93bb2b29c42946f255a9486027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 620154000}
 --- !u!1 &1553204289
 GameObject:
   m_ObjectHideFlags: 0
@@ -10107,6 +10141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562628982}
+  - component: {fileID: 1562628983}
   m_Layer: 0
   m_Name: Target 3
   m_TagString: Untagged
@@ -10129,6 +10164,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1562628983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562628981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20c3d93bb2b29c42946f255a9486027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 601915841}
 --- !u!1 &1574243593
 GameObject:
   m_ObjectHideFlags: 0
