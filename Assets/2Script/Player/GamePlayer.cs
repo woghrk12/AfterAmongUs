@@ -65,7 +65,7 @@ public class GamePlayer : MonoBehaviour
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
     private void Targeting(Transform p_target) => targetingController.Targeting(p_target);
     private void Fire() => weaponController.UseWeapon();
-    private void Swap(int p_idx)
+    public void Swap(int p_idx)
     {
         weaponController.ChangeWeapon(p_idx);
         rader.SetRange(weaponController.EquipWeapon.Range);

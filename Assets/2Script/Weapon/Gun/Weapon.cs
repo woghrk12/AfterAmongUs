@@ -23,7 +23,6 @@ public abstract class Weapon : MonoBehaviour
     protected float Accurate { get { return accurate; } }
     protected string Bullet { get { return bullet; } }
     protected string MuzzleFlash { get { return muzzleFlash; } }
-    public int CurBullet { protected set { curBullet = value; } get { return curBullet; } }
 
     protected void Awake()
     {
@@ -47,5 +46,5 @@ public abstract class Weapon : MonoBehaviour
     protected bool CheckCanShot()
     {
         return curBullet > 0;
-    }
+    } 
 }
