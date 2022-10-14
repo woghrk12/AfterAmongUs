@@ -437,11 +437,14 @@ MonoBehaviour:
   - tag: RifleBullet
     prefab: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
     size: 10
-  - tag: SniperBullet
-    prefab: {fileID: 653772151218925349, guid: 8eb7d03ae420f8c4aa3cde5be4daafc3, type: 3}
+  - tag: ShotgunBullet
+    prefab: {fileID: 7510721049536734993, guid: e0fadd71b243aee4d89f27528763a078, type: 3}
     size: 10
   - tag: PistolBullet
     prefab: {fileID: 7510721049536734993, guid: 243f12a70124f3549856562f2067eaa9, type: 3}
+    size: 10
+  - tag: SniperBullet
+    prefab: {fileID: 653772151218925349, guid: 8eb7d03ae420f8c4aa3cde5be4daafc3, type: 3}
     size: 10
   - tag: MachinegunBullet
     prefab: {fileID: 7510721049536734993, guid: 4ba04c1792f24a1418dca8402e37051d, type: 3}
@@ -5853,7 +5856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 1249558346}
+  - {fileID: 1249558348}
   - {fileID: 1334627343}
   - {fileID: 564235755}
   - {fileID: 1419142169}
@@ -7011,6 +7014,7 @@ GameObject:
   - component: {fileID: 564235754}
   - component: {fileID: 564235756}
   - component: {fileID: 564235755}
+  - component: {fileID: 564235757}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -7044,7 +7048,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 564235753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: 995d4c185306e01459d0d3d546fefb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 564235756}
@@ -7056,6 +7060,7 @@ MonoBehaviour:
   fireRate: 0.5
   bullet: PistolBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 564235757}
 --- !u!95 &564235756
 Animator:
   serializedVersion: 3
@@ -7075,6 +7080,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &564235757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564235753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5776fdc79cdbea844a4faa52dca0cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &575394957
 GameObject:
   m_ObjectHideFlags: 0
@@ -8884,7 +8901,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1249558344}
   - component: {fileID: 1249558345}
-  - component: {fileID: 1249558346}
+  - component: {fileID: 1249558348}
+  - component: {fileID: 1249558347}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -8928,7 +8946,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1249558346
+--- !u!114 &1249558347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8937,7 +8955,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1249558343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: 5776fdc79cdbea844a4faa52dca0cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1249558348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249558343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a875a63493990f4e974dfe35207838a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1249558345}
@@ -8949,6 +8979,7 @@ MonoBehaviour:
   fireRate: 0.15
   bullet: RifleBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 1249558347}
 --- !u!1 &1278098139
 GameObject:
   m_ObjectHideFlags: 0
@@ -9118,6 +9149,7 @@ GameObject:
   - component: {fileID: 1334627342}
   - component: {fileID: 1334627344}
   - component: {fileID: 1334627343}
+  - component: {fileID: 1334627345}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -9151,7 +9183,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334627341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: 960ffef9bda248a4cbd823c52b34236a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1334627344}
@@ -9159,10 +9191,11 @@ MonoBehaviour:
   firePosition: {fileID: 1296948214}
   range: 5
   recoilPower: 0.6
-  accurate: 0
+  accurate: 5
   fireRate: 0.7
-  bullet: 0
+  bullet: ShotgunBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 1334627345}
 --- !u!95 &1334627344
 Animator:
   serializedVersion: 3
@@ -9182,6 +9215,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1334627345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334627341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f9e791d514f014a8bacc8a6e142a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletNum: 5
 --- !u!1 &1419142167
 GameObject:
   m_ObjectHideFlags: 0
@@ -9193,6 +9239,7 @@ GameObject:
   - component: {fileID: 1419142168}
   - component: {fileID: 1419142170}
   - component: {fileID: 1419142169}
+  - component: {fileID: 1419142171}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -9226,7 +9273,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1419142167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: 79c2048566118b34abcc50a69b6a9b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1419142170}
@@ -9238,6 +9285,7 @@ MonoBehaviour:
   fireRate: 1.5
   bullet: SniperBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 1419142171}
 --- !u!95 &1419142170
 Animator:
   serializedVersion: 3
@@ -9257,6 +9305,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1419142171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419142167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5776fdc79cdbea844a4faa52dca0cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437105000
 GameObject:
   m_ObjectHideFlags: 0
@@ -10895,6 +10955,7 @@ GameObject:
   - component: {fileID: 1802244952}
   - component: {fileID: 1802244954}
   - component: {fileID: 1802244953}
+  - component: {fileID: 1802244955}
   m_Layer: 0
   m_Name: Machine Gun
   m_TagString: Untagged
@@ -10928,7 +10989,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1802244951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: c4ce7276e6cbbea4aad0d67d7465614b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1802244954}
@@ -10940,6 +11001,7 @@ MonoBehaviour:
   fireRate: 0.12
   bullet: MachinegunBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 1802244955}
 --- !u!95 &1802244954
 Animator:
   serializedVersion: 3
@@ -10959,6 +11021,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1802244955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802244951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5776fdc79cdbea844a4faa52dca0cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1841074369
 GameObject:
   m_ObjectHideFlags: 0
@@ -11799,6 +11873,7 @@ GameObject:
   - component: {fileID: 2040972642}
   - component: {fileID: 2040972644}
   - component: {fileID: 2040972643}
+  - component: {fileID: 2040972645}
   m_Layer: 0
   m_Name: Submachine Gun
   m_TagString: Untagged
@@ -11832,7 +11907,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2040972641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ff4fac87c1be84a81856e67ea588df, type: 3}
+  m_Script: {fileID: 11500000, guid: bc90f6e2c25dd1b4dbc395e073a8afa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 2040972644}
@@ -11844,6 +11919,7 @@ MonoBehaviour:
   fireRate: 0.1
   bullet: SubmachinegunBullet
   muzzleFlash: MuzzleFlash
+  fireController: {fileID: 2040972645}
 --- !u!95 &2040972644
 Animator:
   serializedVersion: 3
@@ -11863,6 +11939,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2040972645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040972641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5776fdc79cdbea844a4faa52dca0cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2082964609
 GameObject:
   m_ObjectHideFlags: 0

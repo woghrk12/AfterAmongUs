@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] private Animator anim = null;
     private CameraShaking cameraShake = null;
@@ -13,14 +13,16 @@ public class Weapon : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float recoilPower = 0f;
     [SerializeField, Range(0f, 5f)] private float accurate = 0f;
     [SerializeField] private float fireRate = 0f;
-
-    public float Range { get { return range; } }
-    public float FireRate { get { return fireRate; } }
-
     [SerializeField] private string bullet = null;
     [SerializeField] private string muzzleFlash = null;
 
-    private void Awake()
+    public float Range { get { return range; } }
+    public float FireRate { get { return fireRate; } }
+    protected float Accurate { get { return accurate; } }
+    protected string Bullet { get { return bullet; } }
+    protected string MuzzleFlash { get { return muzzleFlash; } }
+    
+    protected void Awake()
     {
         anim.SetFloat("motionSpeed", 1.5f - recoilPower);
         cameraShake = Camera.main.GetComponent<CameraShaking>();
@@ -30,17 +32,8 @@ public class Weapon : MonoBehaviour
     {
         Shot(firePosition.position, firePosition.position - triggerPosition.position);
         cameraShake.ShakeCamera(recoilPower * 10f, recoilPower);
-    }
-
-    private void Shot(Vector3 p_firePos, Vector3 p_dir)
-    {
-        var t_muzzleFlash = ObjectPoolingManager.SpawnObject(muzzleFlash).GetComponent<MuzzleFlash>();
-        t_muzzleFlash.SetFlash(p_firePos, p_dir);
-        t_muzzleFlash.ShowFlash();
-
-        var t_bullet = ObjectPoolingManager.SpawnObject(bullet).GetComponent<Bullet>();
-        var t_dir = Quaternion.AngleAxis(Random.Range(-accurate, accurate), Vector3.forward) * p_dir;
-        t_bullet.InitValue(p_firePos, t_dir);
         anim.SetTrigger("Shot");
     }
+
+    protected abstract void Shot(Vector3 p_firePos, Vector3 p_dir);
 }
