@@ -439,7 +439,7 @@ MonoBehaviour:
     size: 10
   - tag: ShotgunBullet
     prefab: {fileID: 7510721049536734993, guid: e0fadd71b243aee4d89f27528763a078, type: 3}
-    size: 10
+    size: 16
   - tag: PistolBullet
     prefab: {fileID: 7510721049536734993, guid: 243f12a70124f3549856562f2067eaa9, type: 3}
     size: 10
@@ -7060,6 +7060,7 @@ MonoBehaviour:
   fireRate: 0.5
   bullet: PistolBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 12
   fireController: {fileID: 564235757}
 --- !u!95 &564235756
 Animator:
@@ -8979,6 +8980,7 @@ MonoBehaviour:
   fireRate: 0.15
   bullet: RifleBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 30
   fireController: {fileID: 1249558347}
 --- !u!1 &1278098139
 GameObject:
@@ -9195,6 +9197,7 @@ MonoBehaviour:
   fireRate: 0.7
   bullet: ShotgunBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 8
   fireController: {fileID: 1334627345}
 --- !u!95 &1334627344
 Animator:
@@ -9227,7 +9230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f9e791d514f014a8bacc8a6e142a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletNum: 5
+  bulletNum: 8
 --- !u!1 &1419142167
 GameObject:
   m_ObjectHideFlags: 0
@@ -9285,6 +9288,7 @@ MonoBehaviour:
   fireRate: 1.5
   bullet: SniperBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 5
   fireController: {fileID: 1419142171}
 --- !u!95 &1419142170
 Animator:
@@ -11001,6 +11005,7 @@ MonoBehaviour:
   fireRate: 0.12
   bullet: MachinegunBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 50
   fireController: {fileID: 1802244955}
 --- !u!95 &1802244954
 Animator:
@@ -11919,6 +11924,7 @@ MonoBehaviour:
   fireRate: 0.1
   bullet: SubmachinegunBullet
   muzzleFlash: MuzzleFlash
+  maxBullet: 20
   fireController: {fileID: 2040972645}
 --- !u!95 &2040972644
 Animator:

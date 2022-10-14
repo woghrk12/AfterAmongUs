@@ -15,25 +15,37 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private float fireRate = 0f;
     [SerializeField] private string bullet = null;
     [SerializeField] private string muzzleFlash = null;
+    [SerializeField] private int maxBullet = 0;
+    private int curBullet = 0;
 
     public float Range { get { return range; } }
     public float FireRate { get { return fireRate; } }
     protected float Accurate { get { return accurate; } }
     protected string Bullet { get { return bullet; } }
     protected string MuzzleFlash { get { return muzzleFlash; } }
-    
+    public int CurBullet { protected set { curBullet = value; } get { return curBullet; } }
+
     protected void Awake()
     {
         anim.SetFloat("motionSpeed", 1.5f - recoilPower);
         cameraShake = Camera.main.GetComponent<CameraShaking>();
+        curBullet = maxBullet;
     }
 
     public void UseWeapon()
     {
+        if (!CheckCanShot()) return;
+
+        curBullet--;
         Shot(firePosition.position, firePosition.position - triggerPosition.position);
         cameraShake.ShakeCamera(recoilPower * 10f, recoilPower);
         anim.SetTrigger("Shot");
     }
 
     protected abstract void Shot(Vector3 p_firePos, Vector3 p_dir);
+
+    protected bool CheckCanShot()
+    {
+        return curBullet > 0;
+    }
 }
