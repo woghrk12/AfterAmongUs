@@ -11,23 +11,27 @@ public class WeaponUI : MonoBehaviour
     private void Start()
     {
         var t_weapon = GameManager.playerWeapon;
+        weaponButtons[0].interactable = false;
+        weaponButtons[1].interactable = true;
+
         for (int i = 0; i < weaponImages.Length; i++)
         {
             if (i.Equals((int)t_weapon[0]))
             {
                 weaponImages[i].SetActive(true);
                 weaponImages[i].transform.position = weaponButtons[0].transform.position;
-                weaponButtons[0].interactable = false;
                 continue;
             }
             if (i.Equals((int)t_weapon[1]))
             {
                 weaponImages[i].SetActive(true);
                 weaponImages[i].transform.position = weaponButtons[1].transform.position;
-                weaponButtons[1].interactable = true;
                 continue;
             }
+
             weaponImages[i].SetActive(false);
         }
     }
+
+    
 }

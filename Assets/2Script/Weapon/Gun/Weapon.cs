@@ -20,10 +20,12 @@ public abstract class Weapon : MonoBehaviour
 
     public float Range { get { return range; } }
     public float FireRate { get { return fireRate; } }
+    public int MaxBullet { get { return maxBullet; } }
+    public int CurBullet { get { return curBullet; } }
     protected float Accurate { get { return accurate; } }
     protected string Bullet { get { return bullet; } }
     protected string MuzzleFlash { get { return muzzleFlash; } }
-
+    
     protected void Awake()
     {
         anim.SetFloat("motionSpeed", 1.5f - recoilPower);
@@ -33,8 +35,6 @@ public abstract class Weapon : MonoBehaviour
 
     public void UseWeapon()
     {
-        if (!CheckCanShot()) return;
-
         curBullet--;
         Shot(firePosition.position, firePosition.position - triggerPosition.position);
         cameraShake.ShakeCamera(recoilPower * 10f, recoilPower);
@@ -43,7 +43,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected abstract void Shot(Vector3 p_firePos, Vector3 p_dir);
 
-    protected bool CheckCanShot()
+    public bool CheckCanShot()
     {
         return curBullet > 0;
     } 

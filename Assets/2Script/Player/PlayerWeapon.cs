@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    [SerializeField] private ControlStatus bulletStatus = null;
     [SerializeField] private Weapon[] weapons = null;
     private Weapon[] hasWeapon = new Weapon[2];
     private Weapon equipWeapon = null;
+
     public Weapon EquipWeapon { get { return equipWeapon; } }
 
     private float fireDelay = 0f;
@@ -33,13 +35,18 @@ public class PlayerWeapon : MonoBehaviour
 
         for(int i = 0; i < hasWeapon.Length; i++)
             hasWeapon[i].gameObject.SetActive(p_idx == i);
+
+        bulletStatus.MaxValue = equipWeapon.MaxBullet;
+        bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 
     public void UseWeapon()
     {
         if (fireDelay < equipWeapon.FireRate) return;
-        
+        if (!equipWeapon.CheckCanShot()) return;
+
         fireDelay = 0f;
         equipWeapon.UseWeapon();
+        bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 }
