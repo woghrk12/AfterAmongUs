@@ -17,11 +17,13 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private string muzzleFlash = null;
     [SerializeField] private int maxBullet = 0;
     private int curBullet = 0;
+    [SerializeField] private float reloadTime = 0f;
 
     public float Range { get { return range; } }
     public float FireRate { get { return fireRate; } }
     public int MaxBullet { get { return maxBullet; } }
     public int CurBullet { get { return curBullet; } }
+    public float ReloadTime { get { return reloadTime; } }
     protected float Accurate { get { return accurate; } }
     protected string Bullet { get { return bullet; } }
     protected string MuzzleFlash { get { return muzzleFlash; } }
@@ -43,8 +45,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected abstract void Shot(Vector3 p_firePos, Vector3 p_dir);
 
-    public bool CheckCanShot()
-    {
-        return curBullet > 0;
-    } 
+    public bool CheckCanShot() { return curBullet > 0; }
+
+    public void Reload() { curBullet = maxBullet; }
 }

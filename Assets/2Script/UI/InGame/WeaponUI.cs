@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class WeaponUI : MonoBehaviour
 {
+    [SerializeField] private GamePlayer gamePlayer = null;
     [SerializeField] private Button[] weaponButtons = null; 
     [SerializeField] private GameObject[] weaponImages = null;
+    [SerializeField] private Button reloadButton = null;
+    [SerializeField] private Image reloadImage = null;
 
     private void Start()
     {
@@ -33,5 +36,21 @@ public class WeaponUI : MonoBehaviour
         }
     }
 
-    
+    public void OnClickReloadButton()
+    {
+        StartCoroutine(ReloadWeapon());
+    }
+
+    private IEnumerator ReloadWeapon()
+    {
+        gamePlayer.IsReload = true;
+        reloadButton.interactable = false;
+        reloadImage.color = reloadButton.colors.disabledColor;
+
+        yield return gamePlayer.Reload();
+        
+        reloadButton.interactable = true;
+        reloadImage.color = reloadButton.colors.normalColor;
+        gamePlayer.IsReload = false;
+    }
 }

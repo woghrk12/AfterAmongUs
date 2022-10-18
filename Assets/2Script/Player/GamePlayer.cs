@@ -14,6 +14,9 @@ public class GamePlayer : MonoBehaviour
 
     private JoyStick joystick = null;
 
+    private bool isReload = false;
+    public bool IsReload { set { isReload = value; } get { return isReload; } }
+
     private bool canMove = true;
     public bool CanMove
     {
@@ -44,15 +47,6 @@ public class GamePlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.F1))
             Fire();
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Swap(0);
-        }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            Swap(1);
-        }
     }
 
     private void FixedUpdate()
@@ -64,10 +58,16 @@ public class GamePlayer : MonoBehaviour
     
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
     private void Targeting(Transform p_target) => targetingController.Targeting(p_target);
-    private void Fire() => weaponController.UseWeapon();
+    private void Fire()
+    {
+        if (isReload) return;
+        weaponController.UseWeapon();
+    }
+    
     public void Swap(int p_idx)
     {
         weaponController.ChangeWeapon(p_idx);
         rader.SetRange(weaponController.EquipWeapon.Range);
-    } 
+    }
+    public IEnumerator Reload() => weaponController.Reload();
 }

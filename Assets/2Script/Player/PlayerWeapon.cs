@@ -49,4 +49,11 @@ public class PlayerWeapon : MonoBehaviour
         equipWeapon.UseWeapon();
         bulletStatus.SetValue(equipWeapon.CurBullet);
     }
+
+    public IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(equipWeapon.ReloadTime);
+        equipWeapon.Reload();
+        bulletStatus.SetValue(equipWeapon.CurBullet);
+    }
 }
