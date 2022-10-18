@@ -53,4 +53,15 @@ public class WeaponUI : MonoBehaviour
         reloadImage.color = reloadButton.colors.normalColor;
         gamePlayer.IsReload = false;
     }
+
+    public void OnClickSwapButton(int p_idx)
+    {
+        if (gamePlayer.IsReload) return;
+
+        gamePlayer.Swap(p_idx);
+        for (int i = 0; i < weaponButtons.Length; i++)
+        {
+            weaponButtons[i].interactable = p_idx != i;    
+        }
+    }
 }
