@@ -52,6 +52,8 @@ public class PlayerWeapon : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        if (equipWeapon.CurBullet.Equals(equipWeapon.MaxBullet)) yield break;
+
         yield return new WaitForSeconds(equipWeapon.ReloadTime);
         equipWeapon.Reload();
         bulletStatus.SetValue(equipWeapon.CurBullet);

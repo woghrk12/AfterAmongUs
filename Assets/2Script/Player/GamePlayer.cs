@@ -61,6 +61,7 @@ public class GamePlayer : MonoBehaviour
     private void Fire()
     {
         if (isReload) return;
+
         weaponController.UseWeapon();
     }
     
@@ -69,5 +70,6 @@ public class GamePlayer : MonoBehaviour
         weaponController.ChangeWeapon(p_idx);
         rader.SetRange(weaponController.EquipWeapon.Range);
     }
+
     public IEnumerator Reload() => weaponController.Reload();
 }
