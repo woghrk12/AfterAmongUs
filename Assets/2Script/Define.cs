@@ -12,6 +12,25 @@ public struct Pool
     public int size;
 }
 
+[Serializable]
+public class Node
+{
+    public Node(bool p_isWall, int p_xIdx, int p_yIdx, float p_xPos, float p_yPos)
+    {
+        isWall = p_isWall;
+        xIdx = p_xIdx; yIdx = p_yIdx;
+        xPos = p_xPos; yPos = p_yPos;
+    }
+
+    public bool isWall;
+    public Node parentNode;
+
+    public int xIdx, yIdx;
+    public float xPos, yPos;
+    public int g, h;
+    public int f { get { return g + h; } }
+}
+
 // Enum
 public enum EScene { TITLE, INGAME, LOADING }
 public enum ESortingType { STATIC, UPDATE }

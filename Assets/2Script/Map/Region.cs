@@ -11,12 +11,30 @@ public class Region : MonoBehaviour
     [SerializeField] private Region[] adjRegion = null;
     [SerializeField] private Vector2Int[] adjPoint = null;
 
+    public Region[] AdjRegion { get { return adjRegion; } }
+
     private int sizeX = 0;
     private int sizeY = 0;
     private Node[,] nodeArray = null;
 
+    private Region parentRegion = null;
+    public Region ParentRegion { set { parentRegion = value; } get { return parentRegion; } }
+
+    private float g = 0, h = 0;
+
+    public float G { set { g = value; } get { return g; } }
+    public float H { set { h = value; } get { return h; } }
+    public float F { get { return g + h; } }
+
     public Vector2Int TargetPos { get { return targetPos; } }
     public Node[,] NodeArray { get { return nodeArray; } }
+
+    private PathFindingByNode pathController = null;
+
+    private void Awake()
+    {
+        pathController = new PathFindingByNode();
+    }
 
     private void Start()
     {
@@ -51,5 +69,18 @@ public class Region : MonoBehaviour
         }
 
         return Vector2Int.zero;
+    }
+
+    public List<Node> FindPath(Vector2Int p_startPos, Vector2Int p_targetPos)
+    {
+        var t_xStart = p_startPos.x - bottomLeft.x;
+        var t_yStart = p_startPos.y - bottomLeft.y;
+        var t_xTarget = p_targetPos.x - bottomLeft.x;
+        var t_yTarget = p_targetPos.y - bottomLeft.y;
+
+        if (t_xStart < 0 || t_yStart < 0 || t_xStart >= sizeX || t_yStart >= sizeY) return null;
+        if (t_xTarget < 0 || t_yTarget < 0 || t_xTarget >= sizeX || t_yTarget >= sizeY) return null;
+        
+        return pathController.FindPath(p_startPos, p_targetPos, nodeArray, sizeX, sizeY, bottomLeft);
     }
 }
