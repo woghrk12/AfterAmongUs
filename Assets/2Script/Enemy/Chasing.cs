@@ -50,4 +50,12 @@ public class Chasing : MonoBehaviour
 
         transform.position += t_moveDir * Time.deltaTime * speed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision);
+        var t_region = collision.GetComponentInParent<Region>();
+        if (!t_region) return;
+        curRegion = t_region;
+    }
 }
