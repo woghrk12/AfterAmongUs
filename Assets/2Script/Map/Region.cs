@@ -53,7 +53,7 @@ public class Region : MonoBehaviour
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                if (Physics2D.OverlapCircle(new Vector2((i + bottomLeft.x) * 0.1f, (j + bottomLeft.y) * 0.1f), 0.1f, 1 << (int)ELayer.MAP))
+                if (Physics2D.OverlapCircle(new Vector2((i + bottomLeft.x) * 0.1f, (j + bottomLeft.y) * 0.1f), 0.15f, 1 << (int)ELayer.MAP))
                     isWall = true;
 
                 nodeArray[i, j] = new Node(isWall, i, j, (i + bottomLeft.x) * .1f, (j + bottomLeft.y) * .1f);

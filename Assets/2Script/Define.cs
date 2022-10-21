@@ -27,6 +27,11 @@ public class Node
 
     public int xIdx, yIdx;
     public float xPos, yPos;
+    public Vector3 Position
+    {
+        get { return new Vector3(xPos, yPos, 0f); }
+    }
+
     public int g, h;
     public int f { get { return g + h; } }
 }
