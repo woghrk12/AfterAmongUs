@@ -73,14 +73,14 @@ public class Region : MonoBehaviour
 
     public List<Node> FindPath(Vector2Int p_startPos, Vector2Int p_targetPos)
     {
-        var t_xStart = p_startPos.x - bottomLeft.x;
-        var t_yStart = p_startPos.y - bottomLeft.y;
-        var t_xTarget = p_targetPos.x - bottomLeft.x;
-        var t_yTarget = p_targetPos.y - bottomLeft.y;
+        var t_startPos = p_startPos - bottomLeft;
+        var t_targetPos = p_targetPos - bottomLeft;
 
-        if (t_xStart < 0 || t_yStart < 0 || t_xStart >= sizeX || t_yStart >= sizeY) return null;
-        if (t_xTarget < 0 || t_yTarget < 0 || t_xTarget >= sizeX || t_yTarget >= sizeY) return null;
-        
-        return pathController.FindPath(p_startPos, p_targetPos, nodeArray, sizeX, sizeY, bottomLeft);
+        t_startPos.x = Mathf.Clamp(t_startPos.x, 0, sizeX - 1);
+        t_startPos.y = Mathf.Clamp(t_startPos.y, 0, sizeY - 1);
+        t_targetPos.x = Mathf.Clamp(t_targetPos.x, 0, sizeX - 1);
+        t_targetPos.y = Mathf.Clamp(t_targetPos.y, 0, sizeY - 1);
+
+        return pathController.FindPath(t_startPos, t_targetPos, nodeArray, sizeX, sizeY);
     }
 }

@@ -10,16 +10,16 @@ public class PathFindingByNode
     private Node startNode, targetNode, curNode;
     private List<Node> openNodeList, closedNodeList, finalNodeList;
 
-    public List<Node> FindPath(Vector2Int p_startPos, Vector2Int p_targetPos, Node[,] p_nodeArray, int p_sizeX, int p_sizeY, Vector2Int p_bottomLeft)
+    public List<Node> FindPath(Vector2Int p_startPos, Vector2Int p_targetPos, Node[,] p_nodeArray, int p_sizeX, int p_sizeY)
     {
-        FindPathByNode(p_startPos, p_targetPos, p_nodeArray, p_sizeX, p_sizeY, p_bottomLeft);
+        FindPathByNode(p_startPos, p_targetPos, p_nodeArray, p_sizeX, p_sizeY);
         return finalNodeList;
     }
 
-    private void FindPathByNode(Vector2Int p_startPos, Vector2Int p_targetPos, Node[,] p_nodeArray, int p_sizeX, int p_sizeY, Vector2Int p_bottomLeft)
+    private void FindPathByNode(Vector2Int p_startPos, Vector2Int p_targetPos, Node[,] p_nodeArray, int p_sizeX, int p_sizeY)
     {
-        startNode = p_nodeArray[p_startPos.x - p_bottomLeft.x, p_startPos.y - p_bottomLeft.y];
-        targetNode = p_nodeArray[p_targetPos.x - p_bottomLeft.x, p_targetPos.y - p_bottomLeft.y];
+        startNode = p_nodeArray[p_startPos.x, p_startPos.y];
+        targetNode = p_nodeArray[p_targetPos.x, p_targetPos.y];
 
         openNodeList = new List<Node> { startNode };
         closedNodeList = new List<Node>();
