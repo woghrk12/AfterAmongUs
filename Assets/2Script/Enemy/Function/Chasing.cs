@@ -10,8 +10,13 @@ public class Chasing : MonoBehaviour
     private bool isChasing = false;
     public bool IsChasing { set { isChasing = value; } get { return isChasing; } }
 
+    [SerializeField] private float chaseRange = 0f;
+    public float ChaseRange { get { return chaseRange; } }
+
     public IEnumerator ChaseTarget(Transform p_target)
     {
+        isChasing = true;
+
         while (isChasing)
         {
             target = p_target.position;
@@ -19,7 +24,11 @@ public class Chasing : MonoBehaviour
         }
     }
 
-    public IEnumerator ChaseRegion(List<Region> p_regions) => FindPath(p_regions);
+    public IEnumerator ChaseRegion(List<Region> p_regions)
+    {
+        isChasing = true;
+        yield return FindPath(p_regions);
+    } 
 
     private IEnumerator FindPath(List<Region> p_regions)
     {
@@ -34,11 +43,12 @@ public class Chasing : MonoBehaviour
                 : t_curRegion.TargetPos;
 
             var t_nodes = t_curRegion.FindPath(t_curPos, t_targetPos);
+            t_nodes.RemoveAt(0);
 
             while (t_nodes.Count > 0)
             {
                 target = t_nodes[0].Position;
-                yield return new WaitUntil(() => Utilities.CalculateDist(transform.position, t_nodes[0].Position) <= 0.001f || isChasing);
+                yield return new WaitUntil(() => Utilities.CalculateDist(transform.position, t_nodes[0].Position) <= 0.1f || !isChasing);
                 if (!isChasing) yield break;
                 t_nodes.RemoveAt(0);
             }
@@ -46,6 +56,7 @@ public class Chasing : MonoBehaviour
             t_curPos = t_targetPos;
 
             t_regions.RemoveAt(0);
+
             if (t_regions.Count > 0) t_curRegion = t_regions[0];
         }
     }

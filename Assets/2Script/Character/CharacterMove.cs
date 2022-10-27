@@ -19,12 +19,11 @@ public class CharacterMove : MonoBehaviour
 
     public void MoveCharacter(Vector3 p_moveDir, Animator p_anim) => Move(p_moveDir, p_anim);
 
-    private void Move(Vector3 p_moveDir, Animator p_anim)
+    private void Move(Vector3 p_moveDir, Animator p_anim = null)
     {
         transform.position += p_moveDir * Time.deltaTime * moveSpeed;
-
-        p_anim.SetBool("isWalk", p_moveDir != Vector3.zero);
-
         if (p_moveDir.x != 0f) IsLeft = p_moveDir.x < 0f;
+        if (!p_anim) return;
+        p_anim.SetBool("isWalk", p_moveDir != Vector3.zero);
     }
 }

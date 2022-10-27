@@ -12570,6 +12570,7 @@ GameObject:
   - component: {fileID: 1533314070}
   - component: {fileID: 1533314073}
   - component: {fileID: 1533314071}
+  - component: {fileID: 1533314075}
   - component: {fileID: 1533314074}
   - component: {fileID: 1533314072}
   m_Layer: 0
@@ -12620,9 +12621,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3473169c097d15a4f979a5f0dbf34edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameManager: {fileID: 0}
-  hitController: {fileID: 0}
-  chaseController: {fileID: 0}
+  anim: {fileID: 0}
+  inGameManager: {fileID: 341497481}
+  hitController: {fileID: 1533314071}
+  chaseController: {fileID: 1533314074}
+  moveController: {fileID: 1533314075}
+  gamePlayer: {fileID: 2105538753}
 --- !u!50 &1533314073
 Rigidbody2D:
   serializedVersion: 4
@@ -12656,9 +12660,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd60ef5feb6ba3049b1e96603c69834b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameManager: {fileID: 0}
-  chaseRange: 0
-  speed: 0
+  chaseRange: 1
+--- !u!114 &1533314075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533314069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916ac636e3a2b5947921efb287e73913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
 --- !u!1 &1553204289
 GameObject:
   m_ObjectHideFlags: 0
@@ -15960,7 +15975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105538752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 2.996, z: 0}
+  m_LocalPosition: {x: -2.989, y: -4.199, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
