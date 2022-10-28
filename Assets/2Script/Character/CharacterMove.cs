@@ -9,7 +9,7 @@ public class CharacterMove : MonoBehaviour
     private bool isLeft = false;
     public bool IsLeft 
     {
-        private set 
+        set 
         {
             isLeft = value;
             transform.localScale = new Vector3(isLeft ? -1f : 1f, 1f, 1f);

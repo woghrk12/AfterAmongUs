@@ -28,8 +28,6 @@ public abstract class Bullet : MonoBehaviour
         StartCoroutine(CheckOnHit());
     }
 
-    public void MoveBullet() => StartCoroutine(CheckOnHit());
-
     private IEnumerator CheckOnHit()
     {
         var t_deltaSpeed = speed * Time.deltaTime;

@@ -10,9 +10,6 @@ public class Chasing : MonoBehaviour
     private bool isChasing = false;
     public bool IsChasing { set { isChasing = value; } get { return isChasing; } }
 
-    [SerializeField] private float chaseRange = 0f;
-    public float ChaseRange { get { return chaseRange; } }
-
     public IEnumerator ChaseTarget(Transform p_target)
     {
         isChasing = true;

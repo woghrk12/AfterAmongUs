@@ -723,6 +723,9 @@ MonoBehaviour:
   - tag: CircleHitEffect
     prefab: {fileID: 8183316662222317535, guid: c785f6dc156a79a429ab2110c54acae1, type: 3}
     size: 10
+  - tag: EnemyBullet
+    prefab: {fileID: 2498062394974830372, guid: 2d38834a323e45e41a8d6ef74c9c88f4, type: 3}
+    size: 10
 --- !u!1 &123286467
 GameObject:
   m_ObjectHideFlags: 0
@@ -9335,7 +9338,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.0001
+  m_Radius: 4
 --- !u!114 &802268868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12231,7 +12234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489938164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.032, y: 3.702, z: 0}
+  m_LocalPosition: {x: 0.307, y: 1.379, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1553204291}
@@ -12585,6 +12588,7 @@ GameObject:
   - component: {fileID: 1533314071}
   - component: {fileID: 1533314075}
   - component: {fileID: 1533314074}
+  - component: {fileID: 1533314077}
   - component: {fileID: 1533314072}
   m_Layer: 0
   m_Name: Enemy Normal
@@ -12642,9 +12646,12 @@ MonoBehaviour:
   inGameManager: {fileID: 341497481}
   hitController: {fileID: 1533314071}
   chaseController: {fileID: 1533314074}
+  attackController: {fileID: 1533314077}
   moveController: {fileID: 1533314075}
   targetController: {fileID: 802268868}
-  gamePlayer: {fileID: 2105538753}
+  chaseRange: 4
+  attackRange: 2
+  enemyAim: {fileID: 1951472042}
 --- !u!50 &1533314073
 Rigidbody2D:
   serializedVersion: 4
@@ -12678,7 +12685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd60ef5feb6ba3049b1e96603c69834b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 1
 --- !u!114 &1533314075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12711,6 +12717,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1533314077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533314069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94be169cd0698cc4da1c03dfa7e1f060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: EnemyBullet
 --- !u!1 &1553204289
 GameObject:
   m_ObjectHideFlags: 0

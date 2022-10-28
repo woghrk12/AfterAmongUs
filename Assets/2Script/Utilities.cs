@@ -12,6 +12,7 @@ public static class Utilities
         return Mathf.Abs(t_dx - t_dy) + Mathf.Min(t_dx, t_dy) * 1.4f;
     }
 
+    public static readonly WaitForFixedUpdate WaitForFixedUpdate = new WaitForFixedUpdate();
     private static readonly Dictionary<float, WaitForSeconds> waitForSeconds = new Dictionary<float, WaitForSeconds>();
     public static WaitForSeconds WaitForSeconds(float p_sec)
     {
