@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float chaseRange = 0f;
     [SerializeField] private float attackRange = 0f;
     [SerializeField] private Transform enemyAim = null;
+    private Coroutine attackCo = null;
+    private Coroutine chaseCo = null;
+
     private bool IsMove { set { anim.SetBool("isWalk", value); } }
     private bool IsLeft { set { moveController.IsLeft = value; } }
 
@@ -27,9 +30,21 @@ public class Enemy : MonoBehaviour
         targetController.SetRange(chaseRange);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            attackCo = StartCoroutine(Chase());
+        }
+    }
+
+    private void Move(Vector3 p_dir) => moveController.MoveCharacter(p_dir, anim);
+    private IEnumerator ChaseRegion() => chaseController.ChaseRegion(inGameManager.FindRegion(curRegion));
+    private IEnumerator ChasePlayer(Transform p_target) => chaseController.ChaseTarget(p_target);
+
     private IEnumerator Chase()
     {
-        StartCoroutine(ChaseRegion());
+        chaseCo = StartCoroutine(ChaseRegion());
 
         while (!targetController.Target)
         {
@@ -37,34 +52,36 @@ public class Enemy : MonoBehaviour
             yield return Utilities.WaitForFixedUpdate;
         }
 
-        chaseController.IsChasing = false;
+        StopCoroutine(chaseCo);
+        attackCo = StartCoroutine(Attack());
     }
-
-    private void Move(Vector3 p_dir) => moveController.MoveCharacter(p_dir, anim);
-
-    private IEnumerator ChaseRegion() => chaseController.ChaseRegion(inGameManager.FindRegion(curRegion));
-    private IEnumerator ChasePlayer(Transform p_target) => chaseController.ChaseTarget(p_target);
 
     private IEnumerator Attack()
     {
-        StartCoroutine(ChasePlayer(target));
+        chaseCo = StartCoroutine(ChasePlayer(target));
+
         while (targetController.Target)
         {
-            while (Utilities.CalculateDist(transform.position, target.position) > attackRange)
+            var t_target = targetController.Target;
+            var t_direction = (t_target.position - enemyAim.position).normalized;
+            if (Utilities.CalculateDist(enemyAim.position, t_target.position) > attackRange 
+                || !attackController.CheckCanAttack(t_target, attackRange))
             {
-                Move((target.position - transform.position).normalized);
+                Move(t_direction);
                 yield return Utilities.WaitForFixedUpdate;
+                continue;
             }
 
             IsMove = false;
-
-            IsLeft = enemyAim.position.x > target.position.x;
+            IsLeft = enemyAim.position.x > t_target.position.x;
             anim.SetTrigger("Attack");
             yield return Utilities.WaitForSeconds(0.15f);
-            attackController.Fire(enemyAim.position, (target.position - enemyAim.position).normalized);
+            attackController.Fire(enemyAim.position, t_direction);
             yield return Utilities.WaitForSeconds(2f);
         }
-        chaseController.IsChasing = false;
+
+        StopCoroutine(chaseCo);
+        attackCo = StartCoroutine(Chase());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

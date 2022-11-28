@@ -14,6 +14,8 @@ public class Damagable : MonoBehaviour
 
     private IEnumerator HitEffect()
     {
+        if (!sprite) yield break;
+
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.05f);
         sprite.color = Color.white;

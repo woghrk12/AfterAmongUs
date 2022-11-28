@@ -7,25 +7,16 @@ public class Chasing : MonoBehaviour
     private Vector3 target = Vector3.zero;
     public Vector3 Target { get { return target; } }
 
-    private bool isChasing = false;
-    public bool IsChasing { set { isChasing = value; } get { return isChasing; } }
-
     public IEnumerator ChaseTarget(Transform p_target)
     {
-        isChasing = true;
-
-        while (isChasing)
+        while (true)
         {
             target = p_target.position;
             yield return Utilities.WaitForSeconds(0.1f);
         }
     }
 
-    public IEnumerator ChaseRegion(List<Region> p_regions)
-    {
-        isChasing = true;
-        yield return FindPath(p_regions);
-    } 
+    public IEnumerator ChaseRegion(List<Region> p_regions) { yield return FindPath(p_regions); }
 
     private IEnumerator FindPath(List<Region> p_regions)
     {
@@ -40,13 +31,13 @@ public class Chasing : MonoBehaviour
                 : t_curRegion.TargetPos;
 
             var t_nodes = t_curRegion.FindPath(t_curPos, t_targetPos);
+
             t_nodes.RemoveAt(0);
 
             while (t_nodes.Count > 0)
             {
                 target = t_nodes[0].Position;
-                yield return new WaitUntil(() => Utilities.CalculateDist(transform.position, t_nodes[0].Position) <= 0.1f || !isChasing);
-                if (!isChasing) yield break;
+                yield return new WaitUntil(() => Utilities.CalculateDist(transform.position, t_nodes[0].Position) <= 0.1f);
                 t_nodes.RemoveAt(0);
             }
 
