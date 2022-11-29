@@ -44,9 +44,7 @@ public class GamePlayer : MonoBehaviour
     private void Update()
     {
         Targeting(rader.Target);
-
-        if (Input.GetKey(KeyCode.F1))
-            Fire();
+        if (rader.Target) Fire();
     }
 
     private void FixedUpdate()
