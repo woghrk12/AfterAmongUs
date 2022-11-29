@@ -30,8 +30,7 @@ public abstract class Bullet : MonoBehaviour
 
     private IEnumerator CheckOnHit()
     {
-        var t_deltaSpeed = speed * Time.deltaTime;
-
+        var t_deltaSpeed = speed * Time.fixedDeltaTime;
         hitInfo = Physics2D.Raycast(transform.position, direction, t_deltaSpeed, rayMask);
 
         while (!hitInfo)
