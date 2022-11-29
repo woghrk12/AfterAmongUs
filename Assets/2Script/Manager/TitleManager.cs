@@ -8,7 +8,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPositions = null;
 
     private void Awake()
-    {
+    {      
         titlePlayer = FindObjectOfType<TitlePlayer>();
     }
 

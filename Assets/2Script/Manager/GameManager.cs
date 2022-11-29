@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     public static EPlayerColor playerColor = EPlayerColor.RED;
     public static EPlayerWeapon[] playerWeapon = new EPlayerWeapon[2];
+    public static bool isStart = false;
 
     private void Awake()
     {

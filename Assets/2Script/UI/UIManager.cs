@@ -28,14 +28,17 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	[SerializeField]private TitleUI titleUI = null;
+	public TitleUI TitleUI { get { return titleUI; } }
+
 	[SerializeField] private GameObject playerUI = null;
 	[SerializeField] private JoyStick joystick = null;
 	[SerializeField] private Button useButton = null;
 	[SerializeField] private Image screen = null;
 	[SerializeField] private Text alertText = null;
 
-	public JoyStick Joystick { get { return joystick; } }
-	public Button UseButton { get { return useButton; } }
+	public JoyStick Joystick { get { return TitleUI.JoyStick; } }
+	public Button UseButton { get { return TitleUI.UseButton; } }
 
 	private Coroutine alertTextCo = null;
 
