@@ -1,17 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LoadingManager : MonoBehaviour
 {
     public static EScene nextScene;
-    private LoadingUI loadingUI = null;
 
     private void Start()
     {
-        loadingUI = UIManager.Instance.LoadingUI;
         StartCoroutine(LoadScene());
     }
 
@@ -23,20 +19,21 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
+        var t_uiManager = (LoadingUIGroup)UIManager.Instance.ActiveUI(EUIList.LOADING);
         var t_op = SceneManager.LoadSceneAsync((int)nextScene);
-        t_op.allowSceneActivation = false;
-
         var t_timer = 0f;
+        
+        t_op.allowSceneActivation = false;
 
         while (!t_op.isDone)
         {
             yield return null;
 
-            if (t_op.progress < 0.9f) loadingUI.SetProgress(t_op.progress);
+            if (t_op.progress < 0.9f) t_uiManager.SetProgress(t_op.progress);
             else
             {
                 t_timer += Time.unscaledDeltaTime;
-                loadingUI.SetProgress(Mathf.Lerp(0.9f, 1f, t_timer));
+                t_uiManager.SetProgress(Mathf.Lerp(0.9f, 1f, t_timer));
                 if (t_timer >= 1.0f)
                     t_op.allowSceneActivation = true;
             }

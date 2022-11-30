@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommonUI : MonoBehaviour
+public class CommonUIGroup : UIGroup
 {
-    [SerializeField] private Text alertText = null;
+	[SerializeField] private Text alertText = null;
 	private Coroutine alertTextCo = null;
 
-    public void Alert(string p_text)
+	public override void InitUI()
     {
+		if (alertText.gameObject.activeSelf) alertText.gameObject.SetActive(false);
+		alertTextCo = null;
+    }
+
+	public void Alert(string p_text)
+	{
 		if (alertTextCo != null) StopCoroutine(alertTextCo);
 		alertTextCo = StartCoroutine(ShowAlertText(p_text));
-    }
+	}
 
 	private IEnumerator ShowAlertText(string p_text)
 	{

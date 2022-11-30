@@ -336,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43512700}
-  - component: {fileID: 43512701}
+  - component: {fileID: 43512702}
   m_Layer: 0
   m_Name: InGame Group
   m_TagString: Untagged
@@ -366,7 +366,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &43512701
+--- !u!114 &43512702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 43512699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b971a4ce831e6a42ac8f57e9e16587b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4987f18d6d7c42040a2f0ef24e699d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controlUI: {fileID: 791073452}
@@ -2115,7 +2115,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1243294945}
-        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: TitleUIGroup, Assembly-CSharp
         m_MethodName: OnClickInGameButton
         m_Mode: 1
         m_Arguments:
@@ -8307,7 +8307,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 712407812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b467b736380264049b697b0422871913, type: 3}
+  m_Script: {fileID: 11500000, guid: 56fb7d3dc8341424da3e6f22c6b84162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screen: {fileID: 712664625}
@@ -9146,8 +9146,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 43512701}
-        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+      - m_Target: {fileID: 43512702}
+        m_TargetAssemblyTypeName: InGameUIGroup, Assembly-CSharp
         m_MethodName: OnClickSwapButton
         m_Mode: 3
         m_Arguments:
@@ -9718,8 +9718,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 43512701}
-        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+      - m_Target: {fileID: 43512702}
+        m_TargetAssemblyTypeName: InGameUIGroup, Assembly-CSharp
         m_MethodName: OnClickSwapButton
         m_Mode: 3
         m_Arguments:
@@ -9814,7 +9814,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 952179142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b80bfc956de98e43af60372cf74a01a, type: 3}
+  m_Script: {fileID: 11500000, guid: 680e14923497f004b9f831849a08c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alertText: {fileID: 1224797258}
@@ -10225,8 +10225,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 43512701}
-        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
+      - m_Target: {fileID: 43512702}
+        m_TargetAssemblyTypeName: InGameUIGroup, Assembly-CSharp
         m_MethodName: OnClickReloadButton
         m_Mode: 1
         m_Arguments:
@@ -12028,7 +12028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1243294944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12060,7 +12060,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1243294943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba87e317c450b914095e97d33d777427, type: 3}
+  m_Script: {fileID: 11500000, guid: b4f45f6f23e26ad4b84614d683965fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiList:
@@ -12747,7 +12747,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1243294945}
-        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: TitleUIGroup, Assembly-CSharp
         m_MethodName: OnClickGameStartButton
         m_Mode: 1
         m_Arguments:
@@ -13138,7 +13138,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1243294945}
-        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: TitleUIGroup, Assembly-CSharp
         m_MethodName: OnClickBackground
         m_Mode: 1
         m_Arguments:
@@ -14703,11 +14703,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiList:
-  - {fileID: 1243294943}
-  - {fileID: 43512699}
-  - {fileID: 2145355627}
-  - {fileID: 712407812}
-  - {fileID: 952179142}
+  - {fileID: 1243294945}
+  - {fileID: 43512702}
+  - {fileID: 2145355629}
+  - {fileID: 712407814}
+  - {fileID: 952179144}
 --- !u!1 &1866120812
 GameObject:
   m_ObjectHideFlags: 0
@@ -15753,7 +15753,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145355627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f32db3b84bdae479688a5c20a151c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c601b21113a0c724ba381c0d1e9b9d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 124831945}

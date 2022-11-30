@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InGameManager : MonoBehaviour
 {
+    [SerializeField] private GamePlayer gamePlayer = null;
+    public GamePlayer GamePlayer { get { return gamePlayer; } }
+
     private PathFindingByRegion pathController = null;
 
     [SerializeField] private Region targetRegion = null;
@@ -11,6 +14,11 @@ public class InGameManager : MonoBehaviour
     private void Awake()
     {
         pathController = new PathFindingByRegion();
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.ActiveUI(EUIList.INGAME);
     }
 
     public List<Region> FindRegion(Region p_startRegion)

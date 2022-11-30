@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleUI : MonoBehaviour
+public class TitleUIGroup : UIGroup
 {
-    private TitleManager titleManager = null;
+    private TitleManager manager = null;
+
     [SerializeField] private List<UIBase> uiList = null;
     private ETitleUILayer activeUI = ETitleUILayer.END;
 
@@ -15,9 +16,9 @@ public class TitleUI : MonoBehaviour
     public JoyStick JoyStick { get { return joyStick; } }
     public Button UseButton { get { return useButton; } }
 
-    public void InitUI()
+    public override void InitUI()
     {
-        titleManager = FindObjectOfType<TitleManager>();
+        manager = FindObjectOfType<TitleManager>();
 
         if (!GameManager.isStart)
         {
@@ -42,7 +43,7 @@ public class TitleUI : MonoBehaviour
     public void OnClickGameStartButton() => StartCoroutine(EnterShip());
     public void OnClickInGameButton()
     {
-        if (!titleManager.CheckCanStartGame()) return;
+        if (!manager.CheckCanStartGame()) return;
         StartCoroutine(EnterGame());
     }
     public void OnClickBackground() => StartCoroutine(ControlUI(true, ETitleUILayer.SHIP));
@@ -53,12 +54,12 @@ public class TitleUI : MonoBehaviour
     private IEnumerator EnterShip()
     {
         yield return ControlUI(true, ETitleUILayer.SHIP, true);
-        titleManager.GameStart();
+        manager.GameStart();
     }
 
     private IEnumerator EnterGame()
     {
         yield return ControlUI(false);
-        titleManager.EnterInGame();
+        manager.EnterInGame();
     }
 }

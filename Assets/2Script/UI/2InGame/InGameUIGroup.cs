@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InGameUI : MonoBehaviour
+public class InGameUIGroup : UIGroup
 {
+    private InGameManager manager = null;
     private GamePlayer gamePlayer = null;
+
     [SerializeField] private ControlUI controlUI = null;
     [SerializeField] private WeaponUI weaponUI = null;
     [SerializeField] private StatusUI statusUI = null;
@@ -13,9 +15,10 @@ public class InGameUI : MonoBehaviour
     public JoyStick JoyStick { get { return controlUI.JoyStick; } }
     public Button UseButton { get { return controlUI.UseButton; } }
 
-    public void InitUI()
+    public override void InitUI()
     {
-        gamePlayer = FindObjectOfType<GamePlayer>();
+        manager = FindObjectOfType<InGameManager>();
+        gamePlayer = manager.GamePlayer;
         weaponUI.InitUI(GameManager.playerWeapon);
         statusUI.InitUI(gamePlayer.EquipWeapon);
     }
@@ -27,7 +30,7 @@ public class InGameUI : MonoBehaviour
     public void OnClickSwapButton(int p_idx)
     {
         if (gamePlayer.IsReload) return;
-        
+
         var t_weaponInfo = gamePlayer.Swap(p_idx);
 
         statusUI.SetMaxBullet(t_weaponInfo.Item1);

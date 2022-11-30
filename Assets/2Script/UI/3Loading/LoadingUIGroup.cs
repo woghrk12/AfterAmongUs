@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour
+public class LoadingUIGroup : UIGroup
 {
     [SerializeField] private Image progressBar = null;
+
+    public override void InitUI()
+    {
+        progressBar.fillAmount = 0f;
+    }
 
     public void SetProgress(float p_value)
     {

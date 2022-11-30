@@ -5914,7 +5914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a932f56c3a7c34aa538bbd2ac696a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletStatus: {fileID: 0}
   weapons:
   - {fileID: 1249558348}
   - {fileID: 1334627343}
@@ -6280,6 +6279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755456c53a39efa49b6839e75d9782fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamePlayer: {fileID: 1489938165}
   targetRegion: {fileID: 941693325}
 --- !u!1 &341695886
 GameObject:

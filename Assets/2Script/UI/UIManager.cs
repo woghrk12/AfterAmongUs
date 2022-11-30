@@ -28,21 +28,15 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	[SerializeField] private List<GameObject> uiList = null;
+	[SerializeField] private List<UIGroup> uiList = null;
 
-	private TitleUI titleUI = null; 
-	private InGameUI inGameUI = null;
-	private LoadingUI loadingUI = null;
-	private FadeUI fadeUI = null;
-	private CommonUI commonUI = null;
-
-	public TitleUI TitleUI { get { return titleUI; } }
-	public InGameUI InGameUI { get { return inGameUI; } }
-	public LoadingUI LoadingUI { get { return loadingUI; } }
-	public FadeUI FadeUI { get { return fadeUI; } }
-	public CommonUI CommonUI { get { return commonUI; } }
-	public JoyStick Joystick { get { return TitleUI.JoyStick; } }
-	public Button UseButton { get { return TitleUI.UseButton; } }
+	public TitleUIGroup TitleUI { private set; get; }
+	public InGameUIGroup InGameUI { private set; get; }
+	public LoadingUIGroup LoadingUI { private set; get; }
+	public FadeUIGroup FadeUI { private set; get; }
+	public CommonUIGroup CommonUI { private set; get; }
+	public JoyStick Joystick { private set; get; }
+	public Button UseButton { private set; get; }
 
 	private void Awake()
 	{
@@ -59,42 +53,26 @@ public class UIManager : MonoBehaviour
 
 	private void Start()
 	{
-		titleUI = uiList[(int)EUIList.TITLE].GetComponent<TitleUI>();
-		inGameUI = uiList[(int)EUIList.INGAME].GetComponent<InGameUI>();
-		fadeUI = uiList[(int)EUIList.FADE].GetComponent<FadeUI>();
-		loadingUI = uiList[(int)EUIList.LOADING].GetComponent<LoadingUI>();
-		commonUI = uiList[(int)EUIList.COMMON].GetComponent<CommonUI>();
+		TitleUI = (TitleUIGroup)uiList[(int)EUIList.TITLE];
+		InGameUI = (InGameUIGroup)uiList[(int)EUIList.INGAME];
+		LoadingUI = (LoadingUIGroup)uiList[(int)EUIList.LOADING];
+		FadeUI = (FadeUIGroup)uiList[(int)EUIList.FADE];
+		CommonUI = (CommonUIGroup)uiList[(int)EUIList.COMMON];
 	}
 
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.F1))
-		{
-			inGameUI.gameObject.SetActive(false);
-			titleUI.gameObject.SetActive(true);
-			titleUI.InitUI();
-		}
-		else if (Input.GetKeyDown(KeyCode.F2))
-		{
-			titleUI.gameObject.SetActive(false);
-			inGameUI.gameObject.SetActive(true);
-			inGameUI.InitUI();
-		}
-		else if (Input.GetKeyDown(KeyCode.F3))
-			LoadingManager.LoadScene(EScene.INGAME);
-    }
-
-    public void ActiveUI(EUIList p_uiIdx)
+    public UIGroup ActiveUI(EUIList p_uiIdx)
 	{
 		var t_cnt = (int)EUIList.COMMON;
 		var t_idx = (int)p_uiIdx;
-
-		for (int i = 0; i < t_cnt; i++)
-		{
-			uiList[i].SetActive(t_idx == i);				
-		}
+		
+		for (int i = 0; i < t_cnt; i++) uiList[i].gameObject.SetActive(false);
+		
+		uiList[t_idx].gameObject.SetActive(true);
+		uiList[t_idx].InitUI();
+		
+		return uiList[t_idx];
 	}
 
-	public static void Alert(string p_text) => Instance.commonUI.Alert(p_text);
+	public static void Alert(string p_text) => Instance.CommonUI.Alert(p_text);
 }
 
