@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour
 {
     public static EScene nextScene;
-
-    [SerializeField] private Image progressBar = null;
+    private LoadingUI loadingUI = null;
 
     private void Start()
     {
+        loadingUI = UIManager.Instance.LoadingUI;
         StartCoroutine(LoadScene());
     }
 
@@ -32,14 +32,12 @@ public class LoadingManager : MonoBehaviour
         {
             yield return null;
 
-            if (t_op.progress < 0.9f)
-                progressBar.fillAmount = t_op.progress;
+            if (t_op.progress < 0.9f) loadingUI.SetProgress(t_op.progress);
             else
             {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, t_timer);
-                t_timer += Time.deltaTime;
-                
-                if (progressBar.fillAmount >= 1.0f)
+                t_timer += Time.unscaledDeltaTime;
+                loadingUI.SetProgress(Mathf.Lerp(0.9f, 1f, t_timer));
+                if (t_timer >= 1.0f)
                     t_op.allowSceneActivation = true;
             }
         }

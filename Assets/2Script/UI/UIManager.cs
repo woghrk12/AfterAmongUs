@@ -30,15 +30,17 @@ public class UIManager : MonoBehaviour
 
 	[SerializeField] private List<GameObject> uiList = null;
 
-	[SerializeField] private TitleUI titleUI = null;
-	[SerializeField] private InGameUI inGameUI = null;
-	//[SerializeField] private GameObject loadingUI = null;
-	[SerializeField] private FadeUI fadeUI = null;
-	[SerializeField] private CommonUI commonUI = null;
-	public TitleUI TitleUI { get { return uiList[(int)EUIList.TITLE].GetComponent<TitleUI>(); } }
-	public FadeUI FadeUI { get { return uiList[(int)EUIList.FADE].GetComponent<FadeUI>(); } }
-	public InGameUI InGameUI { get { return uiList[(int)EUIList.INGAME].GetComponent<InGameUI>(); } }
+	private TitleUI titleUI = null; 
+	private InGameUI inGameUI = null;
+	private LoadingUI loadingUI = null;
+	private FadeUI fadeUI = null;
+	private CommonUI commonUI = null;
 
+	public TitleUI TitleUI { get { return titleUI; } }
+	public InGameUI InGameUI { get { return inGameUI; } }
+	public LoadingUI LoadingUI { get { return loadingUI; } }
+	public FadeUI FadeUI { get { return fadeUI; } }
+	public CommonUI CommonUI { get { return commonUI; } }
 	public JoyStick Joystick { get { return TitleUI.JoyStick; } }
 	public Button UseButton { get { return TitleUI.UseButton; } }
 
@@ -55,6 +57,15 @@ public class UIManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
+	private void Start()
+	{
+		titleUI = uiList[(int)EUIList.TITLE].GetComponent<TitleUI>();
+		inGameUI = uiList[(int)EUIList.INGAME].GetComponent<InGameUI>();
+		fadeUI = uiList[(int)EUIList.FADE].GetComponent<FadeUI>();
+		loadingUI = uiList[(int)EUIList.LOADING].GetComponent<LoadingUI>();
+		commonUI = uiList[(int)EUIList.COMMON].GetComponent<CommonUI>();
+	}
+
     private void Update()
     {
 		if (Input.GetKeyDown(KeyCode.F1))
@@ -69,26 +80,18 @@ public class UIManager : MonoBehaviour
 			inGameUI.gameObject.SetActive(true);
 			inGameUI.InitUI();
 		}
+		else if (Input.GetKeyDown(KeyCode.F3))
+			LoadingManager.LoadScene(EScene.INGAME);
     }
 
     public void ActiveUI(EUIList p_uiIdx)
 	{
-		for (int i = 0; i < uiList.Count; i++)
-		{ 
-		
-		}
-		switch (p_uiIdx)
+		var t_cnt = (int)EUIList.COMMON;
+		var t_idx = (int)p_uiIdx;
+
+		for (int i = 0; i < t_cnt; i++)
 		{
-			case EUIList.TITLE:
-				break;
-			case EUIList.FADE:
-				break;
-			case EUIList.INGAME:
-				break;
-			case EUIList.LOADING:
-				break;
-			default:
-				break;
+			uiList[i].SetActive(t_idx == i);				
 		}
 	}
 

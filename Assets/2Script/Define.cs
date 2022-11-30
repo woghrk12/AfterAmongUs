@@ -38,7 +38,7 @@ public class Node
 
 #region Enum
 public enum EScene { TITLE, INGAME, LOADING }
-public enum EUIList { TITLE, INGAME, LOADING, FADE, END }
+public enum EUIList { TITLE, INGAME, LOADING, FADE, COMMON, END }
 public enum ESortingType { STATIC, UPDATE }
 public enum EPlayerColor { RED, BLUE, GREEN, PINK, ORANGE, YELLOW, BLACK, WHITE, PURPLE, BROWN, CYAN, LIME, END }
 public enum EPlayerWeapon { RIFLE, SHOTGUN, PISTOL, SNIPER, MACHINEGUN, SUBMACHINEGUN, NONE }
