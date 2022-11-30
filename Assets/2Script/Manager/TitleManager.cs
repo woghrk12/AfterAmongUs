@@ -4,18 +4,34 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
+    private UIManager manager = null;
+    private TitleUIGroup titleUI = null;
+    private FadeUIGroup fadeUI = null;
+
     [SerializeField] private TitlePlayer titlePlayer = null;
     [SerializeField] private Transform[] spawnPositions = null;
 
     private void Start()
     {
-        var t_uiManager = UIManager.Instance;
-        var t_titleUI = t_uiManager.TitleUI;
-        
-        t_uiManager.ActiveUI(EUIList.TITLE);
-        t_titleUI.SetControl();
-        t_titleUI.InitUI();
+        manager = UIManager.Instance;
+        titleUI = manager.TitleUI;
+        fadeUI = manager.FadeUI;
+
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
         Camera.main.GetComponent<CameraShaking>().StartShaking(15f);
+        
+        manager.ActiveUI(EUIList.FADE);
+        fadeUI.InitUI();
+
+        yield return fadeUI.FadeIn();
+        
+        manager.ActiveUI(EUIList.TITLE);
+        titleUI.SetControl();
+        titleUI.InitUI();
     }
 
     public void GameStart()
@@ -44,6 +60,8 @@ public class TitleManager : MonoBehaviour
     private IEnumerator EnterInGameCo()
     {
         titlePlayer.CanMove = false;
+        manager.ActiveUI(EUIList.FADE);
+        StartCoroutine(fadeUI.FadeOut());
         yield return new WaitForSeconds(2f);
         LoadingManager.LoadScene(EScene.INGAME);
     }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class InGameManager : MonoBehaviour
 {
+    private UIManager manager = null;
+    private InGameUIGroup inGameUI = null;
+    private FadeUIGroup fadeUI = null;
+
     [SerializeField] private GamePlayer gamePlayer = null;
     public GamePlayer GamePlayer { get { return gamePlayer; } }
 
@@ -18,13 +22,24 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
-        var t_uiManager = UIManager.Instance;
-        var t_inGameUI = t_uiManager.InGameUI;
+        manager = UIManager.Instance;
+        inGameUI = manager.InGameUI;
+        fadeUI = manager.FadeUI;
 
-        t_uiManager.ActiveUI(EUIList.INGAME);
-        t_inGameUI.SetControl();
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        manager.ActiveUI(EUIList.FADE);
+        fadeUI.InitUI();
+
+        yield return fadeUI.FadeIn();
+
+        manager.ActiveUI(EUIList.INGAME);
+        inGameUI.SetControl();
         gamePlayer.InitPlayer();
-        t_inGameUI.InitUI();
+        inGameUI.InitUI();
     }
 
     public List<Region> FindRegion(Region p_startRegion)
