@@ -35,8 +35,8 @@ public class UIManager : MonoBehaviour
 	public LoadingUIGroup LoadingUI { private set; get; }
 	public FadeUIGroup FadeUI { private set; get; }
 	public CommonUIGroup CommonUI { private set; get; }
-	public JoyStick Joystick { private set; get; }
-	public Button UseButton { private set; get; }
+	public JoyStick Joystick { set; get; }
+	public Button UseButton { set; get; }
 
 	private void Awake()
 	{
@@ -49,10 +49,7 @@ public class UIManager : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
-	}
 
-	private void Start()
-	{
 		TitleUI = (TitleUIGroup)uiList[(int)EUIList.TITLE];
 		InGameUI = (InGameUIGroup)uiList[(int)EUIList.INGAME];
 		LoadingUI = (LoadingUIGroup)uiList[(int)EUIList.LOADING];
@@ -60,17 +57,12 @@ public class UIManager : MonoBehaviour
 		CommonUI = (CommonUIGroup)uiList[(int)EUIList.COMMON];
 	}
 
-    public UIGroup ActiveUI(EUIList p_uiIdx)
+    public void ActiveUI(EUIList p_uiIdx)
 	{
 		var t_cnt = (int)EUIList.COMMON;
 		var t_idx = (int)p_uiIdx;
-		
-		for (int i = 0; i < t_cnt; i++) uiList[i].gameObject.SetActive(false);
-		
-		uiList[t_idx].gameObject.SetActive(true);
-		uiList[t_idx].InitUI();
-		
-		return uiList[t_idx];
+
+		for (int i = 0; i < t_cnt; i++) uiList[i].gameObject.SetActive(i == t_idx);
 	}
 
 	public static void Alert(string p_text) => Instance.CommonUI.Alert(p_text);

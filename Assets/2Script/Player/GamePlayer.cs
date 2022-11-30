@@ -10,7 +10,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private CharacterMove moveController = null;
     [SerializeField] private CharacterColor colorController = null;
     [SerializeField] private CharacterTargeting targetingController = null;
-    [SerializeField] private CharacterRader rader = null;
+    [SerializeField] private CharacterRader raderController = null;
     [SerializeField] private PlayerWeapon weaponController = null;
 
     private JoyStick joystick = null;
@@ -18,7 +18,7 @@ public class GamePlayer : MonoBehaviour
     private bool isReload = false;
     public bool IsReload { set { isReload = value; } get { return isReload; } }
 
-    private bool canMove = true;
+    private bool canMove = false;
     public bool CanMove
     {
         set
@@ -34,20 +34,25 @@ public class GamePlayer : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        joystick = UIManager.Instance.Joystick;
     }
 
-    private void Start()
+    public void InitPlayer()
     {
+        joystick = UIManager.Instance.Joystick;
+       
         weaponController.InitWeapon();
-        rader.SetRange(weaponController.EquipWeapon.Range);
+        raderController.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetColor((int)GameManager.playerColor);
+
+        CanMove = true;
     }
 
     private void Update()
     {
-        Targeting(rader.Target);
-        if (rader.Target) Fire();
+        if (!canMove) return;
+
+        Targeting(raderController.Target);
+        if (raderController.Target) Fire();
     }
 
     private void FixedUpdate()
@@ -70,7 +75,7 @@ public class GamePlayer : MonoBehaviour
     {
         weaponController.ChangeWeapon(p_idx);
         var t_weapon = weaponController.EquipWeapon;
-        rader.SetRange(t_weapon.Range);
+        raderController.SetRange(t_weapon.Range);
         var weaponInfo = new Tuple<int, int>(t_weapon.MaxBullet, t_weapon.CurBullet);
         return weaponInfo;
     }

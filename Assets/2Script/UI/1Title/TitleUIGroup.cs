@@ -13,8 +13,11 @@ public class TitleUIGroup : UIGroup
     [SerializeField] private JoyStick joyStick = null;
     [SerializeField] private Button useButton = null;
 
-    public JoyStick JoyStick { get { return joyStick; } }
-    public Button UseButton { get { return useButton; } }
+    public void SetControl()
+    {
+        UIManager.Instance.Joystick = joyStick;
+        UIManager.Instance.UseButton = useButton;
+    }
 
     public override void InitUI()
     {

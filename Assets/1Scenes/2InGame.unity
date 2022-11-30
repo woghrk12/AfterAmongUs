@@ -10814,7 +10814,7 @@ MonoBehaviour:
   moveController: {fileID: 1489938168}
   colorController: {fileID: 1489938166}
   targetingController: {fileID: 1489938169}
-  rader: {fileID: 1657331526}
+  raderController: {fileID: 1657331526}
   weaponController: {fileID: 223302341}
 --- !u!114 &1489938166
 MonoBehaviour:

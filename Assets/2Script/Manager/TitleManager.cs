@@ -7,16 +7,14 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private TitlePlayer titlePlayer = null;
     [SerializeField] private Transform[] spawnPositions = null;
 
-    private void Awake()
-    {      
-        titlePlayer = FindObjectOfType<TitlePlayer>();
-    }
-
     private void Start()
     {
-        UIManager.Instance.ActiveUI(EUIList.TITLE);
-        titlePlayer.SetPlayerColor((int)GameManager.playerColor);
-        titlePlayer.gameObject.SetActive(false);
+        var t_uiManager = UIManager.Instance;
+        var t_titleUI = t_uiManager.TitleUI;
+        
+        t_uiManager.ActiveUI(EUIList.TITLE);
+        t_titleUI.SetControl();
+        t_titleUI.InitUI();
         Camera.main.GetComponent<CameraShaking>().StartShaking(15f);
     }
 
@@ -34,6 +32,7 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         titlePlayer.gameObject.SetActive(true);
+        titlePlayer.InitPlayer();
 
         yield return new WaitForSeconds(1f);
         

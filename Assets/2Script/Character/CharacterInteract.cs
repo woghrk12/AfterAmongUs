@@ -10,7 +10,7 @@ public class CharacterInteract : MonoBehaviour
     private List<IInteractable> canUseObjects = new List<IInteractable>();
     private IInteractable useObject = null;
 
-    private void Awake()
+    public void Init()
     {
         useButton = UIManager.Instance.UseButton;
         useButton.interactable = false;

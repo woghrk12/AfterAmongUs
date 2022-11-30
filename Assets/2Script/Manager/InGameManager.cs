@@ -18,7 +18,13 @@ public class InGameManager : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance.ActiveUI(EUIList.INGAME);
+        var t_uiManager = UIManager.Instance;
+        var t_inGameUI = t_uiManager.InGameUI;
+
+        t_uiManager.ActiveUI(EUIList.INGAME);
+        t_inGameUI.SetControl();
+        gamePlayer.InitPlayer();
+        t_inGameUI.InitUI();
     }
 
     public List<Region> FindRegion(Region p_startRegion)

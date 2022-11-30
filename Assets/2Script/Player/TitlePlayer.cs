@@ -26,12 +26,16 @@ public class TitlePlayer : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        joystick = UIManager.Instance.Joystick;
     }
 
-    private void OnEnable()
+    public void InitPlayer()
     {
         CanMove = false;
+
+        joystick = UIManager.Instance.Joystick;
+        interactController.Init();
+        colorController.SetColor((int)GameManager.playerColor);
+
         anim.SetTrigger("Spawn");
     }
 

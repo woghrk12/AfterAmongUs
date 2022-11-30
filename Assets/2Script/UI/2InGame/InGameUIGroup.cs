@@ -15,6 +15,12 @@ public class InGameUIGroup : UIGroup
     public JoyStick JoyStick { get { return controlUI.JoyStick; } }
     public Button UseButton { get { return controlUI.UseButton; } }
 
+    public void SetControl()
+    {
+        UIManager.Instance.Joystick = JoyStick;
+        UIManager.Instance.UseButton = UseButton;
+    }
+
     public override void InitUI()
     {
         manager = FindObjectOfType<InGameManager>();
