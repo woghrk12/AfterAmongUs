@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    [SerializeField] private ControlStatus bulletStatus = null;
     [SerializeField] private Weapon[] weapons = null;
     private Weapon[] hasWeapon = new Weapon[2];
     private Weapon equipWeapon = null;
@@ -28,7 +27,7 @@ public class PlayerWeapon : MonoBehaviour
         ChangeWeapon(0);
     }
 
-    public void ChangeWeapon(int p_idx)
+    public void ChangeWeapon(int p_idx, ControlStatus p_bulletStatus = null)
     {
         equipWeapon = hasWeapon[p_idx];
         fireDelay = equipWeapon.FireRate;
@@ -36,26 +35,30 @@ public class PlayerWeapon : MonoBehaviour
         for(int i = 0; i < hasWeapon.Length; i++)
             hasWeapon[i].gameObject.SetActive(p_idx == i);
 
-        bulletStatus.MaxValue = equipWeapon.MaxBullet;
-        bulletStatus.SetValue(equipWeapon.CurBullet);
+        if (!p_bulletStatus) return;
+        p_bulletStatus.MaxValue = equipWeapon.MaxBullet;
+        p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 
-    public void UseWeapon()
+    public void UseWeapon(ControlStatus p_bulletStatus = null)
     {
         if (fireDelay < equipWeapon.FireRate) return;
         if (!equipWeapon.CheckCanShot()) return;
 
         fireDelay = 0f;
         equipWeapon.UseWeapon();
-        bulletStatus.SetValue(equipWeapon.CurBullet);
+
+        if (!p_bulletStatus) return;
+        p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 
-    public IEnumerator Reload()
+    public IEnumerator Reload(ControlStatus p_bulletStatus = null)
     {
         if (equipWeapon.CurBullet.Equals(equipWeapon.MaxBullet)) yield break;
 
         yield return new WaitForSeconds(equipWeapon.ReloadTime);
         equipWeapon.Reload();
-        bulletStatus.SetValue(equipWeapon.CurBullet);
+        if (!p_bulletStatus) yield break;
+        p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 }

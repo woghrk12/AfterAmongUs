@@ -8,7 +8,6 @@ public class FadeUI : MonoBehaviour
 	[SerializeField] private Image screen = null;
 
 	public IEnumerator FadeIn() => ChangeScreen(true);
-
 	public IEnumerator FadeOut() => ChangeScreen(false);
 
 	private IEnumerator ChangeScreen(bool p_isFadeIn)

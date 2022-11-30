@@ -28,19 +28,19 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	[SerializeField]private TitleUI titleUI = null;
-	public TitleUI TitleUI { get { return titleUI; } }
+	[SerializeField] private List<GameObject> uiList = null;
 
-	[SerializeField] private GameObject playerUI = null;
-	[SerializeField] private JoyStick joystick = null;
-	[SerializeField] private Button useButton = null;
-	[SerializeField] private Image screen = null;
-	[SerializeField] private Text alertText = null;
+	[SerializeField] private TitleUI titleUI = null;
+	[SerializeField] private InGameUI inGameUI = null;
+	//[SerializeField] private GameObject loadingUI = null;
+	[SerializeField] private FadeUI fadeUI = null;
+	[SerializeField] private CommonUI commonUI = null;
+	public TitleUI TitleUI { get { return uiList[(int)EUIList.TITLE].GetComponent<TitleUI>(); } }
+	public FadeUI FadeUI { get { return uiList[(int)EUIList.FADE].GetComponent<FadeUI>(); } }
+	public InGameUI InGameUI { get { return uiList[(int)EUIList.INGAME].GetComponent<InGameUI>(); } }
 
 	public JoyStick Joystick { get { return TitleUI.JoyStick; } }
 	public Button UseButton { get { return TitleUI.UseButton; } }
-
-	private Coroutine alertTextCo = null;
 
 	private void Awake()
 	{
@@ -55,80 +55,43 @@ public class UIManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public static void ActivatePlayerUI() => Instance.playerUI.SetActive(true);
-	public static void DisablePlayerUI() => Instance.playerUI.SetActive(false);
-	public static void FadeIn() => Instance.StartCoroutine(Instance.FadeInCo());
-	public static void FadeOut() => Instance.StartCoroutine(Instance.FadeOutCo());
-	public static void Alert(string p_text) => Instance.ShowAlertText(p_text);
-
-	public void OnScreen()
-	{
-		if (screen.gameObject.activeSelf) return;
-		screen.gameObject.SetActive(true);
-	}
-	public void OffScreen()
-	{
-		if (!screen.gameObject.activeSelf) return;
-		screen.gameObject.SetActive(false);
-	}
-
-	private IEnumerator FadeInCo()
-	{
-		OnScreen();
-		yield return ChangeScreen(true);
-		OffScreen();
-	}
-	private IEnumerator FadeOutCo()
-	{
-		OnScreen();
-		yield return ChangeScreen(false);
-	}
-
-	private IEnumerator ChangeScreen(bool p_isFadeIn)
-	{
-		float t_timer = 0f;
-		float t_totalTime = 1f;
-		Color t_color = screen.color;
-
-		while (t_timer <= 1f)
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.F1))
 		{
-			t_color.a = Mathf.Lerp(p_isFadeIn ? 1f : 0f, p_isFadeIn ? 0f : 1f, t_timer / t_totalTime);
-			screen.color = t_color;
-			t_timer += Time.deltaTime;
-			yield return null;
+			inGameUI.gameObject.SetActive(false);
+			titleUI.gameObject.SetActive(true);
+			titleUI.InitUI();
+		}
+		else if (Input.GetKeyDown(KeyCode.F2))
+		{
+			titleUI.gameObject.SetActive(false);
+			inGameUI.gameObject.SetActive(true);
+			inGameUI.InitUI();
+		}
+    }
+
+    public void ActiveUI(EUIList p_uiIdx)
+	{
+		for (int i = 0; i < uiList.Count; i++)
+		{ 
+		
+		}
+		switch (p_uiIdx)
+		{
+			case EUIList.TITLE:
+				break;
+			case EUIList.FADE:
+				break;
+			case EUIList.INGAME:
+				break;
+			case EUIList.LOADING:
+				break;
+			default:
+				break;
 		}
 	}
 
-	private void ShowAlertText(string p_text)
-	{
-		if (alertTextCo != null) StopCoroutine(alertTextCo);
-		alertTextCo = StartCoroutine(ShowAlertTextCo(p_text));
-	}
-
-	private IEnumerator ShowAlertTextCo(string p_text)
-	{
-		alertText.gameObject.SetActive(true);
-		alertText.text = p_text;
-
-		var t_color = alertText.color;
-		var t_timer = 0f;
-		var t_totalTime = 1f;
-
-		t_color.a = 1f;
-		alertText.color = t_color;
-
-		yield return new WaitForSeconds(2f);
-
-		while (t_timer < t_totalTime)
-		{
-			t_color.a = Mathf.Lerp(1f, 0f, t_timer / t_totalTime);
-			alertText.color = t_color;
-			t_timer += 0.05f;
-			yield return new WaitForSeconds(0.05f);
-		}
-
-		alertText.gameObject.SetActive(false);
-		alertTextCo = null;
-	}
+	public static void Alert(string p_text) => Instance.commonUI.Alert(p_text);
 }
 

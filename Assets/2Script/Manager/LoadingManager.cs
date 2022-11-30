@@ -23,8 +23,6 @@ public class LoadingManager : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
-        UIManager.Instance.OffScreen();
-
         var t_op = SceneManager.LoadSceneAsync((int)nextScene);
         t_op.allowSceneActivation = false;
 
@@ -42,10 +40,7 @@ public class LoadingManager : MonoBehaviour
                 t_timer += Time.deltaTime;
                 
                 if (progressBar.fillAmount >= 1.0f)
-                {
-                    UIManager.Instance.OnScreen();
                     t_op.allowSceneActivation = true;
-                }
             }
         }
     }

@@ -315,7 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d5cb41ea429d44e8d5637fa8249d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePlayer: {fileID: 0}
   weaponButtons:
   - {fileID: 882359793}
   - {fileID: 916721865}
@@ -337,6 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43512700}
+  - component: {fileID: 43512701}
   m_Layer: 0
   m_Name: InGame Group
   m_TagString: Untagged
@@ -359,13 +359,28 @@ RectTransform:
   - {fileID: 40764564}
   - {fileID: 471906646}
   m_Father: {fileID: 1846711118}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &43512701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43512699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b971a4ce831e6a42ac8f57e9e16587b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlUI: {fileID: 791073452}
+  weaponUI: {fileID: 40764565}
+  statusUI: {fileID: 471906647}
 --- !u!1 &59142444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,6 +1879,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 471906646}
+  - component: {fileID: 471906647}
   m_Layer: 0
   m_Name: Status UI
   m_TagString: Untagged
@@ -1891,6 +1907,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &471906647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471906645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ba45f3a17c21b40b8edfd23ae4977e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletStatus: {fileID: 905907881}
 --- !u!1 &504280982
 GameObject:
   m_ObjectHideFlags: 0
@@ -8150,7 +8179,7 @@ RectTransform:
   m_Children:
   - {fileID: 712664624}
   m_Father: {fileID: 1846711118}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8493,6 +8522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 791073451}
+  - component: {fileID: 791073452}
   m_Layer: 0
   m_Name: Control UI
   m_TagString: Untagged
@@ -8521,6 +8551,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &791073452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791073450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32a208bb9aa8a949a714875b695ec25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 550559712}
+  useButton: {fileID: 885008318}
 --- !u!1 &803733937
 GameObject:
   m_ObjectHideFlags: 0
@@ -8990,8 +9034,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 40764565}
-        m_TargetAssemblyTypeName: WeaponUI, Assembly-CSharp
+      - m_Target: {fileID: 43512701}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
         m_MethodName: OnClickSwapButton
         m_Mode: 3
         m_Arguments:
@@ -9562,8 +9606,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 40764565}
-        m_TargetAssemblyTypeName: WeaponUI, Assembly-CSharp
+      - m_Target: {fileID: 43512701}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
         m_MethodName: OnClickSwapButton
         m_Mode: 3
         m_Arguments:
@@ -9621,6 +9665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 952179143}
+  - component: {fileID: 952179144}
   m_Layer: 0
   m_Name: Common UI
   m_TagString: Untagged
@@ -9648,6 +9693,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &952179144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952179142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b80bfc956de98e43af60372cf74a01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertText: {fileID: 1224797258}
 --- !u!1 &953152199
 GameObject:
   m_ObjectHideFlags: 0
@@ -10055,8 +10113,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 40764565}
-        m_TargetAssemblyTypeName: WeaponUI, Assembly-CSharp
+      - m_Target: {fileID: 43512701}
+        m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
         m_MethodName: OnClickReloadButton
         m_Mode: 1
         m_Arguments:
@@ -11799,7 +11857,7 @@ RectTransform:
   - {fileID: 1974147801}
   - {fileID: 561189861}
   m_Father: {fileID: 1846711118}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14371,9 +14429,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 712407813}
   - {fileID: 1243294944}
   - {fileID: 43512700}
+  - {fileID: 712407813}
   - {fileID: 952179143}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -14456,12 +14514,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed18f5276319f2640aa163431a030da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiList:
+  - {fileID: 1243294943}
+  - {fileID: 43512699}
+  - {fileID: 712407812}
+  - {fileID: 952179142}
   titleUI: {fileID: 1243294945}
-  playerUI: {fileID: 0}
-  joystick: {fileID: 0}
-  useButton: {fileID: 0}
-  screen: {fileID: 712664625}
-  alertText: {fileID: 1224797258}
+  fadeUI: {fileID: 712407814}
+  inGameUI: {fileID: 43512701}
+  commonUI: {fileID: 952179144}
 --- !u!1 &1866120812
 GameObject:
   m_ObjectHideFlags: 0

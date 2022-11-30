@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-// Structure
+#region Structure
 [Serializable]
 public struct Pool
 {
@@ -11,7 +11,6 @@ public struct Pool
     public GameObject prefab;
     public int size;
 }
-
 [Serializable]
 public class Node
 {
@@ -35,17 +34,22 @@ public class Node
     public int g, h;
     public int f { get { return g + h; } }
 }
+#endregion
 
-// Enum
+#region Enum
 public enum EScene { TITLE, INGAME, LOADING }
+public enum EUIList { TITLE, INGAME, LOADING, FADE, END }
 public enum ESortingType { STATIC, UPDATE }
 public enum EPlayerColor { RED, BLUE, GREEN, PINK, ORANGE, YELLOW, BLACK, WHITE, PURPLE, BROWN, CYAN, LIME, END }
 public enum EPlayerWeapon { RIFLE, SHOTGUN, PISTOL, SNIPER, MACHINEGUN, SUBMACHINEGUN, NONE }
 public enum ELayer { DEFAULT, TRANSPARENTFX, IGNORERAYCAST, MAP, WATER, UI, MOVEMENTCOLLIDER, HITBOX, HITBOXTRIGGER, ENEMYHITBOX, END }
 public enum ETitleUILayer { START, SHIP, CUSTOM, END }
 public enum EInGameUILayer { }
-// Interface
+#endregion
+
+#region Interface
 public interface IInteractable
 {
     public void Use();
 }
+#endregion

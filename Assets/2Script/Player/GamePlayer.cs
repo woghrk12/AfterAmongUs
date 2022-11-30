@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class GamePlayer : MonoBehaviour
         }
         get { return canMove; }
     }
+
+    public Weapon EquipWeapon { get { return weaponController.EquipWeapon; } }
 
     private void Awake()
     {
@@ -63,10 +66,13 @@ public class GamePlayer : MonoBehaviour
         weaponController.UseWeapon();
     }
     
-    public void Swap(int p_idx)
+    public Tuple<int, int> Swap(int p_idx)
     {
         weaponController.ChangeWeapon(p_idx);
-        rader.SetRange(weaponController.EquipWeapon.Range);
+        var t_weapon = weaponController.EquipWeapon;
+        rader.SetRange(t_weapon.Range);
+        var weaponInfo = new Tuple<int, int>(t_weapon.MaxBullet, t_weapon.CurBullet);
+        return weaponInfo;
     }
 
     public IEnumerator Reload() => weaponController.Reload();
