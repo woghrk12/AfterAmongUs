@@ -31,15 +31,16 @@ public class InGameManager : MonoBehaviour
 
     private IEnumerator Init()
     {
+        inGameUI.SetControl();
+        gamePlayer.InitPlayer();
+        inGameUI.InitUI();
+
         manager.ActiveUI(EUIList.FADE);
         fadeUI.InitUI();
 
         yield return fadeUI.FadeIn();
 
         manager.ActiveUI(EUIList.INGAME);
-        inGameUI.SetControl();
-        gamePlayer.InitPlayer();
-        inGameUI.InitUI();
     }
 
     public List<Region> FindRegion(Region p_startRegion)
