@@ -9,11 +9,17 @@ public class WeaponUI : MonoBehaviour
     [SerializeField] private GameObject[] weaponImages = null;
     [SerializeField] private Button reloadButton = null;
     [SerializeField] private Image reloadImage = null;
+    [SerializeField] private Button fireButton = null;
 
     public void InitUI(EPlayerWeapon[] p_weapons)
     {
         SetWeaponImage(p_weapons);
         SetSwapButton(0);
+    }
+
+    public void SetFireButton(bool p_isFire)
+    {
+        fireButton.image.color = p_isFire ? fireButton.colors.pressedColor : fireButton.colors.normalColor;
     }
 
     private void SetWeaponImage(EPlayerWeapon[] p_weapons)

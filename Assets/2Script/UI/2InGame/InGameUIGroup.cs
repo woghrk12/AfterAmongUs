@@ -14,7 +14,7 @@ public class InGameUIGroup : UIGroup
 
     public JoyStick JoyStick { get { return controlUI.JoyStick; } }
     public Button UseButton { get { return controlUI.UseButton; } }
-
+    public StatusUI StatusUI { get { return statusUI; } }
     public void SetControl()
     {
         UIManager.Instance.Joystick = JoyStick;
@@ -37,10 +37,7 @@ public class InGameUIGroup : UIGroup
     {
         if (gamePlayer.IsReload) return;
 
-        var t_weaponInfo = gamePlayer.Swap(p_idx);
-
-        statusUI.SetMaxBullet(t_weaponInfo.Item1);
-        statusUI.SetBullet(t_weaponInfo.Item2);
+        gamePlayer.Swap(p_idx, statusUI.BulletStatus);
         weaponUI.SetSwapButton(p_idx);
     }
 
@@ -51,10 +48,14 @@ public class InGameUIGroup : UIGroup
 
     #endregion
 
+    public void PlayerFire(bool p_isFire) { gamePlayer.IsFire = p_isFire; }
+
     private IEnumerator PlayerReload()
     {
         weaponUI.SetReloadButton(false);
-        yield return gamePlayer.Reload();
+        gamePlayer.IsReload = true;
+        yield return gamePlayer.Reload(statusUI.BulletStatus);
+        gamePlayer.IsReload = false;
         weaponUI.SetReloadButton(true);
     }
 }

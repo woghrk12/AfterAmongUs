@@ -14,6 +14,10 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private PlayerWeapon weaponController = null;
 
     private JoyStick joystick = null;
+    private StatusUI statusUI = null;
+
+    private bool isFire = false;
+    public bool IsFire { set { isFire = value; } get { return isFire; } }
 
     private bool isReload = false;
     public bool IsReload { set { isReload = value; } get { return isReload; } }
@@ -36,11 +40,12 @@ public class GamePlayer : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void InitPlayer()
+    public void InitPlayer(InGameUIGroup p_inGameUI)
     {
         joystick = UIManager.Instance.Joystick;
-       
-        weaponController.InitWeapon();
+        statusUI = p_inGameUI.StatusUI;
+
+        weaponController.InitWeapon(statusUI);
         raderController.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetColor((int)GameManager.playerColor);
 
@@ -52,7 +57,7 @@ public class GamePlayer : MonoBehaviour
         if (!canMove) return;
 
         Targeting(raderController.Target);
-        if (raderController.Target) Fire();
+        if (isFire) Fire();
     }
 
     private void FixedUpdate()
@@ -63,22 +68,21 @@ public class GamePlayer : MonoBehaviour
     }
     
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
+
     private void Targeting(Transform p_target) => targetingController.Targeting(p_target);
+
     private void Fire()
     {
         if (isReload) return;
 
-        weaponController.UseWeapon();
-    }
-    
-    public Tuple<int, int> Swap(int p_idx)
-    {
-        weaponController.ChangeWeapon(p_idx);
-        var t_weapon = weaponController.EquipWeapon;
-        raderController.SetRange(t_weapon.Range);
-        var weaponInfo = new Tuple<int, int>(t_weapon.MaxBullet, t_weapon.CurBullet);
-        return weaponInfo;
+        weaponController.UseWeapon(statusUI.BulletStatus);
     }
 
-    public IEnumerator Reload() => weaponController.Reload();
+    public void Swap(int p_idx, ControlStatus p_bulletStatlus)
+    {
+        weaponController.ChangeWeapon(p_idx, p_bulletStatlus);
+        raderController.SetRange(weaponController.EquipWeapon.Range);
+    }
+
+    public IEnumerator Reload(ControlStatus p_bulletStatus) => weaponController.Reload(p_bulletStatus);
 }

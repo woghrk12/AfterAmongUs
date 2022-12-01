@@ -6,19 +6,11 @@ public class StatusUI : MonoBehaviour
 {
     [SerializeField] private ControlStatus bulletStatus = null;
 
+    public ControlStatus BulletStatus { get { return bulletStatus; } }
+
     public void InitUI(Weapon p_weapon)
     {
-        SetMaxBullet(p_weapon.MaxBullet);
-        SetBullet(p_weapon.CurBullet);
-    }
-
-    public void SetMaxBullet(int p_value)
-    {
-        bulletStatus.MaxValue = p_value;
-    }
-
-    public void SetBullet(int p_value)
-    {
-        bulletStatus.SetValue(p_value);
+        bulletStatus.MaxValue = p_weapon.MaxBullet;
+        bulletStatus.SetValue(p_weapon.CurBullet);
     }
 }

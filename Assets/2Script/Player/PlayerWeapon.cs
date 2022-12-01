@@ -17,7 +17,7 @@ public class PlayerWeapon : MonoBehaviour
         fireDelay += Time.deltaTime;
     }
 
-    public void InitWeapon()
+    public void InitWeapon(StatusUI p_statusUI = null)
     {
         var t_weapons = GameManager.playerWeapon;
 
@@ -25,6 +25,9 @@ public class PlayerWeapon : MonoBehaviour
             hasWeapon[i] = weapons[(int)t_weapons[i]];
 
         ChangeWeapon(0);
+
+        if (!p_statusUI) return;
+        p_statusUI.InitUI(equipWeapon);
     }
 
     public void ChangeWeapon(int p_idx, ControlStatus p_bulletStatus = null)
@@ -58,6 +61,7 @@ public class PlayerWeapon : MonoBehaviour
 
         yield return new WaitForSeconds(equipWeapon.ReloadTime);
         equipWeapon.Reload();
+
         if (!p_bulletStatus) yield break;
         p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }

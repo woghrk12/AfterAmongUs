@@ -32,7 +32,7 @@ public class InGameManager : MonoBehaviour
     private IEnumerator Init()
     {
         inGameUI.SetControl();
-        gamePlayer.InitPlayer();
+        gamePlayer.InitPlayer(inGameUI);
         inGameUI.InitUI();
 
         manager.ActiveUI(EUIList.FADE);
