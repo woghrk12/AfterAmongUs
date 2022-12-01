@@ -11124,7 +11124,6 @@ GameObject:
   - component: {fileID: 1152325807}
   - component: {fileID: 1152325810}
   - component: {fileID: 1152325809}
-  - component: {fileID: 1152325808}
   - component: {fileID: 1152325811}
   - component: {fileID: 1152325812}
   m_Layer: 0
@@ -11154,19 +11153,6 @@ RectTransform:
   m_AnchoredPosition: {x: -100, y: 120}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &1152325808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152325806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a14e1bae0d3454f9ae082992187742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireButton: {fileID: 1152325809}
 --- !u!114 &1152325809
 MonoBehaviour:
   m_ObjectHideFlags: 0
