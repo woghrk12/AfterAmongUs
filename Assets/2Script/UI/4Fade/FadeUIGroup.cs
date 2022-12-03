@@ -13,8 +13,17 @@ public class FadeUIGroup : UIGroup
 		if (!screen.gameObject.activeSelf) screen.gameObject.SetActive(true);
     }
 
-	public IEnumerator FadeIn() => ChangeScreen(true);
-	public IEnumerator FadeOut() => ChangeScreen(false);
+	public IEnumerator FadeIn()
+	{
+		if (!screen.gameObject.activeSelf) screen.gameObject.SetActive(true);
+		yield return ChangeScreen(true);
+		screen.gameObject.SetActive(false);
+	}
+	public IEnumerator FadeOut()
+	{
+		if (!screen.gameObject.activeSelf) screen.gameObject.SetActive(true);
+		yield return ChangeScreen(false);
+	}
 
 	private IEnumerator ChangeScreen(bool p_isFadeIn)
 	{

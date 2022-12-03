@@ -12,6 +12,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private CharacterTargeting targetingController = null;
     [SerializeField] private CharacterRader raderController = null;
     [SerializeField] private PlayerWeapon weaponController = null;
+    [SerializeField] private CharacterInteract interactController = null;
 
     private JoyStick joystick = null;
     private StatusUI statusUI = null;
@@ -45,6 +46,7 @@ public class GamePlayer : MonoBehaviour
         joystick = UIManager.Instance.Joystick;
         statusUI = p_inGameUI.StatusUI;
 
+        interactController.Init();
         weaponController.InitWeapon(statusUI);
         raderController.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetColor((int)GameManager.playerColor);
@@ -85,4 +87,16 @@ public class GamePlayer : MonoBehaviour
     }
 
     public IEnumerator Reload(ControlStatus p_bulletStatus) => weaponController.Reload(p_bulletStatus);
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+            interactController.AddObj(collision.GetComponentInParent<IInteractable>());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+            interactController.RemoveObj(collision.GetComponentInParent<IInteractable>());
+    }
 }

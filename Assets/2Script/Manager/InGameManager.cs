@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class InGameManager : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class InGameManager : MonoBehaviour
 
     private PathFindingByRegion pathController = null;
 
-    [SerializeField] private Region targetRegion = null;
+    private Mission mission = null;
+
+    [SerializeField] private Light2D globalLight = null;
+    [SerializeField] private Light2D pointLight = null;
 
     private void Awake()
     {
@@ -45,6 +49,26 @@ public class InGameManager : MonoBehaviour
 
     public List<Region> FindRegion(Region p_startRegion)
     {
-        return pathController.FindPath(p_startRegion, targetRegion);
+        return pathController.FindPath(p_startRegion, mission.Region);
+    }
+
+    public IEnumerator StartMission(Mission p_mission)
+    {
+        mission = p_mission;
+
+        fadeUI.gameObject.SetActive(true);
+        yield return fadeUI.FadeOut();
+        
+        mission.TryEffect();
+        ChangeLight(false);
+
+        yield return fadeUI.FadeIn();
+        fadeUI.gameObject.SetActive(false);
+    }
+
+    private void ChangeLight(bool p_isGlobal)
+    {
+        globalLight.gameObject.SetActive(p_isGlobal);
+        pointLight.gameObject.SetActive(!p_isGlobal);
     }
 }
