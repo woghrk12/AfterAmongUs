@@ -29,6 +29,22 @@ public class Mission : MonoBehaviour
     public void DestroyEffect()
     {
         animCore.SetTrigger("Off");
+        StartCoroutine(DestroyEffectCo());
     }
 
+    private IEnumerator DestroyEffectCo()
+    {
+        var t_renderer = GetComponent<SpriteRenderer>();
+        var t_timer = 0f;
+        var t_totalTime = 1f;
+        var t_color = t_renderer.color;
+
+        while (t_timer < t_totalTime)
+        {
+            t_color.r -= 0.025f; t_color.g -= 0.025f; t_color.b -= 0.025f;
+            t_renderer.color = t_color;
+            t_timer += 0.05f;
+            yield return Utilities.WaitForSeconds(0.05f);
+        }
+    }
 }
