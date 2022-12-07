@@ -14609,8 +14609,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 341497481}
   mission: {fileID: 1017796048}
-  highlighted: {fileID: 116738525}
-  outline: {fileID: 1217686704}
+  highlighted: {fileID: 116738522}
+  outline: {fileID: 1217686701}
 --- !u!1 &1879313255
 GameObject:
   m_ObjectHideFlags: 0
