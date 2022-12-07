@@ -15,6 +15,7 @@ public class InGameManager : MonoBehaviour
     private PathFindingByRegion pathController = null;
 
     private Mission mission = null;
+    private bool isProgress = false;
 
     [SerializeField] private Light2D globalLight = null;
     [SerializeField] private Light2D pointLight = null;
@@ -52,8 +53,20 @@ public class InGameManager : MonoBehaviour
         return pathController.FindPath(p_startRegion, mission.Region);
     }
 
-    public IEnumerator StartMission(Mission p_mission)
+    public bool StartMission(Mission p_mission)
     {
+        if (isProgress) {
+            UIManager.Alert("The mission is already in progress!");
+            return false;
+        }
+
+        StartCoroutine(StartMissionCo(p_mission));
+        return true;
+    }
+
+    private IEnumerator StartMissionCo(Mission p_mission)
+    {
+        isProgress = true;
         mission = p_mission;
 
         fadeUI.gameObject.SetActive(true);
