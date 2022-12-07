@@ -55,6 +55,7 @@ public class WeaponSelectPanel : MonoBehaviour
 
         var t_weaponImage = weaponSelectButtons[(int)p_weapon].WeaponImage;
         t_image.sprite = t_weaponImage.sprite;
+        t_image.rectTransform.sizeDelta = t_weaponImage.rectTransform.sizeDelta;
         t_image.rectTransform.localScale = t_weaponImage.rectTransform.localScale;
     }
 }
