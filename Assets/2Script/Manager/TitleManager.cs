@@ -62,7 +62,7 @@ public class TitleManager : MonoBehaviour
         titlePlayer.CanMove = false;
         manager.ActiveUI(EUIList.FADE);
         StartCoroutine(fadeUI.FadeOut());
-        yield return new WaitForSeconds(2f);
+        yield return Utilities.WaitForSeconds(2f);
         LoadingManager.LoadScene(EScene.INGAME);
     }
 

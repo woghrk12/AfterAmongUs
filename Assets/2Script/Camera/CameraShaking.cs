@@ -23,7 +23,7 @@ public class CameraShaking : MonoBehaviour
             }
             else
             {
-                if (shakeCo == null) return;
+                if (shakeCo is null) return;
                 StopCoroutine(shakeCo);
                 shakeCo = null;
             }

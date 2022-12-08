@@ -20,7 +20,7 @@ public class CharacterInteract : MonoBehaviour
     {
         canUseObjects.Add(p_obj);
 
-        if (useObject != null) return;
+        if (!(useObject is null)) return;
 
         useObject = p_obj;
         useButton.onClick.AddListener(() => { p_obj.Use(); });
