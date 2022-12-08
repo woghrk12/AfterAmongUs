@@ -17,7 +17,7 @@ public class Damagable : MonoBehaviour
         if (!sprite) yield break;
 
         sprite.color = Color.red;
-        yield return new WaitForSeconds(0.05f);
+        yield return Utilities.WaitForSeconds(0.05f);
         sprite.color = Color.white;
     }
 }

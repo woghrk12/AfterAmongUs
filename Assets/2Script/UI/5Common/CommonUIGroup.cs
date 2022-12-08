@@ -16,7 +16,7 @@ public class CommonUIGroup : UIGroup
 
 	public void Alert(string p_text)
 	{
-		if (alertTextCo != null) StopCoroutine(alertTextCo);
+		if (!(alertTextCo is null)) StopCoroutine(alertTextCo);
 		alertTextCo = StartCoroutine(ShowAlertText(p_text));
 	}
 

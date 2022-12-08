@@ -18,7 +18,7 @@ public class CameraShaking : MonoBehaviour
         {
             if (value)
             {
-                if (shakeCo != null) return;
+                if (!(shakeCo is null)) return;
                 shakeCo = StartCoroutine(ShakeCameraCo());
             }
             else
@@ -65,7 +65,7 @@ public class CameraShaking : MonoBehaviour
 
     public void ShakeCamera(float p_force, float p_time)
     {
-        if (reduceCo != null) StopCoroutine(reduceCo);
+        if (!(reduceCo is null)) StopCoroutine(reduceCo);
 
         force = p_force;
         ShakeSwitch = true;

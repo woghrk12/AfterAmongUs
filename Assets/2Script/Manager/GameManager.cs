@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if (instance is null)
             {
                 var t_obj = FindObjectOfType<GameManager>();
 
-                if (t_obj != null)
+                if (!(t_obj is null))
                 {
                     instance = t_obj;
                 }

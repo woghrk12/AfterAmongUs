@@ -10,11 +10,11 @@ public class UIManager : MonoBehaviour
 	{
 		get
 		{
-			if (instance == null)
+			if (instance is null)
 			{
 				var t_obj = FindObjectOfType<UIManager>();
 
-				if (t_obj != null)
+				if (!(t_obj is null))
 				{
 					instance = t_obj;
 				}
