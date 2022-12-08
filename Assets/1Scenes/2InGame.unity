@@ -10459,6 +10459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   region: {fileID: 2092160544}
   animObj: {fileID: 561778988}
+  missionTime: 20
 --- !u!95 &1017796049
 Animator:
   serializedVersion: 3

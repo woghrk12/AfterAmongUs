@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mission : MonoBehaviour
 {
     private Animator animCore = null;
     [SerializeField] private Region region = null;
     [SerializeField] private Animator animObj = null;
+    [SerializeField] private int missionTime = 0;
 
     public Region Region { get { return region; } }
+    public int MissionTime { get { return missionTime; } }
 
     private void Awake()
     {

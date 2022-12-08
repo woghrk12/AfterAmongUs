@@ -11,15 +11,11 @@ public class InGameUIGroup : UIGroup
     [SerializeField] private ControlUI controlUI = null;
     [SerializeField] private WeaponUI weaponUI = null;
     [SerializeField] private StatusUI statusUI = null;
+    [SerializeField] private Text timerText = null;
 
     public JoyStick JoyStick { get { return controlUI.JoyStick; } }
     public Button UseButton { get { return controlUI.UseButton; } }
     public StatusUI StatusUI { get { return statusUI; } }
-    public void SetControl()
-    {
-        UIManager.Instance.Joystick = JoyStick;
-        UIManager.Instance.UseButton = UseButton;
-    }
 
     public override void InitUI()
     {
@@ -27,6 +23,12 @@ public class InGameUIGroup : UIGroup
         gamePlayer = manager.GamePlayer;
         weaponUI.InitUI(GameManager.playerWeapon);
         statusUI.InitUI(gamePlayer.EquipWeapon);
+    }
+
+    public void SetControl()
+    {
+        UIManager.Instance.Joystick = JoyStick;
+        UIManager.Instance.UseButton = UseButton;
     }
 
     #region OnClick Function
@@ -57,5 +59,23 @@ public class InGameUIGroup : UIGroup
         yield return gamePlayer.Reload(statusUI.BulletStatus);
         gamePlayer.IsReload = false;
         weaponUI.SetReloadButton(true);
+    }
+
+    public void InitTimer(int p_initValue)
+    {
+        if (!timerText.gameObject.activeSelf) timerText.gameObject.SetActive(true);
+        timerText.text = p_initValue.ToString();
+        timerText.color = Color.white;
+    }
+
+    public void ShowTimer(int p_time)
+    {
+        timerText.text = p_time.ToString();
+        if (p_time <= 10) timerText.color = Color.red;
+    }
+
+    public void EndTimer()
+    {
+        timerText.gameObject.SetActive(false);
     }
 }

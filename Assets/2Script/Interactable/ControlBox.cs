@@ -11,7 +11,7 @@ public class ControlBox : MonoBehaviour, IInteractable
 
     public void Use()
     {
-        if (!manager.StartMission(mission)) return;
+        if (!manager.CheckCanStart(mission)) return;
 
         outline.gameObject.SetActive(false);
         highlighted.gameObject.SetActive(false);

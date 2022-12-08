@@ -14,8 +14,12 @@ public class InGameManager : MonoBehaviour
 
     private PathFindingByRegion pathController = null;
 
+    [SerializeField] private int totalNum = 0;
+    [SerializeField] private int targetNum = 0;
+    private int successNum = 0;
+    private int failNum = 0;
     private Mission mission = null;
-    private bool isProgress = false;
+    private Coroutine progress = null;
 
     [SerializeField] private Light2D globalLight = null;
     [SerializeField] private Light2D pointLight = null;
@@ -53,20 +57,19 @@ public class InGameManager : MonoBehaviour
         return pathController.FindPath(p_startRegion, mission.Region);
     }
 
-    public bool StartMission(Mission p_mission)
+    public bool CheckCanStart(Mission p_mission)
     {
-        if (isProgress) {
+        if (!(progress is null)) {
             UIManager.Alert("The mission is already in progress!");
             return false;
         }
-
-        StartCoroutine(StartMissionCo(p_mission));
+        
+        progress = StartCoroutine(StartMission(p_mission));
         return true;
     }
 
-    private IEnumerator StartMissionCo(Mission p_mission)
+    private IEnumerator StartMission(Mission p_mission)
     {
-        isProgress = true;
         mission = p_mission;
 
         fadeUI.gameObject.SetActive(true);
@@ -77,11 +80,50 @@ public class InGameManager : MonoBehaviour
 
         yield return fadeUI.FadeIn();
         fadeUI.gameObject.SetActive(false);
+
+        yield return CountDown(mission.MissionTime);
+        EndMission(true);
     }
 
     private void ChangeLight(bool p_isGlobal)
     {
         globalLight.gameObject.SetActive(p_isGlobal);
         pointLight.gameObject.SetActive(!p_isGlobal);
+    }
+
+    private IEnumerator CountDown(int p_time)
+    {
+        var t_time = p_time;
+        inGameUI.InitTimer(t_time);
+
+        while (t_time > 0)
+        {
+            inGameUI.ShowTimer(t_time);
+            t_time -= 1;
+            yield return Utilities.WaitForSeconds(1f);
+        }
+
+        inGameUI.ShowTimer(t_time);
+    }
+
+    public void EndMission(bool p_isSuccess)
+    {
+        if (!p_isSuccess)
+        {
+            mission.DestroyEffect();
+            failNum++;
+        }
+        else
+        {
+            mission.ActivateEffect();
+            successNum++;
+        }
+
+        if (!(progress is null)) StopCoroutine(progress);
+
+        mission = null;
+        progress = null;
+        inGameUI.EndTimer();
+        ChangeLight(true);
     }
 }
