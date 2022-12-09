@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Mission : MonoBehaviour
 {
@@ -10,44 +11,47 @@ public class Mission : MonoBehaviour
     [SerializeField] private Animator animObj = null;
     [SerializeField] private int missionTime = 0;
 
+    [SerializeField] private Damagable hitController = null;
+
     public Region Region { get { return region; } }
     public int MissionTime { get { return missionTime; } }
+    public Damagable HitController { get { return hitController; } }
 
     private void Awake()
     {
         animCore = GetComponent<Animator>();
     }
 
-    public void TryEffect()
+    private void OnEnable()
+    {
+        hitController.HitEvent += OnHit;
+        hitController.DieEvent += OnDeactive;
+    }
+
+    private void OnDisable()
+    {
+        hitController.HitEvent -= OnHit;
+        hitController.DieEvent -= OnDeactive;
+    }
+
+    public void OnTry()
     {
         animCore.SetTrigger("Try");
     }
 
-    public void ActivateEffect()
+    public void OnActive()
     {
         animCore.SetTrigger("On");
         animObj.SetTrigger("On");
     }
 
-    public void DestroyEffect()
+    public void OnDeactive()
     {
         animCore.SetTrigger("Off");
-        StartCoroutine(DestroyEffectCo());
     }
 
-    private IEnumerator DestroyEffectCo()
+    private void OnHit()
     {
-        var t_renderer = GetComponent<SpriteRenderer>();
-        var t_timer = 0f;
-        var t_totalTime = 1f;
-        var t_color = t_renderer.color;
-
-        while (t_timer < t_totalTime)
-        {
-            t_color.r -= 0.025f; t_color.g -= 0.025f; t_color.b -= 0.025f;
-            t_renderer.color = t_color;
-            t_timer += 0.05f;
-            yield return Utilities.WaitForSeconds(0.05f);
-        }
+        animCore.SetTrigger("Hit");
     }
 }

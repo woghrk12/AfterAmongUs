@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   targetLayer: 9
+  damage: 1
   hitEffect: SectorHitEffect
 --- !u!1 &8093533446444783194
 GameObject:

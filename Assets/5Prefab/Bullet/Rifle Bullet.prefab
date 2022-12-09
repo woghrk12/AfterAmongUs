@@ -201,4 +201,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   targetLayer: 9
+  damage: 1
   hitEffect: SingleHitEffect

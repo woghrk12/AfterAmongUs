@@ -71,18 +71,20 @@ public class InGameManager : MonoBehaviour
     private IEnumerator StartMission(Mission p_mission)
     {
         mission = p_mission;
+        mission.HitController.DieEvent += FailMission;
+        mission.HitController.StartChecking();
 
         fadeUI.gameObject.SetActive(true);
         yield return fadeUI.FadeOut();
         
-        mission.TryEffect();
+        mission.OnTry();
         ChangeLight(false);
 
         yield return fadeUI.FadeIn();
         fadeUI.gameObject.SetActive(false);
 
         yield return CountDown(mission.MissionTime);
-        EndMission(true);
+        SuccessMission();
     }
 
     private void ChangeLight(bool p_isGlobal)
@@ -106,21 +108,24 @@ public class InGameManager : MonoBehaviour
         inGameUI.ShowTimer(t_time);
     }
 
-    public void EndMission(bool p_isSuccess)
+    public void SuccessMission() => EndMission(true);
+    public void FailMission() => EndMission(false);
+    private void EndMission(bool p_isSuccess)
     {
-        if (!p_isSuccess)
+        if (p_isSuccess)
         {
-            mission.DestroyEffect();
-            failNum++;
+            mission.OnActive();
+            successNum++;
         }
         else
         {
-            mission.ActivateEffect();
-            successNum++;
+            failNum++;
         }
 
         if (!(progress is null)) StopCoroutine(progress);
 
+        mission.HitController.StopChecking();
+        mission.HitController.DieEvent -= FailMission;
         mission = null;
         progress = null;
         inGameUI.EndTimer();
