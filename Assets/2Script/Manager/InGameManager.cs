@@ -108,20 +108,23 @@ public class InGameManager : MonoBehaviour
         inGameUI.ShowTimer(t_time);
     }
 
-    public void SuccessMission() => EndMission(true);
-    public void FailMission() => EndMission(false);
-    private void EndMission(bool p_isSuccess)
+    public void SuccessMission()
     {
-        if (p_isSuccess)
-        {
-            mission.OnActive();
-            successNum++;
-        }
-        else
-        {
-            failNum++;
-        }
+        successNum++;
+        StartCoroutine(SuccessLight());
+        mission.OnActive();
+        EndMission();
+    }
 
+    public void FailMission()
+    {
+        failNum++;
+        StartCoroutine(FailLight());
+        EndMission();
+    }
+
+    private void EndMission()
+    {
         if (!(progress is null)) StopCoroutine(progress);
 
         mission.HitController.StopChecking();
@@ -130,5 +133,40 @@ public class InGameManager : MonoBehaviour
         progress = null;
         inGameUI.EndTimer();
         ChangeLight(true);
+    }
+
+    private IEnumerator SuccessLight()
+    {
+        yield return BlinkColorLight(Color.green);
+    }
+
+    private IEnumerator FailLight()
+    {
+        for(int i = 0; i < 3; i++)
+            yield return BlinkColorLight(Color.red);
+    }
+
+    private IEnumerator BlinkColorLight(Color p_color)
+    {
+        var t_timer = 0f;
+        var t_totalTime = 1f;
+
+        var t_color = globalLight.color;
+
+        while (t_timer <= t_totalTime)
+        {
+            globalLight.color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+            t_timer += Time.deltaTime;
+            yield return null;
+        }
+
+        while (t_timer >= 0f)
+        {
+            globalLight.color = Color.Lerp(t_color, p_color, t_timer / t_totalTime);
+            t_timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        globalLight.color = t_color;
     }
 }
