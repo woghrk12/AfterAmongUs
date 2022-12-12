@@ -34,7 +34,7 @@ public class TitlePlayer : MonoBehaviour
 
         joystick = UIManager.Instance.Joystick;
         interactController.Init();
-        colorController.SetColor((int)GameManager.playerColor);
+        colorController.SetPlayerColor((int)GameManager.playerColor);
 
         anim.SetTrigger("Spawn");
     }
@@ -48,7 +48,7 @@ public class TitlePlayer : MonoBehaviour
 
     private void Move() => moveController.MoveCharacter(joystick.Direction, anim);
 
-    public void SetPlayerColor(int p_color) => colorController.SetColor(p_color);
+    public void SetPlayerColor(int p_color) => colorController.SetPlayerColor(p_color);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

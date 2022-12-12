@@ -42,6 +42,18 @@ public class GamePlayer : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        healthController.HitEvent += OnHit;
+        healthController.DieEvent += OnDie;
+    }
+
+    private void OnDisable()
+    {
+        healthController.HitEvent -= OnHit;
+        healthController.DieEvent -= OnDie;
+    }
+
     public void InitPlayer(InGameUIGroup p_inGameUI)
     {
         joystick = UIManager.Instance.Joystick;
@@ -52,7 +64,7 @@ public class GamePlayer : MonoBehaviour
         weaponController.InitWeapon(statusUI);
         healthController.StartChecking(true);
         raderController.SetRange(weaponController.EquipWeapon.Range);
-        colorController.SetColor((int)GameManager.playerColor);
+        colorController.SetPlayerColor((int)GameManager.playerColor);
 
         CanMove = true;
     }
@@ -90,6 +102,25 @@ public class GamePlayer : MonoBehaviour
     }
 
     public IEnumerator Reload(ControlSlider p_bulletStatus) => weaponController.Reload(p_bulletStatus);
+
+    private void OnHit()
+    {
+        StartCoroutine(HitEffect());
+    }
+
+    private IEnumerator HitEffect()
+    {
+        colorController.SetColor(Color.red);
+        yield return Utilities.WaitForSeconds(0.05f);
+        colorController.SetColor(Color.white);
+    }
+
+    private void OnDie()
+    {
+        weaponController.gameObject.SetActive(false);
+        CanMove = false;
+        anim.SetTrigger("Die");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

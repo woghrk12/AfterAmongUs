@@ -12,8 +12,7 @@ public class CharacterColor : MonoBehaviour
         spriteRenderer.material = t_inst;
     }
 
-    public void SetColor(int p_color)
-    {
-        spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor((EPlayerColor)p_color));
-    }
+    public void SetPlayerColor(int p_color) => spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor((EPlayerColor)p_color));
+
+    public void SetColor(Color p_color) { spriteRenderer.color = p_color; }
 }
