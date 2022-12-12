@@ -30,6 +30,12 @@ public class Enemy : MonoBehaviour
         targetController.SetRange(chaseRange);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+            StartCoroutine(Chase());
+    }
+
     private void Move(Vector3 p_dir) => moveController.MoveCharacter(p_dir, anim);
     private IEnumerator ChaseRegion() => chaseController.ChaseRegion(inGameManager.FindRegion(curRegion));
     private IEnumerator ChasePlayer(Transform p_target) => chaseController.ChaseTarget(p_target);

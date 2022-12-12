@@ -27,7 +27,7 @@ public class PlayerWeapon : MonoBehaviour
         ChangeWeapon(0);
 
         if (!p_statusUI) return;
-        p_statusUI.InitUI(equipWeapon);
+        p_statusUI.SetBulletStatus(equipWeapon);
     }
 
     public void ChangeWeapon(int p_idx, ControlSlider p_bulletStatus = null)
@@ -39,7 +39,7 @@ public class PlayerWeapon : MonoBehaviour
             hasWeapon[i].gameObject.SetActive(p_idx == i);
 
         if (!p_bulletStatus) return;
-        p_bulletStatus.MaxValue = equipWeapon.MaxBullet;
+        p_bulletStatus.SetMaxValue(equipWeapon.MaxBullet);
         p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 

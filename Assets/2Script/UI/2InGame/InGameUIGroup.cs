@@ -22,7 +22,7 @@ public class InGameUIGroup : UIGroup
         manager = FindObjectOfType<InGameManager>();
         gamePlayer = manager.GamePlayer;
         weaponUI.InitUI(GameManager.playerWeapon);
-        statusUI.InitUI(gamePlayer.EquipWeapon);
+        statusUI.SetBulletStatus(gamePlayer.EquipWeapon);
     }
 
     public void SetControl()

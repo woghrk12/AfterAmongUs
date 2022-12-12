@@ -13,6 +13,7 @@ public class GamePlayer : MonoBehaviour
     [SerializeField] private CharacterRader raderController = null;
     [SerializeField] private PlayerWeapon weaponController = null;
     [SerializeField] private CharacterInteract interactController = null;
+    [SerializeField] private Damagable healthController = null;
 
     private JoyStick joystick = null;
     private StatusUI statusUI = null;
@@ -45,9 +46,11 @@ public class GamePlayer : MonoBehaviour
     {
         joystick = UIManager.Instance.Joystick;
         statusUI = p_inGameUI.StatusUI;
+        statusUI.SetHealthStatus(healthController);
 
         interactController.Init();
         weaponController.InitWeapon(statusUI);
+        healthController.StartChecking(true);
         raderController.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetColor((int)GameManager.playerColor);
 

@@ -11,7 +11,13 @@ public class ControlSlider : MonoBehaviour
     private int maxValue = 0;
     private int curValue = 0;
 
-    public int MaxValue { set { maxValue = value; } get { return maxValue; } }
+    public void SetMaxValue(int p_value)
+    {
+        maxValue = p_value;
+        fillImage.fillAmount = 1f;
+
+        if (!(remainText is null)) remainText.text = maxValue.ToString();
+    }
 
     public void SetValue(int p_value)
     {

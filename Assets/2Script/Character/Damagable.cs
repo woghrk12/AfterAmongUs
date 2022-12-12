@@ -10,16 +10,18 @@ public class Damagable : MonoBehaviour
     [SerializeField] private int maxHealth = 0;
     private int curHealth = 0;
     private Coroutine checkCo = null;
+
+    public ControlSlider HealthBar { set { healthBar = value; } get { return healthBar; } }
     public UnityAction HitEvent { set; get; }
     public UnityAction DieEvent { set; get; }
 
-    public void StartChecking() 
+    public void StartChecking(bool p_isShow = false) 
     {
         curHealth = maxHealth;
-        healthBar.MaxValue = maxHealth;
-        if (healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(false);
+        healthBar.SetMaxValue(maxHealth);
+        if (!p_isShow) healthBar.gameObject.SetActive(false);
         hitBox.SetActive(true);
-        checkCo = StartCoroutine(CheckHealth());
+        checkCo = StartCoroutine(CheckHealth(p_isShow));
     }
 
     public void StopChecking()
@@ -32,11 +34,14 @@ public class Damagable : MonoBehaviour
         checkCo = null;
     }
 
-    private IEnumerator CheckHealth()
+    private IEnumerator CheckHealth(bool p_isShow)
     {
         while (curHealth > 0) { yield return null; }
         curHealth = 0;
-        healthBar.gameObject.SetActive(false);
+
+        if (!p_isShow) healthBar.gameObject.SetActive(false);
+        else healthBar.SetValue(curHealth);
+        
         DieEvent.Invoke();
         hitBox.SetActive(false);
         checkCo = null;
