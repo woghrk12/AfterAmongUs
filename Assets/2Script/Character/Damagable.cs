@@ -16,6 +16,8 @@ public class Damagable : MonoBehaviour
     public void StartChecking() 
     {
         curHealth = maxHealth;
+        healthBar.MaxValue = maxHealth;
+        if (healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(false);
         hitBox.SetActive(true);
         checkCo = StartCoroutine(CheckHealth());
     }
@@ -34,6 +36,7 @@ public class Damagable : MonoBehaviour
     {
         while (curHealth > 0) { yield return null; }
         curHealth = 0;
+        healthBar.gameObject.SetActive(false);
         DieEvent.Invoke();
         hitBox.SetActive(false);
         checkCo = null;
@@ -45,6 +48,8 @@ public class Damagable : MonoBehaviour
         
         if (curHealth > 0) 
         {
+            if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
+            healthBar.SetValue(curHealth);
             HitEvent.Invoke();
             return;
         }
