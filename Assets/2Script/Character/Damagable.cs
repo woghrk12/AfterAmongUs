@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Damagable : MonoBehaviour
 {
     [SerializeField] private GameObject hitBox = null;
+    [SerializeField] private ControlSlider healthBar = null;
     [SerializeField] private int maxHealth = 0;
     private int curHealth = 0;
     private Coroutine checkCo = null;

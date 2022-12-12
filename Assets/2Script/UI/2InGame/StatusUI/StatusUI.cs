@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StatusUI : MonoBehaviour
 {
-    [SerializeField] private ControlStatus bulletStatus = null;
+    [SerializeField] private ControlSlider bulletStatus = null;
 
-    public ControlStatus BulletStatus { get { return bulletStatus; } }
+    public ControlSlider BulletStatus { get { return bulletStatus; } }
 
     public void InitUI(Weapon p_weapon)
     {

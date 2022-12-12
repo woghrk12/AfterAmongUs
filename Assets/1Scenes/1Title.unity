@@ -2035,7 +2035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ba45f3a17c21b40b8edfd23ae4977e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletStatus: {fileID: 905907881}
+  bulletStatus: {fileID: 905907882}
 --- !u!1 &504280982
 GameObject:
   m_ObjectHideFlags: 0
@@ -9675,7 +9675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 905907880}
-  - component: {fileID: 905907881}
+  - component: {fileID: 905907882}
   m_Layer: 0
   m_Name: Bullet Status
   m_TagString: Untagged
@@ -9705,7 +9705,7 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -30}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &905907881
+--- !u!114 &905907882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9714,7 +9714,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 905907879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e087a78b21278c54e9af7905e62ff8dd, type: 3}
+  m_Script: {fileID: 11500000, guid: fbc49f828d152d1458d5795761afb7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fillImage: {fileID: 82705932}

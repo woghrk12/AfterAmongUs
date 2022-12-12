@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControlStatus : MonoBehaviour
+public class ControlSlider : MonoBehaviour
 {
     [SerializeField] private Image fillImage = null;
     [SerializeField] private Text remainText = null;
@@ -12,11 +12,12 @@ public class ControlStatus : MonoBehaviour
     private int curValue = 0;
 
     public int MaxValue { set { maxValue = value; } get { return maxValue; } }
-    
-    public void SetValue(int p_value) 
+
+    public void SetValue(int p_value)
     {
         curValue = p_value;
         fillImage.fillAmount = (float)curValue / maxValue;
-        remainText.text = curValue.ToString();
+
+        if (!(remainText is null)) remainText.text = curValue.ToString();
     }
 }

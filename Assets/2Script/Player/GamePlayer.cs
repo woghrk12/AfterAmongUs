@@ -80,13 +80,13 @@ public class GamePlayer : MonoBehaviour
         weaponController.UseWeapon(statusUI.BulletStatus);
     }
 
-    public void Swap(int p_idx, ControlStatus p_bulletStatlus)
+    public void Swap(int p_idx, ControlSlider p_bulletStatlus)
     {
         weaponController.ChangeWeapon(p_idx, p_bulletStatlus);
         raderController.SetRange(weaponController.EquipWeapon.Range);
     }
 
-    public IEnumerator Reload(ControlStatus p_bulletStatus) => weaponController.Reload(p_bulletStatus);
+    public IEnumerator Reload(ControlSlider p_bulletStatus) => weaponController.Reload(p_bulletStatus);
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

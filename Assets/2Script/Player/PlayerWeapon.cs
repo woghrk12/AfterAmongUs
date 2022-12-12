@@ -30,7 +30,7 @@ public class PlayerWeapon : MonoBehaviour
         p_statusUI.InitUI(equipWeapon);
     }
 
-    public void ChangeWeapon(int p_idx, ControlStatus p_bulletStatus = null)
+    public void ChangeWeapon(int p_idx, ControlSlider p_bulletStatus = null)
     {
         equipWeapon = hasWeapon[p_idx];
         fireDelay = equipWeapon.FireRate;
@@ -43,7 +43,7 @@ public class PlayerWeapon : MonoBehaviour
         p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 
-    public void UseWeapon(ControlStatus p_bulletStatus = null)
+    public void UseWeapon(ControlSlider p_bulletStatus = null)
     {
         if (fireDelay < equipWeapon.FireRate) return;
         if (!equipWeapon.CheckCanShot()) return;
@@ -55,7 +55,7 @@ public class PlayerWeapon : MonoBehaviour
         p_bulletStatus.SetValue(equipWeapon.CurBullet);
     }
 
-    public IEnumerator Reload(ControlStatus p_bulletStatus = null)
+    public IEnumerator Reload(ControlSlider p_bulletStatus = null)
     {
         if (equipWeapon.CurBullet.Equals(equipWeapon.MaxBullet)) yield break;
 
