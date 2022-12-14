@@ -6694,8 +6694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamePlayer: {fileID: 1489938165}
-  totalNum: 0
-  targetNum: 0
+  totalNum: 5
+  targetNum: 3
   globalLight: {fileID: 106798984}
   pointLight: {fileID: 535061504}
 --- !u!1 &341695886

@@ -14,12 +14,13 @@ public class InGameManager : MonoBehaviour
 
     private PathFindingByRegion pathController = null;
 
+    private Mission mission = null;
+    private Coroutine progress = null;
+
     [SerializeField] private int totalNum = 0;
     [SerializeField] private int targetNum = 0;
     private int successNum = 0;
     private int failNum = 0;
-    private Mission mission = null;
-    private Coroutine progress = null;
 
     [SerializeField] private Light2D globalLight = null;
     [SerializeField] private Light2D pointLight = null;
@@ -43,6 +44,7 @@ public class InGameManager : MonoBehaviour
         inGameUI.SetControl();
         gamePlayer.InitPlayer(inGameUI);
         inGameUI.InitUI();
+        inGameUI.StatusUI.SetMissionStatus(targetNum);
 
         manager.ActiveUI(EUIList.FADE);
         fadeUI.InitUI();
@@ -111,6 +113,7 @@ public class InGameManager : MonoBehaviour
     public void SuccessMission()
     {
         successNum++;
+        inGameUI.StatusUI.MissionStatus.SetValue(successNum);
         StartCoroutine(SuccessLight());
         mission.OnActive();
         EndMission();
