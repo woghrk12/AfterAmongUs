@@ -54,4 +54,17 @@ public class EnemyPortal : MonoBehaviour
         anim.SetTrigger("Die");
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Camera")) return;
+
+        sprite.enabled = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Camera")) return;
+
+        sprite.enabled = false;
+    }
 }

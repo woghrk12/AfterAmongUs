@@ -120,8 +120,21 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Camera"))
+        {
+            sprite.enabled = true;
+            return;
+        }
+
         var t_region = collision.GetComponentInParent<Region>();
         if (!t_region) return;
         curRegion = t_region;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Camera")) return;
+
+        sprite.enabled = false;
     }
 }
