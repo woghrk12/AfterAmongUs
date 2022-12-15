@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private Animator anim = null;
+    [SerializeField] private SpriteRenderer sprite = null;
     [SerializeField] private InGameManager inGameManager = null;
 
     [SerializeField] private Damagable hitController = null;
@@ -28,6 +29,19 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         targetController.SetRange(chaseRange);
+        hitController.StartChecking();
+    }
+
+    private void OnEnable()
+    {
+        hitController.HitEvent += OnHit;
+        hitController.DieEvent += OnDie;
+    }
+
+    private void OnDisable()
+    {
+        hitController.HitEvent -= OnHit;
+        hitController.DieEvent -= OnDie;
     }
 
     private void Update()
@@ -80,6 +94,25 @@ public class Enemy : MonoBehaviour
 
         StopCoroutine(chaseCo);
         attackCo = StartCoroutine(Chase());
+    }
+
+    private void OnHit()
+    {
+        StartCoroutine(HitEffect());
+    }
+
+    private IEnumerator HitEffect()
+    {
+        sprite.color = Color.red;
+        yield return Utilities.WaitForSeconds(0.05f);
+        sprite.color = Color.white;
+    }
+
+    private void OnDie()
+    {
+        if (!(chaseCo is null)) StopCoroutine(chaseCo);
+        if (!(attackCo is null)) StopCoroutine(attackCo);
+        anim.SetTrigger("Die");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
