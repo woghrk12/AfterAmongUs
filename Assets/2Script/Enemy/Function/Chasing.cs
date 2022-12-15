@@ -32,8 +32,6 @@ public class Chasing : MonoBehaviour
 
             var t_nodes = t_curRegion.FindPath(t_curPos, t_targetPos);
 
-            t_nodes.RemoveAt(0);
-
             while (t_nodes.Count > 0)
             {
                 target = t_nodes[0].Position;
