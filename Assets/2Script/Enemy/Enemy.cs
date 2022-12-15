@@ -6,7 +6,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Animator anim = null;
     [SerializeField] private SpriteRenderer sprite = null;
-    [SerializeField] private InGameManager inGameManager = null;
+    
+    private InGameManager inGameManager = null;
 
     [SerializeField] private Damagable hitController = null;
     [SerializeField] private Chasing chaseController = null;
@@ -26,12 +27,6 @@ public class Enemy : MonoBehaviour
     private bool IsMove { set { anim.SetBool("isWalk", value); } }
     private bool IsLeft { set { moveController.IsLeft = value; } }
 
-    private void Start()
-    {
-        targetController.SetRange(chaseRange);
-        hitController.StartChecking();
-    }
-
     private void OnEnable()
     {
         hitController.HitEvent += OnHit;
@@ -44,10 +39,18 @@ public class Enemy : MonoBehaviour
         hitController.DieEvent -= OnDie;
     }
 
-    private void Update()
+    public IEnumerator InitEnemy(Vector3 p_position)
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-            StartCoroutine(Chase());
+        inGameManager = InGameManager.instance;
+
+        anim.SetTrigger("Spawn");
+        targetController.SetRange(chaseRange);
+        transform.position = p_position;
+        
+        yield return Utilities.WaitForSeconds(1f);
+
+        hitController.StartChecking();
+        StartCoroutine(Chase());
     }
 
     private void Move(Vector3 p_dir) => moveController.MoveCharacter(p_dir, anim);

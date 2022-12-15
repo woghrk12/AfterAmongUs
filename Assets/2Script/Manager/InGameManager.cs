@@ -5,6 +5,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class InGameManager : MonoBehaviour
 {
+    public static InGameManager instance = null;
+
     private UIManager manager = null;
     private InGameUIGroup inGameUI = null;
     private FadeUIGroup fadeUI = null;
@@ -27,6 +29,7 @@ public class InGameManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         pathController = new PathFindingByRegion();
     }
 
