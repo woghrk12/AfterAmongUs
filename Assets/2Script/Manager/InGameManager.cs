@@ -56,6 +56,10 @@ public class InGameManager : MonoBehaviour
         manager.ActiveUI(EUIList.FADE);
         fadeUI.InitUI();
 
+        yield return Utilities.WaitForSeconds(1f);
+
+        ObjectPoolingManager.instance.InitPool();
+
         yield return fadeUI.FadeIn();
 
         manager.ActiveUI(EUIList.INGAME);

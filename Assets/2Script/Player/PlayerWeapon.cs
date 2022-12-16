@@ -22,8 +22,11 @@ public class PlayerWeapon : MonoBehaviour
         var t_weapons = GameManager.playerWeapon;
 
         for (int i = 0; i < t_weapons.Length; i++)
+        {
             hasWeapon[i] = weapons[(int)t_weapons[i]];
-
+            ObjectPoolingManager.instance.SetFlag(hasWeapon[i].Bullet, true);
+        }
+        
         ChangeWeapon(0);
 
         if (!p_statusUI) return;

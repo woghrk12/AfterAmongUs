@@ -25,7 +25,7 @@ public abstract class Weapon : MonoBehaviour
     public int CurBullet { get { return curBullet; } }
     public float ReloadTime { get { return reloadTime; } }
     protected float Accurate { get { return accurate; } }
-    protected string Bullet { get { return bullet; } }
+    public string Bullet { get { return bullet; } }
     protected string MuzzleFlash { get { return muzzleFlash; } }
     
     protected void Awake()

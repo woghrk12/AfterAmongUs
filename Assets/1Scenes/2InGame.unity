@@ -486,37 +486,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: RifleBullet
+  - isPreload: 0
+    tag: RifleBullet
     prefab: {fileID: 7510721049536734993, guid: 60a4b76bf16d50244a8887b990655f37, type: 3}
     size: 10
-  - tag: ShotgunBullet
+  - isPreload: 0
+    tag: ShotgunBullet
     prefab: {fileID: 7510721049536734993, guid: e0fadd71b243aee4d89f27528763a078, type: 3}
     size: 16
-  - tag: PistolBullet
+  - isPreload: 0
+    tag: PistolBullet
     prefab: {fileID: 7510721049536734993, guid: 243f12a70124f3549856562f2067eaa9, type: 3}
     size: 10
-  - tag: SniperBullet
+  - isPreload: 0
+    tag: SniperBullet
     prefab: {fileID: 653772151218925349, guid: 8eb7d03ae420f8c4aa3cde5be4daafc3, type: 3}
     size: 10
-  - tag: MachinegunBullet
+  - isPreload: 0
+    tag: MachinegunBullet
     prefab: {fileID: 7510721049536734993, guid: 4ba04c1792f24a1418dca8402e37051d, type: 3}
     size: 10
-  - tag: SubmachinegunBullet
+  - isPreload: 0
+    tag: SubmachinegunBullet
     prefab: {fileID: 7510721049536734993, guid: db2d8c1571b648c4daf07714b9dca270, type: 3}
     size: 10
-  - tag: MuzzleFlash
+  - isPreload: 1
+    tag: MuzzleFlash
     prefab: {fileID: 6491031754375682868, guid: cc823a40975a59d4383a3dd02b741038, type: 3}
     size: 10
-  - tag: SingleHitEffect
+  - isPreload: 1
+    tag: SingleHitEffect
     prefab: {fileID: 2161050387621090443, guid: 3ca0ddc48bdf64444afcfca53515e28b, type: 3}
     size: 10
-  - tag: SectorHitEffect
+  - isPreload: 1
+    tag: SectorHitEffect
     prefab: {fileID: 5772749703694970346, guid: 7e48bfbec8892b648b2a0a77dcd55045, type: 3}
     size: 10
-  - tag: CircleHitEffect
+  - isPreload: 1
+    tag: CircleHitEffect
     prefab: {fileID: 8183316662222317535, guid: c785f6dc156a79a429ab2110c54acae1, type: 3}
     size: 10
-  - tag: EnemyBullet
+  - isPreload: 1
+    tag: EnemyBullet
     prefab: {fileID: 2498062394974830372, guid: 2d38834a323e45e41a8d6ef74c9c88f4, type: 3}
     size: 10
 --- !u!1 &116738522

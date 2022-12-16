@@ -19,10 +19,18 @@ public class ObjectPoolingManager : MonoBehaviour
         categories = new Dictionary<string, GameObject>();
     }
 
-    private void Start()
+    public void SetFlag(string p_key, bool p_value)
+    {
+        var t_pool = Array.FindIndex(pools, x => x.tag.Equals(p_key));
+        pools[t_pool].isPreload = p_value;
+    }
+
+    public void InitPool()
     {
         foreach (Pool t_pool in pools)
         {
+            if (!t_pool.isPreload) continue;
+
             var t_categroy = new GameObject(t_pool.tag);
             t_categroy.transform.SetParent(transform);
             categories.Add(t_pool.tag, t_categroy);
