@@ -6903,9 +6903,9 @@ GameObject:
   m_Component:
   - component: {fileID: 394427865}
   - component: {fileID: 394427866}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: HitBox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
