@@ -11,12 +11,14 @@ public class EnemyPortal : MonoBehaviour
 
     [SerializeField] private GameObject enemyPrefab = null;
 
+    private Coroutine spawnCo = null;
+
     private void OnEnable()
     {
         hitController.HitEvent += OnHit;
         hitController.DieEvent += OnDie;
 
-        hitController.StartChecking();
+        spawnCo = StartCoroutine(InitPortal());
     }
 
     private void OnDisable()
@@ -25,10 +27,19 @@ public class EnemyPortal : MonoBehaviour
         hitController.DieEvent -= OnDie;
     }
 
-    private void Update()
+    private IEnumerator InitPortal()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        yield return Utilities.WaitForSeconds(1f);
+
+        hitController.StartChecking();
+        
+        while (true)
+        {
+            yield return Utilities.WaitForSeconds(Random.Range(5, 8));
+            if (InGameManager.enemyNum > InGameManager.NumTotalEnemy) continue;
             SpawnEnemy();
+            InGameManager.enemyNum++;
+        }
     }
 
     private void SpawnEnemy()
@@ -51,6 +62,7 @@ public class EnemyPortal : MonoBehaviour
 
     private void OnDie()
     {
+        StopCoroutine(spawnCo);
         anim.SetTrigger("Die");
     }
 

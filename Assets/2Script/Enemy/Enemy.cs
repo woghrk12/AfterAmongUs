@@ -115,6 +115,7 @@ public class Enemy : MonoBehaviour
     {
         if (!(chaseCo is null)) StopCoroutine(chaseCo);
         if (!(attackCo is null)) StopCoroutine(attackCo);
+        InGameManager.enemyNum--;
         anim.SetTrigger("Die");
     }
 

@@ -6,7 +6,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
     public static InGameManager instance = null;
-
+    public static readonly int NumTotalEnemy = 50;
+    public static int enemyNum = 0;
     private UIManager manager = null;
     private InGameUIGroup inGameUI = null;
     private FadeUIGroup fadeUI = null;
