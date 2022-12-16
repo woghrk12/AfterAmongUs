@@ -7,6 +7,8 @@ public class EnemyPortal : MonoBehaviour
     [SerializeField] private Animator anim = null;
     [SerializeField] private SpriteRenderer sprite = null;
 
+    private InGameManager inGameManager = null;
+
     [SerializeField] private Damagable hitController = null;
 
     [SerializeField] private GameObject enemyPrefab = null;
@@ -17,8 +19,6 @@ public class EnemyPortal : MonoBehaviour
     {
         hitController.HitEvent += OnHit;
         hitController.DieEvent += OnDie;
-
-        spawnCo = StartCoroutine(InitPortal());
     }
 
     private void OnDisable()
@@ -27,25 +27,25 @@ public class EnemyPortal : MonoBehaviour
         hitController.DieEvent -= OnDie;
     }
 
-    private IEnumerator InitPortal()
+    public void InitPortal(Vector3 p_position)
     {
-        yield return Utilities.WaitForSeconds(1f);
-
+        inGameManager = InGameManager.instance;
+        inGameManager.enemyList.Add(hitController);
+        inGameManager.enemyNum++;
+        transform.position = p_position;
         hitController.StartChecking();
-        
+        spawnCo = StartCoroutine(SpawnEnemy());        
+    }
+
+    private IEnumerator SpawnEnemy()
+    {
         while (true)
         {
             yield return Utilities.WaitForSeconds(Random.Range(5, 8));
-            if (InGameManager.enemyNum > InGameManager.NumTotalEnemy) continue;
-            SpawnEnemy();
-            InGameManager.enemyNum++;
+            if (inGameManager.enemyNum > inGameManager.NumTotalEnemy) continue;
+            var t_enemy = ObjectPoolingManager.SpawnObject("EnemyNormal").GetComponent<Enemy>();
+            StartCoroutine(t_enemy.InitEnemy(transform.position));
         }
-    }
-
-    private void SpawnEnemy()
-    {
-        var t_enemy = ObjectPoolingManager.SpawnObject("EnemyNormal", transform.position).GetComponent<Enemy>();
-        StartCoroutine(t_enemy.InitEnemy());
     }
 
     private void OnHit()
@@ -63,6 +63,8 @@ public class EnemyPortal : MonoBehaviour
     private void OnDie()
     {
         StopCoroutine(spawnCo);
+        inGameManager.enemyNum--;
+        inGameManager.enemyList.Remove(hitController);
         StartCoroutine(DieEffect());
     }
 

@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     private Coroutine attackCo = null;
     private Coroutine chaseCo = null;
 
+
+    private bool isDie = false;
     private bool IsMove { set { anim.SetBool("isWalk", value); } }
     private bool IsLeft { set { moveController.IsLeft = value; } }
 
@@ -31,8 +33,6 @@ public class Enemy : MonoBehaviour
     {
         hitController.HitEvent += OnHit;
         hitController.DieEvent += OnDie;
-
-        StartCoroutine(InitEnemy());
     }
 
     private void OnDisable()
@@ -41,17 +41,21 @@ public class Enemy : MonoBehaviour
         hitController.DieEvent -= OnDie;
     }
 
-    public IEnumerator InitEnemy()
+    public IEnumerator InitEnemy(Vector3 p_position)
     {
         inGameManager = InGameManager.instance;
-
+        inGameManager.enemyList.Add(hitController);
+        inGameManager.enemyNum++;
         anim.SetTrigger("Spawn");
         targetController.SetRange(chaseRange);
-        
-        yield return Utilities.WaitForSeconds(1f);
-
+        transform.position = p_position;
         hitController.StartChecking();
-        StartCoroutine(Chase());
+        isDie = false;
+
+        yield return Utilities.WaitForSeconds(1f);
+        if (isDie) yield break;
+
+        attackCo = StartCoroutine(Chase());
     }
 
     private void Move(Vector3 p_dir) => moveController.MoveCharacter(p_dir, anim);
@@ -116,7 +120,9 @@ public class Enemy : MonoBehaviour
     {
         if (!(chaseCo is null)) StopCoroutine(chaseCo);
         if (!(attackCo is null)) StopCoroutine(attackCo);
-        InGameManager.enemyNum--;
+        isDie = true;
+        inGameManager.enemyNum--;
+        inGameManager.enemyList.Remove(hitController);
         StartCoroutine(DieEffect());
     }
 

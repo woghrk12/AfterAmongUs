@@ -6,8 +6,10 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class InGameManager : MonoBehaviour
 {
     public static InGameManager instance = null;
-    public static readonly int NumTotalEnemy = 50;
-    public static int enemyNum = 0;
+    public readonly int NumTotalEnemy = 50;
+    public int enemyNum = 0;
+    public List<Damagable> enemyList = new List<Damagable>();
+
     private UIManager manager = null;
     private InGameUIGroup inGameUI = null;
     private FadeUIGroup fadeUI = null;
@@ -28,8 +30,6 @@ public class InGameManager : MonoBehaviour
 
     [SerializeField] private Light2D globalLight = null;
     [SerializeField] private Light2D pointLight = null;
-
-    [SerializeField] private GameObject prefabPortal = null;
 
     private void Awake()
     {
@@ -142,12 +142,21 @@ public class InGameManager : MonoBehaviour
     {
         if (!(progress is null)) StopCoroutine(progress);
 
+        KillAllEnemy();
         mission.HitController.StopChecking();
         mission.HitController.DieEvent -= FailMission;
         mission = null;
         progress = null;
         inGameUI.EndTimer();
         ChangeLight(true);
+    }
+
+    private void KillAllEnemy()
+    {
+        var t_numEnemy = enemyList.Count;
+
+        for (int i = 0; i < t_numEnemy; i++)
+            enemyList[i].KillSelf();
     }
 
     private IEnumerator SuccessLight()
@@ -202,7 +211,8 @@ public class InGameManager : MonoBehaviour
         {
             var t_random = Random.Range(0, t_totalNum);
             var t_spawnPos = regionList[t_spawnList[t_random]].TargetPos;
-            ObjectPoolingManager.SpawnObject("EnemyPortal", new Vector3((float)t_spawnPos.x * 0.1f, (float)t_spawnPos.y * 0.1f, 0));
+            var t_enemyPortal = ObjectPoolingManager.SpawnObject("EnemyPortal").GetComponent<EnemyPortal>();
+            t_enemyPortal.InitPortal(new Vector3((float)t_spawnPos.x * 0.1f, (float)t_spawnPos.y * 0.1f, 0));
             t_spawnList[t_random] = t_spawnList[t_totalNum - 1];
             t_totalNum--;
         }

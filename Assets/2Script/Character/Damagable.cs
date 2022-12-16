@@ -59,4 +59,6 @@ public class Damagable : MonoBehaviour
             return;
         }
     }
+
+    public void KillSelf() { curHealth = 0; }
 }
