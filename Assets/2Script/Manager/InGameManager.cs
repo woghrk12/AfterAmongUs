@@ -190,6 +190,7 @@ public class InGameManager : MonoBehaviour
         
         for (int i = 0; i < t_totalNum; i++)
             t_spawnList[i] = i;
+
         t_spawnList[t_targetRegion] = t_spawnList[t_totalNum - 1];
         t_totalNum--;
 

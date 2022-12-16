@@ -792,7 +792,7 @@ GameObject:
   - component: {fileID: 177305181}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -6778,7 +6778,7 @@ GameObject:
   - component: {fileID: 384177499}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7167,7 +7167,7 @@ GameObject:
   - component: {fileID: 424695948}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8697,7 +8697,7 @@ GameObject:
   - component: {fileID: 610462668}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -8853,7 +8853,7 @@ GameObject:
   - component: {fileID: 633464922}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9163,7 +9163,7 @@ GameObject:
   - component: {fileID: 695221513}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9387,7 +9387,7 @@ GameObject:
   - component: {fileID: 726455523}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -9451,7 +9451,7 @@ GameObject:
   - component: {fileID: 862873784}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -10675,7 +10675,7 @@ GameObject:
   - component: {fileID: 1135619439}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11225,7 +11225,7 @@ GameObject:
   - component: {fileID: 1318434532}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11286,7 +11286,7 @@ GameObject:
   - component: {fileID: 1319380358}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11346,7 +11346,7 @@ GameObject:
   - component: {fileID: 1326724709}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11640,7 +11640,7 @@ GameObject:
   - component: {fileID: 1412006927}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -12039,7 +12039,7 @@ GameObject:
   - component: {fileID: 1450229531}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -12099,7 +12099,7 @@ GameObject:
   - component: {fileID: 1476390131}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -13778,7 +13778,7 @@ GameObject:
   - component: {fileID: 1754326629}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14898,7 +14898,7 @@ GameObject:
   - component: {fileID: 1922229842}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15543,7 +15543,7 @@ GameObject:
   - component: {fileID: 2019440321}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15603,7 +15603,7 @@ GameObject:
   - component: {fileID: 2019803707}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15755,7 +15755,7 @@ GameObject:
   - component: {fileID: 2062548730}
   m_Layer: 10
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Region
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
