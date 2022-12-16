@@ -72,7 +72,8 @@ public class InGameManager : MonoBehaviour
 
     public bool CheckCanStart(Mission p_mission)
     {
-        if (!(progress is null)) {
+        if (!(progress is null)) 
+        {
             UIManager.Alert("The mission is already in progress!");
             return false;
         }
@@ -90,7 +91,7 @@ public class InGameManager : MonoBehaviour
         fadeUI.gameObject.SetActive(true);
         yield return fadeUI.FadeOut();
 
-        SpawnEnemyPortal(mission.Region, 5);
+        SpawnEnemyPortal(mission.Region, 15);
         mission.OnTry();
         ChangeLight(false);
 
@@ -197,7 +198,7 @@ public class InGameManager : MonoBehaviour
     private void SpawnEnemyPortal(ERegion p_targetRegion, int p_portalNum)
     {
         var t_totalNum = (int)ERegion.END;
-        var t_portalNum = p_portalNum > t_totalNum ? t_totalNum : p_portalNum;
+        var t_portalNum = p_portalNum > 10 ? 10 : p_portalNum;
         var t_targetRegion = (int)p_targetRegion;
         var t_spawnList = new int[t_totalNum];
         
