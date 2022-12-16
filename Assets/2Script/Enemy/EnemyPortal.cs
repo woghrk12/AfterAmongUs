@@ -44,8 +44,8 @@ public class EnemyPortal : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        var t_enemy = Instantiate(enemyPrefab, this.transform).GetComponent<Enemy>();
-        StartCoroutine(t_enemy.InitEnemy(transform.position));
+        var t_enemy = ObjectPoolingManager.SpawnObject("EnemyNormal", transform.position).GetComponent<Enemy>();
+        StartCoroutine(t_enemy.InitEnemy());
     }
 
     private void OnHit()
@@ -63,7 +63,14 @@ public class EnemyPortal : MonoBehaviour
     private void OnDie()
     {
         StopCoroutine(spawnCo);
+        StartCoroutine(DieEffect());
+    }
+
+    private IEnumerator DieEffect()
+    {
         anim.SetTrigger("Die");
+        yield return Utilities.WaitForSeconds(1f);
+        ObjectPoolingManager.ReturnObject(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

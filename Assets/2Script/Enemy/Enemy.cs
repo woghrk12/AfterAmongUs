@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
     {
         hitController.HitEvent += OnHit;
         hitController.DieEvent += OnDie;
+
+        StartCoroutine(InitEnemy());
     }
 
     private void OnDisable()
@@ -39,13 +41,12 @@ public class Enemy : MonoBehaviour
         hitController.DieEvent -= OnDie;
     }
 
-    public IEnumerator InitEnemy(Vector3 p_position)
+    public IEnumerator InitEnemy()
     {
         inGameManager = InGameManager.instance;
 
         anim.SetTrigger("Spawn");
         targetController.SetRange(chaseRange);
-        transform.position = p_position;
         
         yield return Utilities.WaitForSeconds(1f);
 
@@ -116,7 +117,14 @@ public class Enemy : MonoBehaviour
         if (!(chaseCo is null)) StopCoroutine(chaseCo);
         if (!(attackCo is null)) StopCoroutine(attackCo);
         InGameManager.enemyNum--;
+        StartCoroutine(DieEffect());
+    }
+
+    private IEnumerator DieEffect()
+    {
         anim.SetTrigger("Die");
+        yield return Utilities.WaitForSeconds(2f);
+        ObjectPoolingManager.ReturnObject(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

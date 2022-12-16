@@ -202,7 +202,7 @@ public class InGameManager : MonoBehaviour
         {
             var t_random = Random.Range(0, t_totalNum);
             var t_spawnPos = regionList[t_spawnList[t_random]].TargetPos;
-            Instantiate(prefabPortal, new Vector3((float)t_spawnPos.x * 0.1f, (float)t_spawnPos.y * 0.1f, 0), Quaternion.identity);
+            ObjectPoolingManager.SpawnObject("EnemyPortal", new Vector3((float)t_spawnPos.x * 0.1f, (float)t_spawnPos.y * 0.1f, 0));
             t_spawnList[t_random] = t_spawnList[t_totalNum - 1];
             t_totalNum--;
         }

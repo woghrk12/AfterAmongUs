@@ -530,6 +530,14 @@ MonoBehaviour:
     tag: EnemyBullet
     prefab: {fileID: 2498062394974830372, guid: 2d38834a323e45e41a8d6ef74c9c88f4, type: 3}
     size: 10
+  - isPreload: 1
+    tag: EnemyNormal
+    prefab: {fileID: 4230895253000858229, guid: 9a8ca30cadb9ab94b817193c20d9c298, type: 3}
+    size: 10
+  - isPreload: 1
+    tag: EnemyPortal
+    prefab: {fileID: 7831834818226825089, guid: 46b8648754317b24b8eb84ef4fd59d70, type: 3}
+    size: 10
 --- !u!1 &116738522
 GameObject:
   m_ObjectHideFlags: 0
