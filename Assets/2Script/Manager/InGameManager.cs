@@ -15,6 +15,7 @@ public class InGameManager : MonoBehaviour
     public GamePlayer GamePlayer { get { return gamePlayer; } }
 
     private PathFindingByRegion pathController = null;
+    [SerializeField] private Region[] regionList = null;
 
     private Mission mission = null;
     private Coroutine progress = null;
@@ -26,6 +27,8 @@ public class InGameManager : MonoBehaviour
 
     [SerializeField] private Light2D globalLight = null;
     [SerializeField] private Light2D pointLight = null;
+
+    [SerializeField] private GameObject prefabPortal = null;
 
     private void Awake()
     {
@@ -59,7 +62,7 @@ public class InGameManager : MonoBehaviour
 
     public List<Region> FindRegion(Region p_startRegion)
     {
-        return pathController.FindPath(p_startRegion, mission.Region);
+        return pathController.FindPath(p_startRegion, regionList[(int)mission.Region]);
     }
 
     public bool CheckCanStart(Mission p_mission)
@@ -81,7 +84,8 @@ public class InGameManager : MonoBehaviour
 
         fadeUI.gameObject.SetActive(true);
         yield return fadeUI.FadeOut();
-        
+
+        SpawnEnemyPortal(mission.Region, 5);
         mission.OnTry();
         ChangeLight(false);
 
@@ -174,5 +178,28 @@ public class InGameManager : MonoBehaviour
         }
 
         globalLight.color = t_color;
+    }
+
+    private void SpawnEnemyPortal(ERegion p_targetRegion, int p_portalNum)
+    {
+        var t_totalNum = (int)ERegion.END;
+        var t_portalNum = p_portalNum > t_totalNum ? t_totalNum : p_portalNum;
+        var t_targetRegion = (int)p_targetRegion;
+        var t_spawnList = new int[t_totalNum];
+        
+        for (int i = 0; i < t_totalNum; i++)
+            t_spawnList[i] = i;
+
+        t_spawnList[t_targetRegion] = t_spawnList[t_totalNum - 1];
+        t_totalNum--;
+
+        for (int i = 0; i < t_portalNum; i++)
+        {
+            var t_random = Random.Range(0, t_totalNum);
+            var t_spawnPos = regionList[t_random].TargetPos;
+            Instantiate(prefabPortal, new Vector3((float)t_spawnPos.x * 0.1f, (float)t_spawnPos.y * 0.1f, 0), Quaternion.identity);
+            t_spawnList[t_random] = t_spawnList[t_totalNum - 1];
+            t_totalNum--;
+        }
     }
 }

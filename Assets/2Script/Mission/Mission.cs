@@ -7,13 +7,13 @@ using UnityEngine.Events;
 public class Mission : MonoBehaviour
 {
     private Animator animCore = null;
-    [SerializeField] private Region region = null;
+    [SerializeField] private ERegion region = ERegion.END;
     [SerializeField] private Animator animObj = null;
     [SerializeField] private int missionTime = 0;
 
     [SerializeField] private Damagable hitController = null;
 
-    public Region Region { get { return region; } }
+    public ERegion Region { get { return region; } }
     public int MissionTime { get { return missionTime; } }
     public Damagable HitController { get { return hitController; } }
 
