@@ -52,6 +52,7 @@ public class Mission : MonoBehaviour
 
     private void OnHit()
     {
+        UIManager.Alert("Core Object is under attack!!");
         animCore.SetTrigger("Hit");
     }
 }
