@@ -416,7 +416,6 @@ MonoBehaviour:
   anim: {fileID: 7831834818226825088}
   sprite: {fileID: 7831834817631509730}
   hitController: {fileID: 7831834818226825092}
-  enemyPrefab: {fileID: 4230895253000858229, guid: 9a8ca30cadb9ab94b817193c20d9c298, type: 3}
 --- !u!1 &7831834818661975627
 GameObject:
   m_ObjectHideFlags: 0

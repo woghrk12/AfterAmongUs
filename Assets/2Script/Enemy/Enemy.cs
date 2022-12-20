@@ -121,6 +121,7 @@ public class Enemy : MonoBehaviour
         if (!(chaseCo is null)) StopCoroutine(chaseCo);
         if (!(attackCo is null)) StopCoroutine(attackCo);
         isDie = true;
+        curRegion = null;
         inGameManager.enemyNum--;
         inGameManager.enemyList.Remove(hitController);
         StartCoroutine(DieEffect());
@@ -141,15 +142,17 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        var t_region = collision.GetComponentInParent<Region>();
-        if (!t_region) return;
-        curRegion = t_region;
+        if (collision.CompareTag("Region"))
+        {
+            var t_region = collision.GetComponentInParent<Region>();
+            curRegion = t_region;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Camera")) return;
-
+        
         sprite.enabled = false;
     }
 }

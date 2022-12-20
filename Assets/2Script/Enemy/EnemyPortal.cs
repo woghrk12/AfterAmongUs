@@ -11,8 +11,6 @@ public class EnemyPortal : MonoBehaviour
 
     [SerializeField] private Damagable hitController = null;
 
-    [SerializeField] private GameObject enemyPrefab = null;
-
     private Coroutine spawnCo = null;
 
     private void OnEnable()
@@ -33,6 +31,7 @@ public class EnemyPortal : MonoBehaviour
         inGameManager.enemyList.Add(hitController);
         inGameManager.enemyNum++;
         transform.position = p_position;
+        anim.SetTrigger("Spawn");
         hitController.StartChecking();
         spawnCo = StartCoroutine(SpawnEnemy());        
     }

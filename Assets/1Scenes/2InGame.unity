@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 89538709}
   - component: {fileID: 89538710}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 99322272}
   - component: {fileID: 99322273}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Communications
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 99928007}
   - component: {fileID: 99928008}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 123286468}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 173987232}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,6 +985,68 @@ Transform:
   m_Father: {fileID: 1249558344}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &189573018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 189573019}
+  - component: {fileID: 189573020}
+  m_Layer: 10
+  m_Name: Trigger
+  m_TagString: Region
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &189573019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189573018}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2092160543}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &189573020
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189573018}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -7.4, y: 1.5}
+      - {x: -7.4, y: -0.5}
+      - {x: -8.25, y: -1.3}
+      - {x: -9.6, y: -1.3}
+      - {x: -9.6, y: 2.3}
+      - {x: -8.25, y: 2.3}
 --- !u!1 &191496800
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,7 +5943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 203092703}
   - component: {fileID: 203092704}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5963,7 +6025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214090621}
   - component: {fileID: 214090622}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_Cafeteria_Upperengine_Medbay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6295,7 +6357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224170784}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6357,7 +6419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272127129}
   - component: {fileID: 272127130}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6411,7 +6473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273705389}
   - component: {fileID: 273705390}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cafeteria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6466,7 +6528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 282245999}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6580,7 +6642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 288155430}
   - component: {fileID: 288155431}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6743,7 +6805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 293465335}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6945,7 +7007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341695887}
   - component: {fileID: 341695888}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Navigation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7357,7 +7419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 409114820}
   - component: {fileID: 409114821}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Underfloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7439,7 +7501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 415623456}
   - component: {fileID: 415623457}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_Admin_Storage_Cafeteria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7731,7 +7793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 431032431}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7765,7 +7827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436232275}
   - component: {fileID: 436232276}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7847,7 +7909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 451979559}
   - component: {fileID: 451979560}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8082,7 +8144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458448359}
   - component: {fileID: 458448360}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Medbay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8897,7 +8959,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 552671427}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9162,7 +9224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575394958}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9196,7 +9258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 605216608}
   - component: {fileID: 605216609}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9711,7 +9773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684338443}
   - component: {fileID: 684338444}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_Storage_Shields_Communications
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9767,7 +9829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694695431}
   - component: {fileID: 694695432}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9991,7 +10053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 709311435}
   - component: {fileID: 709311436}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10063,70 +10125,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &726455521
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 726455522}
-  - component: {fileID: 726455523}
-  m_Layer: 10
-  m_Name: Trigger
-  m_TagString: Region
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &726455522
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726455521}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2092160543}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &726455523
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726455521}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -9.6, y: -1.3}
-      - {x: -9.6, y: 2.3}
-      - {x: -8.25, y: 2.3}
-      - {x: -8.25, y: 1.5}
-      - {x: -7.4, y: 1.5}
-      - {x: -7.4, y: -0.5}
-      - {x: -8.25, y: -0.5}
-      - {x: -8.25, y: -1.3}
 --- !u!1 &750385652
 GameObject:
   m_ObjectHideFlags: 0
@@ -10503,7 +10501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 941693324}
   - component: {fileID: 941693325}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Electrical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10557,7 +10555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 941811519}
   - component: {fileID: 941811520}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10710,7 +10708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 967174106}
   - component: {fileID: 967174107}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10792,7 +10790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 970363054}
   - component: {fileID: 970363055}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11113,7 +11111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1012101628}
   - component: {fileID: 1012101629}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11856,7 +11854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164352390}
   - component: {fileID: 1164352391}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11938,7 +11936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1194152469}
   - component: {fileID: 1194152470}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12020,7 +12018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1207508865}
   - component: {fileID: 1207508866}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Security
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12234,7 +12232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1278098140}
   - component: {fileID: 1278098141}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12621,7 +12619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1339191719}
   - component: {fileID: 1339191720}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_Reactor_Security
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13023,7 +13021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1437105001}
   - component: {fileID: 1437105002}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13105,7 +13103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1437417911}
   - component: {fileID: 1437417912}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13389,7 +13387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478819135}
   - component: {fileID: 1478819136}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13472,7 +13470,7 @@ GameObject:
   - component: {fileID: 1479326608}
   - component: {fileID: 1479326610}
   - component: {fileID: 1479326609}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13932,7 +13930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1499718304}
   - component: {fileID: 1499718305}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Lower Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13985,7 +13983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1499898791}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14103,7 +14101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558090453}
   - component: {fileID: 1558090454}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Underfloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14184,7 +14182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574243594}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14362,7 +14360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1618924802}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14562,7 +14560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1646608057}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14773,7 +14771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1661841185}
   - component: {fileID: 1661841186}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Shields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15054,7 +15052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1685622758}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15177,7 +15175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1757082794}
   - component: {fileID: 1757082795}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15278,7 +15276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2092160543}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &1766502810
 PolygonCollider2D:
@@ -15326,7 +15324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771529952}
   - component: {fileID: 1771529953}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15530,7 +15528,7 @@ GameObject:
   - component: {fileID: 1813409346}
   - component: {fileID: 1813409348}
   - component: {fileID: 1813409347}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15860,7 +15858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862495517}
   - component: {fileID: 1862495518}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_O2_Naviation_Shields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15918,7 +15916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865650652}
   - component: {fileID: 1865650653}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15974,7 +15972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865836241}
   - component: {fileID: 1865836242}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16483,7 +16481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923844505}
   - component: {fileID: 1923844506}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16714,7 +16712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983535938}
   - component: {fileID: 1983535939}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16796,7 +16794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1984359633}
   - component: {fileID: 1984359634}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wall 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16878,7 +16876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1997072220}
   - component: {fileID: 1997072221}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hallway_Weapon_Cafeteria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16932,7 +16930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2000883848}
   - component: {fileID: 2000883849}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17014,7 +17012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018344362}
   - component: {fileID: 2018344363}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: O2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17434,7 +17432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2070495024}
   - component: {fileID: 2070495025}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Admin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17486,7 +17484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2082964610}
   - component: {fileID: 2082964611}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17587,8 +17585,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1836588590}
-  - {fileID: 726455522}
   - {fileID: 1766502809}
+  - {fileID: 189573019}
   m_Father: {fileID: 1617590931}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17678,7 +17676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2105253175}
   - component: {fileID: 2105253176}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17760,7 +17758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2113562080}
   - component: {fileID: 2113562081}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
