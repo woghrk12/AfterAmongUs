@@ -58,4 +58,8 @@ public interface IInteractable
 {
     public void Use();
 }
+public interface IEffect
+{ 
+    public void StartEffect(); 
+}
 #endregion

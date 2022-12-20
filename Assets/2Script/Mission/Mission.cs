@@ -6,11 +6,13 @@ using UnityEngine.Events;
 
 public class Mission : MonoBehaviour
 {
-    private Animator animCore = null;
+    [SerializeField] private Animator animCore = null;
     [SerializeField] private ERegion region = ERegion.END;
-    [SerializeField] private Animator animObj = null;
     [SerializeField] private int missionTime = 0;
 
+    [SerializeField] private Animator animObj = null;
+    [SerializeField] private GameObject effectParent = null;
+    private IEffect[] effectObj = null;
     [SerializeField] private Damagable hitController = null;
 
     public ERegion Region { get { return region; } }
@@ -19,7 +21,9 @@ public class Mission : MonoBehaviour
 
     private void Awake()
     {
-        animCore = GetComponent<Animator>();
+        if (!effectParent) return;
+        
+        effectObj = effectParent.GetComponentsInChildren<IEffect>();
     }
 
     private void OnEnable()
@@ -42,6 +46,13 @@ public class Mission : MonoBehaviour
     public void OnActive()
     {
         animCore.SetTrigger("On");
+
+        if (!animObj)
+        {
+            for (int i = 0; i < effectObj.Length; i++) effectObj[i].StartEffect();
+            return;
+        }
+        
         animObj.SetTrigger("On");
     }
 
