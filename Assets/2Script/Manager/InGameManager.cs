@@ -49,6 +49,7 @@ public class InGameManager : MonoBehaviour
     private IEnumerator Init()
     {
         inGameUI.SetControl();
+        gamePlayer.gameObject.SetActive(true);
         gamePlayer.InitPlayer(inGameUI);
         inGameUI.InitUI();
         inGameUI.StatusUI.SetMissionStatus(targetNum);
