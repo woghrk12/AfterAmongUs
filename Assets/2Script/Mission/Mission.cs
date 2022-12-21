@@ -47,13 +47,12 @@ public class Mission : MonoBehaviour
     {
         animCore.SetTrigger("On");
 
-        if (!animObj)
+        if (!(effectObj is null))
         {
             for (int i = 0; i < effectObj.Length; i++) effectObj[i].StartEffect();
             return;
         }
-        
-        animObj.SetTrigger("On");
+        if (!animObj) animObj.SetTrigger("On");
     }
 
     public void OnDeactive()
