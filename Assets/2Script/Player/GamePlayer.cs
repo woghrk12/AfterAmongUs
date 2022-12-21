@@ -34,8 +34,11 @@ public class GamePlayer : MonoBehaviour
         }
         get { return canMove; }
     }
+    private bool isDie = false;
 
     public Weapon EquipWeapon { get { return weaponController.EquipWeapon; } }
+
+    [SerializeField] private Transform revivePos = null; 
 
     private void Awake()
     {
@@ -66,11 +69,13 @@ public class GamePlayer : MonoBehaviour
         raderController.SetRange(weaponController.EquipWeapon.Range);
         colorController.SetPlayerColor((int)GameManager.playerColor);
 
+        isDie = false;
         CanMove = true;
     }
 
     private void Update()
     {
+        if (isDie) return;
         if (!canMove) return;
 
         Targeting(raderController.Target);
@@ -79,6 +84,7 @@ public class GamePlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDie) return;
         if (!canMove) return;
 
         Move();
@@ -118,8 +124,22 @@ public class GamePlayer : MonoBehaviour
     private void OnDie()
     {
         weaponController.gameObject.SetActive(false);
+        isDie = true;
         CanMove = false;
         anim.SetTrigger("Die");
+        StartCoroutine(Revive());
+    }
+
+    private IEnumerator Revive()
+    {
+        yield return Utilities.WaitForSeconds(2f);
+        transform.position = revivePos.position;
+        anim.SetTrigger("Spawn");
+        yield return Utilities.WaitForSeconds(1f);
+        weaponController.gameObject.SetActive(true);
+        isDie = false;
+        CanMove = true;
+        healthController.StartChecking(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -91,7 +91,7 @@ public class InGameManager : MonoBehaviour
         fadeUI.gameObject.SetActive(true);
         yield return fadeUI.FadeOut();
 
-        SpawnEnemyPortal(mission.Region, 15);
+        SpawnEnemyPortal(mission.Region, 4);
         mission.OnTry();
         ChangeLight(false);
 
