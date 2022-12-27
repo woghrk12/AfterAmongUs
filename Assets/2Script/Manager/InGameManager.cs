@@ -137,6 +137,7 @@ public class InGameManager : MonoBehaviour
     {
         failNum++;
         StartCoroutine(FailLight());
+        mission.OnDeactive();
         EndMission();
     }
 

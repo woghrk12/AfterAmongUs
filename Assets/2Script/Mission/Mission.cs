@@ -29,13 +29,11 @@ public class Mission : MonoBehaviour
     private void OnEnable()
     {
         hitController.HitEvent += OnHit;
-        hitController.DieEvent += OnDeactive;
     }
 
     private void OnDisable()
     {
         hitController.HitEvent -= OnHit;
-        hitController.DieEvent -= OnDeactive;
     }
 
     public void OnTry()
